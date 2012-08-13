@@ -1,0 +1,55 @@
+<meta property="og:description" 
+content=
+{% case handle %}
+{% when 'jacket1' %}
+"A bit of French whimsy in a classic silhouette- not your every-day jacket (but go ahead, wear it every day)."
+{% when 'jacket2' %}
+"THE color for 2012. In this perfect-fit blazer, orange has never looked more chic."
+{% when 'jacket3' %}
+"Classic herringbone blazer with a flawless fit and all the right extras."
+{% when 'jacket4' %}
+"This staple blazer in charcoal grey shines with superb fit and exceptional detailing. One to last a lifetime."
+{% when 'jacket5' %}
+"The perfect spring blazer in an ideal neutral sandstone &mdash; your closet will cheer!"
+{% when 'dress1' %}
+"Polished, flattering and versatile &mdash; your must-have sheath dress for spring and summer."
+{% when 'dress2' %}
+"Comfort and style in one sophisticated package &mdash; the dress that'll have you fielding complements all day."
+{% when 'blouse1' or 'blouse2' or 'blouse3' or 'blouse4' %}
+"Smooth, silky, ruffled perfection. In three gorgeous solids and a whimsical polka-dot print. Sure to be your go-to blouse."
+{% when 'blouse5' %}
+"This season's hottest trend from the runway taken to the office. If you haven't incorporated a peplum into your wardrobe yet, what are you waiting for?"
+{% endcase %}
+/>
+{% assign maxwords = 55 %}
+{% if template contains 'product' %}
+    <meta property="description" 
+content=
+{% case handle %}
+{% when 'jacket1' %}
+"A bit of French whimsy in a classic silhouette- not your every-day jacket (but go ahead, wear it every day)."
+{% when 'jacket2' %}
+"THE color for 2012. In this perfect-fit blazer, orange has never looked more chic."
+{% when 'jacket3' %}
+"Classic herringbone blazer with a flawless fit and all the right extras."
+{% when 'jacket4' %}
+"This staple blazer in charcoal grey shines with superb fit and exceptional detailing. One to last a lifetime."
+{% when 'jacket5' %}
+"The perfect spring blazer in an ideal neutral sandstone &mdash; your closet will cheer!"
+{% when 'dress1' %}
+"Polished, flattering and versatile &mdash; your must-have sheath dress for spring and summer."
+{% when 'dress2' %}
+"Comfort and style in one sophisticated package &mdash; the dress that'll have you fielding complements all day."
+{% when 'blouse1' or 'blouse2' or 'blouse3' or 'blouse4' %}
+"Smooth, silky, ruffled perfection. In three gorgeous solids and a whimsical polka-dot print. Sure to be your go-to blouse."
+{% when 'blouse5' %}
+"This season's hottest trend from the runway taken to the office. If you haven't incorporated a peplum into your wardrobe yet, what are you waiting for?"
+{% endcase %}
+/>
+{% elsif template contains 'page' %}
+    <meta name="description" content="{{ page.content | strip_html | strip_newlines | truncatewords: maxwords | escape }}" />
+{% elsif template == 'index' %}
+    {% if shop.description != '' %}
+        <meta name="description" content="{{ shop.description }}" />
+    {% endif %}
+{% endif %}

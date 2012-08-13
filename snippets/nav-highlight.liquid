@@ -1,0 +1,44 @@
+<script type="text/javascript">
+$(document).ready(function() {
+{% if template %}
+$("section.main-nav ul li a").removeClass("active");
+{% case handle %}
+	
+{% when 'why-quincy' %}
+
+{% endcase %}
+{% endif %}
+{% if collection or product %}
+
+  $("section.main-nav ul li a[title=Shop]").addClass("active");
+	{% case handle %}
+	//COLLECTION PAGES
+	  {% when 'all' %}
+	  $('section.main-nav ul li a[href*="all"]').addClass("active");
+		{% when "blazers" %}
+		$('a[href*="blazers"]').addClass("active");		
+		{% when "blouses" %}
+		$('a[href*="blouses"]').addClass("active");		
+		{% when "dresses" %}
+		$('a[href*="dresses"]').addClass("active");	
+		{% when "skirts" %}
+		$('a[href*="skirts"]').addClass("active");		
+		{% when "suiting" %}
+		$('a[href*="suiting"]').addClass("active");
+		{% when "looks" %}
+		$('a[href*="looks"]').addClass("active");
+	//END COLLECTION PAGES
+	{% endcase %}
+	{% case product.type %}
+	//PRODUCT PAGES
+		{% when "Blazer" %}
+		$('section.main-nav ul li a[href*="blazers"]').addClass("active");		
+		{% when "Dresses" %}
+		$('a[href*="dress"]').addClass("active");		
+		{% when "Blouses" %}
+		$('a[href*="blouse"]').addClass("active");
+	//END PRODUCT PAGES
+	{% endcase %}
+{% endif %}
+});
+</script>

@@ -1,0 +1,108 @@
+<!doctype html>
+<!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <link rel="canonical" href="{{ canonical_url }}" /> 
+  
+  {% include 'metaDescription' %}
+  {{ 'style.css' | asset_url | stylesheet_tag }}
+  {% if product or collection %}
+  <style type="text/css">
+    section.main-nav nav ul li:first-child {
+      -moz-box-shadow: 0 0 4px -1px rgba(100, 100, 100, 0.4);
+      -webkit-box-shadow: 0 0 4px -1px rgba(100, 100, 100, 0.4);
+      box-shadow: 0 0 4px -1px rgba(100, 100, 100, 0.4);
+    }
+  </style>
+  {% endif %}
+  {% comment %} 
+    Open Graph tags for Facebook Like buttons 
+  {% endcomment %} 
+  <meta property="og:site_name" content="{{ shop.name | escape }}" />
+  {% if template contains 'product' %}
+    <meta property="og:image" content="{{ product.featured_image | product_img_url: 'compact' }}" />
+  {% else %}
+    {% if settings.logo_image == "logo.png" %}
+      <meta property="og:image" content="{{ 'logo.png' | asset_url }}" />
+    {% endif %}
+  {% endif %}  
+
+  {% if template == 'index' %}
+   <title>{{ shop.name }}</title>
+  {% elsif template == '404' %}
+    <title>Page Not Found | {{ shop.name }}</title>
+  {% else %}
+   <title>{{ page_title }} | {{ shop.name }}</title>
+  {% endif %}
+
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" type="text/css" media="screen" charset="utf-8">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript" src="http://use.typekit.com/duk7xno.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  {{ content_for_header }}
+</head>
+
+<body>
+  <div class="zoom_wrapper">
+   
+    {{ content_for_layout }}
+    
+  </div><!-- WRAPPER -->
+  {% if product.available %}
+  <script type="text/javascript">
+    var selectCallback = function(variant, selector) {
+      if (variant && variant.available) {
+        // selected a valid variant
+        $('#add-to-cart').removeClass('disabled').removeAttr('disabled'); // remove unavailable class from add-to-cart button, and re-enable button
+        if(variant.compare_at_price == null){
+          $('.options .price').html('<strong>'+Shopify.formatMoney(variant.price, "{{shop.money_with_currency_format}}")+'</strong>');
+        } else {
+          $('.options .price').html('<strong>'+Shopify.formatMoney(variant.price, "{{shop.money_with_currency_format}}") + '</strong> <span class="compare_at_price">was <del>' + Shopify.formatMoney(variant.compare_at_price, "{{shop.money_with_currency_format}}") + '</del></span>');
+        }
+      } else {
+        // variant doesn't exist
+        $('#add-to-cart').addClass('disabled').attr('disabled', 'disabled'); // set add-to-cart button to unavailable class and disable button
+        var message = variant ? "Sold Out" : "Unavailable";    
+        $('.options .price').text(message); // update price-field message
+      }
+    };
+
+    // initialize multi selector for product
+    $(function() {
+      new Shopify.OptionSelectors("product-select", { product: {{ product | json }}, onVariantSelected: selectCallback });
+      {% assign found_one_in_stock = false %}
+      {% for variant in product.variants %}
+        {% if variant.available and found_one_in_stock == false %}
+          {% assign found_one_in_stock = true %}
+          {% for option in product.options %}
+          $('.single-option-selector:eq(' + {{ forloop.index0 }} + ')').val({{ variant.options[forloop.index0] | json }}).trigger('change');
+          {% endfor %}
+        {% endif %}
+      {% endfor %}  
+    });
+  </script>
+  {% endif %}
+  <script type="text/javascript">
+    function clickclear(thisfield, defaulttext) {
+    	if (thisfield.value == defaulttext) {
+    	thisfield.value = "";
+    	}
+    	}
+
+    	function clickrecall(thisfield, defaulttext) {
+    	if (thisfield.value == "") {
+    	thisfield.value = defaulttext;
+    	}
+    	}
+  </script>
+  {{ 'modernizr.js' | asset_url | script_tag }}
+  {{ 'option_selection.js' | shopify_asset_url | script_tag }}
+  {{ "shopify_common.js" | shopify_asset_url | script_tag }}
+  {{ "customer_area.js"  | shopify_asset_url | script_tag }} 
+  {{ "script.js"  | asset_url | script_tag }}  
+</body>
+</html>

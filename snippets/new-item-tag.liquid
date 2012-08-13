@@ -1,0 +1,7 @@
+<!-- ADD ME TO THE TOP OF THE <li> FOR PROPER TAG PLACEMENT -->
+<!-- IF PRODUCT WAS RELEASED IN THE LAST 14 DAYS IT WILL HAVE THE NEW TAG -->
+{% capture created_date %}{{ product.published_at | date: "%y%j" }}{% endcapture %}
+{% capture compare_date %}{{ 'now' | date:'%y%j' | minus: 14 }}{% endcapture %}
+{% if created_date > compare_date %}
+ <img class="sale" src="{{ 'new-tag.png' | asset_url }}" />
+{% endif %}

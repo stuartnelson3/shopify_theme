@@ -1,0 +1,217 @@
+<section class="slide_show">
+  <div class="buy-container">
+    <div class="buy-menu">
+      
+      <h3>{{ product.title }}</h3>
+      <h4> &ldquo;{{ product.description }} &rdquo;</h4>
+      <div class="lower-container">
+        <div class="swatch">
+          <span>{{ product.price | money | remove: '.00' }}</span>
+          <ul class="swatch">
+            {% if  product.handle == 'cropped-blazer' %}
+             {% for variant in product.variants limit:2 offset:1 %}
+               {% if  variant.option3 %}
+                <li>{{ variant.option3 | escape }}</li>
+               {% else %}
+               {% endif %}
+             {% endfor %}
+            
+            {% elsif product.handle == "other-thing-with-three-options" %}
+             {% for variant in product.variants limit:3 offset:1 %}
+               {% if  variant.option3 %}
+                <li>{{ variant.option3 | escape }}</li>
+               {% else %}
+               {% endif %}
+             {% endfor %}
+            {% endif %}
+               
+          </ul>
+          <a class="close" href="#">X</a>
+        </div>
+        <a class="swatch" href="#" title="Swatch Detail">Swatch Detail</a>
+        <input type="button" class="get_one" name="Get one" value="Get One" />
+        <form action="/cart/add" method="post" class="variants" id="product-actions">
+          <div class="options"> 
+            <select id="product-select" name="id">
+              {% for variant in product.variants %}
+              <option value="{{ variant.id }}">
+                {{ variant.title | escape }}
+              </option>
+              {% endfor %}
+            </select>
+            <div class="select-box top">
+              <a class="field">
+                <span class="info">Select</span>
+                <img src="{{'down-triangle.gif' | asset_url }}" />
+              </a>
+              <ul class="selector_0 selector"></ul>
+            </div>
+            <div class="select-box bottom">
+              <a class="field">
+                <span class="info">Select</span>
+                <img src="{{'down-triangle.gif' | asset_url }}" />
+              </a>
+              <ul class="selector_1 selector"></ul>  
+            </div>          
+            <div class="fits-like">
+              <p>Fits like a 2 from J. Crew and Ann Taylor</p>
+              <p>Fits like a 4 from J. Crew and Ann Taylor</p>
+              <p>Fits like a 6 from J. Crew and Ann Taylor</p>
+              <p>Fits like a 8 from J. Crew and Ann Taylor</p>
+              <p>Fits like a 10 from J. Crew and Ann Taylor</p>
+            </div> 
+          </div>            
+            
+          <div id="purchase">                               
+            <input type="button" onclick="reloadSmallCart('product-actions');" name="add" id="add-to-cart" value="Add to Bag" />
+            <p>Will ship on 08.24.12</p>
+            <!--<p>Will ship on 09.24.12</p>
+            <p>Will ship on 10.24.12</p>-->
+          </div>
+        </form>
+        <a class="fit-quiz" href="/pages/fit-quiz" title="Fit Quiz">Find your perfect fit ></a>
+      </div>
+    </div>
+  </div>  <!-- BUY MENU -->
+  <div id="slideshow">  
+  	<ul class="slides">
+      {% for image in product.images %}	
+    	 {% unless forloop.first %}
+        <li><img src="{{ image | product_img_url: 'original' }}" alt="{{ product.title }}" title="{{ product.title }}" /></li>
+      {% endunless %} 
+      {% endfor %}
+    </ul>
+    <nav>
+      <span class="arrow previous"></span>
+      <ul class="indices">
+      	{% for image in product.images %}	
+      	 {% unless forloop.first %}
+          <li>Index</li>
+        {% endunless %} 
+        {% endfor %}
+      </ul>
+      <span class="arrow next"></span>
+    </nav>
+  </div>
+  <div class="swatch-popup">
+    <a href="#" class="swatch_close">X</a>
+    {% include 'swatch' %}
+  </div>
+</section>  <!-- MAIN SLIDESHOW AND BUY MENU -->
+
+<section class="love_it">
+  <div>
+    <h1>Why we love this</h1>
+    <h3>See a week in the life of the</h3>
+    <a class="week_in_life" href="http://blog.quincyapparel.com/tagged/cropped-blazer" title="Blog">
+      {{ product.title }} >
+    </a>
+  </div>  <!-- 1. WHY WE LOVE THIS -->
+    
+  <img src="{{ 'love-it.png' | asset_url }}" alt="Love it">
+
+  <div>
+    <ul>
+      <li>Goes from day to night</li>
+      <li>100% wool means it's cozy when the office is cold</li>
+      <li>You finally own a perfect blazer</li>
+      <li>Perfect for layering</li>
+      <li>Lorem ipsum</li>
+    </ul>
+    <div class="about_product">
+      <section>
+        <h3 name="div.details_dropdown">Details <span>+</span></h3>
+        <div class="details_dropdown details">
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div><!-- .details_dropdown -->
+      </section> 
+      <section>
+        <h3 name="div.fit_dropdown">Fit <span>+</span></h3>
+        <div class="fit_dropdown details">
+          {% include 'measurements' %}
+        </div><!-- .fit_dropdown -->
+      </section>
+      <section>
+        <h3 name="div.reviews_dropdown">Reviews <span>+</span></h3>
+      </section>
+    </div>
+  </div>  <!-- 3. DESCRIPTION AND DETAILS -->
+</section>  <!-- WHY WE LOVE THIS AND PRODUCT DETAILS -->
+
+<div class="reviews_dropdown details">
+  <div class="grad_down"></div>
+  <div class="reviews">    
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    <br />
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    <br />
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    <br />
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    <br />    
+  </div><!-- .reviews_dropdown -->
+  <div class="grad_up"></div>
+</div><!-- #reviews -->
+
+<section class="wear_it">
+  <div id="slideshow2">  
+  	<ul class="slides">
+  	  <li>
+  	    <img src="{{ 'product-mid-1.png' | asset_url }}" alt="hi" title="hi" />
+  	  </li>
+  	  <li>
+  	    <img src="{{ 'product-mid-2.png' | asset_url }}" alt="hi" title="hi" />
+  	  </li>
+  	  <li>
+  	    <img src="{{ 'product-mid-3.png' | asset_url }}" alt="hi" title="hi" />
+  	  </li>
+  	  <li>
+  	    <img src="{{ 'product-mid-4.png' | asset_url }}" alt="hi" title="hi" />
+  	  </li>
+    </ul>
+  </div>
+  <div class="wear_details">
+    <h1>How we like to wear it</h1>
+    <nav> 
+      <span class="arrow previous"></span>
+      <ul class="indices">
+      	<li>1</li>
+      	<li>2</li>
+      	<li>3</li>
+      	<li>4</li>
+      </ul>
+      <span class="arrow next"></span>
+    </nav>
+    <ul>
+      <li>Ray Ban sunglasses</li>
+      <li>Vintage pendant necklace</li>
+      <li>Kennedy blouse</li>
+      <li>Theory pants</li>
+    </ul>  <!-- DYNAMIC INFO DEPENDING ON IMAGE IN SLIDE SHOW -->
+    <a href="/collections/whatever" title="Whatever Collection">Shop the Look ></a>
+  </div>
+</section>  <!-- HOW WE LIKE TO WEAR IT -->
+
+<section class="wear_with">
+  <h4>What we wear it with</h4>
+  <ul>    
+    {% for product in collections.looks1.products %}	
+      <li>
+        <a href="{{ product.url | within: 'collection' }}" title="{{ product.title | escape }} &mdash; {{ product.description | strip_html }}">
+          <img src="{{ product.images.first | product_img_url: 'large' }}" alt="{{ product.title | escape }}" />
+        </a>
+        <span>{{ product.title }}</span>
+      </li> 
+    {% endfor %}
+  </ul>
+</section>  <!-- WHAT WE WEAR IT WITH -->
+<section class="continue_shopping">
+  <span>Continue Shopping</span>
+  <a href="#"> &ldquo;Gwyneth Paltrow's favorite blouse &rdquo; ></a>
+  <!--{% capture index %}{{ 'now' | date: '%S' | times: collections.frontpage.products.size | divided_by: 60 }}{% endcapture %}
+  {% for product in collections.frontpage.products offset:index limit:1 %}
+    <a href="{{ product.url }}" title="{{ product.title }}">
+      {{ product.description }} > CONSIDER USING JQUERY.PICK.JS FOR CLIENT-SIDE RANDOM, WON'T CACHE 
+    </a>
+  {% endfor %}-->
+</section>

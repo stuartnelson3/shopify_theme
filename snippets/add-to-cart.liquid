@@ -1,0 +1,15 @@
+<form action="/cart/add" method="post" class="variants" id="product-actions">
+  <div> 
+    <select id="product-select" name="id">
+      {% for variant in product.variants %}
+      <option value="{{ variant.id }}">
+        {{ variant.title | escape }}
+      </option>
+      {% endfor %}
+    </select> 
+  </div>            
+
+  <div id="purchase">                               
+    <input type="button" onclick="reloadSmallCart('product-actions');" name="add" id="add-to-cart" value="Add to Bag" />
+  </div>
+</form>

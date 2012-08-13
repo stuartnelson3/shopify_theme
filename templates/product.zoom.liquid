@@ -1,0 +1,66 @@
+{% layout 'zoom' %}
+<section>
+  <div class="buy-container">
+    <div class="buy-menu">
+      
+      
+      <div class="lower-container">
+        <div class="swatch">
+          
+        </div>
+        <form action="/cart/add" method="post" class="variants" id="product-actions">
+            <select id="product-select" name="id">
+              {% for variant in product.variants %}
+              <option value="{{ variant.id }}">
+                {{ variant.title | escape }}
+              </option>
+              {% endfor %}
+            </select>                           
+            <input type="submit" name="add" id="add-to-cart" value="Add to Bag" />
+        </form>
+      </div>
+    </div>
+  </div>  <!-- BUY MENU -->
+  <div id="slideshow">  
+  	<ul class="slides">
+      {% for image in product.images %}	
+    	  {% unless forloop.first %}
+          <li>
+            <img src="{{ image | product_img_url: 'original' }}" alt="{{ product.title }}" title="{{ product.title }}" />
+          </li>
+        {% endunless %}
+      {% endfor %}
+    </ul>
+    <nav>
+      <h3>{{ product.title | remove: "Zoom" }}</h3>
+      <ul class="swatch">
+        {% if  product.handle == 'cropped-blazer-zoom' %}
+         {% for variant in product.variants limit:2 offset:1 %}
+           {% if  variant.option3 %}
+            <li>{{ variant.option3 | escape }}</li>
+           {% else %}
+           {% endif %}
+         {% endfor %}
+        
+        {% elsif product.handle == "other-thing-with-three-options" %}
+         {% for variant in product.variants limit:3 offset:1 %}
+           {% if  variant.option3 %}
+            <li>{{ variant.option3 | escape }}</li>
+           {% else %}
+           {% endif %}
+         {% endfor %}
+        {% endif %}
+      </ul>
+      <span class="arrow previous"></span>
+      <ul class="indices">
+      	{% for image in product.images %}	
+      	 {% unless forloop.first %}
+          <li>Index</li>
+        {% endunless %} 
+        {% endfor %}
+      </ul>
+      <span class="arrow next"></span>
+    </nav>
+  </div>
+  
+</section>  <!-- MAIN SLIDESHOW AND BUY MENU -->

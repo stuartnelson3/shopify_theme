@@ -1,0 +1,47 @@
+<!-- MAKE EMPTY COLLECTION CALLED LOOKS THAT USES THIS TEMPLATE -->
+<section class="collection">
+    {% if collections.suiting1.image %}
+    <div class="suiting_description left">
+      <h1>{{ collections.suiting1.title }}</h1>
+      {{ collections.suiting1.description }}
+      <img class="suiting_image" src="{{ collections.suiting1.image.src | collection_img_url: 'original' }}">
+    </div>
+    {% endif %}
+      <ul>
+        {% for product in collections.suiting1.products %}
+          <li>
+            <a href="{{ product.url }}" title="{{ product.title | escape }} &mdash; {{ product.description | strip_html }}">
+              <img src="{{ product.images.first | product_img_url: 'large' }}" alt="{{ product.title | escape }}" />
+            </a>
+            <div>
+              <a href="{{ product.url }}">
+                {{ product.title }}  
+              </a>
+              <span class="money">{{ product.price | money | remove: '.00' }}</span>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+      {% if collections.suiting2.image %}
+      <div class="suiting_description right">
+        <h1>{{ collections.suiting2.title }}</h1>
+        {{ collections.suiting2.description }}
+        <img class="suiting_image" src="{{ collections.suiting2.image.src | collection_img_url: 'original' }}">
+      </div>
+      {% endif %}
+        <ul>
+          {% for product in collections.suiting2.products %}
+            <li>
+              <a href="{{ product.url }}" title="{{ product.title | escape }} &mdash; {{ product.description | strip_html }}">
+                <img src="{{ product.images.first | product_img_url: 'large' }}" alt="{{ product.title | escape }}" />
+              </a>
+              <div>
+                <a href="{{ product.url }}">
+                  {{ product.title }}  
+                </a>
+                <span class="money">{{ product.price | money | remove: '.00' }}</span>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+</section>
