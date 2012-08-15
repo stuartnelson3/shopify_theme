@@ -29,6 +29,7 @@
               {{ product.title }}  
             </a>
             <span class="money">{{ product.price | money | remove: '.00' }}</span>
+            {% include'add-to-cart' %}
           </div>
         </li>
       {% endfor %}

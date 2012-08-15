@@ -1,6 +1,7 @@
 $(document).ready(function(){
 	$('ul.slides li:first-child').addClass("slideActive");
-	$("ul.indices li:first-child").addClass("indexActive");
+	//add index active class moved below function
+	$("div.wear_details div").eq(0).addClass("detailActive");
 	$("div.swatch-popup div").eq(0).fadeIn();
 	$("ul.swatch li:first-child").addClass("active");
 	$("div.selector-wrapper").eq(2).hide();
@@ -22,9 +23,20 @@ $(document).ready(function(){
           ul.append('<li>'+ div.eq(i).html()+'</li>');
       }
   }
+  // CREATE CORRECT AMOUNT OF INDICES FOR WEAR IT SECTION
+  function slideshowIndexGen() {
+    var i,
+        indices = $("div#slideshow2 ul.slides li").length,
+        ul = $("div.wear_details nav ul");
+    for (i = 0; i < indices; i++) {
+        ul.append("<li>" + i + "</li>");
+    }
+  }
   fancyDropdown(0);
   fancyDropdown(1);
   fancyContact(2);
+  slideshowIndexGen();
+  $("ul.indices li:first-child").addClass("indexActive");
   (function($) {
       $.fn.styleddropdown = function() {
           return this.each(function() {
@@ -51,20 +63,20 @@ $(document).ready(function(){
               });
 
               obj.find('.selector li').click(function() { //onclick event, change field value with selected 'list' item and fadeout 'list'
-                  var div_index = $(this).parent().parent().index(),
+                  var div_index = $(this).parent().parent(),
                       index,
                       target;
-                  if ( div_index === 4 ) {
+                  if ( div_index.hasClass("top")) {
                     index = 0;
                     target = $("form.variants div div");
                   }
-                  else if ( div_index === 2 ) {
-                    index = 2;
-                    target = $("div.contact_form ul>li");
-                  } 
-                  else{
+                  else if ( div_index.hasClass("bottom")) {
                     index = 1;
                     target = $("form.variants div div");
+                  } 
+                  else{
+                    index = 2;
+                    target = $("div.contact_form ul>li");
                   }
                   obj.find('span.info').empty().append($(this).html());
                   obj.find('.selector').fadeOut(200);
@@ -297,15 +309,20 @@ $(document).ready(function(){
 				  next.addClass('slideActive').show("slide", { direction: "left"});
 				  li.removeClass('slideActive').hide("slide", { direction: "right"});
 				}
+        // CHANGE INDICES FOR SS2
 				$(".wear_details ul.indices li").each(function(){
 					$(this).removeClass("indexActive");
 				});
 				$(".wear_details ul.indices li").eq(nextIndex).addClass("indexActive");
-			
+        // CHANGE DETAILS FOR SS2
+			  $(".wear_details div").each(function(){
+					$(this).removeClass("detailActive");
+				});
+				$(".wear_details div").eq(nextIndex).addClass("detailActive");
 		});
 		// SLIDESHOW2 INDICES
 		$(".wear_details ul.indices li").click(function(){
-			var index = $(this).html() - 1,
+			var index = $(this).index(),
 			    li = $('#slideshow2 ul.slides li.slideActive');
 			
 			$(".wear_details ul.indices li").removeClass("indexActive");
@@ -320,7 +337,11 @@ $(document).ready(function(){
 			  li.removeClass('slideActive').hide("slide", { direction: "right"});
 			}
 			current2 = index;
-			
+			// CHANGE DETAILS FOR SS2
+		  $(".wear_details div").each(function(){
+				$(this).removeClass("detailActive");
+			});
+			$(".wear_details div").eq(index).addClass("detailActive");
 		});
 		//CART HOVER
 		$("div.cart-container a.inline-cart").mouseenter(function(){

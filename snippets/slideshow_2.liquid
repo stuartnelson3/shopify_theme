@@ -1,0 +1,32 @@
+{% capture ss1 %}{{ product.handle }}-ss2-1.jpg{% endcapture %}
+{% capture ss2 %}{{ product.handle }}-ss2-2.jpg{% endcapture %}
+{% capture ss3 %}{{ product.handle }}-ss2-3.jpg{% endcapture %}
+{% capture ss4 %}{{ product.handle }}-ss2-4.jpg{% endcapture %}
+<div id="slideshow2">  
+	<ul class="slides">
+	  {% if  product.handle == 'cropped-blazer' %}
+	    <li>
+  	    <img src="{{ ss1 | asset_url }}" alt="hi" title="hi" />
+  	  </li>
+  	  <li>
+  	    <img src="{{ ss2 | asset_url }}" alt="hi" title="hi" />
+  	  </li>
+  	  <li>
+  	    <img src="{{ ss3 | asset_url }}" alt="hi" title="hi" />
+  	  </li>
+  	  <li>
+  	    <img src="{{ ss4 | asset_url }}" alt="hi" title="hi" />
+  	  </li>
+	  {% elsif product.handle == 'awesome-blazer' %}
+	    <li>
+  	    <img src="{{ ss1 | asset_url }}" alt="hi" title="hi" />
+  	  </li>
+  	  <li>
+  	    <img src="{{ ss2 | asset_url }}" alt="hi" title="hi" />
+  	  </li>
+  	  <li>
+  	    <img src="{{ ss3 | asset_url }}" alt="hi" title="hi" />
+  	  </li>
+	  {% endif %} 
+  </ul>
+</div>

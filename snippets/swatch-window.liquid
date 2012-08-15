@@ -1,0 +1,35 @@
+{% capture swatch %}{{ product.handle }}-swatch.jpg{% endcapture %}
+{% if  product.handle == 'cropped-blazer' %}
+  <div class="orange">
+    <img src="{{ 'swatch-detail.png' | asset_url }}" >
+    <h2>Orange Silk</h2>
+    <ul>
+      <li>dolor amet</li>
+      <li>lorem ipsum</li>
+      <li>lorem upsim</li>
+      <li>amet sit</li>
+    </ul>
+  </div>
+  <div class="navy">
+    <img src="{{ 'swatch-detail-navy.png' | asset_url }}" >
+    <h2>Navy Felt</h2>
+    <ul>
+      <li>dolorous et</li>
+      <li>exemi gratis</li>
+      <li>lorem upsim</li>
+      <li>ametent</li>
+    </ul>
+  </div>
+{% else %}
+  <div class="jane">
+    <img src="{{ swatch | asset_url }}" >
+    <h2>Italian Boucle</h2>
+    <ul>
+      <li>Boucle</li>
+      <li>Italian</li>
+      <li>Bits of Black</li>
+      <li>Bits of White</li>
+    </ul>
+  </div>
+{% endif %}
+

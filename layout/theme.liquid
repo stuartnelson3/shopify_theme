@@ -176,11 +176,12 @@
         // selected a valid variant
         buyButton.removeClass('disabled').removeAttr('disabled'); // remove unavailable class from add-to-cart button, and re-enable button
         if(variant.inventory_quantity == 0){
-          buyButton.val("Pre-Order").removeClass("sold-out default").addClass("pre-order");
+          buyButton.val("Add to Bag").removeClass("sold-out default").addClass("default");
           $("div#purchase p").css({ display: "inline-block" });
         }
         else{
           buyButton.val("Add to Bag").removeClass("pre-order sold-out default");
+          $("div#purchase p").css({ display: "none" });
         }
       }
       else {

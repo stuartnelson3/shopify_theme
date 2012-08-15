@@ -1,20 +1,28 @@
-<div class="orange">
-  <img src="{{ 'swatch-detail.png' | asset_url }}" >
-  <h2>Orange Silk</h2>
-  <ul>
-    <li>dolor amet</li>
-    <li>lorem ipsum</li>
-    <li>lorem upsim</li>
-    <li>amet sit</li>
-  </ul>
-</div>
-<div class="navy">
-  <img src="{{ 'swatch-detail-navy.png' | asset_url }}" >
-  <h2>Navy Felt</h2>
-  <ul>
-    <li>dolorous et</li>
-    <li>exemi gratis</li>
-    <li>lorem upsim</li>
-    <li>ametent</li>
-  </ul>
-</div>
+{% capture swatch_small %}{{ product.handle }}-swatch-small.jpg{% endcapture %}
+<style type="text/css" media="screen">
+  div.buy-menu ul.swatch li {
+    background: url({{ swatch_small | asset_url }});
+  }
+</style>
+<ul class="swatch">
+  {% if  product.handle == 'cropped-blazer' %}
+   {% for variant in product.variants limit:2 offset:1 %}
+     {% if  variant.option3 %}
+      <li>{{ variant.option3 | escape }}</li>
+     {% else %}
+     {% endif %}
+   {% endfor %}
+  
+  {% elsif product.handle == "other-thing-with-three-options" %}
+   {% for variant in product.variants limit:3 offset:1 %}
+     {% if  variant.option3 %}
+      <li>{{ variant.option3 | escape }}</li>
+     {% else %}
+     {% endif %}
+   {% endfor %}
+   
+  {% elsif product.handle == 'awesome-blazer' %}
+   <li>Italian Boucle</li>
+  {% endif %}
+     
+</ul>

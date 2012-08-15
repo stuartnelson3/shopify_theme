@@ -86,7 +86,7 @@ font-style: italic;
 font-weight: 500;*/
 
 
-body, nav a, section.page > div a, .buy-menu span.info, span.info, section.collection a, section.collection_looks ul div a, header div a, .index a, div.buy-menu div.swatch a, div.lower-container a, section.wear_it a, section.wear_with a {
+body, nav a, section.page > div a, div.terms p a, .buy-menu span.info, span.info, section.collection a, section.collection_looks ul div a, header div a, .index a, div.buy-menu div.swatch a, div.lower-container a, section.wear_it a, section.wear_with a {
   color: #252525;
   font-family: "museo-sans",sans-serif;
   font-style: normal;
@@ -142,10 +142,10 @@ a, h1, h4, div.buy-menu span, .index span, section.collection span.money, sectio
   font-style: italic;
   font-weight: 300;
   }
-a:hover, section.page > div a:hover, section.collection_looks ul div a:hover, section.collection div.details a:hover, section.inline-cart a:hover, div.index a:hover, div.lower-container a:hover, a#customer_login_link:hover, section.promo a:hover, a span:hover, .about_product h3:hover, section.wear_it a:hover, section.continue_shopping a:hover {
+a:hover, div.terms p a:hover, section.page > div a:hover, section.collection_looks ul div a:hover, section.collection div.details a:hover, section.inline-cart a:hover, div.index a:hover, div.lower-container a:hover, a#customer_login_link:hover, section.promo a:hover, a span:hover, .about_product h3:hover, section.wear_it a:hover, section.continue_shopping a:hover {
   color: #d3018d;
 }
-a:active, section.page > div a:active, section.collection_looks ul div a:active, section.collection div.details a:active, section.inline-cart a:active, div.index a:active, div.lower-container a:active, a#customer_login_link:active, section.promo a:active, a span:active, .about_product h3:active, section.wear_it a:active, section.continue_shopping a:active {
+a:active, div.terms p a:active, section.page > div a:active, section.collection_looks ul div a:active, section.collection div.details a:active, section.inline-cart a:active, div.index a:active, div.lower-container a:active, a#customer_login_link:active, section.promo a:active, a span:active, .about_product h3:active, section.wear_it a:active, section.continue_shopping a:active {
   color: #e939af;
 }
 h1 {
@@ -359,6 +359,9 @@ section.page, section.collection, section.cart {
   padding-bottom: 80px;
 }
 /* CART */
+span.variant {
+  width: 100%;
+}
 section.cart {
   overflow: hidden;
 }
@@ -1049,9 +1052,16 @@ div.about_product h3 {
 div.about_product div.details_dropdown,div.about_product div.fit_dropdown, div.reviews_dropdown {
   display: none;
 }
-div.about_product div.details_dropdown,div.about_product div.fit_dropdown {
+div.about_product div.details_dropdown, div.about_product div.fit_dropdown {
   width: 300px;
   margin-bottom: 10px;
+}
+div.details_dropdown ul {
+  margin: 0;
+}
+div.details_dropdown ul li {
+  font-weight: 300;
+  margin: 5px 0;
 }
 /* FIT TABLES */
 div.about_product p {
@@ -1137,6 +1147,7 @@ div.reviews_dropdown div.reviews {
 section.wear_it {
   margin: 0 20px 35px;
   padding-top: 30px;
+  height: 350px;
 }
 section.love_it, section.wear_it, section.wear_with, section.inline-cart, section.collection {
   overflow: auto;
@@ -1148,6 +1159,7 @@ section.wear_it h1 {
 }
 div.wear_details nav {
   margin: 5px 0 0 15px;
+  line-height: 1.2em;
 }
 section.wear_it div.wear_details ul {
   margin: 20px 20px 15px;
@@ -1157,7 +1169,7 @@ section.wear_it div.wear_details ul li {
   line-height: 1em;
 }
 section.wear_it div.wear_details ul.indices li {
-  margin: 0 5px;
+  margin: 0 8px;
 }
 section.wear_it div.wear_details ul.indices {
   margin: 15px 0 0;
@@ -1234,7 +1246,7 @@ ul.indices li, section.wear_it nav ul li {
   width: 6px;
   height: 6px;
   text-indent: -9999px;
-  margin: 0 5px;
+  margin: 0 8px;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
@@ -1273,15 +1285,6 @@ span.previous {
 span.next {
   background: url({{ 'right_arrow.png' | asset_url }});
 }
-nav span.magnifying_glass {
-  position: relative;
-  top: -3px;
-  background: url({{ 'magnifying_glass.png' | asset_url }});
-}
-span.magnifying_glass a {
-  text-indent: -9999px;
-  display: block;
-}
 div#slideshow nav ul li.indexActive, div#slideshow nav ul li:hover, section.wear_it nav ul li.indexActive, section.wear_it nav ul li:hover {
   background-color: #7a7a7a;
   /* Safari 4-5, Chrome 1-9 */
@@ -1299,34 +1302,16 @@ div#slideshow nav ul li.indexActive, div#slideshow nav ul li:hover, section.wear
     /* Opera 11.10+ */
     background: -o-linear-gradient(top, #7a7a7a, #bfbfbf);
 }
-
-/* ZOOM PAGE CAROUSEL */
-div.zoom_wrapper {
-  margin: 80px 20px;
-}
-div.zoom_wrapper nav {
+div.wear_details div {
   position: absolute;
-  right: 20px;
-  top: 20px;
   background: white;
-  width: 160px;
-  height: 160px;
-  z-index: 500;
+  z-index: 1;
+  margin-top: 4px;
 }
-div.zoom_wrapper #slideshow ul.slides li {
-  width: 1480px;
-}
-div.zoom_wrapper #slideshow ul.slides li img {
-  width: 100%;
-}
-div.zoom_wrapper div.buy-container {
-  display: none;
+div.wear_details div.detailActive {
+  z-index: 10;
 }
 /* PAGES */
-section.page, section.collections, section.cart {
-  margin: 60px 20px 0 250px;
-  padding-bottom: 80px;
-}
 section.page h1, section.page h2 {
   letter-spacing: -1px;
 }
@@ -1424,6 +1409,14 @@ div.contact_form input.has-error, div.contact_form textarea.has-error {
   border-color: #031D48;
 }
 /* SHIPPING AND RETURNS */
+/* TERMS AND CONDITIONS */
+div.terms {
+  margin: -80px 20px 0;
+  padding-bottom: 80px;
+}
+div.terms h3 {
+  margin-bottom: 1em;
+}
 /* SHOWROOM */
 section.page div.showroom {
   width: 300px;
