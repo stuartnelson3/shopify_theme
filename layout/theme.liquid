@@ -89,7 +89,7 @@
           {% endif %}
           </li>
           <li><a href="http://blog.quincyapparel.com" title="Blog">Blog</a></li>
-          <li><a href="/pages/why-quincy" title="Why Quincy">Why Quincy</a></li>
+          <li><a href="/pages/meet-quincy" title="Meet Quincy">Meet Quincy</a></li>
         </ul>
       </nav>
     </section>
@@ -198,19 +198,19 @@
   {% endcase %}
       $("#product-select-option-1").change(function() {
               $("div.fits-like p").hide();
-              if ($(this).val() == "32 A/B") {
+              if ($(":contains(32)", this).is(":selected")) {
                   $("div.fits-like p").eq(0).show();
               }
-              else if ($(this).val() == "34 A/B") {
+              else if ($(":contains(34)", this).is(":selected")) {
                   $("div.fits-like p").eq(1).show();
               }
-              else if ($(this).val() == "36 A/B") {
+              else if ($(":contains(36)", this).is(":selected")) {
                   $("div.fits-like p").eq(2).show();
               }
-              else if ($(this).val() == "38 A/B") {
+              else if ($(":contains(38)", this).is(":selected")) {
                   $("div.fits-like p").eq(3).show();
               }
-              else if ($(this).val() == "40 A/B") {
+              else if ($(":contains(40)", this).is(":selected")) {
                   $("div.fits-like p").eq(4).show();
               }
               else {}
@@ -240,8 +240,10 @@
   </script>
   {% include 'nav-highlight' %}
   {{ 'option_selection.js' | shopify_asset_url | script_tag }}
-  {{ "shopify_common.js" | shopify_asset_url | script_tag }}
-  {{ "customer_area.js"  | shopify_asset_url | script_tag }} 
+  {% if template contains 'customers' %}
+      {{ "shopify_common.js" | shopify_asset_url | script_tag }}
+      {{ "customer_area.js"  | shopify_asset_url | script_tag }}
+  {% endif %} 
   {{ "script.js"  | asset_url | script_tag }}  
 </body>
 </html>

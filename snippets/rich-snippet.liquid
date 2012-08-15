@@ -1,0 +1,41 @@
+<div id="richsnippet">
+  <div itemscope itemtype="http://data-vocabulary.org/Product">
+    <span itemprop="brand">Quincy Apparel</span>
+    <span itemprop="name">{{ product.title | escape }}</span>
+    <img itemprop="image" src="{{ product.images[0] | product_img_url: 'large' }}" />
+    <span itemprop="description">
+    {% case handle %}
+    {% when 'jacket1' %}
+    Shop for Jackets at Quincy! Get the the Jane Jacket &mdash; A bit of French whimsy in a classic silhouette &mdash; not your everyday jacket (but go ahead, wear it every day).
+    {% when 'jacket2' %}
+    Shop for Jackets at Quincy! Get the Chelsea Burnt Orange Wool Jacket &mdash; THE color for 2012. In this perfect-fit blazer, orange has never looked more chic.
+    {% when 'jacket3' %}
+    Shop for Jackets at Quincy! Get the Chelsea Herringbone Wool Jacket &mdash; Classic herringbone blazer with a flawless fit and all the right extras.
+    {% when 'jacket4' %}
+    Shop for Jackets at Quincy! Get the Madison Charcoal Stretch Wool Jacket &mdash; This staple blazer in charcoal grey shines with superb fit and exceptional detailing. One to last a lifetime.
+    {% when 'jacket5' %}
+    Shop for Jackets at Quincy! Get the Madison Sandstone Stretch Wool Jacket &mdash; The perfect spring blazer in an ideal neutral sandstone &mdash; your closet will cheer!
+    {% when 'dress1' %}
+    Shop for Dresses at Quincy! Get the Mia Sheath Dress in Dove Grey &mdash; Polished, flattering and versatile &mdash; your must-have sheath dress for spring and summer.
+    {% when 'dress2' %}
+    Shop for Dresses at Quincy! Get the Ansley Knit Ponte Dress in Marine Blue--Comfort and style in one sophisticated package &mdash; the dress that'll have you fielding compliments all day.
+    {% when 'blouse1' or 'blouse2' or 'blouse3' or 'blouse4' %}
+    Shop for Blouses at Quincy today! Get the Sophia Silk Blouse in Coral, Peach, Robin’s Egg Blue, and Black and White Polka-Dot &mdash; Smooth, 100% silk, ruffled perfection. Sure to be your go-to blouse.
+    {% when 'blouse5' %}
+    Shop for Blouses at Quincy today! Get the Kennedy Peplum Blouse in Ivory/Black Stretch Crepe &mdash; This season's hottest trend from the runway taken to the office. If you don’t have a peplum in your wardrobe yet, what are you waiting for?
+    {% else %}
+    Raising the bar in ready-to-wear, Quincy is revolutionizing the way women get dressed for work with one objective:  finding the perfect fit.
+    {% endcase %}
+    </span>
+    Category: <span itemprop="category" content="Apparel & Accessories > Clothing">Apparel & Accessories > Clothing</span>
+    Product #: <span itemprop="identifier" content="sku:{{ product.variants[0].sku }}">{{ product.variants[0].sku }}</span>
+    <span itemprop="offerDetails" itemscope itemtype="http://data-vocabulary.org/Offer">
+    Regular price: {{ product.price | money }}
+    <meta itemprop="currency" content="USD" />
+    $<span itemprop="price">{{ product.price | money }}</span>
+    Available from: <span itemprop="seller">http://www.quincyapparel.com</span>
+    Condition: <span itemprop="condition" content="new">New</span>
+    <span itemprop="availability" content="in_stock">In stock! Order now!</span>
+    </span>
+  </div>
+</div><!-- end richsnippet -->

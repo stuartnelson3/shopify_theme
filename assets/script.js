@@ -5,9 +5,6 @@ $(document).ready(function(){
 	$("ul.swatch li:first-child").addClass("active");
 	$("div.selector-wrapper").eq(2).hide();
 	$("#product-select-option-2").val($("#product-select-option-2 option").eq(1).val()).change();
-	$("img.hero").click(function(){
-	  $(this).next().slideToggle();
-	});
   // FANCY DROPDOWNS
   function fancyDropdown(index) {
       var i,
@@ -58,15 +55,15 @@ $(document).ready(function(){
                       index,
                       target;
                   if ( div_index === 4 ) {
-                    index = 0,
+                    index = 0;
                     target = $("form.variants div div");
                   }
                   else if ( div_index === 2 ) {
-                    index = 2,
+                    index = 2;
                     target = $("div.contact_form ul>li");
                   } 
                   else{
-                    index = 1,
+                    index = 1;
                     target = $("form.variants div div");
                   }
                   obj.find('span.info').empty().append($(this).html());
@@ -80,6 +77,11 @@ $(document).ready(function(){
   })(jQuery);
   $(function() {
       $('.select-box').styleddropdown();
+  });
+  // LOOKS
+  // PAGE
+  $("img.hero").click(function(){
+    $(this).next("ul").slideToggle(700);
   });
   // SWATCH
   // REVEAL
@@ -127,7 +129,7 @@ $(document).ready(function(){
 		return false;
 	});
   // PRODUCT DESCRIPTION ACCORDION
-	$("h3").click(function() {
+	$("div.about_product h3").click(function() {
 		var div = $($(this).attr("name")),
 		    h3  = $(this);
 		if (div.is(":visible")) {
@@ -335,8 +337,22 @@ $(document).ready(function(){
 		  $(this).slideUp();
 		});
 });
-
-
+// CART AJAX
+function rebind(){
+  $("div.cart-container a.inline-cart").mouseenter(function(){
+	    $("section.inline-cart").slideDown();
+	  });
+  $("div.cart-container a.inline-cart").click(function(){
+	  $("section.inline-cart").slideToggle();
+	  return false;
+	});
+  $("section.inline-cart").mouseenter(function(){
+	    $(this).show();
+	  });
+	$("section.inline-cart").mouseleave(function(){
+	  $(this).slideUp();
+  });
+}
 function reloadSmallCart(form_id) {
     var params = {
       type: 'POST',
@@ -345,27 +361,34 @@ function reloadSmallCart(form_id) {
       dataType: 'json',
       success: function() {
         $("div.cart-container").load("/ div.cart-container div", function(){
-          $("div.cart-container a.inline-cart").mouseenter(function(){
-      		    $("section.inline-cart").slideDown();
-      		  });
-      		$("div.cart-container a.inline-cart").click(function(){
-      		  $("section.inline-cart").slideToggle();
-      		  return false;
-      		});
-      	  $("section.inline-cart").mouseenter(function(){
-      		    $(this).show();
-      		  });
-      		$("section.inline-cart").mouseleave(function(){
-      		  $(this).slideUp();
-    		  });
+          rebind();
         });
         $("section.inline-cart").load("/ section.inline-cart form", function(){
       	  $(this).slideDown().delay(2000).slideUp();
       	});
       },
       error: function(XMLHttpRequest, textStatus) {
-        Shopify.onError(XMLHttpRequest, textStatus);
+        //Shopify.onError(XMLHttpRequest, textStatus);
       }
     };
     jQuery.ajax(params);	
+}
+function remove_item(id) {
+    var params = {
+    type: 'POST',
+    url: '/cart/change.js',
+    data:  'quantity=0&id='+id,
+    dataType: 'json',
+    success: function() {
+    	$("div.cart-container").load("/ div.cart-container div", function(){
+    	  $("section.inline-cart").load("/ section.inline-cart form");
+    	  rebind();
+    	});
+    	$("section.cart div.cart").load("/cart section.cart div form");
+    },
+    error: function(XMLHttpRequest, textStatus) {
+      //Shopify.onError(XMLHttpRequest, textStatus);
+    }
+  };
+  jQuery.ajax(params);
 }

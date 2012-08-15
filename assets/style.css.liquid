@@ -45,7 +45,7 @@ pre, code, kbd, samp { font-family: monospace, sans-serif; }
 
 html { overflow-y: scroll; }
 ol { list-style-type: decimal; }
-p { margin: 0 0 1em 0; }
+p { margin: 0 0 1em 0; line-height: 1.2em; }
 nav ul, nav li { margin: 0; list-style:none; list-style-image: none; }
 small { font-size: 85%; }
 strong, th { font-weight: bold; }
@@ -86,7 +86,7 @@ font-style: italic;
 font-weight: 500;*/
 
 
-body, nav a, div.contact_emails a, .buy-menu span.info, span.info, section.collection a, section.collection_looks ul div a, header div a, .index a, div.buy-menu div.swatch a, div.lower-container a, section.wear_it a, section.wear_with a {
+body, nav a, section.page > div a, .buy-menu span.info, span.info, section.collection a, section.collection_looks ul div a, header div a, .index a, div.buy-menu div.swatch a, div.lower-container a, section.wear_it a, section.wear_with a {
   color: #252525;
   font-family: "museo-sans",sans-serif;
   font-style: normal;
@@ -142,10 +142,10 @@ a, h1, h4, div.buy-menu span, .index span, section.collection span.money, sectio
   font-style: italic;
   font-weight: 300;
   }
-a:hover, div.contact_emails a:hover, section.collection_looks ul div a:hover, section.collection div.details a:hover, section.inline-cart a:hover, div.index a:hover, div.lower-container a:hover, a#customer_login_link:hover, section.promo a:hover, a span:hover, .about_product h3:hover, section.wear_it a:hover, section.continue_shopping a:hover {
+a:hover, section.page > div a:hover, section.collection_looks ul div a:hover, section.collection div.details a:hover, section.inline-cart a:hover, div.index a:hover, div.lower-container a:hover, a#customer_login_link:hover, section.promo a:hover, a span:hover, .about_product h3:hover, section.wear_it a:hover, section.continue_shopping a:hover {
   color: #d3018d;
 }
-a:active, div.contact_emails a:active, section.collection_looks ul div a:active, section.collection div.details a:active, section.inline-cart a:active, div.index a:active, div.lower-container a:active, a#customer_login_link:active, section.promo a:active, a span:active, .about_product h3:active, section.wear_it a:active, section.continue_shopping a:active {
+a:active, section.page > div a:active, section.collection_looks ul div a:active, section.collection div.details a:active, section.inline-cart a:active, div.index a:active, div.lower-container a:active, a#customer_login_link:active, section.promo a:active, a span:active, .about_product h3:active, section.wear_it a:active, section.continue_shopping a:active {
   color: #e939af;
 }
 h1 {
@@ -268,8 +268,7 @@ section.main-nav ul.sub-nav a.active {
   font-weight: 900;
   color: #252525;
 }
-/*CART*/
-
+/*INLINE CART*/
 div.cart-container {
   width: 215px;
   text-align: right;
@@ -299,7 +298,7 @@ section.inline-cart {
   -moz-transition: top .7s ease-out;
   transition: top .7s ease-out;
 }
-section.inline-cart img {
+section.inline-cart img, section.cart img {
   float: left;
 }
 div.product {
@@ -316,7 +315,7 @@ section.inline-cart h5 {
 section.inline-cart table {
   width: 100%;
 }
-section.inline-cart input {
+section.inline-cart input, section.cart input {
   background: #031D48;
 }
 section.inline-cart a {
@@ -351,9 +350,49 @@ section.inline-cart span {
   float: left;
   margin: 1px;
 }
-section.inline-cart span.title {
+section.inline-cart span.title, section.cart span.title {
   text-transform: uppercase;
 }
+/* PAGE CONTAINER */
+section.page, section.collection, section.cart {
+  margin: 60px 20px 0 250px;
+  padding-bottom: 80px;
+}
+/* CART */
+section.cart {
+  overflow: hidden;
+}
+section.cart div.product-details {
+  width: 150px;
+  float: left;
+  margin: 0 20px;
+  line-height: 1.2em;
+}
+section.cart div.order-details div {
+  overflow: hidden;
+}
+section.cart form {
+  width: 300px;
+  float: left;
+  margin: 10px 50px 10px 10px;
+}
+section.cart form input {
+  float: right;
+  margin: 15px 0;
+}
+
+section.cart div.product {
+  margin: 15px 0;
+}
+section.cart div.order-details {
+  height: 60px;
+}
+section.cart div.cart_note {
+  display: inline-block;
+  width: 300px;
+  margin: 20px 20px 10px 10px;
+}
+
 /*FOOTER*/
 footer {
   width: 100%;
@@ -391,21 +430,12 @@ footer .facebook, footer .pinterest, footer .twitter {
 footer .facebook {
   background: url({{ 'facebook.png' | asset_url }});
 }
-/*footer .facebook:hover {
-  background: url({{ 'facebook_pink.png' | asset_url }});
-}*/
 footer .twitter {
   background: url({{ 'twitter.png' | asset_url }});
 }
-/*footer .twitter:hover {
-  background: url({{ 'twitter_pink.png' | asset_url }});
-}*/
 footer .pinterest {
   background: url({{ 'pinterest.png' | asset_url }});
 }
-/*footer .pinterest:hover {
-  background: url({{ 'pinterest_pink.png' | asset_url }});
-}*/
 footer nav {
   margin-top: -5px;
 }
@@ -413,7 +443,6 @@ footer nav ul {
   margin-top: 10px;
 }
 footer nav ul li {
-  
   padding: 0 6px 0 4px;
   height: 12px;
   border-right: 1px solid #5A5A5A;
@@ -430,7 +459,6 @@ footer section a {
   color: #031D48;
   font-size: 20px;
 }
-
 /*MAILCHIMP SUBMIT*/
 /* =============== */
 /* = Mail-Chimp = */
@@ -522,8 +550,6 @@ input#mc-embedded-subscribe.button{
     display: inline-block;
 }
 
-
-
 /*END
    THEME
     FOR
@@ -559,8 +585,7 @@ div.image_one span {
   width: 220px;
 }
 div.image_one a {
-  position: absolute;
-  bottom: 28px;
+  bottom: 41px;
   width: 200px;
   left: 35px;
 }
@@ -574,7 +599,7 @@ div.image_two span {
   text-indent: -12px;
 }
 div.image_two a {
-  bottom: 243px;
+  bottom: 244px;
   left: 20px;
   width: 200px;
 }
@@ -606,10 +631,6 @@ section.promo a, a.week_in_life {
   font-size: 24px;
 }
 /*COLLECTION PAGE DEFAULT*/
-section.collection {
-  margin: 60px 0 0 250px;
-  padding-bottom: 80px;
-}
 section.collection div.details h1 {
   font-size: 36px;
   font-weight: 300;
@@ -629,8 +650,6 @@ section.collection div.details {
   max-width: 350px;
   min-height: 350px;
   margin: 5px 0 0 -10px;
-  /*margin-left: -10px;
-    margin-bottom: 0;*/
 }
 section.collection div.details div.border {
   border-top: 1px solid #5A5A5A;
@@ -717,9 +736,13 @@ section.collection div.right img {
 section.collection_looks img.hero {
   padding: 10px 0 20px;
   width: 100%;
+  cursor: pointer;
 }
 section.collection_looks img.hero:first-child {
   padding: 0 0 10px;
+}
+section.collection_looks ul {
+  display: none;
 }
 section.collection_looks ul li div {
   display: inline-block;
@@ -736,6 +759,10 @@ section.collection_looks li:first-child {
   padding-top: 10px;
 }
 /*PRODUCT PAGE*/
+div#richsnippet {
+  position: absolute;
+  left: -9999px;
+}
 section.slide_show {
   position: relative;
 }
@@ -927,7 +954,6 @@ ul.selector li:hover {
 ul.selector li:active {
   color:#cc0088;
 }
-
 /*END FANCY DROPDOWNS*/
 div.fits-like {
   width: 165px;
@@ -974,8 +1000,8 @@ div.buy-menu form label {
 div.buy-menu form label[for="product-select-option-2"] {
   margin-bottom: 5px;
 }
-div.buy-menu div.swatch a, a.zoom_close, a.close, a.swatch_close {
-  float:right;
+div.buy-menu div.swatch a, a.zoom_close, a.close, a.swatch_close, a.product_remove {
+  float: right;
   color: #d7d7d7;
   text-indent: -9999px;
   height: 11px;
@@ -1163,12 +1189,13 @@ section.wear_with img {
 }
 section.continue_shopping {
   text-align: center;
-  margin: 70px 20px 0;
+  margin: 70px auto 0;
+  width: 570px;
   padding-bottom: 70px;
 }
 section.continue_shopping a {
   font-size: 36px;
-  display:block;
+  display: inline-block;
   font-weight: 400;
 }
 section.continue_shopping span {
@@ -1296,15 +1323,36 @@ div.zoom_wrapper div.buy-container {
   display: none;
 }
 /* PAGES */
-section.page {
+section.page, section.collections, section.cart {
   margin: 60px 20px 0 250px;
   padding-bottom: 80px;
 }
-/* CONTACT */
-div.contact_emails, div.contact_form {
-  width: 300px;
+section.page h1, section.page h2 {
+  letter-spacing: -1px;
+}
+section.page h3 {
+  margin-bottom: 1em;
+}
+section.page h4 {
+  font-size: 30px;
+  letter-spacing: -1px;
+  color: #031D48;
+  width: 560px;
+  line-height: 1em;
+  margin: 30px 0 0 70px;
+}
+section.page .right {
+  text-align: right;
+  margin-top: 60px;
+}
+section.page > div {
+  width: 540px;
   display: inline-block;
   margin: 60px 10px 30px;
+}
+/* CONTACT */
+section.page div.contact_emails, section.page div.contact_form {
+  width: 300px;
 }
 div.contact_emails {
   float:left;
@@ -1316,9 +1364,6 @@ div.contact_emails p {
 div.contact_form ul {
   line-height: 1.3em;
   width: 100%;
-}
-div.contact_form ul li {
-/*  width: 100%;*/
 }
 div.contact_form form ul.selector li {
   display: block;
@@ -1378,10 +1423,30 @@ ul.error-list li {
 div.contact_form input.has-error, div.contact_form textarea.has-error {
   border-color: #031D48;
 }
+/* SHIPPING AND RETURNS */
+/* SHOWROOM */
+section.page div.showroom {
+  width: 300px;
+  float: left;
+  margin-top: 90px;
+}
+section.page iframe {
+  margin: 60px 10px 0px;
+  display: inline-block;
+}
 /* 404 PAGE */
-
-
-
+/* OLARK */
+a#habla_oplink_a {
+  font-family: museo-sans;
+  font-style: normal;
+  text-transform: uppercase;
+  font-size: 11px !important;
+  letter-spacing: 0;
+}
+a#habla_sizebutton_a {
+  display: none;
+}
+/* CART */
 
 
 
