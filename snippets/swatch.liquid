@@ -5,24 +5,25 @@
   }
 </style>
 <ul class="swatch">
-  {% if  product.handle == 'cropped-blazer' %}
-   {% for variant in product.variants limit:2 offset:1 %}
-     {% if  variant.option3 %}
-      <li>{{ variant.option3 | escape }}</li>
-     {% else %}
-     {% endif %}
-   {% endfor %}
+  {% case handle %}
+    {% when 'cropped-blazer' %}
+      {% for variant in product.variants limit:2 offset:1 %}
+        {% if  variant.option3 %}
+         <li>{{ variant.option3 | escape }}</li>
+        {% else %}
+        {% endif %}
+      {% endfor %}
   
-  {% elsif product.handle == "other-thing-with-three-options" %}
-   {% for variant in product.variants limit:3 offset:1 %}
-     {% if  variant.option3 %}
-      <li>{{ variant.option3 | escape }}</li>
-     {% else %}
-     {% endif %}
-   {% endfor %}
-   
-  {% elsif product.handle == 'awesome-blazer' %}
-   <li>Italian Boucle</li>
-  {% endif %}
+    {% when "other-thing-with-three-options" %}
+     {% for variant in product.variants limit:3 offset:1 %}
+       {% if  variant.option3 %}
+        <li>{{ variant.option3 | escape }}</li>
+       {% else %}
+       {% endif %}
+     {% endfor %}
+     
+    {% when 'awesome-blazer' %}
+     <li>Italian Boucle</li>
+  {% endcase %}
      
 </ul>
