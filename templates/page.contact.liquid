@@ -1,61 +1,63 @@
 <section class="page">
-  <h1>Contact Us</h1>
-  <div class="contact_emails">
-    {{ page.content }}
-  </div>
-  <div class="contact_form">
-    {% form 'contact' %}
-      <ul>
-        <li>
-          <label for="name">Name</label>
-          <input type="text" id="name" name="contact[name]" />
-        </li> 
-        <li>
-          <label for="email">Email</label>
-          <input class="{% if form.errors contains 'email' %} has-error{% endif %}" type="email" id="email" class="email" name="contact[email]" />
-        </li>
-      	<li>
-   	      <label for="subject">Subject</label>
-   		    <select name="contact[subject]" id="subject">
-   			    <option value="General">General</option>
-   			    <option value="Shipping/Returns">Shipping/Returns</option>
-   			    <option value="Order Status">Order Status</option>
-   			    <option value="Showroom">Showroom</option>
-   			    <option value="Other">Other</option>
-   		    </select>
-   		    <div class="select-box">
-            <a class="field">
-              <span class="info">Select</span>
-              <img src="{{'down-triangle.gif' | asset_url }}" />
-            </a>
-            <ul class="selector_0 selector"></ul>
-          </div>
-   	    </li>
-        <li>
-          <label for="message">Message</label>
-          <textarea class="{% if form.errors contains 'body' %} has-error{% endif %}" name="contact[body]"></textarea>
-        </li>
-        <li class="last">
-          <input type="submit" value="Send" />
-        </li>
-       
-       {% if form.posted_successfully? %}
-         <p class="success-msg">Thanks for contacting us! We'll get back to you as soon as possible.</p>
-       {% endif %}
-  
-       {% if form.errors %}
-         <ul class="error-list">
-         {% for field in form.errors %}
-           {% if field == 'body' %}
-           <li>Your message cannot be blank.</li>
-           {% endif %}
-           {% if field == 'email' %}
-           <li>Please enter a valid email address.</li>
-           {% endif %}        
-         {% endfor %}
-         </ul>
-       {% endif %}
-      </ul>
-    {% endform %}
+  <div class="page">
+    <h1>Contact Us</h1>
+    <div class="contact_emails">
+      {{ page.content }}
+    </div>
+    <div class="contact_form">
+      {% form 'contact' %}
+        <ul>
+          <li>
+            <label for="name">Name</label>
+            <input type="text" id="name" name="contact[name]" />
+          </li> 
+          <li>
+            <label for="email">Email</label>
+            <input class="{% if form.errors contains 'email' %} has-error{% endif %}" type="email" id="email" class="email" name="contact[email]" />
+          </li>
+        	<li>
+     	      <label for="subject">Subject</label>
+     		    <select name="contact[subject]" id="subject">
+     			    <option value="General">General</option>
+     			    <option value="Shipping/Returns">Shipping/Returns</option>
+     			    <option value="Order Status">Order Status</option>
+     			    <option value="Showroom">Showroom</option>
+     			    <option value="Other">Other</option>
+     		    </select>
+     		    <div class="select-box">
+              <a class="field">
+                <span class="info">Select</span>
+                <img src="{{'down-triangle.gif' | asset_url }}" />
+              </a>
+              <ul class="selector_0 selector"></ul>
+            </div>
+     	    </li>
+          <li>
+            <label for="message">Message</label>
+            <textarea class="{% if form.errors contains 'body' %} has-error{% endif %}" name="contact[body]"></textarea>
+          </li>
+          <li class="last">
+            <input type="submit" value="Send" />
+          </li>
+         
+         {% if form.posted_successfully? %}
+           <p class="success-msg">Thanks for contacting us! We'll get back to you as soon as possible.</p>
+         {% endif %}
+    
+         {% if form.errors %}
+           <ul class="error-list">
+           {% for field in form.errors %}
+             {% if field == 'body' %}
+             <li>Your message cannot be blank.</li>
+             {% endif %}
+             {% if field == 'email' %}
+             <li>Please enter a valid email address.</li>
+             {% endif %}        
+           {% endfor %}
+           </ul>
+         {% endif %}
+        </ul>
+      {% endform %}
+    </div>
   </div>
 </section>

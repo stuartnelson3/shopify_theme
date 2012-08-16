@@ -1,9 +1,7 @@
-{% capture swatch_small %}{{ product.handle }}-swatch-small.jpg{% endcapture %}
-<style type="text/css" media="screen">
-  div.buy-menu ul.swatch li {
-    background: url({{ swatch_small | asset_url }});
-  }
-</style>
+{% capture swatch_small %}{{ product.handle }}-swatch.jpg{% endcapture %}
+{% capture swatch_collection %}{{ product.handle | replace: "-", " " | truncatewords: 1, '' }}-swatch.jpg{% endcapture %}
+{% capture fiona_swatch_1 %}{{ product.handle }}-polkadot-swatch.jpg{% endcapture %}
+{% capture fiona_swatch_2 %}{{ product.handle }}-plum-swatch.jpg{% endcapture %}
 <ul class="swatch">
   {% case handle %}
     {% when 'cropped-blazer' %}
@@ -21,9 +19,35 @@
        {% else %}
        {% endif %}
      {% endfor %}
-     
-    {% when 'awesome-blazer' %}
-     <li>Italian Boucle</li>
+    {% when 'fiona-blouse' %}
+      <style type="text/css" media="screen">
+        div.buy-menu ul.swatch li:first-child {
+          background: url({{ fiona_swatch_1 | asset_url }});
+        }
+        div.buy-menu ul.swatch li:last-child {
+          background: url({{ fiona_swatch_2 | asset_url }});
+        }
+      </style>
+      % for variant in product.variants limit:2 offset:1 %}
+        {% if  variant.option3 %}
+         <li>{{ variant.option3 | escape }}</li>
+        {% else %}
+        {% endif %}
+      {% endfor %}
+    {% when 'jane-jacket' or 'kennedy-blouse' or 'emma-jacket' or 'chloe-shirt' or 'chelsea-blazer-herringbone' or 'ansley-dress-berry' %}
+      <style type="text/css" media="screen">
+        div.buy-menu ul.swatch li {
+          background: url({{ swatch | asset_url }});
+        }
+      </style>
+      <li>Swatch</li>
+    {% else %}
+      <style type="text/css" media="screen">
+        div.buy-menu ul.swatch li {
+          background: url({{ swatch_collection | asset_url }});
+        }
+      </style>
+      <li>Swatch</li>
   {% endcase %}
      
 </ul>

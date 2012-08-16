@@ -1,35 +1,74 @@
+{% capture swatch_collection %}{{ product.handle | replace: "-", " " | truncatewords: 1, '' }}-swatch.jpg{% endcapture %}
 {% capture swatch %}{{ product.handle }}-swatch.jpg{% endcapture %}
-{% if  product.handle == 'cropped-blazer' %}
-  <div class="orange">
-    <img src="{{ 'swatch-detail.png' | asset_url }}" >
-    <h2>Orange Silk</h2>
-    <ul>
-      <li>dolor amet</li>
-      <li>lorem ipsum</li>
-      <li>lorem upsim</li>
-      <li>amet sit</li>
-    </ul>
-  </div>
-  <div class="navy">
-    <img src="{{ 'swatch-detail-navy.png' | asset_url }}" >
-    <h2>Navy Felt</h2>
-    <ul>
-      <li>dolorous et</li>
-      <li>exemi gratis</li>
-      <li>lorem upsim</li>
-      <li>ametent</li>
-    </ul>
-  </div>
-{% else %}
-  <div class="jane">
-    <img src="{{ swatch | asset_url }}" >
-    <h2>Italian Boucle</h2>
-    <ul>
-      <li>Boucle</li>
-      <li>Italian</li>
-      <li>Bits of Black</li>
-      <li>Bits of White</li>
-    </ul>
-  </div>
-{% endif %}
+{% capture fiona_swatch_1 %}{{ product.handle }}-polkadot-swatch.jpg{% endcapture %}
+{% capture fiona_swatch_2 %}{{ product.handle }}-plum-swatch.jpg{% endcapture %}
+{% case handle %}
+
+  {% when 'cropped-blazer' %}
+    <div class="orange">
+      <img src="{{ 'swatch-detail.png' | asset_url }}" >
+      <h2>Orange Silk</h2>
+      <ul>
+        <li>dolor amet</li>
+        <li>lorem ipsum</li>
+        <li>lorem upsim</li>
+        <li>amet sit</li>
+      </ul>
+    </div>
+    <div class="navy">
+      <img src="{{ 'swatch-detail-navy.png' | asset_url }}" >
+      <h2>Navy Felt</h2>
+      <ul>
+        <li>dolorous et</li>
+        <li>exemi gratis</li>
+        <li>lorem upsim</li>
+        <li>ametent</li>
+      </ul>
+    </div>
+  {% when 'fiona-blouse' %}
+    <div class="orange">
+      <img src="{{ fiona_swatch_1 | asset_url }}" >
+      <h2>Orange Silk</h2>
+      <ul>
+        <li>dolor amet</li>
+        <li>lorem ipsum</li>
+        <li>lorem upsim</li>
+        <li>amet sit</li>
+      </ul>
+    </div>
+    <div class="navy">
+      <img src="{{ fiona_swatch_2 | asset_url }}" >
+      <h2>Navy Felt</h2>
+      <ul>
+        <li>dolorous et</li>
+        <li>exemi gratis</li>
+        <li>lorem upsim</li>
+        <li>ametent</li>
+      </ul>
+    </div>
+  {% when 'jane-jacket' or 'kennedy-blouse' or 'emma-jacket' or 'chloe-shirt' or 'chelsea-blazer-herringbone' or 'ansley-dress-berry' %}
+    <div>
+      <img src="{{ swatch_collection | asset_url }}" >
+      <h2>Navy Felt</h2>
+      <ul>
+        <li>dolorous et</li>
+        <li>exemi gratis</li>
+        <li>lorem upsim</li>
+        <li>ametent</li>
+      </ul>
+    </div>
+  {% else %}
+    <div>
+      <img src="{{ swatch_collection | asset_url }}" >
+      <h2>Navy Felt</h2>
+      <ul>
+        <li>dolorous et</li>
+        <li>exemi gratis</li>
+        <li>lorem upsim</li>
+        <li>ametent</li>
+      </ul>
+    </div>
+    
+
+{% endcase %}
 
