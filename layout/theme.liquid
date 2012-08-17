@@ -162,7 +162,7 @@
         }
       }
       else {
-        if($(".single-option-selector").val() == "Length" || $(".single-option-selector").val() == "Bust" || $(".single-option-selector").val() == "Waist" || $(".single-option-selector").val() == "Inseam"){
+        if($("#product-select-option-0").val() == "Length" || $("#product-select-option-1").val() == "Bust" || $("#product-select-option-0").val() == "Waist" || $("#product-select-option-1").val() == "Inseam" || $("#product-select-option-1").val() == "Length" || $("#product-select-option-1").val() == "Waist" || $("#product-select-option-0").val() == "Inseam"){
           buyButton.val("Add to Bag").removeClass("pre-order sold-out").addClass("default");
           $("div#purchase p").css({ display: "none" });
         }

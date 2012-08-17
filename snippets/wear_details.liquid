@@ -1,3 +1,7 @@
+{% capture look_1 %}{{ product.handle }}-look-1{% endcapture %}
+{% capture look_2 %}{{ product.handle }}-look-2{% endcapture %}
+{% capture look_3 %}{{ product.handle }}-look-3{% endcapture %}
+{% capture look_4 %}{{ product.handle }}-look-4{% endcapture %}
 <div>
   <ul>
     <li>Ray Ban sunglasses</li>
@@ -5,7 +9,7 @@
     <li>Kennedy blouse</li>
     <li>Theory pants</li>
   </ul>  <!-- DYNAMIC INFO DEPENDING ON IMAGE IN SLIDE SHOW -->
-  <a href="/collections/whatever" title="Whatever Collection">Shop the Look ></a>
+  <a href="/collections/{{ look_1 }}" title="Collection">Shop the Look ></a>
 </div>
 <div>
   <ul>
@@ -14,7 +18,7 @@
     <li>Kennedy blouse</li>
     <li>Theory pants</li>
   </ul>  <!-- DYNAMIC INFO DEPENDING ON IMAGE IN SLIDE SHOW -->
-  <a href="/collections/whatever" title="Whatever Collection">Shop the Look ></a>
+  <a href="/collections/{{ look_2 }}" title="Collection">Shop the Look ></a>
 </div>
 <div>
   <ul>
@@ -23,7 +27,7 @@
     <li>Kennedy blouse</li>
     <li>Theory pants</li>
   </ul>  <!-- DYNAMIC INFO DEPENDING ON IMAGE IN SLIDE SHOW -->
-  <a href="/collections/whatever" title="Whatever Collection">Shop the Look ></a>
+  <a href="/collections/{{ look_3 }}" title="Collection">Shop the Look ></a>
 </div>
 <div>
   <ul>
@@ -32,5 +36,5 @@
     <li>Kennedy blouse</li>
     <li>Theory pants</li>
   </ul>  <!-- DYNAMIC INFO DEPENDING ON IMAGE IN SLIDE SHOW -->
-  <a href="/collections/whatever" title="Whatever Collection">Shop the Look ></a>
+  <a href="/collections/{{ look_4 }}" title="Collection">Shop the Look ></a>
 </div>
