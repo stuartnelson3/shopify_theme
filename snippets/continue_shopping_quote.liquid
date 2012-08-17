@@ -1,0 +1,44 @@
+{% case handle %}
+  {% when 'cropped-blazer' %}
+    
+    <a href="{{ product.url }}" title="{{ product.title }}">&ldquo;Best damn jacket ever&rdquo;  ></a>
+  {% when 'awesome-blazer' %}
+    <a href="{{ product.url }}" title="{{ product.title }}">&ldquo;Just the jacket for you&rdquo;  ></a>
+  
+  {% when 'ansley-dress-berry' %}  
+    <a href="/products/jane-jacket" title="Jane Jacket">&ldquo;L’esprit de Paris&rdquo;  ></a>
+  {% when 'jane-jacket' %}
+    <a href="/products/emma-jacket" title="Emma Jacket">&ldquo;I dream in silver . . .&rdquo;  ></a>
+  {% when 'emma-jacket' %}
+    <a href="/products/chelsea-blazer-herringbone" title="Chelsea Blazer">&ldquo;Sartorial statement&rdquo;  ></a>
+  {% when 'chelsea-blazer-herringbone' %}
+    <a href="/products/kennedy-blouse-peplum" title="Kennedy Blouse">&ldquo;Have your cake&rdquo;  ></a>
+  {% when 'kennedy-blouse-peplum' %}
+    <a href="/products/chloe-shirt" title="Chloe Shirt">&ldquo;The ultimate white canvas&rdquo;  ></a>
+  {% when 'chloe-shirt'%}
+    <a href="/products/fiona-blouse" title="Fiona Blouse">&ldquo;Bow-l me over&rdquo;  ></a>
+  {% when 'fiona-blouse' %}
+    <a href="/products/ansley-dress-berry" title="Ansley Dress">&ldquo;Dress with ease&rdquo;  ></a>
+  
+  {% when 'elliot-pencil-skirt' %}
+    <a href="/products/elliott-sheath-black" title="Elliot Sheath Dress">&ldquo;Radiate confident cool&rdquo;  ></a>
+  {% when 'elliott-sheath-black' %}
+    <a href="/products/elliott-blazer-black" title="Elliott Blazer">&ldquo;The Perfect Jacket&rdquo;  ></a>  
+  {% when 'elliott-blazer-black' %}
+    <a href="/products/elliott-trouser-black" title="Elliott Trousers">&ldquo;Precision in a pant&rdquo;  ></a>
+  {% when 'elliott-trouser-black' %}    
+    <a href="/products/elliott-pant-black" title="Elliott Pants">&ldquo;Your new favorite skinnies&rdquo;  ></a>
+  {% when 'elliott-pant-black' %}    
+    <a href="/products/elliott-sheath-skirt" title="Elliott Sheath Skirt">&ldquo;Key to a winning wardrobe&rdquo;  ></a>
+  {% when 'elliott-sheath-skirt' %}    
+    <a href="/products/elliott-pencil-skirt" title="Elliot Pencil Skirt">&ldquo;Make a point&rdquo;  ></a>
+
+  {% when 'riley-sheath-navy' %}
+    <a href="/products/riley-blazer-cobalt" title="Riley Blazer">&ldquo;Fall’s new color crush&rdquo;  ></a>  
+  {% when 'riley-blazer-cobalt' %}    
+    <a href="/products/riley-pant-cobalt" title="Riley Pants">&ldquo;Attitude for your urban wardrobe&rdquo;  ></a>
+  {% when 'riley-pant-cobalt' %}
+    <a href="/products/riley-skirt-cobalt" title="Riley Skirt">&ldquo;A sharp style statement&rdquo;  ></a>
+  {% when 'riley-skirt-cobalt' %}
+    <a href="/products/riley-sheath-navy" title="Riley Sheath Dress">&ldquo;Minimalist sophistication&rdquo;  ></a>    
+{% endcase %}

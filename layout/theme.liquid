@@ -149,29 +149,6 @@
   <script type="text/javascript">
   var selectCallback = function(variant, selector) {
     var buyButton = $("#add-to-cart");
-  {% case  handle %}
-    {% when 'new-product-1' %}        
-        if (variant && variant.available) {
-          // selected a valid variant
-          buyButton.removeClass('disabled').removeAttr('disabled'); // remove unavailable class from add-to-cart button, and re-enable button
-          if(variant.inventory_quantity == 0){
-              buyButton.val("Add to Bag").removeClass("pre-order sold-out default");
-          }
-          else{
-            buyButton.val("Add to Bag").removeClass("pre-order sold-out default");
-          }
-        }
-        else {
-          if($("#product-select-option-0").val() == "Length" || $("#product-select-option-1").val() == "Bust"){
-            buyButton.val("Add to Bag").removeClass("pre-order sold-out").addClass("default");
-          }
-          else{
-            buyButton.val("Out of Stock").addClass("sold-out").removeClass("pre-order default");
-          }
-          // variant doesn't exist
-          buyButton.addClass('disabled').attr('disabled', 'disabled'); // set add-to-cart button to unavailable class and disable button
-        }
-  {% else %}
       if (variant && variant.available) {
         // selected a valid variant
         buyButton.removeClass('disabled').removeAttr('disabled'); // remove unavailable class from add-to-cart button, and re-enable button
@@ -185,7 +162,7 @@
         }
       }
       else {
-        if($("#product-select-option-0").val() == "Length" || $("#product-select-option-1").val() == "Bust"){
+        if($(".single-option-selector").val() == "Length" || $(".single-option-selector").val() == "Bust" || $(".single-option-selector").val() == "Waist" || $(".single-option-selector").val() == "Inseam"){
           buyButton.val("Add to Bag").removeClass("pre-order sold-out").addClass("default");
           $("div#purchase p").css({ display: "none" });
         }
@@ -196,7 +173,6 @@
         // variant doesn't exist
         buyButton.addClass('disabled').attr('disabled', 'disabled'); // set add-to-cart button to unavailable class and disable button
       }
-  {% endcase %}
       $("#product-select-option-1").change(function() {
               $("div.fits-like p").hide();
               if ($(":contains(32)", this).is(":selected")) {

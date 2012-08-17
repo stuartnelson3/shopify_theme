@@ -97,7 +97,7 @@ body, nav a, section.page > div a, div.terms p a, .buy-menu span.info, span.info
 body {
   background: #FBFBFB;
 }
-section.inline-cart a, footer section a, div.size-chart span, div.lower-container a.swatch, a#customer_login_link, section.promo span, section.promo a, a.week_in_life, div.about_product h3, section.wear_it a, section.continue_shopping a, a.fit-quiz {
+section.inline-cart a, div.buy-menu div.lower-container a.size-chart, footer section a, div.size-chart span, div.lower-container a.swatch, a#customer_login_link, section.promo span, section.promo a, a.week_in_life, div.about_product h3, section.wear_it a, section.continue_shopping a, a.fit-quiz {
   color: #031D48;
 }
 nav a, h3, section.wear_it a, section.continue_shopping span {
@@ -146,10 +146,10 @@ a, h1, section.page h2, h4, div.buy-menu span, .index span, section.collection s
   font-style: italic;
   font-weight: 300;
   }
-a:hover, ul.size-chart li:hover, div.terms p a:hover, section.page > div a:hover, section.collection_looks ul div a:hover, section.collection div.details a:hover, section.inline-cart a:hover, div.index a:hover, div.lower-container a:hover, a#customer_login_link:hover, section.promo a:hover, a span:hover, .about_product h3:hover, section.wear_it a:hover, section.continue_shopping a:hover {
+a:hover, div.buy-menu div.lower-container a.size-chart:hover, ul.size-chart li:hover, div.terms p a:hover, section.page > div a:hover, section.collection_looks ul div a:hover, section.collection div.details a:hover, section.inline-cart a:hover, div.index a:hover, div.lower-container a:hover, a#customer_login_link:hover, section.promo a:hover, a span:hover, .about_product h3:hover, section.wear_it a:hover, section.continue_shopping a:hover {
   color: #d3018d;
 }
-a:active, ul.size-chart li:active, div.terms p a:active, section.page > div a:active, section.collection_looks ul div a:active, section.collection div.details a:active, section.inline-cart a:active, div.index a:active, div.lower-container a:active, a#customer_login_link:active, section.promo a:active, a span:active, .about_product h3:active, section.wear_it a:active, section.continue_shopping a:active {
+a:active, div.buy-menu div.lower-container a.size-chart:active, ul.size-chart li:active, div.terms p a:active, section.page > div a:active, section.collection_looks ul div a:active, section.collection div.details a:active, section.inline-cart a:active, div.index a:active, div.lower-container a:active, a#customer_login_link:active, section.promo a:active, a span:active, .about_product h3:active, section.wear_it a:active, section.continue_shopping a:active {
   color: #e939af;
 }
 h1 {
@@ -163,7 +163,7 @@ h1, section.page h2 {
   color: #71315d;
 }
 section.page h2 {
-  font-size: 36px;
+  font-size: 30px;
   margin-bottom: 1em;
 }
 h4 {
@@ -364,15 +364,14 @@ section.inline-cart span.title, section.cart span.title {
   text-transform: uppercase;
 }
 /* PAGE CONTAINER */
-div.page, section.collection, section.cart {
+section.collection, section.cart {
   margin: 60px 20px 0 250px;
-  padding-bottom: 80px;
 }
-section.page {
+section.page, section.collection, section.cart {
   padding-bottom: 80px;
 }
 div.page {
-  padding-bottom: 0;
+  margin: 80px 20px 0 250px;
 }
 /* CART */
 span.variant {
@@ -790,8 +789,8 @@ div.buy-container, div.swatch-popup {
   right: 0;
 }
 div.buy-container {
-  height: 340px;
-  top: 50px;
+  height: 400px;
+  top: 30px;
   width: 320px;
   z-index: 500;
   -webkit-transition: height .7s ease-out;
@@ -890,10 +889,13 @@ div.buy-menu div.lower-container {
 div.buy-menu div.lower-container a {
   text-transform: uppercase;
 }
-div.buy-menu div.lower-container a.swatch {
+div.buy-menu div.lower-container a.swatch, div.buy-menu div.lower-container a.size-chart {
   font-size: 9px;
   margin: 8px 0;
   display: inline-block;
+}
+div.buy-menu div.lower-container a.size-chart {
+  margin: 0;
 }
 div.buy-menu div.lower-container a.fit-quiz {
   font-size: 12px;
@@ -912,7 +914,7 @@ div.top {
 div.bottom {
   top: 19px;
 }
-div.selector-wrapper select {
+div.selector-wrapper select, select#product-select {
   display: none;
 }
 div.buy-menu div.lower-container a.field, a.field {
@@ -1005,7 +1007,7 @@ input#add-to-cart.sold-out {
   background: #959595;
 }
 
-div.buy-menu form, div.swatch a.close {
+div.swatch a.close {
   display: none;
 }
 div.buy-menu form label {
@@ -1222,8 +1224,7 @@ section.continue_shopping {
 }
 section.continue_shopping a {
   font-size: 36px;
-  display: inline-block;
-  width: 600px;
+  display: block;
   font-weight: 400;
 }
 section.continue_shopping span {
@@ -1331,9 +1332,6 @@ div.wear_details div.detailActive {
 section.page h1, section.page h2 {
   letter-spacing: -1px;
 }
-section.page h2 {
-  
-}
 section.page h3 {
   margin-bottom: 1em;
 }
@@ -1343,16 +1341,21 @@ section.page h4 {
   color: #031D48;
   width: 560px;
   line-height: 1em;
-  margin: 30px 0 0 70px;
+  margin: 30px 0 0 60px;
 }
 section.page .right {
-  text-align: right;
   margin-top: 60px;
+}
+section.page h4.right {
+  text-align: right;
 }
 div.page > div {
   width: 540px;
   display: inline-block;
-  margin: 60px 10px 30px;
+  margin: 30px 20px 30px 0;
+}
+div.page > div:first-of-type {
+  margin-left: 0;
 }
 /* CONTACT */
 section.page div.contact_emails, section.page div.contact_form {
@@ -1421,19 +1424,22 @@ div.contact_form ul.error-list {
 li.last {
   display: inline-block;
 }
-ul.error-list li {
-  
-}
 div.contact_form input.has-error, div.contact_form textarea.has-error {
   border-color: #031D48;
 }
 /* SHIPPING AND RETURNS */
+div.page div.returns {
+  margin-left: 0;
+}
 /* TERMS AND CONDITIONS */
+div.page div.terms_intro {
+  width: 710px;
+}
 div.terms {
-  margin: -80px 20px 0;
+  margin: -90px 20px 0;
   padding-bottom: 80px;
 }
-div.terms h3 {
+div.terms h3, div.meet-quincy h3 {
   margin-bottom: 1em;
 }
 /* SHOWROOM */
@@ -1443,7 +1449,7 @@ section.page div.showroom {
   margin-top: 90px;
 }
 section.page iframe {
-  margin: 60px 10px 0px;
+  margin: 60px 20px 0px 0px;
   display: inline-block;
 }
 /* SIZE PAGES */
@@ -1455,7 +1461,7 @@ div.tops, div.bottoms, div.dresses {
 }
 div.size-chart section {
   display: inline-block;
-  width: 280px;
+  width: 300px;
   margin: 0 10px;
   float: left;
 }
@@ -1477,6 +1483,7 @@ div.tops section:last-child, div.bottoms section:last-child, div.dresses section
 }
 ul.size-chart {
   margin: 10px 0;
+  overflow: hidden;
 }
 ul.size-chart li {
   float: left;
@@ -1500,6 +1507,66 @@ div.size-chart td {
   width: 120px;
   font-size: 12px;
   letter-spacing: 0;
+}
+/* ABOUT */
+div.about, div.meet-quincy {
+  margin: 80px 20px 20px;
+}
+div.team {
+  margin: 10px 20px 0;
+  overflow: hidden;
+}
+div.team h2 {
+  margin-top: 40px;
+}
+div.team_member {
+  width: 420px;
+  display: inline-block;
+  float: left;
+  margin-right: 50px;
+}
+div.team_member img, div.team_member h4, div.team_member h3, div.team_member p{
+  width: 200px;
+}
+div.team_member img, div.team_member h4, div.team_member h3 {
+  float: left;
+}
+div.team_member h4 {
+  margin: 2px 0;
+  font-size: 22px;
+}
+div.team_member p {
+  float: right;
+  width: 200px;
+  margin-top: -2px;
+}
+div.about img {
+  float: right;
+  margin-top: -165px;
+}
+div.about p {
+  width: 590px;
+  display: inline-block;
+}
+/* MEET QUINCY */
+div.meet-quincy img.new-york {
+  float: right;
+  margin-top: -165px;
+}
+div.meet-quincy h2 {
+  margin-top: 1em;
+}
+div.meet-quincy h2:last-of-type {
+  margin-top: 60px;
+}
+div.fit {
+  width: 300px;
+  margin: 50px 0 0 20px;
+  display: inline-block;
+}
+img.arrow {
+  position: absolute;
+  left: 95px;
 }
 /* 404 PAGE */
 /* OLARK */

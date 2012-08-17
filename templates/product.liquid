@@ -4,7 +4,7 @@
     <div class="buy-menu">
       
       <h3>{{ product.title }}</h3>
-      <h4> &ldquo;{{ product.description }} &rdquo;</h4>
+      <h4> &ldquo;{{ product.description }}&rdquo;</h4>
       <div class="lower-container">
         <div class="swatch">
           <span>{{ product.price | money | remove: '.00' }}</span>
@@ -12,7 +12,6 @@
           <a class="close" href="#">X</a>
         </div>
         <a class="swatch" href="#" title="Swatch Detail">Swatch Detail</a>
-        <input type="button" class="get_one" name="Get one" value="Get One" />
         <form action="/cart/add" method="post" class="variants" id="product-actions">
           <div class="options"> 
             <select id="product-select" name="id">
@@ -42,7 +41,8 @@
               <p>Fits like a 6 from J. Crew and Ann Taylor</p>
               <p>Fits like a 8 from J. Crew and Ann Taylor</p>
               <p>Fits like a 10 from J. Crew and Ann Taylor</p>
-            </div> 
+            </div>
+            <a class="size-chart" href="/pages/size-charts" target="_blank" title="Size Charts">Size Charts</a> 
           </div>            
             
           <div id="purchase">                               
@@ -168,11 +168,5 @@
 </section>  <!-- WHAT WE WEAR IT WITH -->
 <section class="continue_shopping">
   <span>Continue Shopping</span>
-  <a href="#"> &ldquo;Gwyneth Paltrow's favorite blouse &rdquo; ></a>
-  <!--{% capture index %}{{ 'now' | date: '%S' | times: collections.frontpage.products.size | divided_by: 60 }}{% endcapture %}
-  {% for product in collections.frontpage.products offset:index limit:1 %}
-    <a href="{{ product.url }}" title="{{ product.title }}">
-      {{ product.description }} > CONSIDER USING JQUERY.PICK.JS FOR CLIENT-SIDE RANDOM, WON'T CACHE 
-    </a>
-  {% endfor %}-->
+  {% include 'continue_shopping_quote' %}
 </section>

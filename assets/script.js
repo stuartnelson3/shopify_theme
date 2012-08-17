@@ -116,30 +116,25 @@ $(document).ready(function(){
     return false;
   });
   
-  // COLOR
-	$("ul.swatch li").each(function(){
-	  $(this).css({background: $(this).html()});
-	});
-
   // BUY MENU ACCORDION
-	$("input.get_one").click(function(){
-	  $(this).fadeOut( 500, function() {
-	    $(this).css({ margin: '0' });
-	    $("div.buy-menu form, div.swatch a.close").slideDown(700);
-	    $("div.buy-container").css({ height: "390px" });
-	  });
-	  	  
-	});
-	$("a.close").click(function() {
-		$(this).hide();
-		$("div.buy-menu form").slideUp(700, function() {
-		  $("input.get_one").fadeIn(500, function() {
-		    $(this).css({ margin: '' });
-		  });
-		});	
-		$("div.buy-container").css({ height: "340px" });
-		return false;
-	});
+	// $("input.get_one").click(function(){
+	//     $(this).fadeOut( 500, function() {
+	//       $(this).css({ margin: '0' });
+	//       $("div.buy-menu form, div.swatch a.close").slideDown(700);
+	//       $("div.buy-container").css({ height: "400px" });
+	//     });
+	//         
+	//   });
+	//   $("a.close").click(function() {
+	//     $(this).hide();
+	//     $("div.buy-menu form").slideUp(700, function() {
+	//       $("input.get_one").fadeIn(500, function() {
+	//         $(this).css({ margin: '' });
+	//       });
+	//     }); 
+	//     $("div.buy-container").css({ height: "340px" });
+	//     return false;
+	//   });
   // PRODUCT DESCRIPTION ACCORDION
 	$("div.about_product h3").click(function() {
 		var div = $($(this).attr("name")),
@@ -245,8 +240,9 @@ $(document).ready(function(){
 		  $(this).addClass("active");
 		  $("select#product-select-option-2").val($(this).html()).change();
 		  
-		  if ($(this).index() === 0) {
-		    $("div.swatch-popup div").fadeOut().eq(0).fadeIn();
+		  if ($(this).is(":first-of-type")) {
+		    if ($("div.swatch-popup div:first-of-type").is(":visible")){}
+		    else {$("div.swatch-popup div").fadeOut().eq(0).fadeIn();}
 		    if ($("#slideshow ul.indices li:eq(0)").hasClass("indexActive")) {} 
 		    else{
 		      $("#slideshow ul.indices li")
@@ -262,8 +258,9 @@ $(document).ready(function(){
 		      current = 0;
 	      }
 		  }
-		  else if ($(this).index() === 1) {
-		    $("div.swatch-popup div").fadeOut().eq(1).fadeIn();
+		  else if ($(this).is(":last-of-type")) {
+		    if ($("div.swatch-popup div:last-of-type").is(":visible")){}
+		    else {$("div.swatch-popup div").fadeOut().eq(1).fadeIn();}
 		    if ($("#slideshow ul.indices li:eq(2)").hasClass("indexActive")) {} 
 		    else{
 		      $("#slideshow ul.indices li")
