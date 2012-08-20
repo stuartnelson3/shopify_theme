@@ -3,7 +3,7 @@ $(document).ready(function(){
 	//add index active class moved below function
 	$("div.wear_details div").eq(0).addClass("detailActive");
 	$("div.swatch-popup div").eq(0).fadeIn();
-	$("ul.swatch li:first-child").addClass("active");
+	$("ul.swatch li:first-of-type").addClass("active");
 	$("div.selector-wrapper").eq(2).hide();
 	$("#product-select-option-2").val($("#product-select-option-2 option").eq(1).val()).change();
   // FANCY DROPDOWNS
@@ -299,19 +299,19 @@ $(document).ready(function(){
 		  else if ($(this).is(":last-of-type")) {
 		    if ($("div.swatch-popup div:last-of-type").is(":visible")){}
 		    else {$("div.swatch-popup div").fadeOut().eq(1).fadeIn();}
-		    if ($("#slideshow ul.indices li:eq(2)").hasClass("indexActive")) {} 
+		    if ($("#slideshow ul.indices li:eq(1)").hasClass("indexActive")) {} 
 		    else{
 		      $("#slideshow ul.indices li")
 		                                  .removeClass("indexActive")
-		                                  .eq(2)
+		                                  .eq(1)
 		                                  .addClass("indexActive");
 		      $("#slideshow ul.slides li")
 		                                  .removeClass("slideActive")
-		                                  .eq(2)
+		                                  .eq(1)
 		                                  .addClass("slideActive")
 		                                  .show("slide", { direction: "right"});
 		      li.removeClass('slideActive').hide("slide");
-		      current = 2;
+		      current = 1;
 	      }
 		  }
 		  else if ($(this).index() === 2) {
