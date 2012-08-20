@@ -1,14 +1,14 @@
-<!-- MAKE EMPTY COLLECTION CALLED SUITING THAT USES THIS TEMPLATE -->
+<!-- MAKE EMPTY COLLECTION CALLED LOOKS THAT USES THIS TEMPLATE -->
 <section class="collection">
-    {% if collections[the-riley-collection].image %}
+    {% if collections.suiting1.image %}
     <div class="suiting_description left">
-      <h1>{{ collections[the-riley-collection].title }}</h1>
-      {{ collections[the-riley-collection].description }}
-      <img class="suiting_image" src="{{ collections[the-riley-collection].image.src | collection_img_url: 'original' }}">
+      <h1>{{ collections.suiting1.title }}</h1>
+      {{ collections.suiting1.description }}
+      <img class="suiting_image" src="{{ collections.suiting1.image.src | collection_img_url: 'original' }}">
     </div>
     {% endif %}
       <ul>
-        {% for product in collections[the-riley-collection].products %}
+        {% for product in collections.suiting1.products %}
           <li>
             <a href="{{ product.url }}" title="{{ product.title | escape }} &mdash; {{ product.description | strip_html }}">
               <img src="{{ product.images.first | product_img_url: 'large' }}" alt="{{ product.title | escape }}" />
@@ -22,15 +22,15 @@
           </li>
         {% endfor %}
       </ul>
-      {% if collections[the-elliott-collection].image %}
+      {% if collections.suiting2.image %}
       <div class="suiting_description right">
-        <h1>{{ collections[the-elliott-collection].title }}</h1>
-        {{ collections[the-elliott-collection].description }}
-        <img class="suiting_image" src="{{ collections[the-elliott-collection].image.src | collection_img_url: 'original' }}">
+        <h1>{{ collections.suiting2.title }}</h1>
+        {{ collections.suiting2.description }}
+        <img class="suiting_image" src="{{ collections.suiting2.image.src | collection_img_url: 'original' }}">
       </div>
       {% endif %}
         <ul>
-          {% for product in collections[the-elliot-collection].products %}
+          {% for product in collections.suiting2.products %}
             <li>
               <a href="{{ product.url }}" title="{{ product.title | escape }} &mdash; {{ product.description | strip_html }}">
                 <img src="{{ product.images.first | product_img_url: 'large' }}" alt="{{ product.title | escape }}" />

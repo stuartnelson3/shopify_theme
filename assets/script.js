@@ -153,21 +153,13 @@ $(document).ready(function(){
 		  h3.css({ color: '#D3018D' });
 		}
 	});
-	// SIZE CHART FADES
-	$("div.bottoms, div.dresses").hide();
-	$("ul.size-chart li:first-child").addClass("active");
-	$("ul.size-chart li").click(function(){
-	  var div = $($(this).attr("name")),
-	      li = $(this);
-	  
-	  if (div.is(":visible")){}
-	  else {
-	    $("div.size-chart").slideUp("medium");
-	    div.slideDown("medium");
-	    $("ul.size-chart li").removeClass("active");
-	    li.addClass("active");
-	  }
-	});
+	// SIZE CHART
+  $("a.size-chart").click(function(){
+    $("section.size-chart").show();
+  });
+  $("a.size_chart_close").click(function(){
+    $("section.size-chart").hide();
+  });
   // SLIDESHOWS
 	var slides = $('#slideshow ul.slides li'),
 	    slides2 = $("#slideshow2 ul.slides li"),
@@ -176,41 +168,40 @@ $(document).ready(function(){
 		  slideshow = {width:0,height:0},
 		  nextIndex = 0;
     // I-SWIPE
-    // $("#slideshow").touchwipe({
-    //         wipeLeft: function() { 
-    //           var nextIndex = 0,
-    //               next = slides.eq(nextIndex),
-    //               li = slides.eq(current);
-    //           nextIndex = current >= slides.length-1 ? 0 : current+1;
-    //           next.addClass('slideActive').show("slide", { direction: "right"});
-    //          li.removeClass('slideActive').hide("slide"); 
-    //          current = nextIndex;
-    //           },
-    //         wipeRight: function() { 
-    //           alert("right");
-    //           nextIndex = current <= 0 ? slides.length-1 : current-1;
-    //           next.addClass('slideActive').show();
-    //          li.removeClass('slideActive').hide(); 
-    //           }
-    //     });
     $("#slideshow").swipe({
       swipeLeft:function(event, direction, distance, duration, fingerCount) {
-            nextIndex = current < slides.length - 1 ? nextIndex + 1 : 0;
-            // if (current < (slides.length - 1)) {
-            //               nextIndex += 1;
-            //             }
-            //             else {
-            //               nextIndex = 0; 
-            //             }
-          slides.eq(nextIndex).addClass("slideActive").show("slide", { direction: "right" });
-          slides.eq(current).removeClass('slideActive').hide();
-          current = nextIndex;   
+          nextIndex = current < slides.length - 1 ? nextIndex + 1 : 0;
+          slides.eq(nextIndex).addClass("slideActive").show("slide", { direction: "right" }, 500);
+          slides.eq(current).removeClass('slideActive').hide("slide", { direction: "left"}, 500);
+          current = nextIndex;
+          $("#slideshow ul.indices li").removeClass("indexActive");
+  				$("#slideshow ul.indices li").eq(nextIndex).addClass("indexActive"); 
         },
       swipeRight:function(event, direction, distance, duration, fingerCount) {
         nextIndex = current === 0 ? slides.length - 1 : nextIndex - 1;
-        slides.eq(nextIndex).addClass("slideActive").show("slide", { direction: "left" });
-        slides.eq(current).removeClass('slideActive').hide("slide", { direction: "right"});
+        slides.eq(nextIndex).addClass("slideActive").show("slide", { direction: "left" }, 500);
+        slides.eq(current).removeClass('slideActive').hide("slide", { direction: "right"}, 500);
         current = nextIndex;
+        $("#slideshow ul.indices li").removeClass("indexActive");
+				$("#slideshow ul.indices li").eq(nextIndex).addClass("indexActive");
+      }
+    });
+    $("#slideshow2").swipe({
+      swipeLeft:function(event, direction, distance, duration, fingerCount) {
+          nextIndex = current2 < slides2.length - 1 ? nextIndex + 1 : 0;
+          slides2.eq(nextIndex).addClass("slideActive").show("slide", { direction: "right" }, 500);
+          slides2.eq(current2).removeClass('slideActive').hide("slide", { direction: "left"}, 500);
+          current2 = nextIndex;
+          $(".wear_details ul.indices li").removeClass("indexActive");
+  				$(".wear_details ul.indices li").eq(nextIndex).addClass("indexActive");
+        },
+      swipeRight:function(event, direction, distance, duration, fingerCount) {
+        nextIndex = current2 === 0 ? slides2.length - 1 : nextIndex - 1;
+        slides2.eq(nextIndex).addClass("slideActive").show("slide", { direction: "left" }, 500);
+        slides2.eq(current2).removeClass('slideActive').hide("slide", { direction: "right"}, 500);
+        current2 = nextIndex;
+        $(".wear_details ul.indices li").removeClass("indexActive");
+				$(".wear_details ul.indices li").eq(nextIndex).addClass("indexActive");
       }
     });
     // USING ARROWS 
@@ -239,10 +230,6 @@ $(document).ready(function(){
 				  next.addClass('slideActive').show("slide", { direction: "left"});
 				  li.removeClass('slideActive').hide("slide", { direction: "right"});
 				}
-						
-				// $("#slideshow ul.indices li").each(function(){
-				//          $(this).removeClass("indexActive");
-				//        });
 				$("#slideshow ul.indices li").removeClass("indexActive");
 				$("#slideshow ul.indices li").eq(nextIndex).addClass("indexActive");
 			

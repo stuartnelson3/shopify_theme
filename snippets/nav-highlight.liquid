@@ -4,8 +4,8 @@ $(document).ready(function() {
 $("section.main-nav ul li a").removeClass("active");
 {% case handle %}
 	
-{% when 'why-quincy' %}
-
+{% when 'meet-quincy' %}
+$("section.main-nav ul li:eq(2) a").addClass("active");
 {% endcase %}
 {% endif %}
 {% if collection or product %}

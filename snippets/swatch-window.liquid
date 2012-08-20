@@ -3,27 +3,6 @@
 {% capture fiona_swatch_1 %}{{ product.handle }}-polkadot-swatch.jpg{% endcapture %}
 {% capture fiona_swatch_2 %}{{ product.handle }}-plum-swatch.jpg{% endcapture %}
   {% case handle %}
-    {% when 'cropped-blazer' %}
-    <div>
-      <img src="{{ 'swatch-detail.png' | asset_url }}" alt="" />
-      <h2>Orange</h2>
-      <ul>
-        <li>lorem</li>
-        <li>ipsum</li>
-        <li>sit</li>
-        <li>amet</li>
-      </ul>
-    </div>
-    <div>
-      <img src="{{ 'swatch-detail-navy.png' | asset_url }}" alt="" />
-      <h2>Navy</h2>
-      <ul>
-        <li>lerom</li>
-        <li>upsim</li>
-        <li>sit</li>
-        <li>ament</li>
-      </ul>
-    </div>
     {% when 'jane-jacket' or 'kennedy-blouse-peplum' or 'emma-jacket' or 'chloe-shirt' or 'chelsea-blazer-herringbone' or 'ansley-dress-berry' or 'riley-sheath-navy' %}
     <div>
       <img src="{{ swatch | asset_url }}" alt="{{ product.title }}" />

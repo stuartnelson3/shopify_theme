@@ -1024,7 +1024,7 @@ div.buy-menu form label {
 div.buy-menu form label[for="product-select-option-2"] {
   margin-bottom: 5px;
 }
-div.buy-menu div.swatch a, a.zoom_close, a.close, a.swatch_close, a.product_remove {
+div.buy-menu div.swatch a, a.zoom_close, a.close, a.swatch_close, a.product_remove, a.size_chart_close {
   float: right;
   color: #d7d7d7;
   text-indent: -9999px;
@@ -1105,7 +1105,7 @@ div.fit_dropdown td, div.fit_dropdown li {
   font-size: 10px;
   letter-spacing: 0;
 }
-div.fit_dropdown span, div.size-chart tr:first-child td {
+div.fit_dropdown span, div.size-chart td span {
   font-weight: 500;
 }
 div.fit_dropdown td:first-child {
@@ -1245,7 +1245,7 @@ section.continue_shopping span {
 }
 #slideshow2 ul.slides {
   width: 620px;
-  height: 240px;
+  height: 350px;
 }
 #slideshow ul.slides li, #slideshow2 ul.slides li{
   position:absolute;
@@ -1458,20 +1458,49 @@ section.page iframe {
   display: inline-block;
 }
 /* SIZE PAGES */
+section.size-chart {
+  display: none;
+  background: white;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  width: 980px;
+  height: 100%;
+  overflow-y: scroll;
+}
+section.size-chart a.size_chart_close {
+  margin: 20px;
+}
 div.page div.size-chart {
   margin: 40px 0;
 }
+
 div.tops, div.bottoms, div.dresses {
   overflow: hidden;
+  width: 660px;
+  margin: 0 auto;
+}
+div.bottoms {
+  padding-bottom: 140px;
+}
+div.size-chart h2 {
+  margin-top: 1em;
+}
+div.size-chart h1 {
+  margin: 60px 10px 10px;
+}
+div.size-chart p {
+  width: 480px;
+  margin: 10px 10px 0;
 }
 div.size-chart section {
   display: inline-block;
   width: 300px;
-  margin: 0 10px;
   float: left;
+  margin: 0 10px;
 }
-div.size-chart section:first-child {
-  width: 200px;
+div.size-chart section:first-of-type {
+  width: 640px;
 }
 div.size-chart li {
   line-height: 1em;
@@ -1479,12 +1508,6 @@ div.size-chart li {
 }
 div.size-chart span {
   font-size: 16px;
-}
-div.tops section:first-child, div.bottoms section:first-child, div.dresses section:first-child {
-  margin-left: 20px;
-}
-div.tops section:last-child, div.bottoms section:last-child, div.dresses section:last-child {
-  margin-right: 20px;
 }
 ul.size-chart {
   margin: 10px 0;
@@ -1510,8 +1533,12 @@ ul.size-chart li:last-child {
 div.size-chart td {
   height: 30px;
   width: 120px;
-  font-size: 12px;
+  font-size: 10px;
   letter-spacing: 0;
+}
+div.size-chart td span {
+  font-size: 10px;
+  color: #252525;
 }
 /* ABOUT */
 div.about, div.meet-quincy {
@@ -1573,6 +1600,10 @@ img.arrow {
   position: absolute;
   left: 95px;
 }
+/* SECOND SIZE */
+div.second-size {
+  margin: 0 20px;
+}
 /* 404 PAGE */
 /* OLARK */
 a#habla_oplink_a {
@@ -1587,7 +1618,128 @@ a#habla_sizebutton_a {
 }
 /* CART */
 
+/* =============== */
+/* = Power Reviews = */
+/* =============== */
+.pr-snippet-wrapper {
+    padding-left: 0 !important;
+}
+.pr-snippet-stars {
+    padding-left: 0 !important;
+}
+.pr-review-points-attr-wrapper {
+    display: none;    
+}
+.pr-snippet-stars .pr-stars-small, .pr-modal-container .pr-stars, div.prStars, .pr-stars-small {
+    background-image: url('stars_small_fuchsia.gif') !important; /* small */
+}
+.pr-snapshot-rating .pr-stars, .pr-review-faceoff .pr-stars, .pr-modal-container .pr-stars, .pr-modal-container .pr-review-faceoff-review-content .pr-stars {
+    background-image: url('stars_fuchsia.gif') !important;
+}
+.pr-stars-small {
+    margin-right: 10px;
+}
+.pr-snapshot-head-wrapper {
+    text-indent: -9999px;
+    /*background-image: url(reviews.jpg);*/
+}
+.pr-review-bottom-line-wrapper .pr-review-bottom-line {
+text-transform: uppercase;
+color: #B8007F !important;
+}
+span.pr-rating {
+    display: none !important;
+}
+div.prStars {
+    background-image: url('stars_write_review_fuchsia.gif');
+}
+form#reviewForm {
+    position: relative;
+    left: 200px;
+    width: 750px;
+}
+div.pr-review-author-info-wrapper span {
+    font-weight: normal !important;
+}
+.pr-review-text .pr-comments-header {
+    font-weight: normal !important;
+}
+p.pr-review-rating-headline {
+    font-family: "lemonde-journal", serif;
+    font-style: normal;
+    font-size: 13px;
+    font-weight: 400;
+}
+div.pr-review-author-date {
+    display:none;
+}
+div.pr-review-sort-wrapper {
+    float: right;
+    width: 400px;
+    position: relative;
+    top: 4px;
+}
+div.pr-review-sort {
+    background: none;
+    border: none;
+    margin-bottom: 5px;
+}
+div.pr-snapshot-head {
+    display: none;
+}
+div.pr-snapshot-body, div.pr-contents {
+    padding: 0;
+    border: none;
+    border-width: 0;
+    border-style: none;
+}
+div.pr-snapshot-body-wrapper {
+    border: none;
+    border-bottom: 1px solid #d5d5d5;
+    margin-bottom: 5px;
+}
+div.pr-contents-wrapper {
+    border: none;
+}
+div.pr-review-engine {
+    margin-bottom: 20px;
+}
+p.pr-review-count {
+    display: none;
+}
+p.pr-snapshot-no-ratings {
+    padding-top: 25px;
+    margin-top: 20px;
+    border-top: 1px solid #d5d5d5;
+}
+.pr-ratings-histogram-bar .pr-ratings-histogram-barValue {
+background: #B8007F url('pr_histogram_bg_fuchsia.gif') 0 0 repeat-x !important;
+}
+p#pr-snapshot-histogram-header span {
+    font-weight: 400;
+    font-family: "lemonde-journal", serif;
+    font-style: normal;
+}
 
+
+p.pr-rounded {
+-moz-border-radius-topleft: 0;
+-moz-border-radius-topright: 0;
+-moz-border-radius-bottomleft: 0;
+-moz-border-radius-bottomright: 0;
+-webkit-border-top-left-radius: 0;
+-webkit-border-top-right-radius: 0;
+-webkit-border-bottom-left-radius: 0;
+-webkit-border-bottom-right-radius: 0;
+border-top-right-radius: 0;
+border-top-left-radius: 0;
+border-bottom-right-radius: 0;
+border-bottom-left-radius: 0;
+}
+.pr-snapshot-consensus-value {
+border: none !important;
+background: #b8007f url('pr_histogram_bg_fuchsia.gif') !important;
+}
 
 
 
