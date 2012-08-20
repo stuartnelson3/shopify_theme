@@ -88,7 +88,10 @@ font-weight: 500;*/
 
 body, nav a, section.page > div a, div.terms p a, .buy-menu span.info, span.info, section.collection a, section.collection_looks ul div a, header div a, .index a, div.buy-menu div.swatch a, div.lower-container a, section.wear_it a, section.wear_with a {
   color: #252525;
-  font-family: "museo-sans",sans-serif;
+  /*font-family: "museo-sans",sans-serif;
+    font-style: normal;
+    font-weight: 500;*/
+  font-family: "museo-sans-n5","museo-sans",sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 13px;
@@ -142,7 +145,10 @@ input[type="button"]:active, input[type="submit"]:active, input[type="image"]:ac
 a, h1, section.page h2, h4, div.buy-menu span, .index span, section.collection span.money, section.collection_looks span.money {
   color: #252525;
   text-decoration: none;
-  font-family: "kepler-std",sans-serif;
+  /*font-family: "kepler-std",sans-serif;
+    font-style: italic;
+    font-weight: 300;*/
+  font-family: "kepler-std-i3","kepler-std",sans-serif;
   font-style: italic;
   font-weight: 300;
   }
@@ -227,8 +233,6 @@ section.main-nav {
   -moz-box-shadow: 0 0 6px 1px rgba(100, 100, 100, 0.25);
   -webkit-box-shadow: 0 0 6px 1px rgba(100, 100, 100, 0.25);
   box-shadow: 0 0 6px 1px rgba(100, 100, 100, 0.25);
-}
-section.main-nav {
   position: absolute;
   top: 0;
   left: 20px;
@@ -632,6 +636,7 @@ section.promo {
   float: left;
   width: 100%;
   height: 100px;
+  text-align: center;
 }
 section.promo div {
   width: 33%;
@@ -1251,8 +1256,8 @@ section.continue_shopping span {
   display:block;
   z-index:100;
 }
-#slideshow .slideActive, #slideshow2 .slideActive {
-  z-index:100;
+#slideshow ul.slides li.slideActive, #slideshow2 ul.slides li.slideActive {
+  z-index:110;
 }
 div#slideshow nav {
   text-align: center;

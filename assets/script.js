@@ -173,19 +173,56 @@ $(document).ready(function(){
 	    slides2 = $("#slideshow2 ul.slides li"),
 		  current = 0,
 		  current2 = 0,
-		  slideshow = {width:0,height:0};
-
+		  slideshow = {width:0,height:0},
+		  nextIndex = 0;
+    // I-SWIPE
+    // $("#slideshow").touchwipe({
+    //         wipeLeft: function() { 
+    //           var nextIndex = 0,
+    //               next = slides.eq(nextIndex),
+    //               li = slides.eq(current);
+    //           nextIndex = current >= slides.length-1 ? 0 : current+1;
+    //           next.addClass('slideActive').show("slide", { direction: "right"});
+    //          li.removeClass('slideActive').hide("slide"); 
+    //          current = nextIndex;
+    //           },
+    //         wipeRight: function() { 
+    //           alert("right");
+    //           nextIndex = current <= 0 ? slides.length-1 : current-1;
+    //           next.addClass('slideActive').show();
+    //          li.removeClass('slideActive').hide(); 
+    //           }
+    //     });
+    $("#slideshow").swipe({
+      swipeLeft:function(event, direction, distance, duration, fingerCount) {
+            nextIndex = current < slides.length - 1 ? nextIndex + 1 : 0;
+            // if (current < (slides.length - 1)) {
+            //               nextIndex += 1;
+            //             }
+            //             else {
+            //               nextIndex = 0; 
+            //             }
+          slides.eq(nextIndex).addClass("slideActive").show("slide", { direction: "right" });
+          slides.eq(current).removeClass('slideActive').hide();
+          current = nextIndex;   
+        },
+      swipeRight:function(event, direction, distance, duration, fingerCount) {
+        nextIndex = current === 0 ? slides.length - 1 : nextIndex - 1;
+        slides.eq(nextIndex).addClass("slideActive").show("slide", { direction: "left" });
+        slides.eq(current).removeClass('slideActive').hide("slide", { direction: "right"});
+        current = nextIndex;
+      }
+    });
     // USING ARROWS 
 		$('#slideshow .arrow').click(function(){
-			var li        = slides.eq(current),
-				  nextIndex	= 0;
+			var li        = slides.eq(current);
+				  //nextIndex	= 0;
 
 			// Depending on whether this is the next or previous
 			// arrow, calculate the index of the next slide accordingly.
 			
 			if($(this).hasClass('next')){
 				nextIndex = current >= slides.length-1 ? 0 : current+1;
-				// CHANGE SWATCH TO MATCH CURRENT IMAGE
 			}
 			else {
 				nextIndex = current <= 0 ? slides.length-1 : current-1;
@@ -203,9 +240,10 @@ $(document).ready(function(){
 				  li.removeClass('slideActive').hide("slide", { direction: "right"});
 				}
 						
-				$("#slideshow ul.indices li").each(function(){
-					$(this).removeClass("indexActive");
-				});
+				// $("#slideshow ul.indices li").each(function(){
+				//          $(this).removeClass("indexActive");
+				//        });
+				$("#slideshow ul.indices li").removeClass("indexActive");
 				$("#slideshow ul.indices li").eq(nextIndex).addClass("indexActive");
 			
 		});
@@ -296,8 +334,8 @@ $(document).ready(function(){
 		});
     // SLIDESHOW2 ARROWS
 		$('.wear_details .arrow').click(function(){
-			var li			= slides2.eq(current2),
-				  nextIndex	= 0;
+			var li			= slides2.eq(current2);
+				  //nextIndex	= 0;
 
 			// Depending on whether this is the next or previous
 			// arrow, calculate the index of the next slide accordingly.
@@ -321,14 +359,16 @@ $(document).ready(function(){
 				  li.removeClass('slideActive').hide("slide", { direction: "right"});
 				}
         // CHANGE INDICES FOR SS2
-				$(".wear_details ul.indices li").each(function(){
-					$(this).removeClass("indexActive");
-				});
+				// $(".wear_details ul.indices li").each(function(){
+				//          $(this).removeClass("indexActive");
+				//        });
+				$(".wear_details ul.indices li").removeClass("indexActive");
 				$(".wear_details ul.indices li").eq(nextIndex).addClass("indexActive");
         // CHANGE DETAILS FOR SS2
-			  $(".wear_details div").each(function(){
-					$(this).removeClass("detailActive");
-				});
+			  // $(".wear_details div").each(function(){
+			  //           $(this).removeClass("detailActive");
+			  //         });
+				$(".wear_details div").removeClass("detailActive");
 				$(".wear_details div").eq(nextIndex).addClass("detailActive");
 		});
 		// SLIDESHOW2 INDICES
@@ -349,9 +389,10 @@ $(document).ready(function(){
 			}
 			current2 = index;
 			// CHANGE DETAILS FOR SS2
-		  $(".wear_details div").each(function(){
-				$(this).removeClass("detailActive");
-			});
+		  // $(".wear_details div").each(function(){
+		  //        $(this).removeClass("detailActive");
+		  //      });
+			$(".wear_details div").removeClass("detailActive");
 			$(".wear_details div").eq(index).addClass("detailActive");
 		});
 		//CART HOVER

@@ -1,6 +1,24 @@
 <!doctype html>
 <!--[if lt IE 9]>
 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<style type="text/css">
+  section.main-nav, section.inline-cart {
+    outline: 1px solid #d7d7d7;
+  }
+  section.inline-cart {
+  border-top: none;
+  }
+</style>
+{% if product or collection %}
+<style type="text/css">
+  section.main-nav nav ul li:first-child {
+    outline: 1px solid #d7d7d7;
+  }
+  section.main-nav ul.sub-nav li:first-child {
+  outline: none;
+  }
+</style>
+{% endif %}
 <![endif]-->
 <head>
   <script type="text/javascript" src="//use.typekit.net/duk7xno.js"></script>
@@ -43,7 +61,8 @@
   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" type="text/css" media="screen">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
-  
+  <!-- {{ 'jquery.touchwipe.min.js' | asset_url | script_tag }} -->
+  {{ 'jquery.touchSwipe.min.js' |asset_url | script_tag }}
   {{ content_for_header }}
 </head>
 
