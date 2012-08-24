@@ -1,11 +1,12 @@
 $(document).ready(function(){
 	$('ul.slides li:first-child').addClass("slideActive");
-	//add index active class moved below function
+	$("ul.indices li:first-child").addClass("indexActive");
 	$("div.wear_details div").eq(0).addClass("detailActive");
 	$("div.swatch-popup div").eq(0).fadeIn();
 	$("ul.swatch li:first-of-type").addClass("active");
 	$("div.selector-wrapper").eq(2).hide();
 	$("#product-select-option-2").val($("#product-select-option-2 option").eq(1).val()).change();
+	$("p.color").append($("#product-select-option-2").val());
   // FANCY DROPDOWNS
   function fancyDropdown(index) {
       var i,
@@ -24,19 +25,19 @@ $(document).ready(function(){
       }
   }
   // CREATE CORRECT AMOUNT OF INDICES FOR WEAR IT SECTION
-  function slideshowIndexGen() {
-    var i,
-        indices = $("div#slideshow2 ul.slides li").length,
-        ul = $("div.wear_details nav ul");
-    for (i = 0; i < indices; i++) {
-        ul.append("<li>" + i + "</li>");
-    }
-    $("ul.indices li:first-child").addClass("indexActive");
-  }
+  // function slideshowIndexGen() {
+  //     var i,
+  //         indices = $("div#slideshow2 ul.slides li").length,
+  //         ul = $("div.wear_details nav ul");
+  //     for (i = 0; i < indices; i++) {
+  //         ul.append("<li>" + i + "</li>");
+  //     }
+  //     
+  //   }
   fancyDropdown(0);
   fancyDropdown(1);
   fancyContact(2);
-  slideshowIndexGen();  
+  //slideshowIndexGen();  
   (function($) {
       $.fn.styleddropdown = function() {
           return this.each(function() {
@@ -73,7 +74,10 @@ $(document).ready(function(){
                   else if ( div_index.hasClass("bottom")) {
                     index = 1;
                     target = $("form.variants div div");
-                  } 
+                  }
+                  else if ( div_index.hasClass("fq")) {
+                    div_index.next().val($(this).html());
+                  }
                   else{
                     index = 2;
                     target = $("div.contact_form ul>li");
@@ -186,24 +190,24 @@ $(document).ready(function(){
 				$("#slideshow ul.indices li").eq(nextIndex).addClass("indexActive");
       }
     });
-    $("#slideshow2").swipe({
-      swipeLeft:function(event, direction, distance, duration, fingerCount) {
-          nextIndex = current2 < slides2.length - 1 ? nextIndex + 1 : 0;
-          slides2.eq(nextIndex).addClass("slideActive").show("slide", { direction: "right" }, 500);
-          slides2.eq(current2).removeClass('slideActive').hide("slide", { direction: "left"}, 500);
-          current2 = nextIndex;
-          $(".wear_details ul.indices li").removeClass("indexActive");
-  				$(".wear_details ul.indices li").eq(nextIndex).addClass("indexActive");
-        },
-      swipeRight:function(event, direction, distance, duration, fingerCount) {
-        nextIndex = current2 === 0 ? slides2.length - 1 : nextIndex - 1;
-        slides2.eq(nextIndex).addClass("slideActive").show("slide", { direction: "left" }, 500);
-        slides2.eq(current2).removeClass('slideActive').hide("slide", { direction: "right"}, 500);
-        current2 = nextIndex;
-        $(".wear_details ul.indices li").removeClass("indexActive");
-				$(".wear_details ul.indices li").eq(nextIndex).addClass("indexActive");
-      }
-    });
+    // $("#slideshow2").swipe({
+    //       swipeLeft:function(event, direction, distance, duration, fingerCount) {
+    //           nextIndex = current2 < slides2.length - 1 ? nextIndex + 1 : 0;
+    //           slides2.eq(nextIndex).addClass("slideActive").show("slide", { direction: "right" }, 500);
+    //           slides2.eq(current2).removeClass('slideActive').hide("slide", { direction: "left"}, 500);
+    //           current2 = nextIndex;
+    //           $(".wear_details ul.indices li").removeClass("indexActive");
+    //          $(".wear_details ul.indices li").eq(nextIndex).addClass("indexActive");
+    //         },
+    //       swipeRight:function(event, direction, distance, duration, fingerCount) {
+    //         nextIndex = current2 === 0 ? slides2.length - 1 : nextIndex - 1;
+    //         slides2.eq(nextIndex).addClass("slideActive").show("slide", { direction: "left" }, 500);
+    //         slides2.eq(current2).removeClass('slideActive').hide("slide", { direction: "right"}, 500);
+    //         current2 = nextIndex;
+    //         $(".wear_details ul.indices li").removeClass("indexActive");
+    //        $(".wear_details ul.indices li").eq(nextIndex).addClass("indexActive");
+    //       }
+    //     });
     // USING ARROWS 
 		$('#slideshow .arrow').click(function(){
 			var li        = slides.eq(current);
@@ -264,7 +268,7 @@ $(document).ready(function(){
 		  $("ul.swatch li").removeClass("active");
 		  $(this).addClass("active");
 		  $("select#product-select-option-2").val($(this).html()).change();
-		  
+		  $("p.color").empty().append($("#product-select-option-2").val());
 		  if ($(this).is(":first-of-type")) {
 		    if ($("div.swatch-popup div:first-of-type").is(":visible")){}
 		    else {$("div.swatch-popup div").fadeOut().eq(0).fadeIn();}
@@ -319,69 +323,53 @@ $(document).ready(function(){
 	      }
 		  } 
 		});
-    // SLIDESHOW2 ARROWS
-		$('.wear_details .arrow').click(function(){
-			var li			= slides2.eq(current2);
-				  //nextIndex	= 0;
-
-			// Depending on whether this is the next or previous
-			// arrow, calculate the index of the next slide accordingly.
-			
-			if($(this).hasClass('next')){
-				nextIndex = current2 >= slides2.length-1 ? 0 : current2+1;
-			}
-			else {
-				nextIndex = current2 <= 0 ? slides2.length-1 : current2-1;
-			}
-
-			var next = slides2.eq(nextIndex);
-				
-				current2 = nextIndex;
-				if ($(this).hasClass('next')) {
-				  next.addClass('slideActive').show("slide", { direction: "right"});
-				  li.removeClass('slideActive').hide("slide");
-				}
-				else {
-				  next.addClass('slideActive').show("slide", { direction: "left"});
-				  li.removeClass('slideActive').hide("slide", { direction: "right"});
-				}
-        // CHANGE INDICES FOR SS2
-				// $(".wear_details ul.indices li").each(function(){
-				//          $(this).removeClass("indexActive");
-				//        });
-				$(".wear_details ul.indices li").removeClass("indexActive");
-				$(".wear_details ul.indices li").eq(nextIndex).addClass("indexActive");
-        // CHANGE DETAILS FOR SS2
-			  // $(".wear_details div").each(function(){
-			  //           $(this).removeClass("detailActive");
-			  //         });
-				$(".wear_details div").removeClass("detailActive");
-				$(".wear_details div").eq(nextIndex).addClass("detailActive");
-		});
-		// SLIDESHOW2 INDICES
-		$(".wear_details ul.indices li").click(function(){
-			var index = $(this).index(),
-			    li = $('#slideshow2 ul.slides li.slideActive');
-			
-			$(".wear_details ul.indices li").removeClass("indexActive");
-			$(this).addClass("indexActive");
-			if ($(this).index() === li.index()) {} //DO NOTHING
-			else if ($(this).index() > li.index()) {
-			  slides2.eq(index).addClass('slideActive').show("slide", { direction: "right"});
-			  li.removeClass('slideActive').hide("slide");
-			}
-			else {
-			  slides2.eq(index).addClass('slideActive').show("slide", { direction: "left"});
-			  li.removeClass('slideActive').hide("slide", { direction: "right"});
-			}
-			current2 = index;
-			// CHANGE DETAILS FOR SS2
-		  // $(".wear_details div").each(function(){
-		  //        $(this).removeClass("detailActive");
-		  //      });
-			$(".wear_details div").removeClass("detailActive");
-			$(".wear_details div").eq(index).addClass("detailActive");
-		});
+    // // SLIDESHOW2 ARROWS
+    //    $('.wear_details .arrow').click(function(){
+    //      var li      = slides2.eq(current2);
+    //      
+    //      if($(this).hasClass('next')){
+    //        nextIndex = current2 >= slides2.length-1 ? 0 : current2+1;
+    //      }
+    //      else {
+    //        nextIndex = current2 <= 0 ? slides2.length-1 : current2-1;
+    //      }
+    // 
+    //      var next = slides2.eq(nextIndex);
+    //        
+    //        current2 = nextIndex;
+    //        if ($(this).hasClass('next')) {
+    //          next.addClass('slideActive').show("slide", { direction: "right"});
+    //          li.removeClass('slideActive').hide("slide");
+    //        }
+    //        else {
+    //          next.addClass('slideActive').show("slide", { direction: "left"});
+    //          li.removeClass('slideActive').hide("slide", { direction: "right"});
+    //        }
+    //        $(".wear_details ul.indices li").removeClass("indexActive");
+    //        $(".wear_details ul.indices li").eq(nextIndex).addClass("indexActive");
+    //        $(".wear_details div").removeClass("detailActive");
+    //        $(".wear_details div").eq(nextIndex).addClass("detailActive");
+    //    });
+    //    // SLIDESHOW2 INDICES
+    //    $(".wear_details ul.indices li").click(function(){
+    //      var index = $(this).index(),
+    //          li = $('#slideshow2 ul.slides li.slideActive');
+    //      
+    //      $(".wear_details ul.indices li").removeClass("indexActive");
+    //      $(this).addClass("indexActive");
+    //      if ($(this).index() === li.index()) {} //DO NOTHING
+    //      else if ($(this).index() > li.index()) {
+    //        slides2.eq(index).addClass('slideActive').show("slide", { direction: "right"});
+    //        li.removeClass('slideActive').hide("slide");
+    //      }
+    //      else {
+    //        slides2.eq(index).addClass('slideActive').show("slide", { direction: "left"});
+    //        li.removeClass('slideActive').hide("slide", { direction: "right"});
+    //      }
+    //      current2 = index;
+    //      $(".wear_details div").removeClass("detailActive");
+    //      $(".wear_details div").eq(index).addClass("detailActive");
+    //    });
 		//CART HOVER
 		$("div.cart-container a.inline-cart").mouseenter(function(){
 		    $("section.inline-cart").slideDown();
@@ -396,6 +384,347 @@ $(document).ready(function(){
 		$("section.inline-cart").mouseleave(function(){
 		  $(this).slideUp();
 		});
+		// FIT QUIZ
+		var fields = $("input[type=radio]").serializeArray();
+
+    function pageNumber(newNumber) {
+        $(".page-number").html(newNumber);
+    }
+    $("div.page2, div.page2_5, div.page3").hide();
+
+    $("button.next1").click(function() {
+        if ($("#bust_size option:selected").val() == "select" || $("#dress_size option:selected").val() == "select" || $("#cup_size option:selected").val() == "select" || $("#pant_size option:selected").val() == "select" || $("#feet option:selected").val() == "select" || $("#inches option:selected").val() == "select" || $("#weight option:selected").val() == "select") {
+            $("span.validation").show();
+            $("div.select-box a.field span").each(function() {
+                if ($(this).html() == "Select") {
+                    $("span.validation").show();
+                    $(this).parent().addClass("notValid");
+                }
+                else {
+                    $(this).parent().removeClass("notValid");
+                }
+            });
+        }
+        else {
+            $("div.select-box a.field").removeClass("notValid");
+            $("span.validation").hide();
+            $("div.page1").slideUp("slow");
+            $("div.page2").slideDown("slow", function() {
+                pageNumber("2 of 3");
+            });
+        }
+    });
+    $(".next2").click(function() {
+        if ($("div.page2 input[type=radio]").serializeArray().length < 3) {
+            $("span.validation").show();
+            $("div.quincy div.radio").each(function() {
+                if ($(this).find("input").serializeArray().length < 1) {
+                    $(this).closest("div").addClass("notValid");
+                }
+                else {
+                    $(this).closest("div").removeClass("notValid");
+                }
+            });
+            $("div.select-box a.field span").each(function() {
+                if ($(this).html() == "Select") {
+                    $(this).parent().addClass("notValid");
+                }
+                else {
+                    $(this).parent().removeClass("notValid");
+                }
+            });
+        }
+        else {
+            $("div.select-box a.field, div.radio").removeClass("notValid");
+            $("span.validation").hide();
+            $("div.page2").slideUp("slow");
+            $("div.page2_5").slideDown("slow", function() {
+                pageNumber("3 of 3");
+            });
+        }
+    });
+    $(".next2_5").click(function() {
+        if ($("div.page2_5 input[type=radio]").serializeArray().length < 5) {
+            $("span.validation").show();
+            $("div.quincy div.radio").each(function() {
+                if ($(this).find("input").serializeArray().length < 1) {
+                    $(this).closest("div").addClass("notValid");
+                }
+                else {
+                    $(this).closest("div").removeClass("notValid");
+                }
+            });
+        }
+        else {
+            $("div.select-box a.field, div.radio").removeClass("notValid");
+            $("span.validation").hide();
+            $("div.page2_5").slideUp("slow");
+            $("div.page3").slideDown("slow", function() {
+                pageNumber(" ");
+                //$("form#quiz").submit();
+            });
+        }
+    });
+    $("button.previous1").click(function() {
+        $(this).closest('div').slideUp("slow");
+        $("div.page1").slideDown("slow", function() {
+            pageNumber("1 of 3");
+        });
+    });
+    $("button.previous2").click(function() {
+        $(this).closest('div').slideUp('slow');
+        $("div.page2").slideDown('slow', function() {
+            pageNumber("2 of 3");
+        });
+    });
+    $("button.previous2_5").click(function() {
+        $(this).closest('div').slideUp('slow');
+        $("div.page2_5").slideDown('slow', function() {
+            pageNumber("3 of 3");
+        });
+    });
+
+    $("input.groovierbutton").click(function() {
+        var dress_size = parseInt($("select#dress_size option:selected").val(), 10),
+            bust_size = parseInt($("select#bust_size option:selected").val(), 10),
+            cup_size = $("select#cup_size option:selected").val(),
+            pant_size = parseInt($("select#pant_size option:selected").val(), 10);
+        var pet1 = $("div#dart input[value=3]").is(":checked");
+        var pet2 = $("div#sleeve input[value=3]").is(":checked");
+        var pet3 = $("div#torso input[value=3]").is(":checked");
+        var tal1 = $("div#dart input[value=4]").is(":checked");
+        var tal2 = $("div#sleeve input[value=2]").is(":checked");
+        var tal3 = $("div#torso input[value=2]").is(":checked");
+        var length = 0;
+        var textFieldsFeet = $("#feet option:selected");
+        var textFieldsInches = $("#inches option:selected");
+        var textFieldsWeight = $("#weight option:selected");
+        var dress_size_norm, dress_size_rec, dress_size_cup_rec, dress_size_primary, bust_size_norm, bust_size_rec, bust_size_primary, cup_size_norm, cup_size_rec, cup_size_primary, length_primary, length_rec, pant_rec, pants_fit = $("div#pants-fit select").val();
+
+        //Normalize dress size so it can be compared to bust size
+        switch (dress_size) {
+        case 00:
+            dress_size_norm = 32;
+            break;
+        case 0:
+            dress_size_norm = 32;
+            break;
+        case 2:
+            dress_size_norm = 34;
+            break;
+        case 4:
+            dress_size_norm = 34;
+            break;
+        case 6:
+            dress_size_norm = 36;
+            break;
+        case 8:
+            dress_size_norm = 36;
+            break;
+        case 10:
+            dress_size_norm = 38;
+            break;
+        case 12:
+            dress_size_norm = 38;
+            break;
+        case 14:
+            dress_size_norm = 40;
+            break;
+        case 16:
+            dress_size_norm = 40;
+            break;
+        }
+        //Compare normalized dress size to bust size
+        //Larger size taken as main recommendation
+        if (dress_size_norm > bust_size) {
+            dress_size_primary = dress_size_norm;
+        }
+        else if ((bust_size > dress_size_norm) || (bust_size == dress_size_norm)) {
+            dress_size_primary = bust_size;
+        }
+        else {}
+        //Depending on which 00-14 dress size, alternate recommendation is closest 32-40 size
+        //Depending on size up or size down, include alternate cup size with recommendation
+        //if customer wears B or C
+        if (dress_size % 4 === 0) {
+            dress_size_cup_rec = 1;
+            dress_size_rec = dress_size_primary + 2;
+        }
+        else {
+            dress_size_cup_rec = -1;
+            dress_size_rec = dress_size_primary - 2;
+        }
+        //Recommend primary cup size
+        if (cup_size == "AA" || cup_size == "A" || cup_size == "B") {
+            if (cup_size == "B" && dress_size_cup_rec === -1) {
+                cup_size_rec = "C/D";
+            }
+            else {
+                cup_size_rec = "A/B";
+            }
+            if (cup_size == "B" && $("#dart input:radio:checked").val() == 2) {
+                cup_size_primary = "C/D";
+                cup_size_rec = "C/D";
+            }
+            else {
+                cup_size_primary = "A/B";
+            }
+        }
+        else {
+            if (cup_size == "C" && dress_size_cup_rec === 1) {
+                cup_size_rec = "A/B";
+            }
+            else {
+                cup_size_rec = "C/D";
+            }
+            if (cup_size == "C" && $("#dart input:radio:checked").val() == 1) {
+                cup_size_primary = "A/B";
+                cup_size_rec = "A/B";
+            }
+            else {
+                cup_size_primary = "C/D";
+            }
+        }
+        //Add up length indicators
+        //Final tally decides length recommendation
+        if (pet1) {
+            length -= 1;
+        }
+        if (pet2) {
+            length -= 1;
+        }
+        if (pet3) {
+            length -= 1;
+        }
+        if (tal1) {
+            length += 1;
+        }
+        if (tal2) {
+            length += 1;
+        }
+        if (tal3) {
+            length += 1;
+        }
+        if (length < -1) {
+            length_primary = "Petite";
+            if (textFieldsFeet.val() >= 5 && textFieldsInches.val() > 4) {
+                length_rec = "Regular";
+            }
+        }
+        else if (length > 1) {
+            length_primary = "Tall";
+            if (textFieldsFeet.val() < 6 && textFieldsInches.val() < 10) {
+                length_rec = "Regular";
+            }
+        }
+        else {
+            length_primary = "Regular";
+            if (textFieldsFeet.val() >= 5 && textFieldsInches.val() >= 10) {
+                length_rec = "Tall";
+            }
+            else if (textFieldsFeet.val() < 6 && textFieldsInches.val() <= 4) {
+                length_rec = "Petite";
+            }
+        }
+        //Recommending waist size
+        switch (pant_size) {
+        case 00:
+            pant_rec = 24;
+            break;
+        case 0:
+            pant_rec = 25;
+            break;
+        case 2:
+            pant_rec = 26;
+            break;
+        case 4:
+            pant_rec = 27;
+            break;
+        case 6:
+            pant_rec = 28;
+            break;
+        case 8:
+            pant_rec = 29;
+            break;
+        case 10:
+            pant_rec = 30;
+            break;
+        case 12:
+            pant_rec = 31;
+            break;
+        case 14:
+            pant_rec = 32;
+            break;
+        case 16:
+            pant_rec = 33;
+            break;
+        }
+        //Storing data based on pants fit
+        //Doesn't figure into quiz currently
+        if ($("div#pants1 input[value=2]").is(":checked") || ($("div#pants1 input[value=1]").is(":checked") && $("div#pants0 input[value=1]").is(":checked"))) {
+            $("div#pants-fit select").val("Straight");
+        }
+        else if ($("div#pants2 input[value=2]").is(":checked") || $("div#pants3 input[value=2]").is(":checked") || ($("div#pants2 input[value=1]").is(":checked") && $("div#pants3 input[value=1]").is(":checked"))) {
+            $("div#pants-fit select").val("Curvy");
+        }
+        else {
+            $("div#pants-fit select").val("Classic");
+        }
+        //RESULTS
+        //FOR
+        //QUIZ
+        if ((dress_size + 2) < $("select#pant_size").val()) {
+            $("span.dress-warning").show();
+        }
+        else {
+            $("span.dress-warning").hide();
+        }
+        if ($("select#cup_size option:selected").index() >= 7) {
+            $("span.hagrid").show();
+            $("#primary, #rec_1, #rec_2, #rec_3").empty();
+        }
+        else if ($("select#dress_size option:selected").val() > 16) {
+            $("span.hagrid").show();
+            $("#primary, #rec_1, #rec_2, #rec_3").empty();
+        }
+        else if ($("select#bust_size option:selected").val() > 40) {
+            $("span.hagrid").show();
+            $("#primary, #rec_1, #rec_2, #rec_3").empty();
+        }
+        else {
+            $("span.hagrid").hide();
+            $("#primary, #rec_1, #rec_2, #rec_3, #pant_rec").empty();
+            $("#primary").append(dress_size_primary, " ", cup_size_primary, " ", length_primary);
+            $("#rec_1").append(dress_size_rec, " ", cup_size_rec, " ", length_primary);
+            if (length_rec) {
+                $("#rec_2").append(dress_size_primary, " ", cup_size_primary, " ", length_rec);
+            }
+            if (cup_size_rec) {
+                $("#rec_3").append(dress_size_primary, " ", cup_size_rec, " ", length_primary);
+            }
+            $("#pant_rec").append(pant_rec);
+            send_fit_data();
+        }
+/*REMEMBER TO POST DATA TO CUSTOMER ACCNTS DB
+          WHEN ADAM GIVES YOU THE ADDRESS FOR IT */
+
+        function send_fit_data() {
+            var params = {
+                type: 'POST',
+                //url: GET URL FROM ADAM,
+                dataType: 'json',
+                data: {
+                    primary_rec: dress_size_primary + " " + cup_size_primary + " " + length_primary,
+                    secondary_rec: dress_size_rec + " " + cup_size_rec + " " + length_primary,
+                    tertiary_rec: dress_size_primary + " " + cup_size_primary + " " + length_rec,
+                    quaternary_rec: dress_size_primary + " " + cup_size_rec + " " + length_primary,
+                    bottoms_rec: pant_rec + " " + pants_fit
+                },
+                success: function() {}
+            };
+            jQuery.ajax(params);
+        }
+    });
 });
 // CART AJAX
 function rebind(){

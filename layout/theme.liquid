@@ -38,6 +38,16 @@
     }
   </style>
   {% endif %}
+  {% if  product.type == "Pants" %}
+    <style type="text/css" media="screen">
+      div.buy-menu div.lower-container a.field, div.buy-menu ul.selector {
+        width: 118px;
+      }
+      ul.selector li {
+        width: 108px;
+      }
+    </style>
+  {% endif %}
   {% comment %} 
     Open Graph tags for Facebook Like buttons 
   {% endcomment %} 
@@ -51,7 +61,7 @@
   {% endif %}  
 
   {% if template == 'index' %}
-   <title>{{ shop.name }}</title>
+   <title>{{ shop.name }} | {{ shop.description }}</title>
   {% elsif template == '404' %}
     <title>Page Not Found | {{ shop.name }}</title>
   {% else %}
@@ -94,10 +104,10 @@
       </a>
       <nav>
         <ul>
-          <li><a href="/collections/all" title="Shop">Shop</a>
+          <li><a href="/collections/shop" title="Shop">Shop</a>
           {% if collection or product %}
             <ul class="sub-nav">
-              <li><a href="/collections/all">All</a></li>
+              <li><a href="/collections/shop">All</a></li>
               <li><a href="/collections/blouses">Blouses</a></li>
               <li><a href="/collections/blazers">Blazers</a></li>
               <li><a href="/collections/dresses">Dresses</a></li>
@@ -152,9 +162,8 @@
       </section>
       <nav>
         <ul>
-          <li><a href="/pages/quincy-fit" title="The Quincy Fit">The Quincy Fit</a></li>
+          <li><a href="/pages/second-size" title="Shipping & Returns">Second Size</a></li>
           <li><a href="/pages/shipping-and-returns" title="Shipping & Returns">Shipping &amp; Returns</a></li>
-          <li><a href="/pages/faq" title="FAQ">FAQ</a></li>
           <li><a href="/pages/about" title="About">About</a></li>
           <li><a href="/pages/contact" title="Contact">Contact</a></li>
           <li><a href="/pages/terms-and-conditions" title="Terms & Conditions">Terms &amp; Conditions</a></li>
@@ -191,6 +200,7 @@
         // variant doesn't exist
         buyButton.addClass('disabled').attr('disabled', 'disabled'); // set add-to-cart button to unavailable class and disable button
       }
+      {% unless product.type == "Pants" or "Skirts" %}
       $("#product-select-option-1").change(function() {
               $("div.fits-like p").hide();
               if ($(":contains(32)", this).is(":selected")) {
@@ -210,6 +220,7 @@
               }
               else {}
           });
+        {% endunless %}
       };
     // initialize multi selector for product
     $(function() {

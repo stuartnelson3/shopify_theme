@@ -13,8 +13,8 @@ $("section.main-nav ul li:eq(2) a").addClass("active");
   $("section.main-nav ul li a[title=Shop]").addClass("active");
 	{% case handle %}
 	//COLLECTION PAGES
-	  {% when 'all' %}
-	  $('section.main-nav ul li a[href*="all"]').addClass("active");
+	  {% when 'shop' %}
+	  $('section.main-nav ul li a[href*="shop"]').addClass("active");
 		{% when "blazers" %}
 		$('a[href*="blazers"]').addClass("active");		
 		{% when "blouses" %}
@@ -37,6 +37,8 @@ $("section.main-nav ul li:eq(2) a").addClass("active");
 		$('a[href*="dress"]').addClass("active");		
 		{% when "Blouse" %}
 		$('a[href*="blouse"]').addClass("active");
+		{% when "Pants" or "Skirts" %}
+		$('a[href*="suiting"]').addClass("active");
 	//END PRODUCT PAGES
 	{% endcase %}
 {% endif %}

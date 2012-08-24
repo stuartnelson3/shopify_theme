@@ -7,9 +7,9 @@
       <h4> &ldquo;{{ product.description }}&rdquo;</h4>
       <div class="lower-container">
         <div class="swatch">
-          <span>{{ product.price | money | remove: '.00' }}</span>
-          {% include 'swatch' %}
-          <a class="close" href="#">X</a>
+          <span>{{ product.price | money | remove: '.00' }}</span>   
+          {% include 'swatch' %}  
+          <p class="color"></p>        
         </div>
         <a class="swatch" href="#" title="Swatch Detail">Swatch Detail</a>
         <form action="/cart/add" method="post" class="variants" id="product-actions">
@@ -47,7 +47,7 @@
             
           <div id="purchase">                               
             <input type="button" onclick="reloadSmallCart('product-actions');" name="add" id="add-to-cart" value="Add to Bag" />
-            <p>Will ship on 08.24.12</p>
+            {% include 'pre-order-delay' %}
           </div>
         </form>
         <a class="fit-quiz" href="/pages/fit-quiz" title="Fit Quiz">Find your perfect fit ></a>
@@ -84,7 +84,7 @@
   <div>
     <h1>Why we love it</h1>
     <h3>See a week in the life of the</h3>
-    <a class="week_in_life" href="http://blog.quincyapparel.com/tagged/cropped-blazer" title="Blog">
+    <a class="week_in_life" href="http://blog.quincyapparel.com/" title="Blog">
       {{ product.title }} >
     </a>
   </div>  <!-- 1. WHY WE LOVE THIS -->
@@ -132,16 +132,10 @@
   {% include 'slideshow_2' %}
   <div class="wear_details">
     <h1>How we like to wear it</h1>
-    <nav> 
-      <span class="arrow previous"></span>
-      <ul class="indices">     	
-      </ul>
-      <span class="arrow next"></span>
-    </nav>
     {% include 'wear_details' %}
   </div>
 </section>  <!-- HOW WE LIKE TO WEAR IT -->
-{% capture recommended %}{{ product.handle }}-recommended{% endcapture %}
+{% capture recommended %}{{ product.handle }}-recommend{% endcapture %}
 <section class="wear_with">
   <h4>What we wear it with</h4>
   <ul>    

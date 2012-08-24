@@ -4,32 +4,46 @@
   </script>​​​​​​​​​​​​​
   <script type="text/javascript" src="http://cdn.powerreviews.com/repos/15316/pr/pwr/engine/js/full.js"></script>
   <div itemscope itemtype="http://data-vocabulary.org/Product">
-    <span itemprop="brand">Quincy Apparel</span>
-    <span itemprop="name">{{ product.title | escape }}</span>
+    <!-- <span itemprop="brand">Quincy Apparel</span>
+        <span itemprop="name">{{ product.title | escape }}</span> -->
     <img itemprop="image" src="{{ product.images[0] | product_img_url: 'large' }}" />
     <span itemprop="description">
-    {% case handle %}
-    {% when 'jacket1' %}
-    Shop for Jackets at Quincy! Get the the Jane Jacket &mdash; A bit of French whimsy in a classic silhouette &mdash; not your everyday jacket (but go ahead, wear it every day).
-    {% when 'jacket2' %}
-    Shop for Jackets at Quincy! Get the Chelsea Burnt Orange Wool Jacket &mdash; THE color for 2012. In this perfect-fit blazer, orange has never looked more chic.
-    {% when 'jacket3' %}
-    Shop for Jackets at Quincy! Get the Chelsea Herringbone Wool Jacket &mdash; Classic herringbone blazer with a flawless fit and all the right extras.
-    {% when 'jacket4' %}
-    Shop for Jackets at Quincy! Get the Madison Charcoal Stretch Wool Jacket &mdash; This staple blazer in charcoal grey shines with superb fit and exceptional detailing. One to last a lifetime.
-    {% when 'jacket5' %}
-    Shop for Jackets at Quincy! Get the Madison Sandstone Stretch Wool Jacket &mdash; The perfect spring blazer in an ideal neutral sandstone &mdash; your closet will cheer!
-    {% when 'dress1' %}
-    Shop for Dresses at Quincy! Get the Mia Sheath Dress in Dove Grey &mdash; Polished, flattering and versatile &mdash; your must-have sheath dress for spring and summer.
-    {% when 'dress2' %}
-    Shop for Dresses at Quincy! Get the Ansley Knit Ponte Dress in Marine Blue--Comfort and style in one sophisticated package &mdash; the dress that'll have you fielding compliments all day.
-    {% when 'blouse1' or 'blouse2' or 'blouse3' or 'blouse4' %}
-    Shop for Blouses at Quincy today! Get the Sophia Silk Blouse in Coral, Peach, Robin’s Egg Blue, and Black and White Polka-Dot &mdash; Smooth, 100% silk, ruffled perfection. Sure to be your go-to blouse.
-    {% when 'blouse5' %}
-    Shop for Blouses at Quincy today! Get the Kennedy Peplum Blouse in Ivory/Black Stretch Crepe &mdash; This season's hottest trend from the runway taken to the office. If you don’t have a peplum in your wardrobe yet, what are you waiting for?
-    {% else %}
-    Raising the bar in ready-to-wear, Quincy is revolutionizing the way women get dressed for work with one objective:  finding the perfect fit.
-    {% endcase %}
+      {% case handle %}
+        {% when 'jane-jacket' %}
+        Shop for Jackets at Quincy! Get the the Jane Jacket &mdash; A bit of French whimsy in a classic silhouette &mdash; not your everyday jacket (but go ahead, wear it every day). 
+        {% when 'chelsea-blazer-herringbone' %}
+        Shop for Blazers at Quincy! Get the Chelsea blazer in Black and White Herringbone &mdash; a classic herringbone blazer with flawless fit and all the right extras. 
+        {% when 'emma-jacket' %}
+        Shop for Jackets at Quincy! Get the Emma Jacket &mdash; White and navy boucle with silver accents lends a fresh new twist to a classic boucle jacket.
+        {% when 'riley-blazer-cobalt' %}
+        Shop for Blazers at Quincy! Get the Riley Blazer &mdash; This notch collar blazer in cobalt shines with superb fit and exceptional detailing. One to last a lifetime.
+        {% when 'elliott-blazer-black' %}
+        Shop for Blazers at Quincy! Get the Elliott Blazer &mdash; Your go-to blazer in black with impeccable fit, a modern silhouette and five matching pieces.
+        {% when 'elliott-sheath-black' %}
+        Shop for Dresses at Quincy! Get the Elliott Sheath Dress in Black &mdash; Polished, flattering and versatile, your must-have sheath dress for fall.
+        {% when 'riley-sheath-navy' %}
+        Shop for Dresses at Quincy! Get the Riley Sheath Dress in Navy &mdash; Polished, flattering and versatile, your must-have sheath dress for fall.
+        {% when 'ansley-dress-berry' %}
+        Shop for Dresses at Quincy! Get the Ansley Dress in Berry &mdash; Comfort and style in one sophisticated package &mdash; the dress that'll have you fielding compliments all day.
+        {% when 'fiona-blouse' %}
+        Shop for Blouses at Quincy today! Get the Fiona Silk Bow Blouse in Plum and Black and White Polka-Dot &mdash; Smooth, 100% silk perfection, with a detachable bow. Sure to be your go-to blouse.
+        {% when 'chloe-shirt' %}
+        Shop for Blouses at Quincy today! Get the Chloe Shirt &mdash; A classic white button-down with perfect fit and just the right amount of stretch. So many ways to transform it &mdash; you might need two.
+        {% when 'kennedy-blouse-peplum' %}
+        Shop for Blouses at Quincy today! Get the Kennedy Peplum Blouse in Ivory/Black Stretch Crepe &mdash; This season's hottest trend from the runway taken to the office. If you don’t have a peplum in your wardrobe yet, what are you waiting for?
+        {% when 'riley-pant-cobalt' %}
+        Shop for Pants at Quincy today! Get the Riley Cigarette Pant in Cobalt &mdash; Your favorite skinny look is now professional- rock it in the season’s hottest color &mdash; cobalt.
+        {% when 'elliott-pant-black' %}
+        Shop for Pants at Quincy today! Get the Elliott Cigarette Pant in Black &mdash; Take your favorite skinny look to work. Paired with a matching blazer or sweet blouse &mdash; these skinnies are the key to looking professional stylish.
+        {% when 'elliott-trouser-black' %}
+        Shop for Pants at Quincy today! Get the Elliott Trouser in Black &mdash; Choose from 4 lengths in this perfectly tailored trouser &mdash; finally, pants long enough to wear with your heels!
+        {% when 'elliott-sheath-skirt' %}
+        Shop for Skirts at Quincy today! Get the Elliott Sheath Skirt in Black &mdash; A classic shape with flattering seams and a front vent. Sophistication in a skirt.
+        {% when 'elliott-pencil-skirt' %}
+        Shop for Skirts at Quincy today! Get the Elliott Pencil Skirt in Black &mdash; Make a point in a polished feminine staple &mdash; the pencil skirt. 
+        {% when 'riley-skirt-cobalt' %}
+      Shop for Skirts at Quincy today! Get the Riley Pencil Skirt in Cobalt &mdash; The easiest way to rock this fall’s color story &mdash; the classic pencil skirt in stand-out cobalt.
+      {% endcase %}
     </span>
     Category: <span itemprop="category" content="Apparel & Accessories > Clothing">Apparel & Accessories > Clothing</span>
     Product #: <span itemprop="identifier" content="sku:{{ product.variants[0].sku }}">{{ product.variants[0].sku }}</span>
