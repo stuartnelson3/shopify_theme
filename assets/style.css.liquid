@@ -86,7 +86,7 @@ font-style: italic;
 font-weight: 500;*/
 
 
-body, nav a, section.page > div a, div.terms p a, .buy-menu span.info, span.info, section.collection a, section.collection_looks ul div a, header div a, .index a, div.buy-menu div.swatch a, div.lower-container a, section.wear_it a, section.wear_with a {
+body, nav a, section.page h2.level3, section.love_it li a, section.page > div a, div.terms p a, .buy-menu span.info, span.info, section.collection a, section.collection_looks ul div a, header div a, .index a, div.buy-menu div.swatch a, div.lower-container a, section.wear_it a, section.wear_with a {
   color: #252525;
   /*font-family: "museo-sans",sans-serif;
     font-style: normal;
@@ -142,7 +142,7 @@ input[type="button"]:active, input[type="submit"]:active, input[type="image"]:ac
   background-color: white;
   }
 .ie6 .wrapper{ height: 100%; }  
-a, h1, h4, div.buy-menu span, .index span, section.collection span.money, section.collection_looks span.money {
+a, h1, h4, h2, div.buy-menu span, .index span, section.collection span.money, section.collection_looks span.money {
   color: #252525;
   text-decoration: none;
   /*font-family: "kepler-std",sans-serif;
@@ -152,10 +152,10 @@ a, h1, h4, div.buy-menu span, .index span, section.collection span.money, sectio
   font-style: italic;
   font-weight: 300;
   }
-a:hover, div.buy-menu div.lower-container a.size-chart:hover, ul.size-chart li:hover, div.terms p a:hover, section.page > div a:hover, section.collection_looks ul div a:hover, section.collection div.details a:hover, section.inline-cart a:hover, div.index a:hover, div.lower-container a:hover, a#customer_login_link:hover, section.promo a:hover, a span:hover, .about_product h3:hover, section.wear_it a:hover, section.continue_shopping a:hover {
+a:hover, section.love_it li a:hover, div.buy-menu div.lower-container a.size-chart:hover, ul.size-chart li:hover, div.terms p a:hover, section.page > div a:hover, section.collection_looks ul div a:hover, section.collection div.details a:hover, section.inline-cart a:hover, div.index a:hover, div.lower-container a:hover, a#customer_login_link:hover, section.promo a:hover, a span:hover, .about_product h3:hover, section.wear_it a:hover, section.continue_shopping a:hover {
   color: #d3018d;
 }
-a:active, div.buy-menu div.lower-container a.size-chart:active, ul.size-chart li:active, div.terms p a:active, section.page > div a:active, section.collection_looks ul div a:active, section.collection div.details a:active, section.inline-cart a:active, div.index a:active, div.lower-container a:active, a#customer_login_link:active, section.promo a:active, a span:active, .about_product h3:active, section.wear_it a:active, section.continue_shopping a:active {
+a:active, section.love_it li a:active, div.buy-menu div.lower-container a.size-chart:active, ul.size-chart li:active, div.terms p a:active, section.page > div a:active, section.collection_looks ul div a:active, section.collection div.details a:active, section.inline-cart a:active, div.index a:active, div.lower-container a:active, a#customer_login_link:active, section.promo a:active, a span:active, .about_product h3:active, section.wear_it a:active, section.continue_shopping a:active {
   color: #e939af;
 }
 h1 {
@@ -165,12 +165,15 @@ h1 {
   margin-bottom: 0px;
   border-bottom: 1px solid #5a5a5a;
 }
-h1, section.page h2 {
+h1, section.page h2, div.size-chart h2.level3 {
   color: #71315d;
 }
 section.page h2 {
-  font-size: 24px;
+  font-size: 32px;
   margin-bottom: 1em;
+}
+section.page h2.level3 {
+  font-size: 20px;
   text-transform: uppercase;
 }
 h4 {
@@ -191,7 +194,6 @@ ul {
     WEBSITE*/
 /*HEADER*/
 header {
-  text-indent: 100px;
   width: 980px;
   letter-spacing: 0;
 }
@@ -205,19 +207,23 @@ header div a {
   font-size: 10px;
   text-transform: uppercase;
   text-indent: 0;
+  position: relative;
+}
+a.inline-cart {
+  top: 5px;
 }
 a.promo {
   font-size: 12px;
   font-weight: 400;
   letter-spacing: .25px;
-  margin-left: 5px;
+  margin-left: 205px;
 }
 header, div#slideshow nav {
   -webkit-box-shadow: 0 5px 6px -6px rgba(100, 100, 100, 0.6);
   -moz-box-shadow: 0 5px 6px -6px rgba(100, 100, 100, 0.6);
   box-shadow: 0 5px 6px -6px rgba(100, 100, 100, 0.6);
 }
-header span.cart_count, header a#customer_login_link {
+header span.cart_count {
   position: relative;
   bottom: 5px;
 }
@@ -285,11 +291,10 @@ section.main-nav ul.sub-nav a.active {
 }
 /*INLINE CART*/
 div.cart-container {
-  width: 215px;
   text-align: right;
   position: relative;
   z-index: 600;
-  margin-bottom: 0;
+  margin: 0;
 }
 div.cart-container div {
   margin: 0;
@@ -406,9 +411,6 @@ section.cart form input {
 
 section.cart div.product {
   margin: 15px 0;
-}
-section.cart div.order-details {
-  height: 60px;
 }
 section.cart div.cart_note {
   display: inline-block;
@@ -588,10 +590,10 @@ div.index div {
   bottom:0;
   left:0;
 }
-div.index span, div.index a {
+div.index span, div.index a.index {
   position: absolute;
 }
-div.index a {
+div.index a.index {
   text-transform: uppercase;
   font-size: 12px;
   font-weight: 300;
@@ -600,38 +602,33 @@ div.index span {
   font-size: 28px;
   line-height: .95em;
 }
-div.image_one span, div.image_one a, div.image_three a {
-  color: white;
-}
 div.image_one span {
-  bottom: 70px;
+  bottom: 60px;
   left: 19px;
   width: 220px;
-}
-div.image_one a {
-  bottom: 41px;
-  width: 200px;
-  left: 35px;
-}
-div.image_two {
-  height: 276px;
-}
-div.image_two span {
-  bottom: 152px;
-  width: 230px;
-  left: 17px;
   text-indent: -12px;
 }
+div.image_one a {
+  bottom: 25px;
+  width: 200px;
+  left: 16px;
+}
+div.image_two img{
+  float: left;
+}
+div.image_two span {
+  bottom: 146px;
+  width: 230px;
+  left: 20px;
+  text-indent: -7px;
+}
 div.image_two a {
-  bottom: 244px;
+  bottom: 230px;
   left: 20px;
   width: 200px;
 }
-div.image_three {
-  height: 244px;
-}
 div.image_three a {
-  bottom: 23px;
+  bottom: 176px;
   width: 180px;
   left: 20px;
 }
@@ -726,7 +723,7 @@ section.collection div.suiting_description {
   height: 300px;
 }
 section.collection div.suiting_description h1 {
-  width: 400px;
+  width: 380px;
   padding: 40px 5px 35px 0;
   letter-spacing: -1px;
   line-height: .8em;
@@ -758,6 +755,36 @@ section.collection div.right img {
   left: 0;
 }
 /*COLLECTION PAGE LOOKS*/
+section.collection_looks div {
+  position: relative;
+}
+section.collection_looks div.description {
+  position: absolute;
+  bottom: 180px;
+  width: 330px;
+}
+section.collection_looks div.left {
+  left: 20px;
+}
+section.collection_looks div.right {
+  right: 20px;
+}
+section.collection_looks div h4 {
+  font-size: 42px;
+  text-indent: -13px;
+  width: 330px;
+}
+section.collection_looks div h4.white, section.collection_looks div p.white {
+  color: white;
+}
+section.collection_looks div p {
+  text-transform: uppercase;
+  font-size: 10px;
+  margin: 2em 0;
+}
+section.collection_looks div p span {
+  font-weight: 900;
+}
 section.collection_looks img.hero {
   padding: 10px 0 20px;
   width: 100%;
@@ -925,7 +952,7 @@ div.swatch p.color {
 div.options {
   position: relative;
 }
-div.select-box {
+div.pselect-box {
   position: absolute;
   left: 60px;
 }
@@ -959,7 +986,7 @@ div.buy-menu span.info, span.info, ul.selector li {
   margin: 0 0 0 5px;
   cursor:pointer;
 }
-.select-box a img {
+.pselect-box a img, .select-box a img {
 	float: right;
 	margin: 4px 4px 0 0;
 	width: 7px;
@@ -969,7 +996,7 @@ div.buy-menu ul.selector, ul.selector {
   display: none;
 	list-style-type: none;
 	position:absolute;
-	top: 20px;
+	top: 19px;
 	left: 0;
 	padding-top: 3px;
 	overflow: hidden;
@@ -1200,7 +1227,7 @@ div.wear_details nav {
   line-height: 1.2em;
 }
 section.wear_it div.wear_details ul {
-  margin: 20px 20px 55px;
+  margin: 30px 20px 55px;
 }
 section.wear_it div.wear_details ul li {
   margin: 7px 0;
@@ -1214,7 +1241,8 @@ section.wear_it div.wear_details ul.indices {
   height: 12px;
 }
 section.wear_it a {
-  margin: 5px 20px 0;
+  text-transform: none;
+  color: #252525;
 }
 section.wear_with h4 {
   margin: 0 12px;
@@ -1282,31 +1310,23 @@ div#slideshow nav {
 }
 ul.indices li, section.wear_it nav ul li { 
   cursor: pointer;
-  width: 6px;
-  height: 6px;
+  width: 11px;
+  height: 11px;
   text-indent: -9999px;
-  margin: 0 8px;
+  margin: 0 6px;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
   overflow: hidden;
   position: relative;
-  top: -4px;
-  background-color: #d7d7d7;
-  /* Safari 4-5, Chrome 1-9 */
+  top: -1px;
+  background: url("fq_bullets.png") no-repeat scroll 0px -11px transparent;
+  /*background-color: #d7d7d7;
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#d7d7d7), to(#ebebeb));
-
-    /* Safari 5.1, Chrome 10+ */
     background: -webkit-linear-gradient(top, #d7d7d7, #ebebeb);
-
-    /* Firefox 3.6+ */
     background: -moz-linear-gradient(top, #d7d7d7, #ebebeb);
-
-    /* IE 10 */
     background: -ms-linear-gradient(top, #d7d7d7, #ebebeb);
-
-    /* Opera 11.10+ */
-    background: -o-linear-gradient(top, #d7d7d7, #ebebeb);
+    background: -o-linear-gradient(top, #d7d7d7, #ebebeb);*/
 }
 ul.indices {
   display: inline-block;
@@ -1325,21 +1345,13 @@ span.next {
   background: url({{ 'right_arrow.png' | asset_url }});
 }
 div#slideshow nav ul li.indexActive, div#slideshow nav ul li:hover, section.wear_it nav ul li.indexActive, section.wear_it nav ul li:hover {
-  background-color: #7a7a7a;
-  /* Safari 4-5, Chrome 1-9 */
+  /*background-color: #7a7a7a;
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#7a7a7a), to(#bfbfbf));
-
-    /* Safari 5.1, Chrome 10+ */
     background: -webkit-linear-gradient(top, #7a7a7a, #bfbfbf);
-
-    /* Firefox 3.6+ */
     background: -moz-linear-gradient(top, #7a7a7a, #bfbfbf);
-
-    /* IE 10 */
     background: -ms-linear-gradient(top, #7a7a7a, #bfbfbf);
-
-    /* Opera 11.10+ */
-    background: -o-linear-gradient(top, #7a7a7a, #bfbfbf);
+    background: -o-linear-gradient(top, #7a7a7a, #bfbfbf);*/
+    background: url("fq_bullets.png") no-repeat scroll 0px 0px transparent;
 }
 div.wear_details div {
   position: absolute;
@@ -1348,6 +1360,10 @@ div.wear_details div {
 }
 div.wear_details div.detailActive {
   z-index: 10;
+}
+img.tag {
+  position: absolute;
+  top: 10px;
 }
 /* PAGES */
 section.page h1, section.page h2 {
@@ -1421,7 +1437,7 @@ div.contact_form a.field, div.contact_form ul.selector {
   width: 100%;
   overflow: hidden;
 }
-div.contact_form div.select-box {
+div.contact_form div.pselect-box {
   position: relative;
   left: 0;
   display: block;
@@ -1490,11 +1506,13 @@ section.size-chart a.size_chart_close {
 div.page div.size-chart {
   margin: 40px 0;
 }
-
-div.tops, div.bottoms, div.dresses {
+div.tops {
   overflow: hidden;
   width: 660px;
   margin: 0 auto;
+}
+div.size-page {
+  margin: 80px 0 0 250px;
 }
 div.bottoms {
   padding-bottom: 140px;
@@ -1502,8 +1520,11 @@ div.bottoms {
 div.size-chart h2 {
   margin-top: 2em;
 }
+div.size-chart h2.level2 {
+  font-size: 30px;
+}
 div.size-chart h1 {
-  margin: 60px 10px 10px;
+  margin: 0px 10px 10px;
 }
 div.size-chart p {
   width: 480px;
@@ -1556,6 +1577,9 @@ div.size-chart td span {
   font-size: 10px;
   color: #252525;
 }
+div.bottoms section:last-of-type {
+  width: 660px;
+}
 /* ABOUT */
 div.about, div.meet-quincy {
   margin: 80px 20px 20px;
@@ -1568,10 +1592,12 @@ div.team h2 {
   margin-top: 40px;
 }
 div.team_member {
-  width: 420px;
+  width: 430px;
   display: inline-block;
   float: left;
-  margin-right: 50px;
+  margin-right: 40px;
+  height: 300px;
+  margin-bottom: 20px;
 }
 div.team_member img, div.team_member h4, div.team_member h3, div.team_member p{
   width: 200px;
@@ -1585,8 +1611,13 @@ div.team_member h4 {
 }
 div.team_member p {
   float: right;
-  width: 200px;
+  width: 210px;
+  height: 260px;
   margin-top: -2px;
+}
+div.team_member p span {
+  font-weight: 900;
+  display: block;
 }
 div.about img {
   float: right;
@@ -1623,18 +1654,12 @@ img.arrow {
 div.second-size {
   margin: 0 20px;
 }
+div.second-size img {
+  float: right;
+}
 /* 404 PAGE */
 /* OLARK */
-a#habla_oplink_a {
-  font-family: museo-sans;
-  font-style: normal;
-  text-transform: uppercase;
-  font-size: 11px !important;
-  letter-spacing: 0;
-}
-a#habla_sizebutton_a {
-  display: none;
-}
+
 /* CART */
 
 /* =============== */
@@ -1660,7 +1685,6 @@ a#habla_sizebutton_a {
 }
 .pr-snapshot-head-wrapper {
     text-indent: -9999px;
-    /*background-image: url(reviews.jpg);*/
 }
 .pr-review-bottom-line-wrapper .pr-review-bottom-line {
 text-transform: uppercase;
@@ -1700,7 +1724,6 @@ div.pr-review-sort-wrapper {
 }
 div.pr-review-sort {
     background: none;
-    border: none;
     margin-bottom: 5px;
 }
 div.pr-snapshot-head {
@@ -1708,16 +1731,8 @@ div.pr-snapshot-head {
 }
 div.pr-snapshot-body, div.pr-contents {
     padding: 0;
-    border: none;
-    border-width: 0;
-    border-style: none;
 }
-div.pr-snapshot-body-wrapper {
-    border: none;
-    border-bottom: 1px solid #d5d5d5;
-    margin-bottom: 5px;
-}
-div.pr-contents-wrapper {
+div.pr-snapshot-body-wrapper, div.pr-snapshot-body, div.pr-contents, div.pr-review-sort, div.pr-contents-wrapper {
     border: none;
 }
 div.pr-review-engine {
@@ -1729,18 +1744,13 @@ p.pr-review-count {
 p.pr-snapshot-no-ratings {
     padding-top: 25px;
     margin-top: 20px;
-    border-top: 1px solid #d5d5d5;
 }
 .pr-ratings-histogram-bar .pr-ratings-histogram-barValue {
 background: #B8007F url('pr_histogram_bg_fuchsia.gif') 0 0 repeat-x !important;
 }
 p#pr-snapshot-histogram-header span {
-    font-weight: 400;
-    font-family: "lemonde-journal", serif;
-    font-style: normal;
+  
 }
-
-
 p.pr-rounded {
 -moz-border-radius-topleft: 0;
 -moz-border-radius-topright: 0;

@@ -21,14 +21,14 @@
               </option>
               {% endfor %}
             </select>
-            <div class="select-box top">
+            <div class="pselect-box top">
               <a class="field">
                 <span class="info">Select</span>
                 <img src="{{'down-triangle.gif' | asset_url }}" />
               </a>
               <ul class="selector_0 selector"></ul>
             </div>
-            <div class="select-box bottom">
+            <div class="pselect-box bottom">
               <a class="field">
                 <span class="info">Select</span>
                 <img src="{{'down-triangle.gif' | asset_url }}" />
@@ -135,7 +135,7 @@
     {% include 'wear_details' %}
   </div>
 </section>  <!-- HOW WE LIKE TO WEAR IT -->
-{% capture recommended %}{{ product.handle }}-recommend{% endcapture %}
+{% capture recommended %}{{ product.id }}-recommend{% endcapture %}
 <section class="wear_with">
   <h4>What we wear it with</h4>
   <ul>    
@@ -208,7 +208,7 @@
         </table>
       </section>
       <section>
-        <h2>Cup size</h2>
+        <h2 class="level3">Cup size</h2>
         <ul>
           <li>We currently offer two cup sizes</li>
           <li><span>A/B</span> &mdash; For women who wear a B-cup or smaller</li>
@@ -216,7 +216,7 @@
         </ul>
       </section>
       <section>
-        <h2>Length</h2>
+        <h2 class="level3">Length</h2>
         <ul>
           <li>Our blazers, blouses, and dresses are offered in three sleeve/torso lengths</li>
           <li><span>Regular</span> is the standard length</li>
@@ -258,7 +258,7 @@
       </table>
     </section>
     <section>
-      <h2>Length</h2>
+      <h2 class="level3">Length</h2>
       <ul>
         <li>We offer all our pants and skirts in 3-4 inseam lengths, to accommodate short-legged and long-legged women alike</li>
         <li>Pants are also available unhemmed if you prefer to have them hemmed yourself</li>

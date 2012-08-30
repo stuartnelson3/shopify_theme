@@ -4,37 +4,86 @@
 {% capture look_4 %}{{ product.handle }}-look-4{% endcapture %}
 <div>
   <ul>
-    <li>Ray Ban sunglasses</li>
-    <li>Vintage pendant necklace</li>
-    <li>Kennedy blouse</li>
-    <li>Theory pants</li>
+    {% case handle %}
+      {% when 'ansley-dress-berry' %}  
+        <li>Ansley dress</li>
+        <li><a href="/products/elliott-blazer-black">Elliott blazer</a></li>
+        <li>Skinny belt</li>
+        <li>Studded clutch</li>
+      {% when 'jane-jacket' %}
+        <li>Jane jacket</li>
+        <li><a href="/products/fiona-blouse">Fiona bow blouse</a></li>
+        <li><a href="/products/elliott-pant-black">Elliott cigarette pant</a></li>
+        <li>Bangles</li>
+      {% when 'emma-jacket' %}
+        <li>Emma jacket</li>
+        <li>Patterned button-down</li>
+        <li>Favorite jeans</li>
+      {% when 'chelsea-blazer-herringbone' %}
+        <li>Chelsea blazer</li>
+        <li>Black tee</li>
+        <li>Skinny jeans</li>
+        <li>Fall hat</li>
+      {% when 'kennedy-blouse-peplum' %}
+        <li>Kennedy blouse</li>
+        <li>Skinny jeans</li>
+        <li>Men's oversize watch</li>
+        <li>A bright ride</li>
+      {% when 'chloe-shirt'%}
+        <li>Chloe shirt</li>
+        <li>Skinny jeans</li>
+        <li>Floppy hat</li>
+        <li>Your trusty bike</li>
+      {% when 'fiona-blouse' %}
+        <li>Fiona bow blouse in plum</li>
+        <li><a href="/products/riley-skirt-cobalt">Riley pencil skirt</a></li>
+        <li>Gold bangles</li>
+      {% when 'elliott-pencil-skirt' %}
+        <li>Elliott pencil skirt</li>
+        <li><a href="/products/fiona-blouse">Silk top, like our Fiona bow blouse</a></li>
+        <li>Oversized cardigan</li>
+        <li>Embellished clutch</li>
+      {% when 'elliott-sheath-black' %}
+        <li>Elliott sheath dress</li>
+        <li>Sheer black tights</li>
+        <li>Spike-heel booties</li>
+        <li>A glass of good red</li>
+      {% when 'elliott-blazer-black' %}
+        <li>Elliott blazer</li>
+        <li>White tank</li>
+        <li><a href="/products/elliott-trouser-black">Elliott trouser</a></li>
+        <li>Statement chain necklace</li>
+      {% when 'elliott-trouser-black' %}    
+        <li>Elliott trouser</li>
+        <li>Favorite white tank</li>
+        <li><a href="/products/elliott-blazer-black">Elliott blazer</a></li>
+        <li>Wrap-around watch</li>
+      {% when 'elliott-pant-black' %}    
+        <li>Elliott cigarette pant</li>
+        <li><a href="/products/fiona-blouse">Fiona bow blouse</a></li>
+        <li><a href="/products/elliott-blazer-black">Elliott blazer</a></li>
+        <li>Chunky jewels</li>
+      {% when 'elliott-sheath-skirt' %}    
+        <li>Elliott sheath skirt</li>
+        <li>Thin knit black turtleneck</li>
+        <li>Statement gold necklace</li>
+      {% when 'riley-sheath-navy' %}
+        <li>Riley sheath dress</li>
+        <li>Silk scarf</li>
+        <li>Handy carry-all</li>
+      {% when 'riley-blazer-cobalt' %}    
+        <li>Riley blazer</li>
+        <li><a href="/products/fiona-blouse">Silk blouse, like our Fiona bow blouse</a></li>
+        <li><a href="/products/riley-skirt-cobalt">Riley pencil skirt</a></li>
+        <li>Statement jewels</li>
+      {% when 'riley-pant-cobalt' %}
+        <li>Riley cigarette pant</li>
+        <li><a href="/products/fiona-blouse">Fiona bow blouse</a></li>
+        <li><a href="/products/emma-jacket">Emma jacket</a></li>
+      {% when 'riley-skirt-cobalt' %}
+        <li>Riley pencil skirt</li>
+        <li>Geometric pattern silk top</li>
+        <li>Favorite leather jacket</li>
+    {% endcase %}
   </ul>  <!-- DYNAMIC INFO DEPENDING ON IMAGE IN SLIDE SHOW -->
-  <a href="/collections/{{ look_1 }}" title="Collection">Shop the Look ></a>
-</div>
-<div>
-  <ul>
-    <li>Second list</li>
-    <li>Vintage pendant necklace</li>
-    <li>Kennedy blouse</li>
-    <li>Theory pants</li>
-  </ul>  <!-- DYNAMIC INFO DEPENDING ON IMAGE IN SLIDE SHOW -->
-  <a href="/collections/{{ look_2 }}" title="Collection">Shop the Look ></a>
-</div>
-<div>
-  <ul>
-    <li>Third list</li>
-    <li>Vintage pendant necklace</li>
-    <li>Kennedy blouse</li>
-    <li>Theory pants</li>
-  </ul>  <!-- DYNAMIC INFO DEPENDING ON IMAGE IN SLIDE SHOW -->
-  <a href="/collections/{{ look_3 }}" title="Collection">Shop the Look ></a>
-</div>
-<div>
-  <ul>
-    <li>Fourth list</li>
-    <li>Vintage pendant necklace</li>
-    <li>Kennedy blouse</li>
-    <li>Theory pants</li>
-  </ul>  <!-- DYNAMIC INFO DEPENDING ON IMAGE IN SLIDE SHOW -->
-  <a href="/collections/{{ look_4 }}" title="Collection">Shop the Look ></a>
 </div>

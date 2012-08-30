@@ -55,9 +55,7 @@
   {% if template contains 'product' %}
     <meta property="og:image" content="{{ product.featured_image | product_img_url: 'compact' }}" />
   {% else %}
-    {% if settings.logo_image == "logo.png" %}
-      <meta property="og:image" content="{{ 'logo.png' | asset_url }}" />
-    {% endif %}
+    <meta property="og:image" content="{{ 'logo.png' | asset_url }}" />
   {% endif %}  
 
   {% if template == 'index' %}
@@ -78,12 +76,11 @@
 <body>
   <div class="wrapper">
     <header>
-      <a href="/collections/jackets" class="promo">Shop 50% off all blazers store-wide</a>   
+      <a href="/pages/second-size" class="promo">Get a free Second Size with your first</a>   
       <div class="cart-container">
         <div>
         {% if customer %}
           <a href="/account">Welcome Back {{ customer.first_name | escape }}!</a>
-          {{ '(Logout)' | customer_logout_link }}
         {% else %}
           {{ 'Login' | customer_login_link }}
         {% endif %}
@@ -108,10 +105,12 @@
           {% if collection or product %}
             <ul class="sub-nav">
               <li><a href="/collections/shop">All</a></li>
-              <li><a href="/collections/blouses">Blouses</a></li>
               <li><a href="/collections/blazers">Blazers</a></li>
+              <li><a href="/collections/blouses">Blouses</a></li>
               <li><a href="/collections/dresses">Dresses</a></li>
-              <li><a href="/collections/suiting">Suiting</a></li>
+              <li><a href="/collections/pants">Pants</a></li>
+              <li><a href="/collections/skirts">Skirts</a></li>
+              <li><a href="/collections/collections">Collections</a></li>
               <li><a href="/collections/looks">Looks</a></li>
             </ul>
           {% endif %}
@@ -132,7 +131,7 @@
           <a href="/pages/showroom" title="Quincy Showroom">Visit our NYC showroom ></a>
         </div>
         <div id="mc_embed_signup">
-          <label>Sign up for our newsletters</label>
+          <label>Sign up for our newsletter</label>
           <!-- Begin MailChimp Signup Form -->
             <form action="http://quincyapparel.us2.list-manage.com/subscribe/post?u=f6e489de52006317fd8404e9d&amp;id=1e4f0636a3" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">	
               <input type="text" value="Email" name="EMAIL" class="email" id="mce-EMAIL" onclick="clickclear(this,'Email')" onblur="clickrecall(this,'Email')" />    
@@ -162,7 +161,8 @@
       </section>
       <nav>
         <ul>
-          <li><a href="/pages/second-size" title="Shipping & Returns">Second Size</a></li>
+          <li><a href="/pages/second-size" title="Try A Second Size">Second Size</a></li>
+          <li><a href="/pages/size-charts" title="Size Charts">Size Charts</a></li>
           <li><a href="/pages/shipping-and-returns" title="Shipping & Returns">Shipping &amp; Returns</a></li>
           <li><a href="/pages/about" title="About">About</a></li>
           <li><a href="/pages/contact" title="Contact">Contact</a></li>
@@ -186,6 +186,52 @@
         else{
           buyButton.val("Add to Bag").removeClass("pre-order sold-out default");
           $("div#purchase p").css({ display: "none" });
+          {% case handle %}
+            {% when 'ansley-dress-berry' %}
+              if($("#product-select-option-0").find(":contains(Tall)").is(":selected") && ($("#product-select-option-1").find(":contains(A/B)").is(":selected") || $("#product-select-option-1").find(":contains(C/D)").is(":selected"))){
+                 $("div#purchase p").css({ display: "inline-block" });
+               }
+            {% when 'chelsea-blazer-herringbone' %}
+             if(($("#product-select-option-0").find(":contains(Regular)").is(":selected") || $("#product-select-option-0").find(":contains(Petite)").is(":selected")) && $("#product-select-option-1").find(":contains(A/B)").is(":selected")){
+               $("div#purchase p").css({ display: "inline-block" });
+             }
+            {% when 'chloe-shirt'%}
+            {% when 'fiona-blouse' %}
+              if(($("#product-select-option-0").find(":contains(Regular)").is(":selected") || $("#product-select-option-0").find(":contains(Petite)").is(":selected") || $("#product-select-option-0").find(":contains(Tall)").is(":selected")) && $("#product-select-option-1").find(":contains(C/D)").is(":selected")){
+                 $("div#purchase p").css({ display: "inline-block" });
+               }
+               else if($("#product-select-option-0").find(":contains(Tall)").is(":selected") && $("#product-select-option-1").find(":contains(A/B)").is(":selected")){
+                 $("div#purchase p").css({ display: "inline-block" });
+               }
+            {% when 'elliott-pencil-skirt' %}
+              $("div#purchase p").css({ display: "inline-block" });
+            {% when 'elliott-sheath-black' %}
+              if(($("#product-select-option-0").find(":contains(Regular)").is(":selected") || $("#product-select-option-0").find(":contains(Petite)").is(":selected")) && $("#product-select-option-1").find(":contains(C/D)").is(":selected")){
+                 $("div#purchase p").css({ display: "inline-block" });
+               }
+            {% when 'elliott-blazer-black' %}
+              if(($("#product-select-option-0").find(":contains(Regular)").is(":selected") || $("#product-select-option-0").find(":contains(Petite)").is(":selected")) && ($("#product-select-option-1").find(":contains(A/B)").is(":selected") || $("#product-select-option-1").find(":contains(C/D)").is(":selected"))){
+                 $("div#purchase p").css({ display: "inline-block" });
+               }
+            {% when 'elliott-trouser-black' %}
+              $("div#purchase p").css({ display: "inline-block" });
+            {% when 'elliott-pant-black' %}
+              $("div#purchase p").css({ display: "inline-block" });
+            {% when 'elliott-sheath-skirt' %}
+              $("div#purchase p").css({ display: "inline-block" });
+            {% when 'riley-sheath-navy' %} 
+              if(($("#product-select-option-0").find(":contains(Regular)").is(":selected") || $("#product-select-option-0").find(":contains(Petite)").is(":selected")) && $("#product-select-option-1").find(":contains(C/D)").is(":selected")){
+                 $("div#purchase p").css({ display: "inline-block" });
+               }
+            {% when 'riley-blazer-cobalt' %}
+              if(($("#product-select-option-0").find(":contains(Regular)").is(":selected") || $("#product-select-option-0").find(":contains(Petite)").is(":selected")) && $("#product-select-option-1").find(":contains(A/B)").is(":selected")){
+                 $("div#purchase p").css({ display: "inline-block" });
+               }
+            {% when 'riley-pant-cobalt' %}
+              $("div#purchase p").css({ display: "inline-block" });
+            {% when 'riley-skirt-cobalt' %} 
+             $("div#purchase p").css({ display: "inline-block" });
+          {% endcase %}
         }
       }
       else {

@@ -1,22 +1,29 @@
 <section>
   <div class="index image_one">
-    <img src="{{ 'image_one.png' | asset_url }}" alt="Image One" />
+    <a href="{{ settings.main_page_1_link }}" title="{{ settings.main_page_1_text }}">
+      <img src="{{ 'image_one.jpg' | asset_url }}" alt="Image One" />
+    </a>
     <div>
-    <span> &ldquo;{{ settings.main_page_1_big }} &rdquo;</span>
-    <a href="{{ settings.main_page_1_link }}" title="Chelsea Jacket">{{ settings.main_page_1_text }} ></a>
+    <span> &ldquo;{{ settings.main_page_1_big }}&rdquo;</span>
+    <a class="image_one index" href="{{ settings.main_page_1_link }}" title="{{ settings.main_page_1_text }}">{{ settings.main_page_1_text }} ></a>
     </div>
   </div>
   <div class="index image_two">
-    <img src="{{ 'image_two.png' | asset_url }}" alt="Image One" />
+    <a href="{{ settings.main_page_2_link }}" title="{{ settings.main_page_2_text }}">
+      <img src="{{ 'image_two.jpg' | asset_url }}" alt="Image Two" />
+    </a>
     <div>
-    <span> &ldquo;{{ settings.main_page_2_big }} &rdquo;</span>
-    <a href="{{ settings.main_page_2_link }}" title="Cropped Blazer">{{ settings.main_page_2_text }} ></a>
+      <a class="image_two index" href="{{ settings.main_page_2_link }}" title="{{ settings.main_page_2_text }}">
+        The new Power skirt<br />Introducing the Elliott collection >
+      </a>
     </div>
   </div>
   <div class="index image_three">
-    <img src="{{ 'image_three.png' | asset_url }}" alt="Image One" />
+    <a href="{{ settings.main_page_3_link }}" title="{{ settings.main_page_3_text }}">
+      <img src="{{ 'image_three.jpg' | asset_url }}" alt="Image Three" />
+    </a>
     <div>
-    <a href="{{ settings.main_page_3_link }}" title="Gainsavoort">{{ settings.main_page_3_text }} ></a>
+    <a class="image_three index" href="{{ settings.main_page_3_link }}" title="{{ settings.main_page_3_text }}">{{ settings.main_page_3_text }} ></a>
     </div>
   </div>
 </section>

@@ -10,6 +10,7 @@
     <div id="customer_detail" class="group">
       <h4 class="name">{{ customer.name }}</h4>
       <p class="email note">{{ customer.email }}</p>
+      {{ '(Logout)' | customer_logout_link }}
       <div class="address note">
         {% if customer.default_address != nil %}
           <p>{{ customer.default_address.address1 }}</p>

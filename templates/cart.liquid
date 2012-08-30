@@ -1,43 +1,44 @@
 <section class="cart">
   <h1>Selections</h1>
-  <div class="cart">
+  <div class="cart">    
     {% if  cart.item_count == 0 %}
      <h5>
       Your bag is empty.
      </h5>
-    {% else %}       
-    <form action="/cart" method="post" id="cartform">
-      {% for item in cart.items %}
-        <div class="product">
-          <a href="#" class="product_remove" onclick="remove_item({{ item.variant.id }});"></a>
-          <a href="{{ item.product.url }}" title="{{ item.title | escape }}">
-            <img src="{{ item.product.images.first | product_img_url" alt="{{ item.title | escape }}" width="60" height="60" />
-          </a>
-          <div class="product-details">
-            <span class="title">{{ item.product.title }}</span>
-            <span class="variant">{{ item.variant.title | remove: '/' }}</span>
-            <span class="price">{{ item.price | money | remove: '.00' }}</span>
-          </div>
+    {% else %}
+      <form action="/cart" method="post" id="cartform" class="clearfix">
+        <table> 
+          <tbody>
+            {% for item in cart.items %}
+              <div class="product">
+                <a href="#" class="product_remove" onclick="remove_item({{ item.variant.id }});"></a>
+                <a href="{{ item.product.url }}" title="{{ item.title | escape }}">
+                  <img src="{{ item.product.images.first | product_img_url" alt="{{ item.title | escape }}" width="60" height="60" />
+                </a>
+                <div class="product-details">
+                  <span class="title">{{ item.product.title }}</span>
+                  <span class="variant">{{ item.variant.title | remove: '/' }}</span>
+                  <span class="price">{{ item.price | money | remove: '.00' }}</span>
+                </div>
+              </div>
+            {% endfor %}
+            <div class="order-details">
+              <div>  
+                <span class="subtotal">Subtotal</span>
+                <span class="price">{{ cart.total_price | money | remove: '.00' }}</span>
+              </div> 
+            </div>
+          </tbody>
+        </table>
+        <div>
+          <input class="btn-reversed btn" type="submit" id="update-cart" name="checkout" value="Checkout" />                   
         </div>
-    {% endfor %}
-        <div class="order-details">
-          <div>  
-            <span class="subtotal">Subtotal</span>
-            <span class="price">{{ cart.total_price | money | remove: '.00' }}</span>
-          </div>
-          <input type="submit" value="Checkout" class="checkout" />  
-        </div>
-    </form>
-
-  </div>
-
+      </form>
+    </div>
     <div class="cart_note">
       <ul>
-        <li>Free shipping and free returns</li>
-        <li>consectetur adipisicing elit</li>
-        <li>usmod tempor incididunt ut labore</li>
-        <li>uis aute irure dolor in </li>
+        <li>Don't forget, all orders are free shipping and free returns</li>
       </ul>
     </div>
-  {% endif %}  
+    {% endif %}
 </section>

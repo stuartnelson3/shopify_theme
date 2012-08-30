@@ -24,6 +24,7 @@ $(document).ready(function(){
           ul.append('<li>'+ div.eq(i).html()+'</li>');
       }
   }
+
   // CREATE CORRECT AMOUNT OF INDICES FOR WEAR IT SECTION
   // function slideshowIndexGen() {
   //     var i,
@@ -76,15 +77,15 @@ $(document).ready(function(){
                     target = $("form.variants div div");
                   }
                   else if ( div_index.hasClass("fq")) {
-                    div_index.next().val($(this).html());
+                    div_index.next().val($(this).text());
                   }
                   else{
                     index = 2;
                     target = $("div.contact_form ul>li");
                   }
-                  obj.find('span.info').empty().append($(this).html());
+                  obj.find('span.info').empty().append($(this).text());
                   obj.find('.selector').fadeOut(200);
-                  target.eq(index).find("select").val($(this).html()).change(); //.parent().prev().val($(this).html());
+                  target.eq(index).find("select").val($(this).text()).change(); //.parent().prev().val($(this).html());
 
               });
             
@@ -93,11 +94,15 @@ $(document).ready(function(){
   })(jQuery);
   $(function() {
       $('.select-box').styleddropdown();
+      $('.pselect-box').styleddropdown();
   });
   // LOOKS
   // PAGE
   $("img.hero").click(function(){
-    $(this).next("ul").slideToggle(700);
+    $(this).parent().next("ul").slideToggle(700);
+  });
+  $("div.description input").click(function(){
+    $(this).parent().parent().next("ul").slideToggle(700);
   });
   // SWATCH
   // REVEAL

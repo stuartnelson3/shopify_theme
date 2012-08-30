@@ -22,7 +22,9 @@ $("section.main-nav ul li:eq(2) a").addClass("active");
 		{% when "dresses" %}
 		$('a[href*="dresses"]').addClass("active");	
 		{% when "skirts" %}
-		$('a[href*="skirts"]').addClass("active");		
+		$('a[href*="skirts"]').addClass("active");	
+		{% when "pants" %}
+		$('a[href*="pants"]').addClass("active");	
 		{% when "suiting" %}
 		$('a[href*="suiting"]').addClass("active");
 		{% when "looks" %}
@@ -37,8 +39,10 @@ $("section.main-nav ul li:eq(2) a").addClass("active");
 		$('a[href*="dress"]').addClass("active");		
 		{% when "Blouse" %}
 		$('a[href*="blouse"]').addClass("active");
-		{% when "Pants" or "Skirts" %}
-		$('a[href*="suiting"]').addClass("active");
+		{% when "Pants" %}
+		$('a[href*="pants"]').addClass("active");
+		{% when "Skirts" %}
+		$('a[href*="skirts"]').addClass("active");
 	//END PRODUCT PAGES
 	{% endcase %}
 {% endif %}
