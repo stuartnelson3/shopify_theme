@@ -13,7 +13,7 @@
         </div>
         <a class="swatch" href="#" title="Swatch Detail">Swatch Detail</a>
         <form action="/cart/add" method="post" class="variants" id="product-actions">
-          <div class="options"> 
+          <div class="options">
             <select id="product-select" name="id">
               {% for variant in product.variants %}
               <option value="{{ variant.id }}">
@@ -46,11 +46,11 @@
           </div>            
             
           <div id="purchase">                               
-            <input type="button" onclick="reloadSmallCart('product-actions');" name="add" id="add-to-cart" value="Add to Bag" />
+            <input type="button" onclick="purchaseItem('product-actions');" name="add" id="add-to-cart" value="Add to Bag" />
             {% include 'pre-order-delay' %}
           </div>
         </form>
-        <a class="fit-quiz" href="/pages/fit-quiz" title="Fit Quiz">Find your perfect fit ></a>
+        <a id="take-fit-quiz" class="fit-quiz" href="#" title="Fit Quiz">Find your perfect fit ></a>
       </div>
     </div>
   </div>  <!-- BUY MENU -->

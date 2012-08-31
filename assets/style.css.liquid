@@ -15,7 +15,7 @@ table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section, summary,
 time, mark, audio, video {
-	margin: 0;
+    margin: 0;
 	padding: 0;
 	border: 0;
 	outline: 0;
@@ -86,7 +86,7 @@ font-style: italic;
 font-weight: 500;*/
 
 
-body, nav a, section.page h2.level3, section.love_it li a, section.page > div a, div.terms p a, .buy-menu span.info, span.info, section.collection a, section.collection_looks ul div a, header div a, .index a, div.buy-menu div.swatch a, div.lower-container a, section.wear_it a, section.wear_with a {
+body, nav a, div.swatch-popup h2, section.page h2.level3, section.love_it li a, section.page > div a, div.terms p a, .buy-menu span.info, span.info, section.collection a, section.collection_looks ul div a, header div a, .index a, div.buy-menu div.swatch a, div.lower-container a, section.wear_it a, section.wear_with a {
   color: #252525;
   /*font-family: "museo-sans",sans-serif;
     font-style: normal;
@@ -107,6 +107,9 @@ nav a, h3, section.wear_it a, section.continue_shopping span {
   font-size: 12px;
   text-transform: uppercase;
 }
+header{
+    position:relative;
+    }
 header, a.promo, header div, span, footer section div, footer nav ul li, div.index, section.promo div, div.buy-menu ul, div.buy-menu p, div.buy-menu form label, section.love_it div, section.love_it img, section.wear_it div, ul.indices li, section.wear_it nav ul li {
   display: inline-block;
 }
@@ -142,7 +145,7 @@ input[type="button"]:active, input[type="submit"]:active, input[type="image"]:ac
   background-color: white;
   }
 .ie6 .wrapper{ height: 100%; }  
-a, h1, h4, h2, div.buy-menu span, .index span, section.collection span.money, section.collection_looks span.money {
+a, h1, h2, h4, div.buy-menu span, .index span, section.collection span.money, section.collection_looks span.money {
   color: #252525;
   text-decoration: none;
   /*font-family: "kepler-std",sans-serif;
@@ -607,11 +610,13 @@ div.image_one span {
   left: 19px;
   width: 220px;
   text-indent: -12px;
+  color: white;
 }
 div.image_one a {
   bottom: 25px;
   width: 200px;
   left: 16px;
+  color: white;
 }
 div.image_two img{
   float: left;
@@ -628,9 +633,9 @@ div.image_two a {
   width: 200px;
 }
 div.image_three a {
-  bottom: 176px;
-  width: 180px;
-  left: 20px;
+  bottom: 200px;
+  width: 186px;
+  left: 220px;
 }
 section.promo {
   float: left;
@@ -768,6 +773,27 @@ section.collection_looks div.left {
 }
 section.collection_looks div.right {
   right: 20px;
+}
+section.collection_looks div.top {
+  top: 40px;
+}
+section.collection_looks div.bottom {
+  bottom: 40px;
+}
+section.collection_looks ul li div {
+  display: inline-block;
+  width: 690px;
+  bottom: 45px;
+}
+section.collection_looks ul li div div {
+  display: inline-block;
+  float: left;
+  width: 150px;
+  margin-left: 60px;
+}
+div#purchase input {
+  position: relative;
+  bottom: 8px;
 }
 section.collection_looks div h4 {
   font-size: 42px;
@@ -937,6 +963,12 @@ div.buy-menu div.lower-container a.swatch, div.buy-menu div.lower-container a.si
 }
 div.buy-menu div.lower-container a.size-chart {
   margin: 0;
+  position: relative;
+  bottom: 4px;
+}
+div#purchase p {
+  position: relative;
+  bottom: 8px;
 }
 div.buy-menu div.lower-container a.fit-quiz {
   font-size: 12px;
@@ -987,14 +1019,14 @@ div.buy-menu span.info, span.info, ul.selector li {
   cursor:pointer;
 }
 .pselect-box a img, .select-box a img {
-	float: right;
+    float: right;
 	margin: 4px 4px 0 0;
 	width: 7px;
 	opacity: .6;
 }
 div.buy-menu ul.selector, ul.selector {
   display: none;
-	list-style-type: none;
+    list-style-type: none;
 	position:absolute;
 	top: 19px;
 	left: 0;
@@ -1320,7 +1352,7 @@ ul.indices li, section.wear_it nav ul li {
   overflow: hidden;
   position: relative;
   top: -1px;
-  background: url("fq_bullets.png") no-repeat scroll 0px -11px transparent;
+  background: url("{{'fq_bullets.png'|asset_url}}") no-repeat scroll 0px -11px transparent;
   /*background-color: #d7d7d7;
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#d7d7d7), to(#ebebeb));
     background: -webkit-linear-gradient(top, #d7d7d7, #ebebeb);
@@ -1351,7 +1383,7 @@ div#slideshow nav ul li.indexActive, div#slideshow nav ul li:hover, section.wear
     background: -moz-linear-gradient(top, #7a7a7a, #bfbfbf);
     background: -ms-linear-gradient(top, #7a7a7a, #bfbfbf);
     background: -o-linear-gradient(top, #7a7a7a, #bfbfbf);*/
-    background: url("fq_bullets.png") no-repeat scroll 0px 0px transparent;
+    background: url("{{'fq_bullets.png'||asset_url}}") no-repeat scroll 0px 0px transparent;
 }
 div.wear_details div {
   position: absolute;
@@ -1495,6 +1527,7 @@ section.size-chart {
   background: white;
   position: fixed;
   top: 0;
+  padding-top: 60px;
   z-index: 1000;
   width: 980px;
   height: 100%;
@@ -1513,6 +1546,7 @@ div.tops {
 }
 div.size-page {
   margin: 80px 0 0 250px;
+  overflow: hidden;
 }
 div.bottoms {
   padding-bottom: 140px;

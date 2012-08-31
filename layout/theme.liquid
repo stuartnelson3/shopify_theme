@@ -246,7 +246,7 @@
         // variant doesn't exist
         buyButton.addClass('disabled').attr('disabled', 'disabled'); // set add-to-cart button to unavailable class and disable button
       }
-      {% unless product.type == "Pants" or "Skirts" %}
+      {% unless product.type == "Pants" or product.type == "Skirts" %}
       $("#product-select-option-1").change(function() {
               $("div.fits-like p").hide();
               if ($(":contains(32)", this).is(":selected")) {

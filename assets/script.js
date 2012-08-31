@@ -1,3 +1,18 @@
+function rebind(){
+  $("div.cart-container a.inline-cart").mouseenter(function(){
+	    $("section.inline-cart").slideDown();
+	  });
+  $("div.cart-container a.inline-cart").click(function(){
+	  $("section.inline-cart").slideToggle();
+	  return false;
+	});
+  $("section.inline-cart").mouseenter(function(){
+	    $(this).show();
+	  });
+	$("section.inline-cart").mouseleave(function(){
+	  $(this).slideUp();
+  });
+}
 $(document).ready(function(){
 	$('ul.slides li:first-child').addClass("slideActive");
 	$("ul.indices li:first-child").addClass("indexActive");
@@ -71,10 +86,12 @@ $(document).ready(function(){
                   if ( div_index.hasClass("top")) {
                     index = 0;
                     target = $("form.variants div div");
+                    target.eq(index).find("select").val($(this).text()).change();
                   }
                   else if ( div_index.hasClass("bottom")) {
                     index = 1;
                     target = $("form.variants div div");
+                    target.eq(index).find("select").val($(this).text()).change();
                   }
                   else if ( div_index.hasClass("fq")) {
                     div_index.next().val($(this).text());
@@ -82,10 +99,11 @@ $(document).ready(function(){
                   else{
                     index = 2;
                     target = $("div.contact_form ul>li");
+                    target.eq(index).find("select").val($(this).text()).change();
                   }
                   obj.find('span.info').empty().append($(this).text());
                   obj.find('.selector').fadeOut(200);
-                  target.eq(index).find("select").val($(this).text()).change(); //.parent().prev().val($(this).html());
+                  //target.eq(index).find("select").val($(this).text()).change(); //.parent().prev().val($(this).html());
 
               });
             
@@ -99,10 +117,20 @@ $(document).ready(function(){
   // LOOKS
   // PAGE
   $("img.hero").click(function(){
-    $(this).parent().next("ul").slideToggle(700);
+    var ul = $(this).parent().next("ul");
+    $("section.collection_looks ul").slideUp(700);
+    if (ul.is(":visible")) {}
+    else {
+      ul.slideDown(700);
+    }
   });
   $("div.description input").click(function(){
-    $(this).parent().parent().next("ul").slideToggle(700);
+    var ul = $(this).parent().parent().next("ul");
+    $("section.collection_looks ul").slideUp(700);
+    if (ul.is(":visible")) {}
+    else {
+      ul.slideDown(700);
+    }
   });
   // SWATCH
   // REVEAL
@@ -730,28 +758,40 @@ $(document).ready(function(){
             jQuery.ajax(params);
         }
     });
+    
+    
+    // CART AJAX
+    
+    function reloadSmallCart(form_id) {
+        var params = {
+          type: 'POST',
+          url: '/cart/add.js',
+          data: "quantity=1&id="+form_id,
+          dataType: 'json',
+          success: function() {
+            $("div.cart-container").load("/ div.cart-container div", function(){
+              rebind();
+            });
+            $("section.inline-cart").load("/ section.inline-cart form", function(){
+          	  $(this).slideDown().delay(2000).slideUp();
+          	});
+          },
+          error: function(XMLHttpRequest, textStatus) {
+            //Shopify.onError(XMLHttpRequest, textStatus);
+          }
+        };
+        jQuery.ajax(params);	
+    }
+    $("section.collection_looks ul input").click(function(){
+      var v = $(this).parent().parent().find('select').val();
+      reloadSmallCart(v);
+    });
 });
-// CART AJAX
-function rebind(){
-  $("div.cart-container a.inline-cart").mouseenter(function(){
-	    $("section.inline-cart").slideDown();
-	  });
-  $("div.cart-container a.inline-cart").click(function(){
-	  $("section.inline-cart").slideToggle();
-	  return false;
-	});
-  $("section.inline-cart").mouseenter(function(){
-	    $(this).show();
-	  });
-	$("section.inline-cart").mouseleave(function(){
-	  $(this).slideUp();
-  });
-}
-function reloadSmallCart(form_id) {
+function purchaseItem(form_id) {
     var params = {
       type: 'POST',
       url: '/cart/add.js',
-      data: jQuery('#' + form_id).serialize(),
+      data: $("#"+form_id).serialize(),
       dataType: 'json',
       success: function() {
         $("div.cart-container").load("/ div.cart-container div", function(){
