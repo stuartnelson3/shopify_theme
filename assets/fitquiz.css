@@ -9,7 +9,7 @@
     border-bottom: 1px solid #EBEBEB;
     margin-bottom: 20px;
     padding: 8px 15px 0px;
-	color:#031d48;
+    color:#031d48;
     width: 950px;
 }
 #fqt span{
@@ -105,6 +105,10 @@ div.select-box{
   width: 400px;
   height: 250px;
 }
+#fq-1 select {
+  visibility: hidden;
+  position: absolute;
+}
 #fq-1 #top-dresses {
   width: 290px;
 }
@@ -145,20 +149,152 @@ div.select-box{
 }
 .fq-check{
 	border: 1px solid #CCCCCC;
-    height: 10px;
-    margin-left: 3px;
-    margin-right: 6px;
-    width: 10px;
+  height: 10px;
+  margin-left: 3px;
+  margin-right: 6px;
+  width: 10px;
+  position: relative;
+  top: 2px;
 }
 #fq-col-13{
 	width:300px;
 }
-#fq-col-13 label,#fq-3 label, #fq-4 label{
+#fq-2 label,#fq-3 label, #fq-4 label{
 	font-size: 8pt;
-    letter-spacing: 0;
+  letter-spacing: 0;
+}
+#fq-2 {
+  height: 411px;
+}
+#fq-2 p {
+  margin: 34px 0 0 211px;
+}
+div.body-type-container { 
+  margin-left: 217px;
+  height: 321px;
+  width: 700px;
+}
+div.body-type {
+  display: inline-block;
+  text-align: center;
+  height: 200px;
+  width: 163px;
+  margin-top: 27px;
+}
+div.body-type img.body {
+  height: 212px;
+}
+img.slim {
+  width: 85px;
+}
+img.round {
+  width: 87px;
+  margin-left: 6px;
+}
+img.wide {
+  width: 153px;
+}
+div.label {
+  margin: 22px 0 0 -9px;
+  overflow: hidden;
+}
+div.label img {
+  float: left;
+  top: 0;
+}
+div.label img.last {
+  margin-left: 13px;
+}
+#fq-2 div.label p {
+  margin: 0 24px 0 0;
+  display: inline-block;
+  font-size: 11px;
+  width: 141px;
+  line-height: 1.3em;
+  float: left;
+}
+#fq-3 {
+  
+  height: 405px;
+  
+}
+#fq-3 h3, #fq-4 h3 {
+  margin: 43px 0 20px 113px;
+}
+#select-dart, #fq-3 p.description {
+  width: 210px;
+  font-size: 12px;
+}
+#fq-3 p.description {
+  margin-bottom: 19px;
+}
+#select-torso {
+  margin-top: 46px;
+}
+#select-dart {
+  margin-left: 113px;
+}
+#fq-3 p {
+  display: inline-block;
+  float: left;
+  width: 180px;
+  font-size: 11px;
+  line-height: 1.3em;
+}
+#fq-3 #select-dart label img {
+  float: left;
+  margin-left: 0;
+  top: 1px;
+  right: 1px;
+}
+#fq-3 .sleeve-torso {
+  width: 100px;
+  display: inline-block;
+  margin-left: 54px;
+}
+#fq-3 img.profile, #fq-3 img.front {
+  position: relative;
+}
+#fq-3 img.profile {
+  bottom: 45px;
+  left: 46px;
+}
+#fq-3 img.front {
+  bottom: 74px;
+  left: 65px;
+}
+#fq-3 div.button {
+  margin-top: -24px;
+}
+#fq-4 {
+  height: 461px;
+}
+#fq-4 h3 {
+  margin-bottom: 12px;
+}
+#select-pants1 {
+  height: 140px;
+  margin: 14px 30px 22px 24px;
+}
+#select-pants3 {
+  margin: 31px 30px 4px 27px;
+}
+#select-pants2 {
+  margin: 23px 127px 4px 32px;
+}
+#select-pants4 {
+  margin: 22px 30px 84px 26px;
+}
+#fq-4 .pants-page {
+  width: 780px;
+  margin-left: 116px;
+}
+#fq-4 .pants-page-2 {
+  width: 780px;
+  margin-left: 123px;
 }
 #fq-5 h2{
-    font-size: 24pt;
+  font-size: 24pt;
 	color: #031d48;
   margin: 0 0 40px 40px;
 }
@@ -188,13 +324,13 @@ h1#top-size, h1#bottom-size {
     font-weight: 300;
 }
 #fit-quiz-top{
-	/*display:none;*/
+	display:none;
 	font-size: 9pt;
 	line-height: 1.5em;
 	width:980px;
 }
 .fq-basic{
-	/*display:none;*/
+	display:none;
 	margin-top: 30px;
 	padding: 0px 20px;
 	height: 500px;

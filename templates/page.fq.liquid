@@ -18,13 +18,12 @@
         <div class="clearfix">
           <p>What is your height?</p>
           <div class="select-box fq fleft" id="select-feet"> <a class="field"> <span class="info">Feet</span> <img src="{{'down-triangle.gif' | asset_url }}"> </a>
-            <ul class="selector" style="display: none;">
-              <li>Feet</li>
+            <ul class="selector">
               <li>4</li>
               <li>5</li>
               <li>6</li>
             </ul>
-            <select class="page1" id="feet" name="feet" style="visibility:hidden;position:absolute;">
+            <select class="page1" id="feet" name="feet">
               <option selected="selected" value="select">Feet</option>
               <option value="4">4</option>
               <option value="5">5</option>
@@ -32,8 +31,7 @@
             </select>
           </div>
           <div class="select-box fq fleft" id="select-inches"> <a class="field"> <span class="info">Inches</span> <img src="{{'down-triangle.gif' | asset_url }}"> </a>
-            <ul class="selector" style="display: none;">
-              <li>Inches</li>
+            <ul class="selector">
               <li>0</li>
               <li>1</li>
               <li>2</li>
@@ -47,7 +45,7 @@
               <li>10</li>
               <li>11</li>
             </ul>
-            <select class="page1" id="inches" name="inches" style="visibility:hidden;position:absolute;">
+            <select class="page1" id="inches" name="inches">
               <option selected="selected" value="select">Inches</option>
               <option value="0">0</option>
               <option value="1">1</option>
@@ -70,8 +68,7 @@
         <div class="clearfix">
           <p>What is your weight?</p>
           <div id="select-weight" class="select-box fq fleft"> <a class="field"> <span class="info">Pounds</span> <img src="{{'down-triangle.gif' | asset_url }}"></a>
-            <ul class="selector" style="display: none;">
-              <li>Pounds</li>
+            <ul class="selector">
               <li>&lt; 100</li>
               <li>101-120</li>
               <li>121-140</li>
@@ -80,7 +77,7 @@
               <li>181-200</li>
               <li>&gt; 200</li>
             </ul>
-            <select class="page1 fleft" id="weight" name="weight" style="visibility:hidden;position:absolute;">
+            <select class="page1 fleft" id="weight" name="weight">
               <option selected="selected" value="select">Pounds</option>
               <option value="&lt; 100">&lt; 100</option>
               <option value="101-120">101-120</option>
@@ -99,8 +96,7 @@
           <p>What is the size of your best fitting,<br/>
             absolute favorite bra?</p>
           <div id="select-bust_size" class="select-box fq fleft"> <a class="field"> <span class="info">Bust</span> <img src="{{'down-triangle.gif' | asset_url }}"> </a>
-            <ul class="selector" style="display: none;">
-              <li>Bust</li>
+            <ul class="selector">
               <li>30</li>
               <li>32</li>
               <li>34</li>
@@ -111,7 +107,7 @@
               <li>44</li>
               <li>46+</li>
             </ul>
-            <select class="page1 fleft" id="bust_size" name="bust_size" style="visibility:hidden; position:absolute;">
+            <select class="page1 fleft" id="bust_size" name="bust_size">
               <option selected="selected" value="select">Bust</option>
               <option value="30">30</option>
               <option value="32">32</option>
@@ -125,8 +121,7 @@
             </select>
           </div>
           <div id="select-cup_size" class="select-box fq fleft"> <a class="field"> <span class="info">Cup</span> <img src="{{'down-triangle.gif' | asset_url }}"> </a>
-            <ul class="selector" style="display: none;">
-              <li>Cup</li>
+            <ul class="selector">
               <li>AA</li>
               <li>A</li>
               <li>B</li>
@@ -137,7 +132,7 @@
               <li>F</li>
               <li>G+</li>
             </ul>
-            <select class="page1 fleft" id="cup_size" name="cup_size" style="visibility:hidden;position:absolute;">
+            <select class="page1 fleft" id="cup_size" name="cup_size">
               <option selected="selected" value="select">Select</option>
               <option value="AA">AA</option>
               <option value="A">A</option>
@@ -161,8 +156,7 @@
           Taylor, or Banana Republic; what size fits <br/>
           you well in the shoulders and arms?</p>
         <div id="select-dress_size" class="select-box fq"> <a class="field"> <span class="info">Select Answer</span> <img src="{{'down-triangle.gif' | asset_url }}"> </a>
-          <ul class="selector" style="display: none;">
-            <li>Select Answer</li>
+          <ul class="selector">
             <li>00</li>
             <li>0</li>
             <li>2</li>
@@ -178,7 +172,7 @@
             <li>22</li>
             <li>24+</li>
           </ul>
-          <select class="page1" id="dress_size" name="dress_size" style="visibility:hidden;position:absolute;">
+          <select class="page1" id="dress_size" name="dress_size">
             <option selected="selected" value="select">Select</option>
             <option value="00">00</option>
             <option value="0">0</option>
@@ -198,8 +192,7 @@
         </div>
         <p><font style="color:#d3018d;">Pants and Skirts:</font> In brands like J. Crew, Ann Taylor, or Banana Republic; what size fits you best in the hips and thighs?</p>
         <div id="select-pant_size"class="select-box fq"> <a class="field"> <span class="info">Select Answer</span> <img src="{{'down-triangle.gif' | asset_url }}"> </a>
-          <ul class="selector" style="display: none;">
-            <li>Select Answer</li>
+          <ul class="selector">
             <li>00</li>
             <li>0</li>
             <li>2</li>
@@ -216,7 +209,7 @@
             <li>24+</li>
           </ul>
         </div>
-        <select class="page1 fleft" id="pant_size" name="pant_size" style="visibility:hidden;position:absolute;">
+        <select class="page1 fleft" id="pant_size" name="pant_size">
           <option selected="selected" value="select">Select Answer</option>
           <option value="00">00</option>
           <option value="0">0</option>
@@ -242,20 +235,28 @@
   </div>
   <!-- fq-1 -->
   <div id="fq-2" class="fq-basic">
-    <div id="fq-col-13" class="fleft">
+    <div>
       <p>Which body shape best describes you?</p>
-      <p>
-        <input type="hidden" name="pants0" value=""/>
-        <label> <img src="{{'blank.gif' | asset_url }}" class="fq-check" title="1"/>Straight from waist to hip.</label>
-        <br>
-        <label> <img src="{{'blank.gif' | asset_url }}" class="fq-check" title="2" />Defined waist with slightly rounder hips.</label>
-        <br>
-        <label> <img src="{{'blank.gif' | asset_url }}" class="fq-check" title="3" />Much smaller waist than hip and thighs.</label>
-        <br>
-      </p>
+      <input type="hidden" name="pants0" value=""/>
     </div>
-    <div id="fq-col-23" class="fleft">
-      <div><img src="{{ 'slim.jpg' | asset_url }}" style=" margin-left: 4px;margin-right: 73px;" /><img src="{{ 'round.jpg' | asset_url }}" style="margin-right: 18px;" /><img src="{{ 'wide.jpg' | asset_url }}"/></div>
+    <div class="fleft body-type-container">
+      <div class="body-type">
+        <img class="body slim" src="{{ 'slim.jpg' | asset_url }}" />
+      </div>
+      <div class="body-type">
+        <img class="body round" src="{{ 'round.jpg' | asset_url }}" />
+      </div>
+      <div class="body-type">
+        <img class="body wide" src="{{ 'wide.jpg' | asset_url }}"/>
+      </div>
+      <div class="label">
+        <label> <img src="{{'blank.gif' | asset_url }}" class="fq-check" title="1"/></label>
+        <p>Straight from waist to hip.</p>
+        <label> <img src="{{'blank.gif' | asset_url }}" class="fq-check" title="2" /></label>
+        <p>Defined waist with slightly rounder hips.</p>
+        <label> <img src="{{'blank.gif' | asset_url }}" class="fq-check last" title="3" /></label>
+        <p>Much smaller waist than hip and thighs.</p>
+      </div>
     </div>
     <div class="button">
       <button class="fq-goback">&lt; Back</button>
@@ -265,47 +266,44 @@
   <!-- fq-2 -->
   <div id="fq-3" class="fq-basic">
     <h3> How do your tops usually fit?</h3>
-    <div class="fleft">
-      <div id="select-dart" class="fleft">
-        <input type="hidden" name="dart" value=""/>
-        <p style="margin-bottom: 19px;">Bust, dart, &amp; button placement</p>
-        <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="1"/>Just right</label>
-        <br/>
-        <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="2" />Difficult to button because I have a larger bust</label>
-        <br/>
-        <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="3" />When buttoned, front of garment rides up and chest gapes open</label>
-        <br/>
-        <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="4" />Button and bust/dart placement are too high for body proportion</label>
-        <br/>
-        <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="5" />Extra room in bust, but jacket lies flat and doesn't gape</label>
-      </div>
-      <div class="fleft"> <img src="{{ 'fq_img-3_1a.jpg' | asset_url }}" style="margin-left: 20px; position: relative; top: -4px;"/> </div>
+    <div id="select-dart" class="fleft">
+      <input type="hidden" name="dart" value=""/>
+      <p class="description">Bust, dart, &amp; button placement</p>
+      <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="1"/></label>
+      <p>Just right</p>
+      <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="2" /></label>
+      <p>Difficult to button because I have a larger bust</p>
+      <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="3" /></label>
+      <p>When buttoned, front of garment rides up and chest gapes open</p>
+      <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="4" /></label>
+      <p>Button and bust/dart placement are too high for body proportion</p>
+      <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="5" /></label>
+      <p>Extra room in bust, but jacket lies flat and doesn't gape</p>
     </div>
-    <div class="fleft" style="padding-left: 20px; width: 250px;">
-      <div class="fleft">
-        <div id="select-sleeve" style="margin-bottom: 45px;">
-          <input type="hidden" name="sleeve" value=""/>
-          <p style="margin-bottom:16px;">Sleeve Length</p>
-          <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="1" />Just right</label>
-          <br/>
-          <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="2" />Too short</label>
-          <br/>
-          <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="3" />Too long</label>
-          <br/>
-        </div>
-        <div id="select-torso">
-          <input type="hidden" name="torso" value=""/>
-          <p>Torso Length</p>
-          <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="1" />Just right</label>
-          <br/>
-          <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="2" />Too short</label>
-          <br/>
-          <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="3" />Too long</label>
-          <br/>
-        </div>
+    <div class="fleft sleeve-torso">
+      <div id="select-sleeve">
+        <input type="hidden" name="sleeve" value=""/>
+        <p class="description">Sleeve Length</p>
+        <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="1" />Just right</label>
+        <br/>
+        <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="2" />Too short</label>
+        <br/>
+        <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="3" />Too long</label>
+        <br/>
       </div>
-      <div class="fleft"> <img src="{{ 'fq_img-3_2.jpg' | asset_url }}" style="position: relative; top: -4px; margin-left: 40px;"/> </div>
+      <div id="select-torso">
+        <input type="hidden" name="torso" value=""/>
+        <p class="description">Torso Length</p>
+        <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="1" />Just right</label>
+        <br/>
+        <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="2" />Too short</label>
+        <br/>
+        <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="3" />Too long</label>
+        <br/>
+      </div>
     </div>
+    <img class="profile" src="{{ 'fq_img-3_2.jpg' | asset_url }}"/>
+    <img class="front" src="{{ 'fq_img-3_1a.jpg' | asset_url }}"/>
     <div class="button">
       <button class="fq-goback">&lt; Back</button>
       <button class="fq-next">Next &gt;</button>      
@@ -313,57 +311,55 @@
   </div>
   <!-- fq-3 -->
   <div id="fq-4" class="fq-basic">
-    <h3 style="margin-bottom: 1em;"> How do your bottoms usually fit?</h3>
-    <div class="fleft">
-      <div class="fleft" style="margin-left: 3px;margin-right: 20px;"><img src="{{ 'fq_img-4_1.jpg' | asset_url }}"/></div>
-      <div class="fleft" style="margin-left: 4px; width: 260px;position:relative;">
-        <div id="select-pants1">
-          <p style="margin-bottom:12px;">Fit well through the hips and<br/>
-            thighs, but too tight in the waist</p>
-          <input type="hidden" name="pants1" value="">
-          <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="1"/>Never</label>
-          <br/>
-          <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="2" />Sometimes</label>
-          <br/>
-          <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="3" />Always</label>
-        </div>
-        <div id="select-pants2">
-          <p style="margin-bottom: 12px; margin-top: 42px;;">Gap at waistband</p>
-          <input type="hidden" name="pants2" value="">
-          <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="1" />Never</label>
-          <br/>
-          <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="2" />Sometimes</label>
-          <br/>
-          <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="3" />Always</label>
-          <img src="{{ 'fq_img-4_2.jpg' | asset_url }}" style="position: absolute; left: 116px; top: 112px;" /> </div>
+    <h3> How do your bottoms usually fit?</h3>
+    <div class="fleft pants-page">
+      <img class="fleft" src="{{ 'fq_img-4_1.jpg' | asset_url }}"/>
+      <div id="select-pants1" class="pants fleft">
+        <p>Fit well through the hips and<br/>
+          thighs, but too tight in the waist</p>
+        <input type="hidden" name="pants1" value="">
+        <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="1"/>Never</label>
+        <br/>
+        <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="2" />Sometimes</label>
+        <br/>
+        <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="3" />Always</label>
+      </div>
+      <img class="fleft" src="{{ 'fq_img-4_3.jpg' | asset_url }}"/>
+      <div id="select-pants3" class="pants fleft">        
+        <p>Not enough coverage in the back</p>
+        <input type="hidden" name="pants3" value="">
+        <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="1" />Never</label>
+        <br/>
+        <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="2" />Sometimes</label>
+        <br/>
+        <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="3" />Always</label>
       </div>
     </div>
-    <div class="fleft">
-      <div class="fleft"><img src="{{ 'fq_img-4_3.jpg' | asset_url }}" style="position: relative; left: 7px; top: -5px;"/></div>
-      <div class="fleft" style="margin-left: 10px; width: 325px; position:relative;">
-        <div id="select-pants3" style="margin-bottom: 40px;">
-          <div class="button">
-            <button class="fq-goback">&lt; Back</button>
-            <button class="fq-next">Next &gt;</button>      
-          </div>
-          <p style="margin=bottom:12px;">Not enough coverage in the back</p>
-          <input type="hidden" name="pants3" value="">
-          <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="1" />Never</label>
-          <br/>
-          <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="2" />Sometimes</label>
-          <br/>
-          <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="3" />Always</label>
-        </div>
-        <div id="select-pants4">
-          <p style="">Too tight in the thighs</p>
-          <input type="hidden" name="pants4" value="">
-          <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="1" />Never</label>
-          <br/>
-          <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="2" />Sometimes</label>
-          <br/>
-          <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="3" />Always</label>
-          <img src="{{ 'fq_img-4_4.jpg' | asset_url }}" style="position: absolute; left: 137px; top: 110px;" /> </div>
+    <div class="fleft pants-page-2">    
+      <img class="fleft" src="{{ 'fq_img-4_2.jpg' | asset_url }}"/>
+      <div id="select-pants2" class="pants fleft">      
+        <p>Gap at waistband</p>
+        <input type="hidden" name="pants2" value="">
+        <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="1" />Never</label>
+        <br/>
+        <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="2" />Sometimes</label>
+        <br/>
+        <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="3" />Always</label>
       </div>
+      <img class="fleft" src="{{ 'fq_img-4_4.jpg' | asset_url }}"/>
+      <div id="select-pants4" class="pants fleft">        
+        <p>Too tight in the thighs</p>
+        <input type="hidden" name="pants4" value="">
+        <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="1" />Never</label>
+        <br/>
+        <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="2" />Sometimes</label>
+        <br/>
+        <label><img src="{{'blank.gif' | asset_url }}" class="fq-check" title="3" />Always</label>
+      </div>
+    </div>
+    <div class="button">
+      <button class="fq-goback">&lt; Back</button>
+      <button class="fq-next">Next &gt;</button>      
     </div>
   </div>
   <!-- fq-4 -->
@@ -378,7 +374,7 @@
       <h1 id="top-size">
         <span class="hagrid">Unavailable</span>
       </h1>
-      <p style="width: 204px; font-size: 10px; line-height: 15px; margin-top: 12px;">
+      <p style="width: 221px; font-size: 10px; line-height: 15px; margin-top: 12px;">
         <span class="hagrid">We currently do not carry your size, but plan to add more sizes in the future. Send us an email at info@quincyapparel.com with your size information if you'd like us to contact you as soon as your size is available.</span>
         <span class="dress-warning">For better fit through the hips, we recommend ordering one bust size up in dresses.</span>
         <span class="details">Petite, regular, and tall sizes take into account your proportions. Sizing by bust measurement creates a more fitted and flattering silhouette.</span>
@@ -400,17 +396,15 @@
   </div>
   <!-- clearfix -->
   <div id="customer-save">
-  <div class="fleft" style="margin-right:25px;">
+  <div class="fleft">
     <div style="border: 1px solid rgb(211, 211, 211); margin: 0px 3px; background-color: rgb(249, 249, 249); padding: 15px 0px 15px 19px; width: 226px; height: 77px;">
       <h3 style="letter-spacing: 0px; color: rgb(3, 29, 72);">QUESTIONS?</h3>
-      <p style="font-size: 10px;">Our stylists are here to help you find <br/>
-        your perfect size. Chat with us (bottom left), send us an email at <a style="color: rgb(3,29,72); font-size: 11px;" href="mailto:info@quincyapparel.com">info@quincyapparel.com</a>, <br/>
-        or tweet @Quincyapparel.</p>
+      <p style="font-size: 10px;">Our stylists are here to help. Chat, email <a style="color: rgb(3,29,72); font-size: 11px;" href="mailto:info@quincyapparel.com">info@quincyapparel.com</a>, or call 888.864.9942</p>
     </div>
   </div>
   <!-- questions -->
-  <div style="margin-left: 25px; width: 645px;" class="fleft">
-  <h3 style="font-weight: bold; font-size: 13px; position: relative; top: -4px; left: -1px; color: rgb(3, 29, 72); margin-bottom: 10px;">SAVE IT FOR LATER.</h3>
+  <div style="margin-left: 50px;" class="fleft">
+  <h3 style="font-weight: 900; font-size: 13px; position: relative; top: -4px; left: -1px; color: rgb(3, 29, 72); margin-bottom: 10px;">SAVE IT FOR LATER.</h3>
   <p style="line-height: 16px;">Save your size and get an instant promo code for <span style="color: #d3018d; font-weight: 900;">15% off</span>.<br />We make shopping easy breezy &mdash; just log in and your size will automatically be selected as you shop.</p>
   <div id="customer-login-wrap">
   <div class="fleft" id="update-profile" style="height: 180px; width: 250px; padding: 12px 0px 10px;">
