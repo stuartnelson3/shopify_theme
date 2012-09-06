@@ -20,15 +20,26 @@
 </style>
 {% endif %}
 <![endif]-->
+<!--[if IE 9]>
+{% if product or collection %}
+<style type="text/css">
+  section.love_it ul {
+  width: 250px;
+  }
+</style>
+{% endif %}
+<![endif]-->
 <head>
-  <script type="text/javascript" src="//use.typekit.net/duk7xno.js"></script>
-  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <link rel="canonical" href="{{ canonical_url }}" /> 
   <link rel="Shortcut icon" href="{{ 'favicon.ico' | asset_url }}" />
   {% include 'metaDescription' %}
   {{ 'style.css' | asset_url | stylesheet_tag }}
+  <script type="text/javascript" src="//use.typekit.net/duk7xno.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  {{ 'fitquiz.css' | asset_url | stylesheet_tag }}
+  {{ 'usrandguests.css' | asset_url | stylesheet_tag }}
   {% if product or collection %}
   <style type="text/css">
     section.main-nav nav ul li:first-child {
@@ -66,35 +77,21 @@
    <title>{{ page_title }} | {{ shop.name }}</title>
   {% endif %}
 
-  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" type="text/css" media="screen">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
-  {{ 'jquery.touchSwipe.min.js' |asset_url | script_tag }}
+  {{ 'jquery.touchSwipe.min.js' | asset_url | script_tag }}
+  {{ 'jquery.cookie.js' | asset_url | script_tag }}
   {{ content_for_header }}
+  <!--[if lt IE 9]>
+    <script type="text/javascript">
+      alert("It looks like you may be using an outdated version of Internet Explorer.  For the best shopping experience, we suggest you upgrade your browswer to IE9 or switch to Firefox, Chrome, or Safari.");
+    </script>
+  <![endif]-->
 </head>
 
 <body>
   <div class="wrapper">
     <header>
-      <a href="/pages/second-size" class="promo">Get a free Second Size with your first</a>   
-      <div class="cart-container">
-        <div>
-        {% if customer %}
-          <a href="/account">Welcome Back {{ customer.first_name | escape }}!</a>
-        {% else %}
-          {{ 'Login' | customer_login_link }}
-        {% endif %}
-        <a class="inline-cart" href="#">
-          <img src="{{ 'shopping_bag.png' | asset_url }}" alt="Shopping Bag">
-          <span class="cart_count">
-           {{ cart.item_count }}
-          </span>
-        </a>
-        </div>
-      </div>
-      {% include 'cart' %}
-    </header>
-    
     <section class="main-nav">
       <a href="/" title="Quincy">
         <img src="{{ 'logo.png' | asset_url }}" alt="Quincy" />
@@ -120,9 +117,29 @@
         </ul>
       </nav>
     </section>
-    
+        {% if customer %}
+            <a href="/pages/second-size" class="promo">Get a free Second Size with your first ></a>
+        {% else %}
+            <a class="promo take-fit-quiz" href="#" title="Fit Quiz">Find Your Perfect Size &mdash; Create a profile and get 15% off &nbsp;></a>
+        {% endif %}
+      <div class="cart-container">
+        <div>
+        {% if customer %}
+          <a href="/account">Welcome Back {{ customer.first_name | escape }}!</a>
+        {% else %}
+          {{ 'Login' | customer_login_link }}
+        {% endif %}
+        <a class="inline-cart" href="#">
+          <img src="{{ 'shopping_bag.png' | asset_url }}" alt="Shopping Bag">
+          <span class="cart_count">
+           {{ cart.item_count }}
+          </span>
+        </a>
+        </div>
+      </div>
+      {% include 'cart' %}
+    </header>    
       {{ content_for_layout }}
-    
     <footer>
       <div class="bar">
       </div>
@@ -133,7 +150,7 @@
         <div id="mc_embed_signup">
           <label>Sign up for our newsletter</label>
           <!-- Begin MailChimp Signup Form -->
-            <form action="http://quincyapparel.us2.list-manage.com/subscribe/post?u=f6e489de52006317fd8404e9d&amp;id=1e4f0636a3" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">	
+            <form action="http://quincyapparel.us2.list-manage.com/subscribe/post?u=f6e489de52006317fd8404e9d&amp;id=1e4f0636a3" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">    
               <input type="text" value="Email" name="EMAIL" class="email" id="mce-EMAIL" onclick="clickclear(this,'Email')" onblur="clickrecall(this,'Email')" />    
               <input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" onclick="pageTracker._trackEvent('Mailing List', 'Subscribe');" class="button" />
             </form>
@@ -176,66 +193,84 @@
   <script type="text/javascript">
   var selectCallback = function(variant, selector) {
     var buyButton = $("#add-to-cart");
+    var prod_sel0 = $("#product-select-option-0");
+    var prod_sel1 = $("#product-select-option-1");
       if (variant && variant.available) {
         // selected a valid variant
         buyButton.removeClass('disabled').removeAttr('disabled'); // remove unavailable class from add-to-cart button, and re-enable button
-        if(variant.inventory_quantity == 0){
+        if(variant.inventory_quantity <= 0){
           buyButton.val("Add to Bag").removeClass("sold-out default").addClass("default");
-          $("div#purchase p").css({ display: "inline-block" });
+          $("div#purchase p").css({ display: "none" });
+          $("div#purchase p:last-child").css({ display: "inline-block" });
         }
         else{
           buyButton.val("Add to Bag").removeClass("pre-order sold-out default");
           $("div#purchase p").css({ display: "none" });
           {% case handle %}
             {% when 'ansley-dress-berry' %}
-              if($("#product-select-option-0").find(":contains(Tall)").is(":selected") && ($("#product-select-option-1").find(":contains(A/B)").is(":selected") || $("#product-select-option-1").find(":contains(C/D)").is(":selected"))){
-                 $("div#purchase p").css({ display: "inline-block" });
+              if(prod_sel0.find(":contains(Tall)").is(":selected") && (prod_sel1.find(":contains(A/B)").is(":selected") || prod_sel1.find(":contains(C/D)").is(":selected"))){
+                 $("div#purchase p:first-of-type").css({ display: "inline-block" });
                }
             {% when 'chelsea-blazer-herringbone' %}
-             if(($("#product-select-option-0").find(":contains(Regular)").is(":selected") || $("#product-select-option-0").find(":contains(Petite)").is(":selected")) && $("#product-select-option-1").find(":contains(A/B)").is(":selected")){
-               $("div#purchase p").css({ display: "inline-block" });
+             if((prod_sel0.find(":contains(Regular)").is(":selected") || prod_sel0.find(":contains(Petite)").is(":selected")) && prod_sel1.find(":contains(C/D)").is(":selected")){
+               $("div#purchase p:first-of-type").empty().append("Will ship on 09.14").css({ display: "inline-block" });
              }
+             else if(prod_sel0.find(":contains(Tall)").is(":selected") && (prod_sel1.find(":contains(C/D)").is(":selected") || prod_sel1.find(":contains(A/B)").is(":selected"))){
+                $("div#purchase p:first-of-type").empty().append("Will ship on 09.18").css({ display: "inline-block" });
+              }
             {% when 'chloe-shirt'%}
-            {% when 'fiona-blouse' %}
-              if(($("#product-select-option-0").find(":contains(Regular)").is(":selected") || $("#product-select-option-0").find(":contains(Petite)").is(":selected") || $("#product-select-option-0").find(":contains(Tall)").is(":selected")) && $("#product-select-option-1").find(":contains(C/D)").is(":selected")){
-                 $("div#purchase p").css({ display: "inline-block" });
+              if(prod_sel0.find(":contains(Tall)").is(":selected") && prod_sel1.find(":contains(C/D)").is(":selected")){
+                 $("div#purchase p:first-of-type").css({ display: "inline-block" });
                }
-               else if($("#product-select-option-0").find(":contains(Tall)").is(":selected") && $("#product-select-option-1").find(":contains(A/B)").is(":selected")){
-                 $("div#purchase p").css({ display: "inline-block" });
+            {% when 'fiona-blouse' %}
+              if((prod_sel0.find(":contains(Regular)").is(":selected") || prod_sel0.find(":contains(Petite)").is(":selected") || prod_sel0.find(":contains(Tall)").is(":selected")) && prod_sel1.find(":contains(C/D)").is(":selected")){
+                 $("div#purchase p:first-of-type").css({ display: "inline-block" });
+               }
+               else if(prod_sel0.find(":contains(Tall)").is(":selected") && prod_sel1.find(":contains(A/B)").is(":selected")){
+                 $("div#purchase p:first-of-type").css({ display: "inline-block" });
                }
             {% when 'elliott-pencil-skirt' %}
-              $("div#purchase p").css({ display: "inline-block" });
+              $("div#purchase p").css({ display: "none" });
             {% when 'elliott-sheath-black' %}
-              if(($("#product-select-option-0").find(":contains(Regular)").is(":selected") || $("#product-select-option-0").find(":contains(Petite)").is(":selected")) && $("#product-select-option-1").find(":contains(C/D)").is(":selected")){
-                 $("div#purchase p").css({ display: "inline-block" });
+              if((prod_sel0.find(":contains(Regular)").is(":selected") || prod_sel0.find(":contains(Petite)").is(":selected")) && prod_sel1.find(":contains(C/D)").is(":selected")){
+                 $("div#purchase p:first-of-type").empty().append("Will ship on 09.14").css({ display: "inline-block" });
                }
+               else if(prod_sel0.find(":contains(Tall)").is(":selected") && (prod_sel1.find(":contains(C/D)").is(":selected") || prod_sel1.find(":contains(A/B)").is(":selected"))){
+                  $("div#purchase p:first-of-type").empty().append("Will ship on 09.18").css({ display: "inline-block" });
+                }
             {% when 'elliott-blazer-black' %}
-              if(($("#product-select-option-0").find(":contains(Regular)").is(":selected") || $("#product-select-option-0").find(":contains(Petite)").is(":selected")) && ($("#product-select-option-1").find(":contains(A/B)").is(":selected") || $("#product-select-option-1").find(":contains(C/D)").is(":selected"))){
-                 $("div#purchase p").css({ display: "inline-block" });
+              if(prod_sel0.find(":contains(Tall)").is(":selected") && prod_sel1.find(":contains(A/B)").is(":selected")){
+                 $("div#purchase p:first-of-type").css({ display: "inline-block" });
                }
             {% when 'elliott-trouser-black' %}
-              $("div#purchase p").css({ display: "inline-block" });
+              $("div#purchase p").css({ display: "none" });
             {% when 'elliott-pant-black' %}
-              $("div#purchase p").css({ display: "inline-block" });
+              $("div#purchase p").css({ display: "none" });
             {% when 'elliott-sheath-skirt' %}
-              $("div#purchase p").css({ display: "inline-block" });
+              $("div#purchase p").css({ display: "none" });
             {% when 'riley-sheath-navy' %} 
-              if(($("#product-select-option-0").find(":contains(Regular)").is(":selected") || $("#product-select-option-0").find(":contains(Petite)").is(":selected")) && $("#product-select-option-1").find(":contains(C/D)").is(":selected")){
-                 $("div#purchase p").css({ display: "inline-block" });
+              if((prod_sel0.find(":contains(Regular)").is(":selected") || prod_sel0.find(":contains(Petite)").is(":selected")) && prod_sel1.find(":contains(C/D)").is(":selected")){
+                 $("div#purchase p:first-of-type").empty().append("Will ship on 09.14").css({ display: "inline-block" });
                }
+               else if(prod_sel0.find(":contains(Tall)").is(":selected") && (prod_sel1.find(":contains(C/D)").is(":selected") || prod_sel1.find(":contains(A/B)").is(":selected"))){
+                  $("div#purchase p:first-of-type").empty().append("Will ship on 09.18").css({ display: "inline-block" });
+                }
             {% when 'riley-blazer-cobalt' %}
-              if(($("#product-select-option-0").find(":contains(Regular)").is(":selected") || $("#product-select-option-0").find(":contains(Petite)").is(":selected")) && $("#product-select-option-1").find(":contains(A/B)").is(":selected")){
-                 $("div#purchase p").css({ display: "inline-block" });
+              if((prod_sel0.find(":contains(Regular)").is(":selected") || prod_sel0.find(":contains(Petite)").is(":selected")) && prod_sel1.find(":contains(C/D)").is(":selected")){
+                 $("div#purchase p:first-of-type").empty().append("Will ship on 09.14").css({ display: "inline-block" });
+               }
+              else if(prod_sel0.find(":contains(Tall)").is(":selected") && (prod_sel1.find(":contains(C/D)").is(":selected") || prod_sel1.find(":contains(A/B)").is(":selected"))){
+                 $("div#purchase p:first-of-type").empty().append("Will ship on 09.18").css({ display: "inline-block" });
                }
             {% when 'riley-pant-cobalt' %}
-              $("div#purchase p").css({ display: "inline-block" });
+              $("div#purchase p").css({ display: "none" });
             {% when 'riley-skirt-cobalt' %} 
-             $("div#purchase p").css({ display: "inline-block" });
+             $("div#purchase p").css({ display: "none" });
           {% endcase %}
         }
       }
       else {
-        if($("#product-select-option-0").val() == "Length" || $("#product-select-option-1").val() == "Bust" || $("#product-select-option-0").val() == "Waist" || $("#product-select-option-1").val() == "Inseam" || $("#product-select-option-1").val() == "Length" || $("#product-select-option-1").val() == "Waist" || $("#product-select-option-0").val() == "Inseam"){
+        if(prod_sel0.val() == "Length" || prod_sel1.val() == "Bust" || prod_sel0.val() == "Waist" || prod_sel1.val() == "Inseam" || prod_sel1.val() == "Length" || prod_sel1.val() == "Waist" || prod_sel0.val() == "Inseam"){
           buyButton.val("Add to Bag").removeClass("pre-order sold-out").addClass("default");
           $("div#purchase p").css({ display: "none" });
         }
@@ -245,9 +280,10 @@
         }
         // variant doesn't exist
         buyButton.addClass('disabled').attr('disabled', 'disabled'); // set add-to-cart button to unavailable class and disable button
+        if(!$.cookie('fq_top') && !$.cookie('fq_length') && !$.cookie('fq_waist')){}
       }
       {% unless product.type == "Pants" or product.type == "Skirts" %}
-      $("#product-select-option-1").change(function() {
+      prod_sel1.change(function() {
               $("div.fits-like p").hide();
               if ($(":contains(32)", this).is(":selected")) {
                   $("div.fits-like p").eq(0).show();
@@ -271,9 +307,9 @@
     // initialize multi selector for product
     $(function() {
       new Shopify.OptionSelectors(
-                                  "product-select", 
-                                  { product: {{ product | json }}, onVariantSelected: selectCallback }
-                                  );  
+        "product-select", 
+        { product: {{ product | json }}, onVariantSelected: selectCallback }
+      );  
     });
   </script>
   {% endif %}
@@ -297,5 +333,49 @@
       {{ "customer_area.js"  | shopify_asset_url | script_tag }}
   {% endif %} 
   {{ "script.js"  | asset_url | script_tag }}  
+<script type="text/javascript">
+$(document).ready(function(){
+    if($('.take-fit-quiz').length > 0){
+        var $data = $().add('<div id="fq-wrap">'); // Create empty object
+        $($data).load('/pages/fq #fit-quiz-top', function(){
+            $('.wrapper').prepend($data);
+            $('.select-box').styleddropdown();
+        // load fq script
+        $.getScript('{{ 'fq.min.js' | asset_url }}');
+        $.getScript('{{ 'quirks.js' | asset_url }}',function(data,textStatus,jqxhr){
+            $('.take-fit-quiz').click(function(){
+        	    $('#fit-quiz-top').slideDown(600);
+			    return false;
+		    });
+        });
+        });
+
+         {% if template == 'product' %}
+        $.getScript('{{ 'jq_select.js' | asset_url }}');
+        {% endif %}        
+    } // Load the fitquiz data when the id is found on the page.
+    {% if template == 'collection.looks' %}
+        $('#product-select option').each(function(){
+            var fq_top = $.cookie('fq_top').substring(0,2);
+            var fq_bust = $.cookie('fq_bust').substr(2,1)+'/'+$.cookie('fq_bust').substr(3,1);
+            var fq_length = $.cookie('fq_length');
+            var fq_waist = $.cookie('fq_waist');
+    
+            if($(this).text().indexOf(fq_length) > 0 && $(this).text().indexOf(fq_top) > 0 && $(this).text().indexOf(fq_bust) > 0 ){
+        	    $(this).attr('selected',true);
+	            }//else if($(this).text().indexOf(fq_waist) > 0 && $(this).text().indexOf(fq_length) > 0 ){
+			    //$(this).attr('selected',true);
+	       //}
+            });
+    {% endif %}
+});
+</script>
+<script type="text/javascript">
+var sc_project=8053095; 
+var sc_invisible=1; 
+var sc_security="dc731200"; 
+</script>
+<script type="text/javascript"
+src="http://www.statcounter.com/counter/counter.js"></script>
 </body>
 </html>

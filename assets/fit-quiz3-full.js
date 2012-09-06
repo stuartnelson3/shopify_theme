@@ -1,40 +1,327 @@
 var fqt = new Array('Find your perfect fit','Your measurements','Shape','How your tops fit','How your bottoms fit','Your perfect fit');
+var fqPageNum = new Number(0);
+
+//- Check FQ Page Height
+function fqCheckHeight(NUM,pgNUM){
+    var f = new Number();
+    if(pgNUM == 1){
+        f = 1; // Step Foward
+    } else {
+        f= -1; // Step backwards
+        }
+    var currentHeight = $('#fq-'+NUM).css('height');
+    var nextHeight = $('#fq-'+(NUM+f)).css('height');
+        
+	if(currentHeight < nextHeight){
+		$('#fit-quiz-top').animate({ height: ($('#fq-'+(NUM+f)).css('height')+78) },function(){
+			$('#fq-'+NUM).fadeOut(function(){
+						$('#fq-'+(NUM+f)).fadeIn();	
+			});
+		});
+	} else {
+		$('#fq-'+NUM).fadeOut(function(){
+			$('#fq-'+(NUM+f)).fadeIn();
+		});
+	}
+} //- End fqCheckHeight
+
 function pageNumSwitch(NUM){
     NUM = parseInt(NUM.substring(NUM.length-1,NUM.length),10);
-        var currentHeight = $('#fq-'+NUM).css('height');
-		var nextHeight = $('#fq-'+(NUM+1)).css('height');
-		
-		if(currentHeight < nextHeight){
-			$('#fit-quiz-top').animate({ height: ($('#fq-'+(NUM+1)).css('height')+78) },function(){
-				$('#fq-'+NUM).fadeOut(function(){
-							$('#fq-'+(NUM+1)).fadeIn();	
-				});
-			});
-		} else {
-			$('#fq-'+NUM).fadeOut(function(){
-				$('#fq-'+(NUM+1)).fadeIn();
-			});
-		}
+    fqCheckHeight(NUM,1);
     if(NUM == 5){
         $('.fqt-0').empty().text(fqt[NUM+1]);
     } else{
     	$('.fqt-0').empty().text((NUM+1)+' / '+fqt[NUM+1]);
     }
-        var remVis = '#fqi-'+NUM;
-		$(remVis).removeClass('fq-visual-active');
-         console.log(remVis);
-        var addVis = '#fqi-'+(NUM+1);
-        $(addVis).addClass('fq-visual-active');
-        console.log(addVis);
-	}
+    var remVis = '#fqi-'+NUM;
+	$(remVis).removeClass('fq-visual-active');
+    var addVis = '#fqi-'+(NUM+1);
+    $(addVis).addClass('fq-visual-active');
+    fqPageNum = NUM;
+} // End pageNumSwitch
+
+//- Step Backwards in the Fit Quiz
+function fqStepBack(NUM){
+    NUM = parseInt(NUM.substring(NUM.length-1,NUM.length),10);
+    fqCheckHeight(NUM,-1);
+    if(NUM == 1){
+        $('.fqt-0').empty().text(fqt[NUM-1]);
+    } else{
+        $('.fqt-0').empty().text((NUM+1)+' / '+fqt[NUM-1]);
+    }
+    var remVis = '#fqi-'+NUM;
+	$(remVis).removeClass('fq-visual-active');
+    var addVis = '#fqi-'+(NUM-1);
+    $(addVis).addClass('fq-visual-active');
+    fqPageNum = NUM;    
+} // end fqStepBack
+		
+//- Begin processFQ
+   function processFQ() {
+		var dress_size = parseInt($("select#dress_size option:selected").val(),10),
+			 bust_size = parseInt($("select#bust_size option:selected").val(),10),
+			  cup_size = $("select#cup_size option:selected").val(),
+			 pant_size = parseInt($("select#pant_size option:selected").val(),10);
+		var pet1,pet2,pet3,tal1,tal2,tal3;
+		var dart = parseInt($('input[name=dart]').val());
+		var sleeve = parseInt($('input[name=sleeve]').val());
+		var torso = parseInt($('input[name=torso]').val());
+		
+		if(dart == 3){ pet1 = '3' };
+		if(sleeve == 3){ pet2 = '3'};
+		if(torso == 3){ pet3 = '3'};
+		if(dart == 4){ tal1 = '4'};
+		
+		if(sleeve == 2){ tal2 = '2'};
+		if(torso == 2){ tal3 = '2'};
+		
+		var length = 0;
+		var textFieldsFeet = parseInt($("#feet option:selected").val());
+		var textFieldsInches = parseInt($("#inches option:selected").val());
+		var textFieldsWeight = parseInt($("#weight option:selected").val());
+		var dress_size_norm,
+			  dress_size_rec,
+			  dress_size_cup_rec,
+			  dress_size_primary,
+			  bust_size_norm,
+			  bust_size_rec,
+			  bust_size_primary,
+			  cup_size_norm,
+			  cup_size_rec,
+			  cup_size_primary,
+			  length_primary,
+			  length_rec,
+			  pant_rec,
+			  pants_fit; 
+
+		var pants0 = parseInt($("input[name=pants0]").val());
+		var pants1 = parseInt($("input[name=pants1]").val());
+		var pants2 = parseInt($("input[name=pants2]").val());
+		var pants3 = parseInt($("input[name=pants3]").val());
+		var pants4 = parseInt($("input[name=pants4]").val());
+			  
+		if(pants1 == 2 || (pants1 == 1 && pants0 == 1)) {
+			pants_fit = 'Straight';
+		} else if (pants2 == 2 || pants3 == 2 || (pants2 == 1 && pants3 == 1)){
+			pants_fit = 'Curvy';
+		} else {
+			pants_fit = 'Classic';	
+		}
+
+		  //Normalize dress size so it can be compared to bust size
+			switch (dress_size) {
+			case 00:
+			    dress_size_norm = 32;
+			    break;
+			case 0:
+			    dress_size_norm = 32;
+			    break;
+			case 2:
+			    dress_size_norm = 34;
+			    break;
+			case 4:
+			    dress_size_norm = 34;
+			    break;
+			case 6:
+			    dress_size_norm = 36;
+			    break;
+			case 8:
+			    dress_size_norm = 36;
+			    break;
+			case 10:
+			    dress_size_norm = 38;
+			    break;
+			case 12:
+			    dress_size_norm = 38;
+			    break;
+			case 14:
+			    dress_size_norm = 40;
+			    break;
+			case 16:
+			    dress_size_norm = 40;
+			    break;
+			}
+			
+		//Compare normalized dress size to bust size
+		//Larger size taken as main recommendation
+		if (dress_size_norm > bust_size){
+			dress_size_primary = dress_size_norm;
+		}
+		else if ((bust_size > dress_size_norm) || (bust_size == dress_size_norm)){
+			dress_size_primary = bust_size;
+		}
+		else {}
+		
+		//Depending on which 00-14 dress size, alternate recommendation is closest 32-40 size
+		//Depending on size up or size down, include alternate cup size with recommendation
+		//if customer wears B or C
+		if (dress_size % 4 === 0){
+			dress_size_cup_rec = 1;
+			dress_size_rec = dress_size_primary + 2;
+		} else {
+			dress_size_cup_rec = -1;
+			dress_size_rec = dress_size_primary - 2;
+		}
+		
+		//Recommend primary cup size
+		if (cup_size == "AA" || cup_size == "A" || cup_size == "B") {
+			if (cup_size == "B" && dress_size_cup_rec === -1){
+				cup_size_rec = "C/D";
+			} else {cup_size_rec = "A/B";}
+			if (cup_size == "B" && $("#dart input:radio:checked").val() == 2) {
+				cup_size_primary = "C/D";
+				cup_size_rec = "C/D";
+			}
+			else {
+				cup_size_primary = "A/B";			
+				}   
+		}
+		else {
+			if (cup_size == "C" && dress_size_cup_rec === 1){
+				cup_size_rec = "A/B";
+			}
+			else {cup_size_rec = "C/D";}
+		   if (cup_size == "C" && $("#dart input:radio:checked").val() == 1) {
+				cup_size_primary = "A/B";
+				cup_size_rec = "A/B";
+			}
+			else {
+				cup_size_primary = "C/D";
+				}
+		}
+		//Add up length indicators
+		//Final tally decides length recommendation
+		if (pet1){
+			length -= 1;
+		}
+		if (pet2){
+			length -= 1;
+		}
+		if (pet3){
+			length -= 1;
+		}
+		if (tal1){
+			length += 1;
+		}
+		if (tal2){
+			length += 1;
+		}
+		if (tal3){
+			length += 1;
+		}
+		if (length < -1){
+			length_primary = "Petite";
+			if (textFieldsFeet >= 5 && textFieldsInches > 4) {
+		        length_rec = "Regular";
+		    }
+		}
+		else if (length > 1){
+			length_primary = "Tall";
+			if (textFieldsFeet < 6 && textFieldsInches < 10) {
+		        length_rec = "Regular";
+		    }
+		} else{
+			length_primary = "Regular";
+			if (textFieldsFeet >= 5 && textFieldsInches >= 10) {
+		        length_rec = "Tall";
+		    }
+		    else if (textFieldsFeet < 6 && textFieldsInches <= 4) {
+		        length_rec = "Petite";
+		    }
+		}
+		//Recommending waist size
+		switch (pant_size) {
+		case 00:
+		    pant_rec = 24;
+		    break;
+		case 0:
+		    pant_rec = 25;
+		    break;
+		case 2:
+		    pant_rec = 26;
+		    break;
+		case 4:
+		    pant_rec = 27;
+		    break;
+		case 6:
+		    pant_rec = 28;
+		    break;
+		case 8:
+		    pant_rec = 29;
+		    break;
+		case 10:
+		    pant_rec = 30;
+		    break;
+		case 12:
+		    pant_rec = 31;
+		    break;
+		case 14:
+		    pant_rec = 32;
+		    break;
+		case 16:
+		    pant_rec = 33;
+		    break;
+		}
+		//Storing data based on pants fit
+		//Doesn't figure into quiz currently
+		
+		//RESULTS
+		  //FOR
+		   //QUIZ
+
+		if ((dress_size + 2) < pant_size ) {
+			$("span.dress-warning").show();
+		} else{
+			$("span.dress-warning").hide();
+		}
+		
+		if ($("select#cup_size option:selected").index() >= 7) {
+            $("#top-size").empty();
+    		$("span.hagrid").show();
+            alert("We currently do not carry your size, but plan to add more sizes in the future.")
+        } else if (dress_size > 16) {
+        	$("#top-size").empty();
+    		$("span.hagrid").show();
+            alert("We currently do not carry your size, but plan to add more sizes in the future.")
+   		} else if (bust_size > 40) {
+			$("#top-size").empty();
+    		$("span.hagrid").show();
+            alert("We currently do not carry your size, but plan to add more sizes in the future.")
+    	} else {
+			$("span.hagrid").hide();
+			$("#top-size").empty();
+			$("#top-size").append(dress_size_primary, " ", cup_size_primary, " ", length_primary);
+			
+			/*
+			// Second Size Recommendation
+			$("#rec_1").append(dress_size_rec, " ", cup_size_rec, " ", length_primary);
+			*/
+			$("#bottom-size").empty();
+			$("#bottom-size").append(pant_rec+' Inches');
+			
+			
+			// Set cookie data for future use
+			var fq_size = 'top:'+dress_size_primary+" "+cup_size_primary+" "+length_primary+';bottom:'+pant_rec+';';
+			var fqa_data = 'fq:'+dress_size+','+bust_size+','+cup_size+','+pant_size+','+dart+','+sleeve+','+torso+','+textFieldsFeet+','+textFieldsInches+','+textFieldsWeight+','+pants0+','+pants1+','+pants2+','+pants3+','+pants4+','+torso+','+torso;
+            $.cookie('fq_size', fq_size, { expires: 7, path: '/' });
+			$.cookie('fq_waist',pant_rec, { expires: 7, path: '/' });
+			$.cookie('fq_top', dress_size_primary+' '+cup_size_primary, { expires: 7, path: '/' });
+			$.cookie('fq_length', length_primary, { expires: 7, path: '/' });
+			$.cookie('fq_data', fqa_data, { expires: 14, path: '/' });
+		}
+   	}// end process function
 
 $(document).ready(function(){
-	$('#cancel-fq').click(function(){
-        if(confirm("Are you sure you want to close the Fit Quiz?") == true){
-    			$('#fit-quiz-top').slideUp(600);
-		}
-         return false;
-	});
+$('#cancel-fq').click(function(){
+    if(confirm("Are you sure you want to close the Fit Quiz?") == true){
+			$('#fit-quiz-top').slideUp(600);
+	}
+     return false;
+});
+$('.fq-goback').click(function(){
+	var level = $(this).closest('.fq-basic').attr('id');
+    fqStepBack(level);
+});
 	
 $('#fit-quiz-top .selector li').click(function(){
     	var data = $(this).text();
@@ -123,7 +410,7 @@ $('#fit-quiz-top .selector li').click(function(){
     });
 
 
-//--------
+//- Click through the Quiz
 $('#fq-0 button.fq-next').click(function(){
     var level = $(this).closest('.fq-basic').attr('id');
     pageNumSwitch(level);
@@ -143,7 +430,7 @@ $("#fq-1 button.fq-next").click(function(){ // Step 1
 				$(this).parent().removeClass("notValid");
 			}
 		});
-	} else{
+	} else {
 		$("div.select-box a.field").removeClass("notValid");
         var level = $(this).closest('.fq-basic').attr('id');
         pageNumSwitch(level);
@@ -232,6 +519,7 @@ $('#fq-4 button.fq-next').click(function(){ // Step 3
        	$('#fq-4 img.fq-check').each(function() {
             $(this).removeClass('notValid');
         });
+		
 		var level = $(this).closest('.fq-basic').attr('id');
 		processFQ();
 		pageNumSwitch(level);
@@ -240,249 +528,3 @@ $('#fq-4 button.fq-next').click(function(){ // Step 3
 });
 	
 }); // END DOCUMENT READY
-
-// --- Process Info
-   function processFQ() {
-		var dress_size = parseInt($("select#dress_size option:selected").val(),10),
-			 bust_size = parseInt($("select#bust_size option:selected").val(),10),
-			  cup_size = $("select#cup_size option:selected").val(),
-			 pant_size = parseInt($("select#pant_size option:selected").val(),10);
-		var pet1,pet2,pet3,tal1,tal2,tal3;
-		if($('input[name=dart]').val() == '3'){ pet1 = '3' };
-		if($('input[name=sleeve]').val() == '3'){ pet2 = '3'};
-		if($('input[name=torso]').val() == '3'){ pet3 = '3'};
-		
-		if($('input[name=dart]').val() == '4'){ tal1 = '4'};
-		if($('input[name=sleeve]').val() == '2'){ tal2 = '2'};
-		if($('input[name=torso]').val() == '2'){ tal3 = '2'};
-		
-		var length = 0;
-		var textFieldsFeet = $("#feet option:selected").val();
-		var textFieldsInches = $("#inches option:selected").val();
-		var textFieldsWeight = $("#weight option:selected").val();
-		var dress_size_norm,
-			  dress_size_rec,
-			  dress_size_cup_rec,
-			  dress_size_primary,
-			  bust_size_norm,
-			  bust_size_rec,
-			  bust_size_primary,
-			  cup_size_norm,
-			  cup_size_rec,
-			  cup_size_primary,
-			  length_primary,
-			  length_rec,
-			  pant_rec,
-			  pants_fit; 
-			  
-		if($("input[name=pants0]").val() == '1') {
-			pants_fit = 'Straight';
-		} else if ($("input[name=pants0]").val() == '2'){
-			pants_fit = 'Curvy';
-		} else{
-			pants_fit = 'Classic';	
-		}
-		  
-		  //Normalize dress size so it can be compared to bust size
-			switch (dress_size) {
-			case 00:
-			    dress_size_norm = 32;
-			    break;
-			case 0:
-			    dress_size_norm = 32;
-			    break;
-			case 2:
-			    dress_size_norm = 34;
-			    break;
-			case 4:
-			    dress_size_norm = 34;
-			    break;
-			case 6:
-			    dress_size_norm = 36;
-			    break;
-			case 8:
-			    dress_size_norm = 36;
-			    break;
-			case 10:
-			    dress_size_norm = 38;
-			    break;
-			case 12:
-			    dress_size_norm = 38;
-			    break;
-			case 14:
-			    dress_size_norm = 40;
-			    break;
-			case 16:
-			    dress_size_norm = 40;
-			    break;
-			}
-		//Compare normalized dress size to bust size
-		//Larger size taken as main recommendation
-		if (dress_size_norm > bust_size){
-			dress_size_primary = dress_size_norm;
-		}
-		else if ((bust_size > dress_size_norm) || (bust_size == dress_size_norm)){
-			dress_size_primary = bust_size;
-		}
-		else {}
-		//Depending on which 00-14 dress size, alternate recommendation is closest 32-40 size
-		//Depending on size up or size down, include alternate cup size with recommendation
-		//if customer wears B or C
-		if (dress_size % 4 === 0){
-			dress_size_cup_rec = 1;
-			dress_size_rec = dress_size_primary + 2;
-		} else {
-			dress_size_cup_rec = -1;
-			dress_size_rec = dress_size_primary - 2;
-		}
-		//Recommend primary cup size
-		if (cup_size == "AA" || cup_size == "A" || cup_size == "B") {
-			if (cup_size == "B" && dress_size_cup_rec === -1){
-				cup_size_rec = "C/D";
-			} else {cup_size_rec = "A/B";}
-			if (cup_size == "B" && $("#dart input:radio:checked").val() == 2) {
-				cup_size_primary = "C/D";
-				cup_size_rec = "C/D";
-			}
-			else {
-				cup_size_primary = "A/B";			
-				}   
-		}
-		else {
-			if (cup_size == "C" && dress_size_cup_rec === 1){
-				cup_size_rec = "A/B";
-			}
-			else {cup_size_rec = "C/D";}
-		   if (cup_size == "C" && $("#dart input:radio:checked").val() == 1) {
-				cup_size_primary = "A/B";
-				cup_size_rec = "A/B";
-			}
-			else {
-				cup_size_primary = "C/D";
-				}
-		}
-		//Add up length indicators
-		//Final tally decides length recommendation
-		if (pet1){
-			length -= 1;
-		}
-		if (pet2){
-			length -= 1;
-		}
-		if (pet3){
-			length -= 1;
-		}
-		if (tal1){
-			length += 1;
-		}
-		if (tal2){
-			length += 1;
-		}
-		if (tal3){
-			length += 1;
-		}
-		if (length < -1){
-			length_primary = "Petite";
-			if (textFieldsFeet.val() >= 5 && textFieldsInches.val() > 4) {
-		        length_rec = "Regular";
-		    }
-		}
-		else if (length > 1){
-			length_primary = "Tall";
-			if (textFieldsFeet.val() < 6 && textFieldsInches.val() < 10) {
-		        length_rec = "Regular";
-		    }
-		}
-		else{
-			length_primary = "Regular";
-			if (textFieldsFeet.val() >= 5 && textFieldsInches.val() >= 10) {
-		        length_rec = "Tall";
-		    }
-		    else if (textFieldsFeet.val() < 6 && textFieldsInches.val() <= 4) {
-		        length_rec = "Petite";
-		    }
-		}
-		//Recommending waist size
-		switch (pant_size) {
-		case 00:
-		    pant_rec = 24;
-		    break;
-		case 0:
-		    pant_rec = 25;
-		    break;
-		case 2:
-		    pant_rec = 26;
-		    break;
-		case 4:
-		    pant_rec = 27;
-		    break;
-		case 6:
-		    pant_rec = 28;
-		    break;
-		case 8:
-		    pant_rec = 29;
-		    break;
-		case 10:
-		    pant_rec = 30;
-		    break;
-		case 12:
-		    pant_rec = 31;
-		    break;
-		case 14:
-		    pant_rec = 32;
-		    break;
-		case 16:
-		    pant_rec = 33;
-		    break;
-		}
-		//Storing data based on pants fit
-		//Doesn't figure into quiz currently
-		
-		/*
-		if ($("div#pants1 input[value=2]").is(":checked") || ($("div#pants1 input[value=1]").is(":checked") && $("div#pants0 input[value=1]").is(":checked"))) {
-        	$("div#pants-fit select").val("Straight");
-    		}
-    	else if ($("div#pants2 input[value=2]").is(":checked") || $("div#pants3 input[value=2]").is(":checked") || ($("div#pants2 input[value=1]").is(":checked") && $("div#pants3 input[value=1]").is(":checked"))) {
-        	$("div#pants-fit select").val("Curvy");
-    		}
-    	else {$("div#pants-fit select").val("Classic");}
-		*/
-		
-		//RESULTS
-		  //FOR
-		   //QUIZ
-		if ((dress_size + 2) < $("select#pant_size").val()) {
-			// $("span.dress-warning").show();
-		} else{
-			//$("span.dress-warning").hide();
-		}
-		
-		if ($("select#cup_size option:selected").index() >= 7) {
-            // $("span.hagrid").show();
-			// $("#primary, #rec_1, #rec_2, #rec_3").empty();
-        } else if ($("select#dress_size option:selected").val() > 16) {
-        	// $("span.hagrid").show();
-		    // $("#primary, #rec_1, #rec_2, #rec_3").empty();
-   		} else if ($("select#bust_size option:selected").val() > 40) {
-        	// $("span.hagrid").show();
-		   //  $("#primary, #rec_1, #rec_2, #rec_3").empty();
-    	}else {
-			$("span.hagrid").hide();
-			// $("#top-size, #rec_1, #rec_2, #rec_3, #pant_rec").empty();
-			$("#top-size").empty();
-			$("#top-size").append(dress_size_primary, " ", cup_size_primary, " ", length_primary);
-			
-			/*
-			$("#rec_1").append(dress_size_rec, " ", cup_size_rec, " ", length_primary);
-			if (length_rec) {
-			  $("#rec_2").append(dress_size_primary, " ", cup_size_primary, " ", length_rec);
-			}
-			if (cup_size_rec) {
-			  $("#rec_3").append(dress_size_primary, " ", cup_size_rec, " ", length_primary);
-			} */
-			$("#bottom-size").empty();
-			$("#bottom-size").append(pant_rec);
-			// send_fit_data();
-		}
-		return false;
-   	}// end process function

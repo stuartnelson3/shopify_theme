@@ -82,38 +82,12 @@
     <img class="hero" src="{{ 'look4.jpg' | asset_url }}" />
     <div class="description top left">
       <h4 class="white">&ldquo;Friday afternoons are a cinch.&rdquo;</h4>
-      <p class="white">Ansley dress <span>$138</span>, Elliott blazer <span>$228</span></p>
+      <p class="white">Ansley dress <span>$138</span>,<br />Elliott blazer <span>$228</span></p>
       <input type="button" name="Buy Outfit" value="Buy This Outfit">
     </div> 
   </div>
   <ul>
     {% for product in collections.look4.products %}
-      <li>
-        <a href="{{ product.url }}" title="{{ product.title | escape }} &mdash; {{ product.description | strip_html }}">
-          <img src="{{ product.images.first | product_img_url: 'large' }}" alt="{{ product.title | escape }}" />
-        </a>
-        <div>
-          <div>
-            <a href="{{ product.url }}">
-              {{ product.title }}  
-            </a>
-            <span class="money">{{ product.price | money | remove: '.00' }}</span>
-          </div>
-          {% include'add-to-cart' %}
-        </div>
-      </li>
-    {% endfor %}
-  </ul>
-  <div>
-    <img class="hero" src="{{ 'look5.jpg' | asset_url }}" />
-    <div class="description top right">
-      <h4>&ldquo;Navy’s a canvas for patterns and cashmere.&rdquo;</h4>
-      <p>Riley sheath dress <span>$158</span></p>
-      <input type="button" name="Buy Outfit" value="Buy This Outfit">
-    </div>
-  </div>
-  <ul>
-    {% for product in collections.look5.products %}
       <li>
         <a href="{{ product.url }}" title="{{ product.title | escape }} &mdash; {{ product.description | strip_html }}">
           <img src="{{ product.images.first | product_img_url: 'large' }}" alt="{{ product.title | escape }}" />
@@ -160,7 +134,7 @@
     <img class="hero" src="{{ 'look7.jpg' | asset_url }}" />
     <div class="description top right">
       <h4 class="white">&ldquo;The Emma lends itself to a textured play on patterns.&rdquo;</h4>
-      <p class="white">Emma jacket <span>$258</span>, Fiona bow blouse <span>$118</span>, Riley cigarette pant <span>$128</span></p>
+      <p class="white">Emma jacket <span>$258</span>, Fiona bow blouse <span>$118</span>,<br />Riley cigarette pant <span>$128</span></p>
       <input type="button" name="Buy Outfit" value="Buy This Outfit">
     </div>
   </div>
@@ -238,7 +212,7 @@
     <img class="hero" src="{{ 'look10.jpg' | asset_url }}" />
     <div class="description left top">
       <h4>&ldquo;Pairing brights is a snap with jewel-toned berry hues.&rdquo;</h4>
-      <p>Fiona bow blouse in Plum <span>$118</span>, Riley pencil skirt <span>$128</span></p>
+      <p>Fiona bow blouse in Plum <span>$118</span>,<br />Riley pencil skirt <span>$128</span></p>
       <input type="button" name="Buy Outfit" value="Buy This Outfit">
     </div>  
   </div>

@@ -16,7 +16,7 @@ article, aside, canvas, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section, summary,
 time, mark, audio, video {
     margin: 0;
-	padding: 0;
+    padding: 0;
 	border: 0;
 	outline: 0;
 	font-size: 100%;
@@ -40,12 +40,12 @@ table { border-collapse: collapse; border-spacing: 0; }
 hr { display: block; height: 1px; border: 0; border-top: 1px solid #ccc; margin: 1em 0; padding: 0; }
 input, select { vertical-align: middle; }
 
-select, input, textarea, button { font:99% sans-serif; }
+select, input, textarea, button { font:99% sans-serif; font-family: "museo-sans-n5","museo-sans",sans-serif; }
 pre, code, kbd, samp { font-family: monospace, sans-serif; }
 
 html { overflow-y: scroll; }
 ol { list-style-type: decimal; }
-p { margin: 0 0 1em 0; line-height: 1.2em; }
+p { margin: 0 0 1em 0; line-height: 1.55em; }
 nav ul, nav li { margin: 0; list-style:none; list-style-image: none; }
 small { font-size: 85%; }
 strong, th { font-weight: bold; }
@@ -86,7 +86,7 @@ font-style: italic;
 font-weight: 500;*/
 
 
-body, nav a, div.swatch-popup h2, section.page h2.level3, section.love_it li a, section.page > div a, div.terms p a, .buy-menu span.info, span.info, section.collection a, section.collection_looks ul div a, header div a, .index a, div.buy-menu div.swatch a, div.lower-container a, section.wear_it a, section.wear_with a {
+body, nav a, a#cancel-fq, div.swatch-popup h2, section.page h2.level3, section.love_it li a, section.page > div a, div.terms p a, .buy-menu span.info, span.info, section.collection a, section.collection_looks ul div a, header div a, .index a, div.buy-menu div.swatch a, div.lower-container a, section.wear_it a, section.wear_with a {
   color: #252525;
   /*font-family: "museo-sans",sans-serif;
     font-style: normal;
@@ -100,7 +100,7 @@ body, nav a, div.swatch-popup h2, section.page h2.level3, section.love_it li a, 
 body {
   background: #FBFBFB;
 }
-section.inline-cart a, div.buy-menu div.lower-container a.size-chart, footer section a, div.size-chart span, div.lower-container a.swatch, a#customer_login_link, section.promo span, section.promo a, a.week_in_life, div.about_product h3, section.wear_it a, section.continue_shopping a, a.fit-quiz {
+section.inline-cart a, a#cancel-fq, div.buy-menu div.lower-container a.size-chart, footer section a, div.size-chart span, div.lower-container a.swatch, a#customer_login_link, section.promo span, section.promo a, a.week_in_life, div.about_product h3, section.wear_it a, section.continue_shopping a, a.fit-quiz {
   color: #031D48;
 }
 nav a, h3, section.wear_it a, section.continue_shopping span {
@@ -176,8 +176,9 @@ section.page h2 {
   margin-bottom: 1em;
 }
 section.page h2.level3 {
-  font-size: 20px;
+  font-size: 18px;
   text-transform: uppercase;
+  margin-top: 40px;
 }
 h4 {
   font-size: 30px;
@@ -385,6 +386,7 @@ section.page, section.collection, section.cart {
 }
 div.page {
   margin: 80px 20px 0 250px;
+  overflow: hidden;
 }
 /* CART */
 span.variant {
@@ -422,6 +424,11 @@ section.cart div.cart_note {
 }
 div.cart_note li {
   margin-bottom: 5px;
+}
+div.order-note {
+  position: relative;
+  left: 350px;
+  bottom: 26px;
 }
 /*FOOTER*/
 footer {
@@ -599,7 +606,6 @@ div.index span, div.index a.index {
 div.index a.index {
   text-transform: uppercase;
   font-size: 12px;
-  font-weight: 300;
 }
 div.index span {
   font-size: 28px;
@@ -675,7 +681,7 @@ section.collection div.details {
   float: left;
   display: inline-block;
   max-width: 350px;
-  min-height: 350px;
+  min-height: 369px;
   margin: 5px 0 0 -10px;
 }
 section.collection div.details div.border {
@@ -699,16 +705,17 @@ section.collection ul li {
   float: left;
   display: inline-block;
   margin: 0 10px;
-  height: 350px;
+  height: 369px;
   max-width: 300px;
   position: relative;
 }
 section.collection ul div {
-  margin: 5px 0 15px;
+  margin: 4px 0 15px;
   overflow: auto;
 }
 section.collection ul div a, section.collection_looks ul div a {
   text-transform: uppercase;
+  font-size: 12px;
 }
 section.collection ul li div span {
   float: right;
@@ -716,6 +723,15 @@ section.collection ul li div span {
 section.collection span.money, section.collection_looks span.money {
   font-style: normal;
   font-size: 14px;
+}
+section.collection ul.fiona-blouse li {
+  margin: 7px 5px 8px 0 ;
+}
+section.collection ul.fiona-blouse li:first-of-type {
+  background: url({{ 'fiona-blouse-polkadot-swatch.jpg' | asset_url }});
+}
+section.collection ul.fiona-blouse li:last-child {
+  background: url({{ 'fiona-blouse-plum-swatch.jpg' | asset_url }});
 }
 /*COLLECTION PAGE SUITING*/
 section.collection ul, section.collection div.suiting_description {
@@ -905,17 +921,18 @@ div.swatch-popup li {
   margin: 5px 0;
 }
 div.buy-menu {
-  margin: 28px 0 20px 30px;
+  margin: 25px 0 20px 30px;
   width: 218px;
   line-height: 1em;
 }
 div.buy-menu h3 {
-  margin-top: 3px;
+  padding-left: 3px;
 }
 div.buy-menu h4 {
-  padding: 15px 0 28px;
+  padding: 12px 0 28px;
   text-indent: -10px;
   letter-spacing: 0;
+  line-height: .9em;
 }
 div.buy-menu span {
   font-size: 22px;
@@ -924,12 +941,11 @@ div.buy-menu span {
   display: block;
   margin: 13px 0 9px;
 }
-div.buy-menu ul.swatch li {
+div.buy-menu ul.swatch li, section.collection ul.fiona-blouse li {
   float: left;
-  margin-right: 4px;
+  margin-right: 5px;
   width: 11px;
   height: 11px;
-  background: blue;
   overflow: hidden;
   cursor: pointer;
   text-indent: -9999px;
@@ -963,12 +979,6 @@ div.buy-menu div.lower-container a.swatch, div.buy-menu div.lower-container a.si
 }
 div.buy-menu div.lower-container a.size-chart {
   margin: 0;
-  position: relative;
-  bottom: 4px;
-}
-div#purchase p {
-  position: relative;
-  bottom: 8px;
 }
 div.buy-menu div.lower-container a.fit-quiz {
   font-size: 12px;
@@ -1190,10 +1200,10 @@ div.fit_dropdown td:first-child {
 div.fit_dropdown td:first-child span {
   margin-left: 5px;
 }
-div.fit_dropdown ul, {
+/*div.fit_dropdown ul {
   border-top: 2px solid #e5e5e5;
   margin-top: 20px;
-}
+}*/
 div.fit_dropdown ul li {
   margin: 5px 0 0;
   width: 150px;
@@ -1252,7 +1262,7 @@ section.love_it, section.wear_it, section.wear_with, section.inline-cart, sectio
 section.wear_it h1 {
   margin-top: 14px;
   padding-left: 20px;
-  line-height: .8em;
+  text-indent: 1px;
 }
 div.wear_details nav {
   margin: 5px 0 0 15px;
@@ -1275,6 +1285,7 @@ section.wear_it div.wear_details ul.indices {
 section.wear_it a {
   text-transform: none;
   color: #252525;
+  font-size: 13px;
 }
 section.wear_with h4 {
   margin: 0 12px;
@@ -1346,19 +1357,10 @@ ul.indices li, section.wear_it nav ul li {
   height: 11px;
   text-indent: -9999px;
   margin: 0 6px;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  border-radius: 50%;
   overflow: hidden;
   position: relative;
   top: -1px;
   background: url("{{'fq_bullets.png'|asset_url}}") no-repeat scroll 0px -11px transparent;
-  /*background-color: #d7d7d7;
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#d7d7d7), to(#ebebeb));
-    background: -webkit-linear-gradient(top, #d7d7d7, #ebebeb);
-    background: -moz-linear-gradient(top, #d7d7d7, #ebebeb);
-    background: -ms-linear-gradient(top, #d7d7d7, #ebebeb);
-    background: -o-linear-gradient(top, #d7d7d7, #ebebeb);*/
 }
 ul.indices {
   display: inline-block;
@@ -1377,12 +1379,6 @@ span.next {
   background: url({{ 'right_arrow.png' | asset_url }});
 }
 div#slideshow nav ul li.indexActive, div#slideshow nav ul li:hover, section.wear_it nav ul li.indexActive, section.wear_it nav ul li:hover {
-  /*background-color: #7a7a7a;
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#7a7a7a), to(#bfbfbf));
-    background: -webkit-linear-gradient(top, #7a7a7a, #bfbfbf);
-    background: -moz-linear-gradient(top, #7a7a7a, #bfbfbf);
-    background: -ms-linear-gradient(top, #7a7a7a, #bfbfbf);
-    background: -o-linear-gradient(top, #7a7a7a, #bfbfbf);*/
     background: url("{{'fq_bullets.png'||asset_url}}") no-repeat scroll 0px 0px transparent;
 }
 div.wear_details div {
@@ -1399,7 +1395,7 @@ img.tag {
 }
 /* PAGES */
 section.page h1, section.page h2 {
-  letter-spacing: -1px;
+  letter-spacing: 0px;
 }
 section.page h3 {
   margin-bottom: 1em;
@@ -1515,7 +1511,7 @@ div.terms h3, div.meet-quincy h3 {
 section.page div.showroom {
   width: 300px;
   float: left;
-  margin-top: 90px;
+  margin-top: 75px;
 }
 section.page iframe {
   margin: 60px 20px 0px 0px;
@@ -1549,17 +1545,17 @@ div.size-page {
   overflow: hidden;
 }
 div.size-chart h2 {
-  margin-top: 2em;
+  margin: 20px 0
 }
 div.size-chart h2.level2 {
   font-size: 30px;
 }
 div.size-chart h1 {
-  margin: 0px 10px 10px;
+  margin: 0px 20px 10px 10px;
 }
 div.size-chart p {
   width: 480px;
-  margin: 10px 10px 0;
+  margin: 10px 0px 20px;
 }
 div.size-chart section {
   display: inline-block;
@@ -1646,6 +1642,7 @@ div.team_member p {
   width: 210px;
   height: 260px;
   margin-top: -2px;
+  line-height: 1.2em;
 }
 div.team_member p span {
   font-weight: 900;
@@ -1691,7 +1688,15 @@ div.second-size img {
 }
 /* 404 PAGE */
 /* OLARK */
-
+#habla_beta_container_do_not_rely_on_div_classes_or_names #habla_middle_wrapper_div p.habla_conversation_p_item {
+margin-left: 5px !important;
+text-indent: 0px !important;
+}
+#habla_beta_container_do_not_rely_on_div_classes_or_names #habla_topbar_div a.habla_oplink_a_normal, #habla_beta_container_do_not_rely_on_div_classes_or_names #habla_topbar_div a.habla_oplink_a_normal:hover, #habla_beta_container_do_not_rely_on_div_classes_or_names #habla_topbar_div a.habla_oplink_a_normal:active {
+font-family: "museo-sans-n5","museo-sans",sans-serif !important;
+font-style: normal !important;
+text-transform: uppercase;
+}
 /* CART */
 
 /* =============== */
@@ -1811,5 +1816,31 @@ div.quincy, div#height-weight {
 div.fq ul.selector {
   width: 90px;
 }
-
-
+/* SECOND SIZE MODAL */
+section.second-size-modal {
+  position: fixed;
+  width: 340px;
+  left: 37%;
+  background: white;
+  z-index: 1000;
+  border: 1px solid #D7D7D7;
+  top: 120px;
+  display: none;
+}
+div.second-size-modal {
+  width: 300px;
+  margin: 20px;
+}
+div.second-size-modal p {
+  margin-top: 1em;
+}
+div.second-size-modal button {
+  margin: 0;
+  background-color: #031d48;
+}
+div.second-size-modal button:hover {
+  background-color: #E939AF;
+}
+div.second-size-modal button:active {
+  background-color: #CC0088;
+}

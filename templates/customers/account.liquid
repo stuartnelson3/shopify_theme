@@ -1,59 +1,393 @@
 {% layout settings.customer_layout %}
 
-<div class="content clearfix">
+<div class="page">
 
-  <div class="page-header clearfix">
-    <h1>Account Details and Order History</h1>
-  </div>
 
   <div id="customer_sidebar">
+    <div class="page-header clearfix">
+        <h1>MANAGE ACCOUNT</h1>
+    </div>
+        
     <div id="customer_detail" class="group">
       <h4 class="name">{{ customer.name }}</h4>
-      <p class="email note">{{ customer.email }}</p>
-      {{ '(Logout)' | customer_logout_link }}
+      <p class="email note">{{ customer.email }} <span>{{ '(Logout)' | customer_logout_link }}</span></p>
+        <div id="savedsize">
+            <h2 id="saved-size">My Saved size</h2>
+            <script type="text/javascript" charset="utf-8">
+                function showForm(id, idtwo, idtr){
+                    if(id != null){
+                        document.getElementById(id).style.display='block';    
+                    }
+                    if(idtwo != null){
+                        document.getElementById(idtwo).style.display='none';
+                    }
+                    if(idtr != null){
+                        document.getElementById(idtr).style.display='inline';
+                    }
+                }                    
+                function hideForm(id, idtwo, idtr){
+                    if(id != null){
+                        document.getElementById(id).style.display='none';    
+                    }
+                    if(idtwo != null){
+                        document.getElementById(idtwo).style.display='none';
+                    }
+                    if(idtr != null){
+                        document.getElementById(idtr).style.display='inline';
+                    }
+                }
+                $(document).ready(function() {
+                    
+                    $('#tops-size select.fit-saved-sizes').click(function(){
+                        $('#tops-size select.fit-saved-sizes option#b-ust').remove();                        
+                        $('#tops-size select.fit-saved-sizes option#bust-selected').attr('select','selected');                        
+                        $('#tops-size select.fit-saved-sizes').css({'color':'#D3018D'});
+                        $('#tops-size select.fit-saved-sizes option').css({'color':'#686868'});
+                        $('#tops-size select.fit-saved-sizes option#bust-selected').css({'color':'#D3018D'});
+                    });
+                    
+                    $('#tops-size select#lenght-f').click(function(){
+                        $('#tops-size select#lenght-f option#l-enght').remove();
+                        $('#tops-size select#lenght-f option#lenght-fit-customer').attr('select','selected');
+                        $('#tops-size select#lenght-f').css({'color':'#D3018D'});
+                        $('#tops-size select#lenght-f option').css({'color':'#686868'});
+                        $('#tops-size select#lenght-f option#lenght-fit-customer').css({'color':'#D3018D'});
+                    });
+                    
+                    $('#bottoms-size select').click(function(){
+                        $('#bottoms-size select option#waist-f').remove();
+                        $('#bottoms-size select option#waist-selected').attr('select','selected');
+                        $('#bottoms-size select').css({'color':'#D3018D'});
+                        $('#bottoms-size select option').css({'color':'#686868'});
+                        $('#bottoms-size select option#waist-selected').css({'color':'#D3018D'});
+                    });
+                    $('#tops-size').submit(function(){
+    if($('.fit-saved-sizes option:selected').val() == 'default'){
+        $('.fit-saved-sizes option:selected').addClass('notValid');
+		return false;
+	} else if($('.length-f option:selected').val() == 'default'){
+		$('.length-f option:selected').addClass('notValid');
+		return false;
+	} else {
+		$('.length-f option:selected').removeClass('notValid');
+		$('.fit-saved-sizes option:selected').removeClass('notValid');
+        
+        
+        var fq_bust = $('select[name=fq_bust] option:selected').val();
+        var fq_length = $('select[name=fq_length] option:selected').val();
+        var fq_top = fq_bust.substr(0,4) + fq_bust.substr(4,5);
+        
+        $.cookie('fq_bust',fq_bust);
+        $.cookie('fq_length',fq_length);
+        $.cookie('fq_top',fq_top);
+		var request = $.ajax({
+				type: 'POST',
+				url: 'http://fitquiz.quincyapparel.com/ufq.php',
+				dataType:"text",
+				data: {
+					shop: Shopify.shop,
+					cid: $('input[name=cid]').val(),
+					fq_bust: fq_bust,
+					fq_length: fq_length}
+			});
+		request.done(function (){window.location.href = window.location.href;});
+		request.fail(function(){window.location.href = window.location.href;});
+		return false;
+	} //endif
+});
+$('#bottoms-size').submit(function(){
+	if($('#bottoms-size #fq_waist option:selected').val() == 'default'){
+		$('#bottoms-size select').addClass('notValid');
+		return false;
+	} else {
+		$('#bottoms-size #fq_waist').removeClass('notValid');
+        $.cookie('fq_waist',$('#fq_waist option:selected').val());
+		var request = $.ajax({
+			type: 'POST',
+			url: 'http://fitquiz.quincyapparel.com/ufq.php',
+			data: {
+				shop: Shopify.shop,
+				cid: $('input[name=cid]').val(),
+				fq_waist: $('#fq_waist option:selected').val()}
+			});
+		request.done(function (){window.location.href = window.location.href;});
+		request.fail(function(){window.location.href = window.location.href;});
+		return false;
+	}
+});
+});
+            </script>
+            {% if customer.metafields.customer.fq_bust && customer.metafields.customer.fq_length && customer.metafields.customer.fq_waist %}
+                <p>Tops <span id="fit-account-bust">{% if customer.metafields.customer.fq_bust contains 'AB' %}{{ customer.metafields.customer.fq_bust | replace: 'AB', ' A/B'}}{% elsif customer.metafields.customer.fq_bust contains 'CD' %}{{ customer.metafields.customer.fq_bust | replace: 'CD', ' C/D' }}{% endif %}</span>   <span id="fit-account-lenght">{{customer.metafields.customer.fq_length}}</span> <a id="edit-tops" href="#" onclick="showForm('tops-size', 'edit-tops', 'cancel-edit-fit'); return false;">EDIT</a><a style="display:none;" id="cancel-edit-fit" class="cancel-fit-edit" href="#" onclick="hideForm('tops-size','cancel-edit-fit', 'edit-tops'); return false;">CANCEL</a></p>
+                
+                <form style="display:none;" id="tops-size" action="#" method="" ><input type="hidden" name="cid" value="{{ customer.id }}"/>
+                    <select class="fit-saved-sizes" name="fq_bust">                        
+                      <option value="default">Bust</option>
+                      <option value="32AB"{% if customer.metafields.customer.fq_bust == '32AB' %} selected="selected"{% endif %}>32 A/B</option>
+                      <option value="32CD"{% if customer.metafields.customer.fq_bust == '32CD' %} selected="selected"{% endif %}>32 C/D</option>
+                      <option value="34AB"{% if customer.metafields.customer.fq_bust == '34AB' %} selected="selected"{% endif %}>34 A/B</option>
+                      <option value="34CD"{% if customer.metafields.customer.fq_bust == '34CD' %} selected="selected"{% endif %}>34 C/D</option>
+                      <option value="36AB"{% if customer.metafields.customer.fq_bust == '36AB' %} selected="selected"{% endif %}>36 A/B</option>
+                      <option value="36CD"{% if customer.metafields.customer.fq_bust == '36CD' %} selected="selected"{% endif %}>36 C/D</option>
+                      <option value="38AB"{% if customer.metafields.customer.fq_bust == '38AB' %} selected="selected"{% endif %}>38 A/B</option>
+                      <option value="38CD"{% if customer.metafields.customer.fq_bust == '38CD' %} selected="selected"{% endif %}>38 C/D</option>
+                      <option value="40AB"{% if customer.metafields.customer.fq_bust == '40AB' %} selected="selected"{% endif %}>40 A/B</option>
+                      <option value="40CD"{% if customer.metafields.customer.fq_bust == '40CD' %} selected="selected"{% endif %}>40 C/D</option>
+                    </select>
+                    <select id="lenght-f" name="fq_length">
+                      <option value="default">Length</option>
+                      <option value="Petite" {% if customer.metafields.customer.fq_length == 'Petite' %}selected="selected"{% endif %}>Petite</option>
+                      <option value="Regular" {% if customer.metafields.customer.fq_length == 'Regular' %}selected="selected"{% endif %}>Regular</option>
+                      <option value="Tall" {% if customer.metafields.customer.fq_length == 'Tall' %}selected="selected"{% endif %}>Tall</option>                  
+                    </select>                
+                    <input type="submit" value="UPDATE SIZE">
+                </form>
+                <p>Bottoms <span id="fit-account-bottoms">{{customer.metafields.customer.fq_waist}}</span> <a id="edit-bottoms" href="#" onclick="showForm('bottoms-size', 'edit-bottoms', 'fit-cancel-edit'); return false;">EDIT</a><a id="fit-cancel-edit" style="display:none;" class="cancel-fit-edit" href="#" onclick="hideForm('bottoms-size', 'fit-cancel-edit', 'edit-bottoms'); return false;">CANCEL</a></p>
+                <form style="display:none;" id="bottoms-size" action="#" method="">
+                    <select id="fq_waist" name="fq_waist">
+                        <option value="default">Waist</option>
+                        <option value="24"{% if customer.metafields.customer.fq_waist == '24' %} selected="selected"{% endif %}>24</option>
+                        <option value="25"{% if customer.metafields.customer.fq_waist == '25' %} selected="selected"{% endif %}>25</option>
+                        <option value="26"{% if customer.metafields.customer.fq_waist == '26' %} selected="selected"{% endif %}>26</option>
+                        <option value="27"{% if customer.metafields.customer.fq_waist == '27' %} selected="selected"{% endif %}>27</option>
+                        <option value="28"{% if customer.metafields.customer.fq_waist == '28' %} selected="selected"{% endif %}>28</option>
+                        <option value="29"{% if customer.metafields.customer.fq_waist == '29' %} selected="selected"{% endif %}>29</option>
+                        <option value="30"{% if customer.metafields.customer.fq_waist == '30' %} selected="selected"{% endif %}>30</option>
+                        <option value="31"{% if customer.metafields.customer.fq_waist == '31' %} selected="selected"{% endif %}>31</option>
+                        <option value="32"{% if customer.metafields.customer.fq_waist == '32' %} selected="selected"{% endif %}>32</option>
+                        <option value="33"{% if customer.metafields.customer.fq_waist == '33' %} selected="selected"{% endif %}>33</option>
+                    </select>                    
+                    <input type="submit" value="UPDATE SIZE">
+                </form>  
+            {% else %}
+                <p id="account-fit-quiz" class="no_fqd"><a class="promo take-fit-quiz" href="#" title="Fit Quiz">Take the Quincy Fit Quiz to find your Quincy Size ></a></p>
+            {% endif %}         
+
+        </div>
+        <div id="page-actions">
+            <span>Addresses</span><a href="#" class="action_add note" onclick="Shopify.CustomerAddress.toggleNewForm(); hideForm('order-history-account'); return false;">&#91;ADD NEW&#93;</a>
+        </div>      
       <div class="address note">
-        {% if customer.default_address != nil %}
-          <p>{{ customer.default_address.address1 }}</p>
-          {% if customer.default_address.address2 != "" %}
-            <p>{{ customer.default_address.address2 }}</p>
-          {% endif %}
-          <p>{{ customer.default_address.city}}, {% if address.province_code %}{{customer.default_address.province_code}}, {% endif %}{{customer.default_address.country}}</p>
-          <p>{{ customer.default_address.zip}}</p>
-          <p>{{ customer.default_address.phone }}</p>
-        {% endif %}
-        <a id="view_address" href="/account/addresses">View Addresses ({{ customer.addresses_count }})</a>
+        <div id="address_tables">  
+  {% paginate customer.addresses by 10 %}
+    
+    {% for address in customer.addresses %}
+    <div class="address_table">
+      <div id="view_address_{{address.id}}" class="customer_address">        
+        <p class="address_actions">
+          <span class="action_edit">{{ "EDIT" | edit_customer_address_link: address.id }}</span>
+          <span id="vertical_b">&#124</span>
+          <span class="action_delete">{{ "DELETE" | delete_customer_address_link: address.id }}</span>
+        </p>
+        <div class="view_address">
+          <p>{{ address.first_name }} {{address.last_name }}</p>
+          <p>{{ address.company }}</p>
+          <p>{{ address.street }}</p>
+          <p>{{ address.city }} {% if address.province_code %}, {{ address.province_code }}{% endif %}</p>
+          <p>{{ address.country }} {{ address.zip }}</p>
+          <p>{{ address.phone }}</p>
+        </div>
+      </div>    
+      <div id="edit_address_{{address.id}}" class="customer_address edit_address" style="display:none;">
+        {% form 'customer_address', address %}
+          <table class="customer_address_table">
+            <tr>
+              <td class="label"><label for="address_first_name_{{form.id}}">First Name</label></td>
+              <td class="value"><input type="text" id="address_first_name_{{form.id}}" class="address_form" name="address[first_name]" value="{{form.first_name}}" size="40" /></td>
+            </tr>
+            <tr>
+              <td class="label"><label for="address_last_name_{{form.id}}">Last Name</label></td>
+              <td class="value"><input type="text" id="address_last_name_{{form.id}}" class="address_form" name="address[last_name]" value="{{form.last_name}}" size="40" /></td>
+            </tr>
+            <tr>
+              <td class="label"><label for="address_company_{{form.id}}">Company</label></td>
+              <td class="value"><input type="text" id="address_company_{{form.id}}" class="address_form" name="address[company]" value="{{form.company}}" size="40" /></td>
+            </tr>
+            <tr>
+              <td class="label"><label for="address_address1_{{form.id}}">Address1</label></td>
+              <td class="value"><input type="text" id="address_address1_{{form.id}}" class="address_form" name="address[address1]" value="{{form.address1}}" size="40" /></td>
+            </tr>
+            <tr>
+              <td class="label"><label for="address_address2_{{form.id}}">Address2</label></td>
+              <td class="value"><input type="text" id="address_address2_{{form.id}}" class="address_form" name="address[address2]" value="{{form.address2}}" size="40" /></td>
+            </tr>
+            <tr>
+              <td class="label"><label for="address_city_{{form.id}}">City</label></td>
+              <td class="value"><input type="text" id="address_city_{{form.id}}" class="address_form" name="address[city]" value="{{form.city}}" size="40" /></td>
+            </tr>
+            <tr>
+              <td class="label"><label for="address_country_{{form.id}}">Country</label></td>
+              <td class="value">
+                <select id="address_country_{{form.id}}" name="address[country]" data-default="{{form.country}}">{{ country_option_tags }}</select>
+              </td>
+            </tr>
+            <tr id="address_province_container_{{form.id}}" style="display:none">
+              <td class="label"><label for="address_province_{{form.id}}">Province</label></td>
+              <td class="value"><select id="address_province_{{form.id}}" class="address_form" name="address[province]" data-default="{{form.province}}"></select></td>
+            </tr>
+            <tr>
+              <td class="label"><label for="address_zip_{{form.id}}">Zip</label></td>
+              <td class="value"><input type="text" id="address_zip_{{form.id}}" class="address_form" name="address[zip]" value="{{form.zip}}" size="40" /></td>
+            </tr>
+            <tr>
+              <td class="label"><label for="address_phone_{{form.id}}">Phone</label></td>
+              <td class="value"><input type="text" id="address_phone_{{form.id}}" class="address_form" name="address[phone]" value="{{form.phone}}" size="40" /></td>
+            </tr>      
+            <tr>
+              <td class="label"></td>
+              <td class="value">{{ form.set_as_default_checkbox }} Set as Default Address?</td>
+            </tr>
+          </table>
+          <div class="action-bottom">
+            <input class="btn" type="submit" value="Update Address" />
+            <span class="note"> or <a href="#" onclick="Shopify.CustomerAddress.toggleForm({{form.id}}); return false;">Cancel</a></span>
+          </div>        
+        {% endform %}
+      </div>
+    </div><!-- end .address_table -->
+    {% endfor %}
+    
+    <div id="address_pagination">{{ paginate | default_pagination }}</div>  
+  {% endpaginate %}
+  </div><!-- end #address_tables -->
+
+  <script type="text/javascript" charset="utf-8">
+    // initialize observers on address selectors
+    new Shopify.CountryProvinceSelector('address_country_new', 'address_province_new', {hideElement: 'address_province_container_new'});  
+    {% for address in customer.addresses %}
+      new Shopify.CountryProvinceSelector('address_country_{{address.id}}', 'address_province_{{address.id}}', {hideElement: 'address_province_container_{{address.id}}'});
+    {% endfor %}
+  </script>
       </div>
 
     </div>
   </div>
 
   <div id="customer_orders">
-    {% if customer.orders.size != 0 %}
-    <table>
-      <thead>
+    <div id="order-history-account">
+        <h2>ORDER HISTORY</h2>
+        {% if customer.orders.size != 0 %}
+        <table>
+          <thead>
+            <tr>
+              <th class="order_number">Order</th>
+              <th class="date">Date</th>
+              <!--<th class="payment_status">Payment Status</th>
+              <th class="fulfillment_status">Fulfillment Status</th>-->
+              <th class="total">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+                <td><p></p></td>
+                <td><p></p></td>
+                <td><p></p></td>
+            </tr>
+            {% for order in customer.orders %}
+            <tr class="order_n {% cycle 'odd', 'even' %} {% if order.cancelled %}cancelled_order{% endif %}">
+              <td>{{ order.name | link_to: order.customer_url }}</td>
+              <td><span class="note">{{ order.created_at | date: "%b %d, %Y" }}</span></td>
+              <!--<td><span class="status_{{ order.financial_status }}">{{ order.financial_status }}</span></td>
+              <td><span class="status_{{ order.fulfillment_status }}">{{ order.fulfillment_status }}</span></td>-->
+              <td><span class="total money">{{ order.total_price | money }}</span></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+          <p>You haven't placed any orders yet.</p>
+        {% endif %}
+    </div>
+    <div id="add_address" class="customer_address edit_address" style="display:none;">
+    {% form 'customer_address', customer.new_address %}
+      <h2 id="add_address_title">ADD A NEW ADDRESS</h2>
+      <table class="customer_address_table">
         <tr>
-          <th class="order_number">Order</th>
-          <th class="date">Date</th>
-          <th class="payment_status">Payment Status</th>
-          <th class="fulfillment_status">Fulfillment Status</th>
-          <th class="total">Total</th>
+          <td class="label"><label for="address_first_name_new">First Name</label></td>
+          <td class="value"><input type="text" id="address_first_name_new" class="address_form" name="address[first_name]" value="{{form.first_name}}" size="40" /></td>
         </tr>
-      </thead>
-      <tbody>
-        {% for order in customer.orders %}
-        <tr class="{% cycle 'odd', 'even' %} {% if order.cancelled %}cancelled_order{% endif %}">
-          <td>{{ order.name | link_to: order.customer_url }}</td>
-          <td><span class="note">{{ order.created_at | date: "%b %d, %Y" }}</span></td>
-          <td><span class="status_{{ order.financial_status }}">{{ order.financial_status }}</span></td>
-          <td><span class="status_{{ order.fulfillment_status }}">{{ order.fulfillment_status }}</span></td>
-          <td><span class="total money">{{ order.total_price | money }}</span></td>
+        <tr>
+          <td class="label"><label for="address_last_name_new">Last Name</label></td>
+          <td class="value"><input type="text" id="address_last_name_new" class="address_form" name="address[last_name]" value="{{form.last_name}}" size="40" /></td>
         </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    {% else %}
-      <p>You haven't placed any orders yet.</p>
-    {% endif %}
+        <tr>
+          <td class="label"><label for="address_company_new">Company</label></td>
+          <td class="value"><input type="text" for="address_company_new" class="address_form" name="address[company]" value="{{form.company}}" size="40" /></td>
+        </tr>
+        <tr>
+          <td class="label"><label for="address_address1_new">Address1</label></td>
+          <td class="value"><input type="text" id="address_address1_new" class="address_form" name="address[address1]" value="{{form.address1}}" size="40" /></td>
+        </tr>
+        <tr>
+          <td class="label"><label for="address_address2_new">Address2</label></td>
+          <td class="value"><input type="text" id="address_address2_new" class="address_form" name="address[address2]" value="{{form.address2}}" size="40" /></td>
+        </tr>
+        <tr>
+          <td class="label"><label for="address_city_new">City</label></td>
+          <td class="value"><input type="text" id="address_city_new" class="address_form" name="address[city]" value="{{form.city}}" size="40" /></td>
+        </tr>
+        <tr>
+          <td class="label"><label for="address_country_new">Country</label></td>
+          <td class="value">
+            <select id="address_country_new" name="address[country]" data-default="{{form.country}}">{{ country_option_tags }}</select>
+          </td>
+        </tr>
+        <tr id="address_province_container_new" style="display:none">
+          <td class="label"><label for="address_province_new">Province</label></td>
+          <td class="value">
+            <select id="address_province_new" class="address_form" name="address[province]" data-default="{{form.province}}"></select>
+          </td>
+        </tr>
+        <tr>
+          <td class="label"><label for="address_zip_new">Zip</label></td>
+          <td class="value"><input type="text" id="address_zip_new" class="address_form" name="address[zip]" value="{{form.zip}}" size="40" /></td>
+        </tr>
+        <tr>
+          <td class="label"><label for="address_phone_new">Phone</label></td>
+          <td class="value"><input type="text" id="address_phone_new" class="address_form" name="address[phone]" value="{{form.phone}}" size="40" /></td>
+        </tr>
+        <tr>
+          <td class="label"></td>
+          <td class="value">{{ form.set_as_default_checkbox }} Set as Default Address?</td>
+        </tr>
+      </table>
+      <div class="action-bottom">
+        <input class="btn" type="submit" value="Add Address" />
+        <span class="note"> or <a href="#" onclick="Shopify.CustomerAddress.toggleNewForm(); showForm('order-history-account'); return false;">Cancel</a></span>
+      </div>
+    {% endform %}
   </div>
-
+  </div>
+<script>
+$(document).ready(function(){
+    // If customer has account and has not fq data.
+    if($('.no_fqd').length>0){
+        $('.take-fit-quiz').empty().html('&nbsp;');
+        var request = $.ajax({
+                type: 'POST',
+				url: 'http://fitquiz.quincyapparel.com/ufq.php',
+				dataType:"text",
+				data: {
+					shop: Shopify.shop,
+					cid: '{{ customer.id }}',
+					fq_bust: ($.cookie('fq_top').substr(0,2)+$.cookie('fq_bust')),
+					fq_length: $.cookie('fq_length'),
+                    fq_data: $.cookie('fq_data'),
+                    fq_waist: $.cookie('fq_waist')
+                    }
+			});
+		request.done(function(){window.location.href = window.location.href;});
+        request.fail(function(){window.location.href = window.location.href;});
+    } else {
+        var fq_bust = $('select[name=fq_bust] option:selected').val();
+        var fq_length = $('select[name=fq_length] option:selected').val();
+        var fq_top = fq_bust.substr(0,4) + fq_bust.substr(4,5);
+        
+        $.cookie('fq_bust',fq_bust);
+        $.cookie('fq_length',fq_length);
+        $.cookie('fq_top',fq_top);
+        $.cookie('fq_waist','{{customer.metafields.customer.fq_waist}}');
+    }
+});
+</script>
 </div>

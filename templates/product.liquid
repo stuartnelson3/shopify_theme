@@ -13,7 +13,7 @@
         </div>
         <a class="swatch" href="#" title="Swatch Detail">Swatch Detail</a>
         <form action="/cart/add" method="post" class="variants" id="product-actions">
-          <div class="options">
+          <div class="options"> 
             <select id="product-select" name="id">
               {% for variant in product.variants %}
               <option value="{{ variant.id }}">
@@ -36,11 +36,11 @@
               <ul class="selector_1 selector"></ul>  
             </div>          
             <div class="fits-like">
-              <p>Fits like a 2 from J. Crew and Ann Taylor</p>
-              <p>Fits like a 4 from J. Crew and Ann Taylor</p>
-              <p>Fits like a 6 from J. Crew and Ann Taylor</p>
-              <p>Fits like a 8 from J. Crew and Ann Taylor</p>
-              <p>Fits like a 10 from J. Crew and Ann Taylor</p>
+              <p>Fits like a 0-00 from J. Crew and Ann Taylor</p>
+              <p>Fits like a 2-4 from J. Crew and Ann Taylor</p>
+              <p>Fits like a 6-8 from J. Crew and Ann Taylor</p>
+              <p>Fits like a 10-12 from J. Crew and Ann Taylor</p>
+              <p>Fits like a 14 from J. Crew and Ann Taylor</p>
             </div>
             <a class="size-chart" href="#" title="Size Charts">Size Charts</a> 
           </div>            
@@ -50,12 +50,12 @@
             {% include 'pre-order-delay' %}
           </div>
         </form>
-        <a id="take-fit-quiz" class="fit-quiz" href="#" title="Fit Quiz">Find your perfect fit ></a>
+        <a class="fit-quiz take-fit-quiz" href="#" title="Fit Quiz">Find your perfect size ></a>
       </div>
     </div>
   </div>  <!-- BUY MENU -->
   <div id="slideshow">  
-  	<ul class="slides">
+      <ul class="slides">
       {% for image in product.images %}	
     	 {% unless forloop.first %}
         <li><img src="{{ image | product_img_url: 'original' }}" alt="{{ product.title }}" title="{{ product.title }}" /></li>
@@ -83,10 +83,7 @@
 <section class="love_it">
   <div>
     <h1>Why we love it</h1>
-    <h3>See a week in the life of the</h3>
-    <a class="week_in_life" href="http://blog.quincyapparel.com/" title="Blog">
-      {{ product.title }} >
-    </a>
+    {% include 'how_to_style' %}
   </div>  <!-- 1. WHY WE LOVE THIS -->
   
   {% capture love_it %}{{ product.handle }}-love.jpg{% endcapture %}
@@ -158,10 +155,10 @@
   
   <div class="tops size-chart">
     <h1>Size Charts</h1>
-    <p>Quincy top sizes take into account the three most important body dimensions for fit: <span>bust</span>, <span>cup size</span>, and <span>length</span>. Our pants and skirts are sized by <span>waist</span> and <span>length</span>.</p>
     <div class="dresses size-chart">
       <section>
         <h2>Blazers, Blouses, &amp; Dresses</h2>
+        <p>Quincy top sizes take into account the three most important body dimensions for fit: <span>bust</span>, <span>cup size</span>, and <span>length</span>.</p>
         <table>
           <tr>
             <td><span>Quincy Size</span></td>
@@ -228,6 +225,7 @@
   <div class="bottoms size-chart">
     <section>
       <h2>Pants &amp; Skirts</h2>
+      <p>Our pants and skirts are sized by <span>waist</span> and <span>length</span>.</p>
       <table>
         <tr>
           <td><span>Traditional Size</span></td>
@@ -255,16 +253,49 @@
           <td>32</td>
           <td>33</td>
         </tr>
+        <tr>
+          <td><span>Natural Waist</span></td>
+          <td>24.5</td>
+          <td>25</td>
+          <td>26</td>
+          <td>27</td>
+          <td>28</td>
+          <td>29</td>
+          <td>30</td>
+          <td>31.5</td>
+          <td>33</td>
+          <td>34.5</td>
+        </tr>
+        <tr>
+          <td><span>Low Hip</span></td>
+          <td>34.5</td>
+          <td>35</td>
+          <td>36</td>
+          <td>37</td>
+          <td>38</td>
+          <td>39</td>
+          <td>40</td>
+          <td>41.5</td>
+          <td>43</td>
+          <td>44.5</td>
+        </tr>
       </table>
     </section>
     <section>
       <h2 class="level3">Length</h2>
       <ul>
-        <li>We offer all our pants and skirts in 3-4 inseam lengths, to accommodate short-legged and long-legged women alike</li>
+        <li>We offer all our pants and skirts in 3-4 lengths, to accommodate short-legged and long-legged women alike</li>
         <li>Pants are also available unhemmed if you prefer to have them hemmed yourself</li>
-        <li>Inseam lengths for specific products can be found by looking at measurements on the product's page</li>
+        <li>Lengths for specific products can be found by looking at <span>MEASUREMENTS +</span></li>
       </ul>
     </section>
   </div>
+  </div>
+</section>
+<section class="second-size-modal">
+  <div class="second-size-modal">
+    <h1>Try a Second Size</h1>
+    <p>Want to try an additional size, for free? Leave us a comment when you checkout with your Second Size request to try at home!</p>
+    <button class="second-size-modal">CLOSE</button>
   </div>
 </section>

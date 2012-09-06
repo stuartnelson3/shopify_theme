@@ -1,18 +1,18 @@
 {% layout settings.customer_layout %}
 
-<div id="customer-accounts"  class="content clearfix">
+<div id="customer-accounts"  class="page clearfix">
     
   <!-- Customer Account Login -->
   <div id="customer-login">
     <div class="page-header">
-      <h1>Customer Login</h1>
+      <h1>CUSTOMER LOGIN</h1>
     </div>
 
     {% form 'customer_login' %}
       {{ form.errors | default_errors }}
 
       <div id="login_email" class="clearfix form-row">
-        <label for="customer_email" class="login">Email Address</label>
+        <label for="customer_email" class="login">Email</label>
         <input type="email" value="" name="customer[email]" id="customer_email" class="large" size="30" />
       </div>
 
@@ -20,27 +20,30 @@
         <div id="login_password" class="clearfix form-row">
           <label for="customer_password" class="login">Password</label>
           <input type="password" value="" name="customer[password]" id="customer_password" class="large password" size="16" />
-          <div id="forgot_password">
+          <!--<div id="forgot_password">
             <a href="#" onclick="showRecoverPasswordForm()">Forgot your password?</a>
-          </div>
+          </div>-->
         </div>
       {% endif %}
 
       <div class="action-bottom">
-        <input class="btn" type="submit" value="Sign In" />
-        <span class="note">or <a href="{{ shop.url }}">Return to Store</a></span>
+        <input class="btn" type="submit" value="LOGIN" />
+        <span class="note" style="display:none">or <a href="{{ shop.url }}">Return to Store</a></span>
+        <div id="forgot_password">
+            <a href="#" onclick="showRecoverPasswordForm()">Forgot Your Password?</a>
+        </div>  
       </div>
     {% endform %}
   </div><!-- /#customer-login -->
 
 
   <!-- Password Recovery -->
-  <div id="recover-password">
+  <div id="recover-password" style="display:none">
     <div class="page-header">
-      <h1>Reset Password</h1>
+      <h1>RESET PASSWORD</h1>
     </div>
 
-    <p class="note">We will send you an email to reset your password.</p>
+    <p class="note">We will send an email with instructions to reset your password.</p>
 
     {% form 'recover_customer_password' %}
       {{ form.errors | default_errors }}
@@ -65,9 +68,9 @@
   {% if shop.checkout.guest_login %}
   <div id="guest">
     <div class="page-header">
-      <h1>Guest Login</h1>
+      <h1>GUEST CHECKOUT</h1>
     </div>
-		<p>Continue checkout as a guest. No sign-up required.</p>
+    	<p>Proceed to checkout now and you can create an account one you order have been placed.</p>
     {% form 'guest_login' %}
       <input class="btn" type="submit" value="Continue as Guest" />
     {% endform %}

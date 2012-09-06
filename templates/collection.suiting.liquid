@@ -1,5 +1,15 @@
 <!-- MAKE EMPTY COLLECTION CALLED LOOKS THAT USES THIS TEMPLATE -->
+{% if collection.handle == 'the-riley-collection' %}
+ <style type="text/css" media="screen">
+  section.collection div.right {
+    margin-top: 0;
+  }
+ </style>
+{% else %}
+{% endif %}
+
 <section class="collection">
+  {% unless collection.handle == 'the-riley-collection' %}
     {% if collections.suiting1.image %}
     <div class="suiting_description left">
       <h1>{{ collections.suiting1.title }}</h1>
@@ -22,6 +32,8 @@
           </li>
         {% endfor %}
       </ul>
+  {% endunless %}
+  {% unless collection.handle == 'the-elliott-collection' %}
       {% if collections.suiting2.image %}
       <div class="suiting_description right">
         <h1>{{ collections.suiting2.title }}</h1>
@@ -44,4 +56,5 @@
             </li>
           {% endfor %}
         </ul>
+  {% endunless %}
 </section>

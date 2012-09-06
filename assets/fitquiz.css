@@ -1,0 +1,227 @@
+@charset "utf-8";
+/* 
+* fitquiz.css
+* ---------------
+* CSS Document */
+
+
+#fqt {
+    border-bottom: 1px solid #EBEBEB;
+    margin-bottom: 20px;
+    padding: 8px 15px 0px;
+	color:#031d48;
+    width: 950px;
+}
+#fqt span{
+	letter-spacing:0.4pt;
+}
+#fqt .fqt-0{
+	width: 400px;
+    text-transform: uppercase;
+}
+#fqt .fqt-1{
+	width:125px;
+	margin-left: 17px;
+}
+#fqt .fqt-2{
+    width: 408px;
+	text-align: right;
+	}
+#fqt .fqt-2 a{
+	font-size: 8pt !important;
+    font-style: normal !important;
+    text-transform: uppercase;
+	font-style:normal !important;
+}
+.fq-visual-steps {
+	background: url("fq_bullets.png") no-repeat scroll 0 -11px transparent;
+    height: 11px;
+    margin-right: 6px;
+    width: 11px;
+}
+.fq-visual-active{
+	background-position: 0px 0px !important;	
+}
+#fq-0{
+    margin-top: 45px;
+    height: 402px;
+}
+#fit-quiz-top h6 {
+	color: #D3018D;
+    font-size: 9pt;
+    letter-spacing: 0.2pt;
+	margin-bottom:10px;
+}
+#fit-quiz-top p{
+	letter-spacing:0.4pt;	
+	line-height:1.6em;
+}
+div.button {
+  text-align: center;
+  margin-left: 24px;
+}
+#fit-quiz-top button {
+  height: 30px;
+  margin: 5px 2px 0 0px;
+  width: 73px;
+}
+#fit-quiz-top button.get-started{
+	height: 29px;
+  margin: 12px 20px 0 1px;
+  width: 127px;
+}
+#fit-quiz-0 .fq-col-13 img{
+	margin-left:36px;
+}
+.fq-col-13{
+    width:365px;
+}
+.fq-col-23{
+	width:390px;
+}
+.fq-col-33{
+	width:195px;text-align:right;
+}
+.fleft{
+	float:left;	
+}
+.fright{
+	float:right;
+}
+.clearfix{
+	clear:both;
+	float:none;
+	display:inline-block;
+}
+div.select-box{
+	left:0px;
+	position:relative;	
+}
+#fq-1 {
+  height: 365px;
+}
+#fq-1 .fq-1{
+	margin: 16px 20px 20px 30px;
+  width: 400px;
+  height: 250px;
+}
+#fq-1 #top-dresses {
+  width: 290px;
+}
+#fq-1 a.field{
+	margin:0 17px 17px 3px;
+	width: 68px;	
+}
+#fq-1 ul.selector{
+  margin-left: 3px;
+  width: 68px;
+}
+#fq-1 ul.selector li{
+	height: 15px;
+	width:68px;
+}
+#fq-1 .measurements {
+	margin: 0 0 12px 201px;	
+}
+#fq-col-14{
+	width: 275px;	
+}
+#fq-col-34{
+	
+}
+#top-dresses a.field{
+	margin: 3px 0;
+    width: 110px;
+}
+#top-dresses ul.selector{
+    margin-left: 0;
+    width: 110px;
+}
+#top-dresses .select-box{
+	margin-bottom: 25px;
+}
+#fq-col-44{	
+	width: 200px;
+}
+.fq-check{
+	border: 1px solid #CCCCCC;
+    height: 10px;
+    margin-left: 3px;
+    margin-right: 6px;
+    width: 10px;
+}
+#fq-col-13{
+	width:300px;
+}
+#fq-col-13 label,#fq-3 label, #fq-4 label{
+	font-size: 8pt;
+    letter-spacing: 0;
+}
+#fq-5 h2{
+    font-size: 24pt;
+	color: #031d48;
+  margin: 0 0 40px 40px;
+}
+#fq-5 img {
+  position: relative;
+  bottom: 10px;
+  z-index: 5;
+  margin-left: 40px;
+}
+#fq-5 div.info {
+  width: 250px; 
+  margin-left: 20px;
+}
+#fit-quiz-top #fq-5 button {
+  background-color: #031D48;
+  width: 70px;
+}
+h1#top-size, h1#bottom-size {
+    color: rgb(211, 1, 141); 
+    text-transform: capitalize; 
+    font-size: 34px; 
+    margin: 10px 0;
+    padding: 0 0 15px 22px;
+    position: relative;
+    right: 23px;
+    width: 220px;
+    font-weight: 300;
+}
+#fit-quiz-top{
+	/*display:none;*/
+	font-size: 9pt;
+	line-height: 1.5em;
+	width:980px;
+}
+.fq-basic{
+	/*display:none;*/
+	margin-top: 30px;
+	padding: 0px 20px;
+	height: 500px;
+	border-bottom: 1px solid rgb(204, 204, 204);
+  width: 940px;
+}
+#fq-5 {
+  padding: 0 20px;
+}
+#fq-5 div.clearfix {
+  width: 940px;
+  border-bottom: 1px solid rgb(211, 211, 211);
+  margin-bottom: 25px; 
+  padding-bottom: 20px;
+}
+#fit-quiz-top .select-box .notValid,#fit-quiz-top img.notValid{
+    border-color: #D3018D !important;
+}
+#fit-quiz-top img.active{
+    background-color:#031D48 !important;
+    }
+a.fq-goback {
+    cursor: pointer;
+}
+div#fq-0 div {
+  margin: 49px 40px 40px;
+}
+div#fq-0 img {
+  margin-left: 80px;
+}

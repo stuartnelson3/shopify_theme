@@ -15,10 +15,10 @@
     {% when 'fiona-blouse' %}
       <style type="text/css" media="screen">
         div.buy-menu ul.swatch li:first-of-type {
-          background: url({{ fiona_swatch_1 | asset_url }});
+          background: url({{ fiona_swatch_2 | asset_url }});
         }
         div.buy-menu ul.swatch li:last-child {
-          background: url({{ fiona_swatch_2 | asset_url }});
+          background: url({{ fiona_swatch_1 | asset_url }});
         }
       </style>
       {% for variant in product.variants limit:2 offset:1 %}

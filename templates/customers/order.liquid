@@ -1,9 +1,9 @@
 {% layout settings.customer_layout %}
 
-<div class="content clearfix">
-
+<div class="page clearfix">
+<div id="order-details">
   <div class="page-header clearfix">
-    <h1 id="page-title">Order {{ order.name }}</h1>
+    <h1 id="page-title">ORDER DETAILS</h1>
   </div><!-- /.page-header -->
 
   {% if order.cancelled %}
@@ -13,8 +13,9 @@
   </div>
   {% endif %}
 
-  <div class="note order_date">Placed on {{ order.created_at | date: "%B %d, %Y %I:%M%p" }}</div>
-
+  <!--<div class="note order_date">Placed on {{ order.created_at | date: "%B %d, %Y %I:%M%p" }}</div>-->
+    <h4 class="name">{{ customer.name }}</h4>
+      <p class="email note">{{ customer.email }}</p>    
   <div id="order_address" class="group">
     <div id="order_payment">
       <h2 class="order_section_title">Billing Address</h2>
@@ -43,7 +44,9 @@
       </div>
     {% endif %}
   </div>
-
+</div>
+<div id="order-details-table">
+    <h2 id="page-title">ORDER {{ order.name }}</h1>
   <table id="order_details">
     <thead>
       <tr>
@@ -55,6 +58,12 @@
       </tr>
     </thead>
     <tbody>
+        <tr>
+            <td><p></p> </td>
+            <td><p></p> </td>
+            <td><p></p> </td>
+            <td><p></p> </td>
+        </tr>
       {% for line_item in order.line_items %}
       <tr id="{{ line_item.id }}" class="{% cycle 'odd', 'even' %}">
         <td class="product">
@@ -74,8 +83,10 @@
         <td class="total money">{{ line_item.quantity | times: line_item.price | money }}</td>
       </tr>
       {% endfor %}
-    </tbody>  
-    <tfoot>
+    </tbody>       
+  </table>
+  <table id="subtotal-order-details">
+    <tbody>
       <tr class="order_summary note">
         <td class="label" colspan="4">Subtotal:</td>
         <td class="total money">{{ order.subtotal_price | money }}</td>
@@ -99,7 +110,11 @@
         <td class="label" colspan="4">Total:</td>
         <td class="total money">{{ order.total_price | money }} {{ order.currency }}</td>
       </tr>   
-    </tfoot>  
+    </tbody> 
   </table>
-
+  <div id="out-from-page">
+    <p id="return-to-str"><a href="/">RETURN TO STORE</a></p>
+    <p id="return-toaccou"><a href="/account">RETURN TO ACCOUNT PAGE</a></p>
+  </div>
+</div>
 </div><!-- /.content -->

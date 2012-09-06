@@ -3,7 +3,7 @@ $(document).ready(function() {
 {% if template %}
 $("section.main-nav ul li a").removeClass("active");
 {% case handle %}
-	
+    
 {% when 'meet-quincy' %}
 $("section.main-nav ul li:eq(2) a").addClass("active");
 {% endcase %}
@@ -25,8 +25,8 @@ $("section.main-nav ul li:eq(2) a").addClass("active");
 		$('a[href*="skirts"]').addClass("active");	
 		{% when "pants" %}
 		$('a[href*="pants"]').addClass("active");	
-		{% when "suiting" %}
-		$('a[href*="suiting"]').addClass("active");
+		{% when "collections" or 'the-riley-collection' or 'the-elliott-collection' %}
+		$('a[href*="/collections/collections"]').addClass("active");
 		{% when "looks" %}
 		$('a[href*="looks"]').addClass("active");
 	//END COLLECTION PAGES
