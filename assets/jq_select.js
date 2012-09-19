@@ -43,10 +43,10 @@ if($.cookie('fq_top') && $.cookie('fq_length') && $.cookie('fq_waist')){
 		});
 	} // end Bust Select
 	
-	if ($("label[for=product-select-option-1]").text() == "Waist") {
-	  $('#product-actions .bottom .field .info').empty().text(fq_waist);
+	if ($("label[for=product-select-option-0]").text() == "Waist") {
+	  $('#product-actions .top .field .info').empty().text(fq_waist);
 	  
-	  $('#product-select-option-1 option').each(function(){ // Change Length
+	  $('#product-select-option-0 option').each(function(){ // Change Length
 			var pval = $(this).val();
 			var pdata = $(this).text();
 			if((pdata.indexOf(fq_top) > -1 && pdata.indexOf(fq_bust) > -1) || pdata.indexOf(fq_waist) > -1){
@@ -57,8 +57,12 @@ if($.cookie('fq_top') && $.cookie('fq_length') && $.cookie('fq_waist')){
 	} else{}
 	
 	
-	$('#product-select').removeAttr('disabled');
-	$('#add-to-cart').removeAttr('disabled').removeClass('disabled').removeClass('default');
+  var prod_sel0 = $("#product-select-option-0");
+  var prod_sel1 = $("#product-select-option-1");
+    if(prod_sel0.val() !== "Length" && prod_sel1.val() !== "Bust" && prod_sel0.val() !== "Waist" && prod_sel1.val() !== "Inseam" && prod_sel1.val() !== "Length" && prod_sel1.val() !== "Waist" && prod_sel0.val() !== "Inseam"){
+	  $('#product-select').removeAttr('disabled');
+  	$('#add-to-cart').removeAttr('disabled').removeClass('disabled').removeClass('default');
+	}
 	
 	if ($(":contains(32)", this).is(":selected")) {
 		$("div.fits-like p").eq(0).show();

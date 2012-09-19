@@ -14,11 +14,16 @@ function rebind(){
   });
 }
 $(document).ready(function(){
+    var options = {
+      	  maxDate: "+3m",
+  		  minDate: "+0d"
+  	  }
+    $("#datepicker").datepicker( options );
     $('ul.slides li:first-child').addClass("slideActive");
 	$("ul.indices li:first-child").addClass("indexActive");
 	$("div.wear_details div").eq(0).addClass("detailActive");
 	$("div.swatch-popup div").eq(0).fadeIn();
-	$("ul.swatch li:last-of-type").addClass("active");
+	$("ul.swatch li").eq(0).addClass("active");
 	$("div.selector-wrapper").eq(2).hide();
 	$("#product-select-option-2").val($("#product-select-option-2 option").eq(1).val()).change();
 	$("p.color").append($("#product-select-option-2").val());

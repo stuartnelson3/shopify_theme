@@ -14,7 +14,7 @@
         <tbody>
           {% for item in cart.items %}
         <div class="product">
-          <a href="#" class="product_remove" onclick="remove_item({{ item.variant.id }});"></a>
+          <a href="#" class="product_remove" onclick="remove_item({{ item.variant.id }}); return false;"></a>
           <a href="{{ item.product.url }}" title="{{ item.title | escape }}">
             <img src="{{ item.product.images.first | product_img_url" alt="{{ item.title | escape }}" width="60" height="60" />
           </a>

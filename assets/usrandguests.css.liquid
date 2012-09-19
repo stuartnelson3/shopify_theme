@@ -55,7 +55,6 @@ form#customer_login input, #recover-password form #recover_email input, #reset-p
 }
 
 #login_email input, #login_password input, #recover-password form #recover_email input, #reset-passrd form #password input, #reset-passrd form #password_confirm input{
-    background-color: #fcfcfc;
     padding: 3px;
 }
 
@@ -96,10 +95,10 @@ form#customer_login input, #recover-password form #recover_email input, #reset-p
     background-color: #031d48;
 }
 
-#forgot_password a:hover, .action-bottom input:hover, #customer_login_guest input:hover, #reset-passrd form .action_bottom input:hover{
+.action-bottom input:hover, #customer_login_guest input:hover, #reset-passrd form .action_bottom input:hover{
     background-color: #e939af;
 }
-#forgot_password a:active, .action-bottom input:active, #customer_login_guest input:active, #reset-passrd form .action_bottom input:active{
+.action-bottom input:active, #customer_login_guest input:active, #reset-passrd form .action_bottom input:active{
     background-color: #cc0088;
 }
 #forgot_password a{
@@ -107,7 +106,12 @@ form#customer_login input, #recover-password form #recover_email input, #reset-p
     font-style: normal;
     font-size: 10px;
 }
-
+#forgot_password a:hover {
+    color: #e939af;
+}
+#forgot_password a:active {
+    color: #cc0088;
+}
 .action-bottom span.note, .action-bottom span.note a{
     font-size: 10px;
 }
@@ -190,13 +194,12 @@ h2#saved-size{
 
 #tops-size input, #bottoms-size input{
     background-color: #031d48;
-    margin-right: 12px;
 }
 
 #tops-size input:hover, #bottoms-size input:hover{
     background-color: #e939af;
 }
-#tops-size input:hover, #bottoms-size input:hover{
+#tops-size input:active, #bottoms-size input:active{
     background-color: #cc0088;
 }
 p.address_actions{    

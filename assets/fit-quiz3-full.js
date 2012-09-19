@@ -1,4 +1,4 @@
-var fqt = new Array('Find your perfect fit','Your measurements','Shape','How your tops fit','How your bottoms fit','Your perfect fit');
+var fqt = new Array('Find your perfect size','Your measurements','Shape','Tops','Bottoms','Your perfect size');
 var fqPageNum = new Number(0);
 
 //- Check FQ Page Height
@@ -12,8 +12,8 @@ function fqCheckHeight(NUM,pgNUM){
     var currentHeight = $('#fq-'+NUM).css('height');
     var nextHeight = $('#fq-'+(NUM+f)).css('height');
         
-	if(currentHeight < nextHeight){
-		$('#fit-quiz-top').animate({ height: ($('#fq-'+(NUM+f)).css('height')+78) },function(){
+    if(currentHeight < nextHeight){
+    	$('#fit-quiz-top').animate({ height: ($('#fq-'+(NUM+f)).css('height')+78) },function(){
 			$('#fq-'+NUM).fadeOut(function(){
 						$('#fq-'+(NUM+f)).fadeIn();	
 			});
@@ -297,15 +297,16 @@ function fqStepBack(NUM){
 			$("#rec_1").append(dress_size_rec, " ", cup_size_rec, " ", length_primary);
 			*/
 			$("#bottom-size").empty();
-			$("#bottom-size").append(pant_rec+' Inches');
+			$("#bottom-size").append(pant_rec);
 			
 			
 			// Set cookie data for future use
 			var fq_size = 'top:'+dress_size_primary+" "+cup_size_primary+" "+length_primary+';bottom:'+pant_rec+';';
 			var fqa_data = 'fq:'+dress_size+','+bust_size+','+cup_size+','+pant_size+','+dart+','+sleeve+','+torso+','+textFieldsFeet+','+textFieldsInches+','+textFieldsWeight+','+pants0+','+pants1+','+pants2+','+pants3+','+pants4+','+torso+','+torso;
             $.cookie('fq_size', fq_size, { expires: 7, path: '/' });
+            $.cookie('fq_bust', cup_size_primary.replace("/",""), { expires: 7, path: '/' });
 			$.cookie('fq_waist',pant_rec, { expires: 7, path: '/' });
-			$.cookie('fq_top', dress_size_primary+' '+cup_size_primary, { expires: 7, path: '/' });
+			$.cookie('fq_top', dress_size_primary+cup_size_primary.replace("/",""), { expires: 7, path: '/' });
 			$.cookie('fq_length', length_primary, { expires: 7, path: '/' });
 			$.cookie('fq_data', fqa_data, { expires: 14, path: '/' });
 		}
@@ -313,9 +314,7 @@ function fqStepBack(NUM){
 
 $(document).ready(function(){
 $('#cancel-fq').click(function(){
-    if(confirm("Are you sure you want to close the Fit Quiz?") == true){
-			$('#fit-quiz-top').slideUp(600);
-	}
+	$('#fit-quiz-top').slideUp(600);
      return false;
 });
 $('.fq-goback').click(function(){

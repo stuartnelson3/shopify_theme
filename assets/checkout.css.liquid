@@ -124,14 +124,16 @@ a:hover { color: {{ settings.content_link_hover_colour}} }
   }
 
 .group{
-  width: 600px;
-  margin: 100px 0 0 200px;
-  padding: 20px;
+  width: 700px;
+  margin: 50px 0 0 200px;
+  padding: 0px;
   background: white;
   line-height: 1.5em;
   border: none;
   }
-
+form {
+  margin: 0 !important;
+}
 form#purchase-form{
     position: relative;
     right: 16px;
@@ -141,6 +143,7 @@ form#purchase-form div.group{
     border-radius: 0 !important;
     color: #031D48;
     width: 270px !important;
+    margin-left: 216px;
 }
 
 form#purchase-form .group p{
@@ -150,8 +153,9 @@ form#purchase-form .group p{
 
 form#purchase-form table#buttons{
     position: relative;
-    right: 152px;
-    top: -76px;
+    right: 431px;
+    top: -20px;
+    margin-top: 20px;
 }
 form#purchase-form table#buttons td{
     display: inline-block;
@@ -169,13 +173,13 @@ form#purchase-form div:nth-of-type(3){
     background: none !important;
     border: none !important;
     line-height: 1.5em;
-    margin: 0 0 35px;
+    margin: 20px 0 0 200px;
     padding: 0;
     width: 257px !important;
 }
 
 #email input{
-    background-color: #fbfbfb;
+    background-color: white;
     border: 1px solid #E8E8E8 !important;
     font-size: 12px !important;
     height: 17px !important;
@@ -187,6 +191,7 @@ form#purchase-form div:nth-of-type(3){
     color: #031D48;
     font-size: 11px !important;
     text-decoration: none;
+    display: block;
 }
 
 #email span a{
@@ -267,7 +272,8 @@ form#purchase-form div:nth-of-type(3){
   background: none !important;
   border: none !important;
   height: auto;
-  margin: 101px 0 0 228px;
+  margin: 101px 0 0 219px;
+  padding: 0;
   width: 671px;
   }
 
@@ -507,25 +513,24 @@ a.closure-lightbox{
   }
 
 #marketing-box{
-    float: right;
-    position: relative;
-    right: 126px;
-    top: -45px;
+  position: relative;
+  left: 33px;
+  top: -17px;
 }
 
 /* Next/Prev Step */
 #buttons{
-    border: none;
+  border: none;
   clear: both;
   background: none !important;
   color: white;
   float: right;
-    position: relative;
-    right: 100px;
-    top: -62px;
-    width: 169px;
-    padding: 0 !important;
-  }
+  position: relative;
+  right: 75px;
+  top: -30px;
+  width: 169px;
+  padding: 0 !important;
+}
 #buttons a{ color: #696969; text-decoration: none;}
 #buttons a:hover{ color: #696969;}
 
@@ -537,29 +542,36 @@ a.closure-lightbox{
     top: 7px;
 }
 
-#buttons input{ font-size: 13px; }
+#buttons input{ font-size: 11px; }
 #buttons #commit-button,
 #buttons #complete-purchase{
   display: inline-block;
-  padding: 5px 10px 4px 10px;
+  padding: 10px;
+  text-transform: uppercase;
   float: right;
   text-decoration: none;  
-  font-weight: bold;
-  font-family: {{settings.general_font}};
+  font-weight: normal;
+  letter-spacing: 1px;
   text-align: center;
   cursor: pointer;
   border: none !important;
   background: #d3018d;
   color: white;
   }
-#buttons #commit-button:hover,
-#buttons #complete-purchase:hover{
+#buttons #commit-button:hover, #buttons #complete-purchase:hover{
   background: #E939AF;
-  /*border: solid 1px {{settings.btn_colour}};*/
   color: white;
-  }
-
-
+}
+#buttons #commit-button:active, #buttons #complete-purchase:active {
+  background: #cc0088;
+  color: white;
+}
+select#credit_card_month {
+  width: 100px;
+}
+input#credit_card_verification_value {
+  margin-left: 21px;
+}
 /** 
  * Footer 
  */

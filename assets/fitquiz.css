@@ -13,7 +13,7 @@
     width: 950px;
 }
 #fqt span{
-	letter-spacing:0.4pt;
+    letter-spacing:0.4pt;
 }
 #fqt .fqt-0{
 	width: 400px;
@@ -63,7 +63,7 @@ div.button {
 #fit-quiz-top button {
   height: 30px;
   margin: 5px 2px 0 0px;
-  width: 73px;
+  width: 74px;
 }
 #fit-quiz-top button.get-started{
 	height: 29px;
@@ -286,7 +286,7 @@ div.label img.last {
   margin: 22px 30px 84px 26px;
 }
 #fq-4 .pants-page {
-  width: 780px;
+  width: 820px;
   margin-left: 116px;
 }
 #fq-4 .pants-page-2 {
@@ -360,4 +360,33 @@ div#fq-0 div {
 }
 div#fq-0 img {
   margin-left: 80px;
+}
+#CreateProfile, #create-profile #customer_login {
+  width: 216px;
+}
+#CreateProfile input, #create-profile #customer_login input {
+  font-size: 10px; 
+  background-color: rgb(253, 253, 253); 
+  border: 1px solid rgb(235, 235, 235); 
+  padding: 1px 5px; 
+  height: 16px; 
+  margin: 0 0 11px 0; 
+  width: 166px;
+}
+#CreateProfile label, #create-profile #customer_login label {
+  font-size: 10px;
+  margin-right: 7px;
+  vertical-align: top;
+  letter-spacing: 0;
+  display: inline-block;
+}
+#CreateProfile label.name {
+  width: 25px;
+}
+#create-profile #customer_login input.password {
+  width: 148px;
+}
+#CreateProfile button {
+  float: right;
+  margin-top: -2px;
 }

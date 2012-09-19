@@ -17,8 +17,8 @@ footer, header, hgroup, menu, nav, section, summary,
 time, mark, audio, video {
     margin: 0;
     padding: 0;
-	border: 0;
-	outline: 0;
+    border: 0;
+    outline: 0;
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
@@ -173,12 +173,15 @@ h1, section.page h2, div.size-chart h2.level3 {
 }
 section.page h2 {
   font-size: 32px;
-  margin-bottom: 1em;
+  margin-bottom: 12px;
 }
 section.page h2.level3 {
   font-size: 18px;
   text-transform: uppercase;
   margin-top: 40px;
+}
+section.page div.team h2 {
+    margin-bottom: 24px;
 }
 h4 {
   font-size: 30px;
@@ -424,11 +427,18 @@ section.cart div.cart_note {
 }
 div.cart_note li {
   margin-bottom: 5px;
+  line-height: 1.55em;
 }
 div.order-note {
-  position: relative;
-  left: 350px;
-  bottom: 26px;
+  position: absolute;
+  left: 600px;
+  top: 250px;
+  width: 300px;
+}
+div.order-note label {
+  display: inline-block;
+  line-height: 1.55em;
+  margin-bottom: 10px;
 }
 /*FOOTER*/
 footer {
@@ -634,14 +644,14 @@ div.image_two span {
   text-indent: -7px;
 }
 div.image_two a {
-  bottom: 230px;
+  bottom: 235px;
   left: 20px;
   width: 200px;
 }
 div.image_three a {
-  bottom: 200px;
-  width: 186px;
-  left: 220px;
+  bottom: 25px;
+  width: 309px;
+  left: 62px;
 }
 section.promo {
   float: left;
@@ -672,6 +682,19 @@ section.collection div.details h1 {
   text-indent: -15px;
   line-height: .91em;
 }
+section.collection div.left {
+  position: relative;
+  left: 10px;
+  width: 330px;
+  overflow: hidden;
+}
+div.left h1, div.left p, div.left a {
+  position: relative;
+  left: -10px;
+}
+div.left h1 {
+  width: 270px;
+}
 section.collection img.sale {
   position: absolute;
   top: 10px;
@@ -681,13 +704,15 @@ section.collection div.details {
   float: left;
   display: inline-block;
   max-width: 350px;
-  min-height: 369px;
+  min-height: 364px;
   margin: 5px 0 0 -10px;
 }
 section.collection div.details div.border {
   border-top: 1px solid #5A5A5A;
   width: 320px;
-  
+}
+section.collection div.left div.border {
+  width: 350px;
 }
 section.collection div.details a, section.collection div.details p {
   font-size: 12px;
@@ -697,7 +722,7 @@ section.collection div.details a {
   margin-left: 72px;
 }
 section.collection div.details p {
-  width: 200px;
+  width: 205px;
   margin: 12px 0 3px 72px;
   line-height: 1.7em;
 }
@@ -727,11 +752,11 @@ section.collection span.money, section.collection_looks span.money {
 section.collection ul.fiona-blouse li {
   margin: 7px 5px 8px 0 ;
 }
-section.collection ul.fiona-blouse li:first-of-type {
-  background: url({{ 'fiona-blouse-polkadot-swatch.jpg' | asset_url }});
+section.collection ul.fiona-blouse li:first-child {
+  background: url({{ 'fiona-blouse-plum-swatch.jpg' | asset_url }});
 }
 section.collection ul.fiona-blouse li:last-child {
-  background: url({{ 'fiona-blouse-plum-swatch.jpg' | asset_url }});
+  background: url({{ 'fiona-blouse-polkadot-swatch.jpg' | asset_url }});
 }
 /*COLLECTION PAGE SUITING*/
 section.collection ul, section.collection div.suiting_description {
@@ -745,7 +770,7 @@ section.collection div.suiting_description {
 }
 section.collection div.suiting_description h1 {
   width: 380px;
-  padding: 40px 5px 35px 0;
+  padding: 40px 5px 35px 7px;
   letter-spacing: -1px;
   line-height: .8em;
 }
@@ -1069,6 +1094,9 @@ div.fits-like {
   height: 10px;
   margin-bottom: 5px;
 }
+div#purchase {
+    width: 286px;
+}
 div.fits-like p, div#purchase p {
   display: none;
   color: #A0A0A0;
@@ -1093,7 +1121,7 @@ input#add-to-cart.default, input#add-to-cart.sold-out {
 input#add-to-cart.pre-order {
   background: #031D48;
 }
-input#add-to-cart.sold-out {
+input#add-to-cart.sold-out, input#add-to-cart.disabled {
   background: #959595;
 }
 
@@ -1140,6 +1168,7 @@ section.love_it h3 {
 section.love_it ul li {
   margin: 10px 0 14px;
   line-height: 1em;
+  width: 240px;
 }
 section.love_it ul {
   margin-bottom: 40px;
@@ -1262,7 +1291,7 @@ section.love_it, section.wear_it, section.wear_with, section.inline-cart, sectio
 section.wear_it h1 {
   margin-top: 14px;
   padding-left: 20px;
-  text-indent: 1px;
+  line-height: .8em;
 }
 div.wear_details nav {
   margin: 5px 0 0 15px;
@@ -1395,9 +1424,9 @@ img.tag {
 }
 /* PAGES */
 section.page h1, section.page h2 {
-  letter-spacing: 0px;
+  letter-spacing: 0;
 }
-section.page h3 {
+section.page h3, .fq-basic h3 {
   margin-bottom: 1em;
 }
 section.page h4 {
@@ -1450,7 +1479,7 @@ div.contact_form label[for=message] {
   vertical-align: top;
   padding-top: 5px
 }
-div.contact_form input[type=text], div.contact_form input[type=email], div.contact_form textarea {
+div.contact_form input[type=text], div.contact_form input[type=email], div.contact_form textarea, div.gift-container input[type=email], div.gift-container input[type=text] {
   border: 1px solid #d7d7d7;
   color: #252525;
   opacity: .9;
@@ -1511,7 +1540,7 @@ div.terms h3, div.meet-quincy h3 {
 section.page div.showroom {
   width: 300px;
   float: left;
-  margin-top: 75px;
+  margin-top: 72px;
 }
 section.page iframe {
   margin: 60px 20px 0px 0px;
@@ -1642,7 +1671,7 @@ div.team_member p {
   width: 210px;
   height: 260px;
   margin-top: -2px;
-  line-height: 1.2em;
+  line-height: 1.3em;
 }
 div.team_member p span {
   font-weight: 900;
@@ -1677,7 +1706,8 @@ div.fit {
 }
 img.arrow {
   position: absolute;
-  left: 95px;
+  left: -55px;
+  bottom: -143px;
 }
 /* SECOND SIZE */
 div.second-size {
@@ -1692,10 +1722,9 @@ div.second-size img {
 margin-left: 5px !important;
 text-indent: 0px !important;
 }
-#habla_beta_container_do_not_rely_on_div_classes_or_names #habla_topbar_div a.habla_oplink_a_normal, #habla_beta_container_do_not_rely_on_div_classes_or_names #habla_topbar_div a.habla_oplink_a_normal:hover, #habla_beta_container_do_not_rely_on_div_classes_or_names #habla_topbar_div a.habla_oplink_a_normal:active {
+#habla_beta_container_do_not_rely_on_div_classes_or_names #habla_topbar_div a.habla_oplink_a_normal, #habla_beta_container_do_not_rely_on_div_classes_or_names #habla_topbar_div a.habla_oplink_a_hover:hover, #habla_beta_container_do_not_rely_on_div_classes_or_names #habla_topbar_div a.habla_oplink_a_hover:active {
 font-family: "museo-sans-n5","museo-sans",sans-serif !important;
 font-style: normal !important;
-text-transform: uppercase;
 }
 /* CART */
 
@@ -1843,4 +1872,42 @@ div.second-size-modal button:hover {
 }
 div.second-size-modal button:active {
   background-color: #CC0088;
+}
+/* PRESS */
+section.press {
+  padding-bottom: 40px;
+}
+section.press img {
+  -moz-box-shadow: 0 0 6px 1px rgba(100, 100, 100, 0.25);
+  -webkit-box-shadow: 0 0 6px 1px rgba(100, 100, 100, 0.25);
+  box-shadow: 0 0 6px 1px rgba(100, 100, 100, 0.25);
+}
+section.press h1 {
+  margin: 20px 0 40px 10px;
+}
+img.logos {
+    margin-bottom: 10px;    
+}
+/* GIFT-CARD */
+div.gift-container {
+  border: 1px solid #d7d7d7;
+  border-right: none;
+}
+div.gift-container form label {
+  width: 120px;
+  margin-bottom: 0;
+}
+div.gift-card {
+  margin: 60px 0 0 250px;
+  width: 400px;
+  padding: 54px 0 20px;
+}
+div.gift-card h3 {
+  margin-bottom: 1em;
+}
+p.gift-card {
+  margin-top: 1em;
+}
+.ui-helper-clearfix {
+  display: none;
 }

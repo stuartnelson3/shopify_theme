@@ -3,7 +3,7 @@
       <ul>
         {% for product in collection.products %}
           {% case product.handle %}
-            {% when 'jane-jacket' or 'kennedy-blouse-peplum' or 'elliott-sheath-black' or 'elliott-pant-black' or 'elliott-pencil-skirt' %} 
+            {% when 'elliott-pant-black' or 'elliott-sheath-black' or 'riley-skirt-cobalt' %} 
               <li>
                 <a href="{{ product.url }}" title="{{ product.title | escape }} &mdash; {{ product.description | strip_html }}">
                   <img src="{{ product.images.first | product_img_url: 'large' }}" alt="{{ product.title | escape }}" />
@@ -16,12 +16,67 @@
                 </div>
               </li>
               <div class="details">
-                <h1>&#0147;{{ product.description }}&#0148;</h1>
+                <h1>&ldquo;{{ product.description }}&rdquo;</h1>
                 <div class="border">
-                <p>Lorem ipsum dolor sit amet, consectetur adipicsing elit. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incid.</p>
-                <a href="{{ product.url }}" title="{{ product.title }}">Ut hendrerit, quam in ornare ></a>
+                {% when 'elliott-pant-black' %}
+                <p>Pair these skinnies with a sweet blouse or throw on a matching blazer for a complete polished look.</p>
+                <a href="{{ product.url }}" title="{{ product.title }}">Shop the {{ product.title }} ></a>
                 </div>
               </div>
+                {% when 'elliott-sheath-black' %}
+                <p>This LBD is equally ready for the workplace or cocktails-pair it with a statement necklace and booties for a classic look with edge.</p>
+                <a href="{{ product.url }}" title="{{ product.title }}">Shop the {{ product.title }} ></a>
+                </div>
+              </div>
+                {% when 'riley-skirt-cobalt' %}
+                <p>Spice up your neutral work palette with the rich jewel tones of the Riley collection.</p>
+                <a href="{{ product.url }}" title="{{ product.title }}">Shop the {{ product.title }} ></a>
+                </div>
+              </div>              
+              {% when 'kennedy-blouse-peplum' %}
+              <div class="details left">
+                <h1>&ldquo;{{ product.description }}&rdquo;</h1>
+                <div class="border">
+              <p>Take the hottest silhouette from the runways to work with a pencil and out afterwards with skinnies, it's our favorite multi-tasker.</p>
+              <a href="{{ product.url }}" title="{{ product.title }}">Shop the {{ product.title }} ></a>
+              </div>
+            </div>
+              {% when 'emma-jacket' %}
+              <div class="details left">
+                <h1>&ldquo;{{ product.description }}&rdquo;</h1>
+                <div class="border">
+                <p>Our favorite Jane jacket is updated in a fresh white and navy boucle with delicate silver accent.</p>
+                <a href="{{ product.url }}" title="{{ product.title }}">Shop the {{ product.title }} ></a>
+              </div>
+            </div>
+            {% when 'kennedy-blouse-peplum' or 'emma-jacket' %}
+            <li>
+              <a href="{{ product.url }}" title="{{ product.title | escape }} &mdash; {{ product.description | strip_html }}">
+                <img src="{{ product.images.first | product_img_url: 'large' }}" alt="{{ product.title | escape }}" />
+              </a>
+              <div>
+                <a href="{{ product.url }}">
+                  {{ product.title }}  
+                </a>
+                <span class="money">{{ product.price | money | remove: '.00' }}</span>
+              </div>
+            </li>
+            {% when 'fiona-blouse' %}
+            <li>
+              <a href="{{ product.url }}" title="{{ product.title | escape }} &mdash; {{ product.description | strip_html }}">
+                <img src="{{ product.images.first | product_img_url: 'large' }}" alt="{{ product.title | escape }}" />
+              </a>
+              <div>
+                <a href="{{ product.url }}">
+                  {{ product.title }}
+                </a>
+                <span class="money">{{ product.price | money | remove: '.00' }}</span>
+                <ul class="fiona-blouse">
+                  <li>Plum</li>
+                  <li>Polkadot</li>
+                </ul>
+              </div>
+            </li>
             {% else %}
               <li>
                 <a href="{{ product.url }}" title="{{ product.title | escape }} &mdash; {{ product.description | strip_html }}">

@@ -49,6 +49,9 @@
     }
   </style>
   {% endif %}
+  {% if template == 'product.gift-card' %}
+      <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/smoothness/jquery-ui.css" type="text/css" />
+    {% endif %}
   {% if  product.type == "Pants" %}
     <style type="text/css" media="screen">
       div.buy-menu div.lower-container a.field, div.buy-menu ul.selector {
@@ -71,22 +74,22 @@
 
   {% if template == 'index' %}
    <title>{{ shop.name }} | {{ shop.description }}</title>
+   <!--[if lt IE 9]>
+     <script type="text/javascript">
+       alert("It looks like you may be using an outdated version of Internet Explorer.  For the best shopping experience, we suggest you upgrade your browswer to IE9 or switch to Firefox, Chrome, or Safari.");
+     </script>
+   <![endif]-->
   {% elsif template == '404' %}
     <title>Page Not Found | {{ shop.name }}</title>
   {% else %}
    <title>{{ page_title }} | {{ shop.name }}</title>
   {% endif %}
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
   {{ 'jquery.touchSwipe.min.js' | asset_url | script_tag }}
   {{ 'jquery.cookie.js' | asset_url | script_tag }}
   {{ content_for_header }}
-  <!--[if lt IE 9]>
-    <script type="text/javascript">
-      alert("It looks like you may be using an outdated version of Internet Explorer.  For the best shopping experience, we suggest you upgrade your browswer to IE9 or switch to Firefox, Chrome, or Safari.");
-    </script>
-  <![endif]-->
 </head>
 
 <body>
@@ -143,6 +146,7 @@
     <footer>
       <div class="bar">
       </div>
+      <img class="logos" src="{{ 'logos2.png' | asset_url }}" />
       <section>
         <div>
           <a href="/pages/showroom" title="Quincy Showroom">Visit our NYC showroom ></a>
@@ -183,6 +187,7 @@
           <li><a href="/pages/shipping-and-returns" title="Shipping & Returns">Shipping &amp; Returns</a></li>
           <li><a href="/pages/about" title="About">About</a></li>
           <li><a href="/pages/contact" title="Contact">Contact</a></li>
+          <li><a href="/pages/press" title="Press">Press</a></li>
           <li><a href="/pages/terms-and-conditions" title="Terms & Conditions">Terms &amp; Conditions</a></li>
         </ul>
       </nav>
@@ -199,7 +204,10 @@
         // selected a valid variant
         buyButton.removeClass('disabled').removeAttr('disabled'); // remove unavailable class from add-to-cart button, and re-enable button
         if(variant.inventory_quantity <= 0){
-          buyButton.val("Add to Bag").removeClass("sold-out default").addClass("default");
+          buyButton.val("Add to Bag").removeClass("sold-out default")
+                                     {% unless product.type == "Pants" or product.type == "Skirts" %}
+                                       .addClass("default");
+                                    {% endunless %}
           $("div#purchase p").css({ display: "none" });
           $("div#purchase p:last-child").css({ display: "inline-block" });
         }
@@ -208,64 +216,33 @@
           $("div#purchase p").css({ display: "none" });
           {% case handle %}
             {% when 'ansley-dress-berry' %}
-              if(prod_sel0.find(":contains(Tall)").is(":selected") && (prod_sel1.find(":contains(A/B)").is(":selected") || prod_sel1.find(":contains(C/D)").is(":selected"))){
-                 $("div#purchase p:first-of-type").css({ display: "inline-block" });
-               }
+              $("div#purchase p").css({ display: "none" });
             {% when 'chelsea-blazer-herringbone' %}
-             if((prod_sel0.find(":contains(Regular)").is(":selected") || prod_sel0.find(":contains(Petite)").is(":selected")) && prod_sel1.find(":contains(C/D)").is(":selected")){
-               $("div#purchase p:first-of-type").empty().append("Will ship on 09.14").css({ display: "inline-block" });
-             }
-             else if(prod_sel0.find(":contains(Tall)").is(":selected") && (prod_sel1.find(":contains(C/D)").is(":selected") || prod_sel1.find(":contains(A/B)").is(":selected"))){
-                $("div#purchase p:first-of-type").empty().append("Will ship on 09.18").css({ display: "inline-block" });
-              }
-            {% when 'chloe-shirt'%}
-              if(prod_sel0.find(":contains(Tall)").is(":selected") && prod_sel1.find(":contains(C/D)").is(":selected")){
-                 $("div#purchase p:first-of-type").css({ display: "inline-block" });
-               }
-            {% when 'fiona-blouse' %}
-              if((prod_sel0.find(":contains(Regular)").is(":selected") || prod_sel0.find(":contains(Petite)").is(":selected") || prod_sel0.find(":contains(Tall)").is(":selected")) && prod_sel1.find(":contains(C/D)").is(":selected")){
-                 $("div#purchase p:first-of-type").css({ display: "inline-block" });
-               }
-               else if(prod_sel0.find(":contains(Tall)").is(":selected") && prod_sel1.find(":contains(A/B)").is(":selected")){
-                 $("div#purchase p:first-of-type").css({ display: "inline-block" });
-               }
-            {% when 'elliott-pencil-skirt' %}
-              $("div#purchase p").css({ display: "none" });
-            {% when 'elliott-sheath-black' %}
-              if((prod_sel0.find(":contains(Regular)").is(":selected") || prod_sel0.find(":contains(Petite)").is(":selected")) && prod_sel1.find(":contains(C/D)").is(":selected")){
-                 $("div#purchase p:first-of-type").empty().append("Will ship on 09.14").css({ display: "inline-block" });
-               }
-               else if(prod_sel0.find(":contains(Tall)").is(":selected") && (prod_sel1.find(":contains(C/D)").is(":selected") || prod_sel1.find(":contains(A/B)").is(":selected"))){
-                  $("div#purchase p:first-of-type").empty().append("Will ship on 09.18").css({ display: "inline-block" });
-                }
-            {% when 'elliott-blazer-black' %}
-              if(prod_sel0.find(":contains(Tall)").is(":selected") && prod_sel1.find(":contains(A/B)").is(":selected")){
-                 $("div#purchase p:first-of-type").css({ display: "inline-block" });
-               }
-            {% when 'elliott-trouser-black' %}
-              $("div#purchase p").css({ display: "none" });
-            {% when 'elliott-pant-black' %}
-              $("div#purchase p").css({ display: "none" });
-            {% when 'elliott-sheath-skirt' %}
-              $("div#purchase p").css({ display: "none" });
-            {% when 'riley-sheath-navy' %} 
-              if((prod_sel0.find(":contains(Regular)").is(":selected") || prod_sel0.find(":contains(Petite)").is(":selected")) && prod_sel1.find(":contains(C/D)").is(":selected")){
-                 $("div#purchase p:first-of-type").empty().append("Will ship on 09.14").css({ display: "inline-block" });
-               }
-               else if(prod_sel0.find(":contains(Tall)").is(":selected") && (prod_sel1.find(":contains(C/D)").is(":selected") || prod_sel1.find(":contains(A/B)").is(":selected"))){
-                  $("div#purchase p:first-of-type").empty().append("Will ship on 09.18").css({ display: "inline-block" });
-                }
-            {% when 'riley-blazer-cobalt' %}
-              if((prod_sel0.find(":contains(Regular)").is(":selected") || prod_sel0.find(":contains(Petite)").is(":selected")) && prod_sel1.find(":contains(C/D)").is(":selected")){
-                 $("div#purchase p:first-of-type").empty().append("Will ship on 09.14").css({ display: "inline-block" });
-               }
-              else if(prod_sel0.find(":contains(Tall)").is(":selected") && (prod_sel1.find(":contains(C/D)").is(":selected") || prod_sel1.find(":contains(A/B)").is(":selected"))){
-                 $("div#purchase p:first-of-type").empty().append("Will ship on 09.18").css({ display: "inline-block" });
-               }
-            {% when 'riley-pant-cobalt' %}
-              $("div#purchase p").css({ display: "none" });
-            {% when 'riley-skirt-cobalt' %} 
              $("div#purchase p").css({ display: "none" });
+            {% when 'chloe-shirt'%}
+              $("div#purchase p").css({ display: "none" });
+            {% when 'fiona-blouse' %}
+              $("div#purchase p").css({ display: "none" });
+            {% when 'elliott-pencil-skirt' %}
+              $("div#purchase p:last-child").css({ display: "inline-block" });
+            {% when 'elliott-sheath-black' %}
+              $("div#purchase p").css({ display: "none" });
+            {% when 'elliott-blazer-black' %}
+              $("div#purchase p").css({ display: "none" });
+            {% when 'elliott-trouser-black' %}
+              $("div#purchase p:last-child").css({ display: "inline-block" });
+            {% when 'elliott-pant-black' %}
+              $("div#purchase p:last-child").css({ display: "inline-block" });
+            {% when 'elliott-sheath-skirt' %}
+              $("div#purchase p:last-child").css({ display: "inline-block" });
+            {% when 'riley-sheath-navy' %} 
+              $("div#purchase p").css({ display: "none" });
+            {% when 'riley-blazer-cobalt' %}
+              $("div#purchase p").css({ display: "none" });
+            {% when 'riley-pant-cobalt' %}
+              $("div#purchase p:last-child").css({ display: "inline-block" });
+            {% when 'riley-skirt-cobalt' %} 
+              $("div#purchase p:last-child").css({ display: "inline-block" });
           {% endcase %}
         }
       }
