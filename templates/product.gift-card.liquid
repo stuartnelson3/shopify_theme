@@ -1,0 +1,54 @@
+{% include 'rich-snippet' %}
+<section class="slide_show">
+  <div class="gift-card">
+    <h3>How does the Quincy E-Gift card work?</h3>
+    <p>Choose the amount and date to send the gift, and we’ll email the recipient your personalized message along with a gift card code they can use towards the purchase of any merchandise on our website.</p>
+    <h3>How can I redeem my Quincy E-Gift Card?</h3>
+    <p>The Quincy E-Gift Card can be used at www.quincyapparel.com. Just select the item(s) that you want to purchase and enter in your gift card number at checkout in the Discount Code box.</p>
+    <h3>How do I check the balance on my Quincy E-Gift Card?</h3>
+    <p>To check your balance for later use, just call us at 888.864.9942, email info@quincyapparel.com, or chat with us on our website- we’ll quickly look it up for you.</p>
+    <h3>Can I use multiple Quincy Gift Cards to make a purchase?</h3>
+    <p>Multiple Quincy E-Gift Cards cannot be used to make a single purchase. If you want to use multiple gift cards, consider placing multiple orders. Or chat with us and we can help.</p>
+  </div>
+  <div class="buy-container gift-container">
+    <div class="buy-menu">    
+      <h3>{{ product.title }}</h3>
+      <h4> &ldquo;{{ product.description }}&rdquo;</h4>
+      <div class="lower-container">
+        <p class="gift-card">Send it directly to the recipient on the day of your choosing, with a personal message from you.</p>
+        <form action="/cart/add" method="post" class="variants" id="product-actions">
+          <div class="options">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="gifter_name" />
+            <label for="email">Your Email</label>
+            <input type="email" id="email" class="email" name="giftee_email" />
+            <label for="name">Recipient's Name</label>
+            <input type="text" id="name" name="gifter_name" />
+            <label for="email">Recipient's Email</label>
+            <input type="email" id="email" class="email" name="giftee_email" />
+            <label for"datepicker">Delivery Date</label>
+            <input type="text" id="datepicker" size="30"/>
+            <label for"product-select">Amount</label>
+            <select id="product-select" name="id">
+              {% for variant in product.variants %}
+              <option value="{{ variant.id }}">
+                {{ variant.title | escape }}
+              </option>
+              {% endfor %}
+            </select>
+            <div class="pselect-box top">
+              <a class="field">
+                <span class="info">Select</span>
+                <img src="{{'down-triangle.gif' | asset_url }}" />
+              </a>
+              <ul class="selector_0 selector"></ul>
+            </div>
+          </div>                   
+          <div id="purchase">                               
+            <input type="button" onclick="purchaseItem('product-actions');" name="add" id="add-to-cart" value="Add to Bag" />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>  <!-- BUY MENU -->
+</section>  <!-- BUY MENU -->
