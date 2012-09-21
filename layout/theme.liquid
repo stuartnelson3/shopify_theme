@@ -33,7 +33,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <link rel="canonical" href="{{ canonical_url }}" /> 
-  <link rel="Shortcut icon" href="{{ 'favicon.ico' | asset_url }}" />
+  <link rel="favicon" href="{{ 'favicon.ico' | asset_url }}" />
   {% include 'metaDescription' %}
   {{ 'style.css' | asset_url | stylesheet_tag }}
   <script type="text/javascript" src="//use.typekit.net/duk7xno.js"></script>
@@ -50,8 +50,8 @@
   </style>
   {% endif %}
   {% if template == 'product.gift-card' %}
-      <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/smoothness/jquery-ui.css" type="text/css" />
-    {% endif %}
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/smoothness/jquery-ui.css" type="text/css" />
+  {% endif %}
   {% if  product.type == "Pants" %}
     <style type="text/css" media="screen">
       div.buy-menu div.lower-container a.field, div.buy-menu ul.selector {
@@ -121,26 +121,26 @@
       </nav>
     </section>
         {% if customer %}
-            <a href="/pages/second-size" class="promo">Get a free Second Size with your first ></a>
+            <a href="/pages/second-size" class="promo header-push serif">Get a free Second Size with your first ></a>
         {% else %}
-            <a class="promo take-fit-quiz" href="#" title="Fit Quiz">Find Your Perfect Size &mdash; Create a profile and get 15% off &nbsp;></a>
+            <a class="promo take-fit-quiz header-push serif" href="#" title="Fit Quiz">Find Your Perfect Size &mdash; Create a profile and get 15% off &nbsp;></a>
         {% endif %}
       <div class="cart-container">
-        <div>
+        <div class="no-margin login-box">
         {% if customer %}
           <a href="/account">Welcome Back {{ customer.first_name | escape }}!</a>
         {% else %}
-          {{ 'Login' | customer_login_link }}
+          <a href="/account/login" class="blue">Login</a>
         {% endif %}
-        <a class="inline-cart" href="#">
-          <img src="{{ 'shopping_bag.png' | asset_url }}" alt="Shopping Bag">
-          <span class="cart_count">
-           {{ cart.item_count }}
-          </span>
-        </a>
+          <a class="inline-cart" href="#">
+            <img src="{{ 'shopping_bag.png' | asset_url }}" alt="Shopping Bag">
+            <span class="cart_count">
+             {{ cart.item_count }}
+            </span>
+          </a>
         </div>
+        {% include 'cart' %}
       </div>
-      {% include 'cart' %}
     </header>    
       {{ content_for_layout }}
     <footer>
@@ -149,7 +149,7 @@
       <img class="logos" src="{{ 'logos2.png' | asset_url }}" />
       <section>
         <div>
-          <a href="/pages/showroom" title="Quincy Showroom">Visit our NYC showroom ></a>
+          <a class="blue serif-thin" href="/pages/showroom" title="Quincy Showroom">Visit our NYC showroom ></a>
         </div>
         <div id="mc_embed_signup">
           <label>Sign up for our newsletter</label>
@@ -193,6 +193,14 @@
       </nav>
     </footer> 
   </div><!-- WRAPPER -->
+  <section class="modal fq-new-container js-modal-container">
+    <div class="modal-div fq-new-div">
+      <h1 class="serif">Welcome to Quincy!</h1>
+      <p class="em-top">It looks like it's your first time here. We suggest you take our short quiz to get a sizing recommendation before you shop!</p>
+      <button class="float-l js-modal-close take-fit-quiz">Take the Quiz</button>
+      <button class="float-r js-modal-close">No Thanks</button>
+    </div>
+  </section>
   {% include 'olark' %}
   {% if product %}
   <script type="text/javascript">
@@ -257,7 +265,6 @@
         }
         // variant doesn't exist
         buyButton.addClass('disabled').attr('disabled', 'disabled'); // set add-to-cart button to unavailable class and disable button
-        if(!$.cookie('fq_top') && !$.cookie('fq_length') && !$.cookie('fq_waist')){}
       }
       {% unless product.type == "Pants" or product.type == "Skirts" %}
       prod_sel1.change(function() {
@@ -312,47 +319,40 @@
   {{ "script.js"  | asset_url | script_tag }}  
 <script type="text/javascript">
 $(document).ready(function(){
-    if($('.take-fit-quiz').length > 0){
-        var $data = $().add('<div id="fq-wrap">'); // Create empty object
-        $($data).load('/pages/fq #fit-quiz-top', function(){
-            $('.wrapper').prepend($data);
-            $('.select-box').styleddropdown();
-        // load fq script
-        $.getScript('{{ 'fq.min.js' | asset_url }}');
-        $.getScript('{{ 'quirks.js' | asset_url }}',function(data,textStatus,jqxhr){
-            $('.take-fit-quiz').click(function(){
-        	    $('#fit-quiz-top').slideDown(600);
-			    return false;
-		    });
-        });
-        });
-
-         {% if template == 'product' %}
-        $.getScript('{{ 'jq_select.js' | asset_url }}');
-        {% endif %}        
-    } // Load the fitquiz data when the id is found on the page.
-    {% if template == 'collection.looks' %}
-        $('#product-select option').each(function(){
-            var fq_top = $.cookie('fq_top').substring(0,2);
-            var fq_bust = $.cookie('fq_bust').substr(2,1)+'/'+$.cookie('fq_bust').substr(3,1);
-            var fq_length = $.cookie('fq_length');
-            var fq_waist = $.cookie('fq_waist');
-    
-            if($(this).text().indexOf(fq_length) > 0 && $(this).text().indexOf(fq_top) > 0 && $(this).text().indexOf(fq_bust) > 0 ){
-        	    $(this).attr('selected',true);
-	            }//else if($(this).text().indexOf(fq_waist) > 0 && $(this).text().indexOf(fq_length) > 0 ){
-			    //$(this).attr('selected',true);
-	       //}
-            });
-    {% endif %}
+  var $data = $().add('<div id="fq-wrap">'); // Create empty object
+  $($data).load('/pages/fq #fit-quiz-top', function(){
+    $('.wrapper').prepend($data);
+    $('.select-box').styleddropdown();
+    // load fq script
+    $.getScript('{{ 'fq.min.js' | asset_url }}');
+    $.getScript('{{ 'quirks.js' | asset_url }}',function(data,textStatus,jqxhr){
+      $('.take-fit-quiz').click(function(){
+  	    $('#fit-quiz-top').slideDown(600);
+	      return false;
+	    });
+    });
+  });
+  {% if template == "index" %}
+    if(!$.cookie("fq_top") && !$.cookie("fq_length") && !$.cookie("fq_waist") && !$.cookie("fq_bust")){
+      $(".fq-new-container").fadeIn("medium");
+    }
+  {% endif %}
+  {% if template == "product" %}
+    $.getScript("{{ 'jq_select.js' | asset_url }}");
+  {% endif %}        
+  {% if template == 'collection.looks' %}
+    $('#product-select option').each(function(){
+      var fq_top = $.cookie('fq_top').substring(0,2);
+      var fq_bust = $.cookie('fq_bust').substr(2,1)+'/'+$.cookie('fq_bust').substr(3,1);
+      var fq_length = $.cookie('fq_length');
+      var fq_waist = $.cookie('fq_waist');
+      
+      if($(this).text().indexOf(fq_length) > 0 && $(this).text().indexOf(fq_top) > 0 && $(this).text().indexOf(fq_bust) > 0 ){
+    	   $(this).attr('selected',true);
+    	  }
+    });
+  {% endif %}
 });
 </script>
-<script type="text/javascript">
-var sc_project=8053095; 
-var sc_invisible=1; 
-var sc_security="dc731200"; 
-</script>
-<script type="text/javascript"
-src="http://www.statcounter.com/counter/counter.js"></script>
 </body>
 </html>

@@ -61,12 +61,9 @@ div.button {
   margin-left: 24px;
 }
 #fit-quiz-top button {
-  height: 30px;
   margin: 5px 2px 0 0px;
-  width: 74px;
 }
 #fit-quiz-top button.get-started{
-	height: 29px;
   margin: 12px 20px 0 1px;
   width: 127px;
 }
@@ -74,13 +71,14 @@ div.button {
 	margin-left:36px;
 }
 .fq-col-13{
-    width:365px;
+  width:365px;
 }
 .fq-col-23{
 	width:390px;
 }
 .fq-col-33{
-	width:195px;text-align:right;
+	width:195px;
+	text-align:right;
 }
 .fleft{
 	float:left;	
@@ -295,7 +293,6 @@ div.label img.last {
 }
 #fq-5 h2{
   font-size: 24pt;
-	color: #031d48;
   margin: 0 0 40px 40px;
 }
 #fq-5 img {
@@ -308,20 +305,16 @@ div.label img.last {
   width: 250px; 
   margin-left: 20px;
 }
-#fit-quiz-top #fq-5 button {
-  background-color: #031D48;
-  width: 70px;
-}
 h1#top-size, h1#bottom-size {
-    color: rgb(211, 1, 141); 
-    text-transform: capitalize; 
-    font-size: 34px; 
-    margin: 10px 0;
-    padding: 0 0 15px 22px;
-    position: relative;
-    right: 23px;
-    width: 220px;
-    font-weight: 300;
+  color: rgb(211, 1, 141); 
+  text-transform: capitalize; 
+  font-size: 34px; 
+  margin: 10px 0;
+  padding: 0 0 15px 22px;
+  position: relative;
+  right: 23px;
+  width: 220px;
+  font-weight: 300;
 }
 #fit-quiz-top{
 	display:none;
@@ -387,6 +380,5 @@ div#fq-0 img {
   width: 148px;
 }
 #CreateProfile button {
-  float: right;
   margin-top: -2px;
 }

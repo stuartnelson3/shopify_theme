@@ -4,14 +4,14 @@
     <div class="buy-menu">
       
       <h3>{{ product.title }}</h3>
-      <h4> &ldquo;{{ product.description }}&rdquo;</h4>
+      <h4 class="serif-thin"> &ldquo;{{ product.description }}&rdquo;</h4>
       <div class="lower-container">
         <div class="swatch">
-          <span>{{ product.price | money | remove: '.00' }}</span>   
+          <span class="product-price normal serif">{{ product.price | money | remove: '.00' }}</span>   
           {% include 'swatch' %}  
           <p class="color"></p>        
         </div>
-        <a class="swatch" href="#" title="Swatch Detail">Swatch Detail</a>
+        <a class="swatch small-link blue" href="#" title="Swatch Detail">Swatch Detail</a>
         <form action="/cart/add" method="post" class="variants" id="product-actions">
           <div class="options"> 
             <select id="product-select" name="id">
@@ -23,14 +23,14 @@
             </select>
             <div class="pselect-box top">
               <a class="field">
-                <span class="info">Select</span>
+                <span class="info nudge-down">Select</span>
                 <img src="{{'down-triangle.gif' | asset_url }}" />
               </a>
               <ul class="selector_0 selector"></ul>
             </div>
             <div class="pselect-box bottom">
               <a class="field">
-                <span class="info">Select</span>
+                <span class="info nudge-down">Select</span>
                 <img src="{{'down-triangle.gif' | asset_url }}" />
               </a>
               <ul class="selector_1 selector"></ul>  
@@ -42,7 +42,7 @@
               <p>Fits like a 10-12 from J. Crew and Ann Taylor</p>
               <p>Fits like a 14 from J. Crew and Ann Taylor</p>
             </div>
-            <a class="size-chart" href="#" title="Size Charts">Size Charts</a> 
+            <a class="js-size-chart small-link blue no-margin" href="#" title="Size Charts">Size Charts</a> 
           </div>            
             
           <div id="purchase">                               
@@ -75,25 +75,25 @@
     </nav>
   </div>
   <div class="swatch-popup">
-    <a href="#" class="swatch_close">X</a>
+    <a href="#" class="swatch_close close">X</a>
     {% include 'swatch-window' %}
   </div>
 </section>  <!-- MAIN SLIDESHOW AND BUY MENU -->
 
 <section class="love_it">
-  <div>
-    <h1>Why we love it</h1>
+  <div class="float-l">
+    <h1 class="serif">Why we love it</h1>
     {% include 'how_to_style' %}
   </div>  <!-- 1. WHY WE LOVE THIS -->
   
   {% capture love_it %}{{ product.handle }}-love.jpg{% endcapture %}
-  <img src="{{ love_it | asset_url }}" alt="Love it">
+  <img class="float-l" src="{{ love_it | asset_url }}" alt="Love it">
 
-  <div>
+  <div class="float-l">
     {% include 'love_it_details' %}
     <div class="about_product">
       <section>
-        <h3 name="div.details_dropdown">Details <span>+</span></h3>
+        <h3 class="js-details-accordion blue hover" data-name=".details_dropdown">Details <span class="js-plus">+</span></h3>
         <div class="details_dropdown details">
           
           {% include 'details_dropdown' %}
@@ -101,13 +101,13 @@
         </div><!-- .details_dropdown -->
       </section> 
       <section>
-        <h3 name="div.fit_dropdown">Measurements <span>+</span></h3>
+        <h3 class="js-details-accordion blue hover" data-name=".fit_dropdown">Measurements <span class="js-plus">+</span></h3>
         <div class="fit_dropdown details">
           {% include 'measurements' %}
         </div><!-- .fit_dropdown -->
       </section>
       <section>
-        <h3 name="div.reviews_dropdown">Reviews <span>+</span></h3>
+        <h3 class="js-details-accordion blue hover" data-name=".reviews_dropdown">Reviews <span class="js-plus">+</span></h3>
       </section>
     </div>
   </div>  <!-- 3. DESCRIPTION AND DETAILS -->
@@ -127,14 +127,14 @@
 
 <section class="wear_it">
   {% include 'slideshow_2' %}
-  <div class="wear_details">
-    <h1>How we like to wear it</h1>
+  <div class="wear_details float-l">
+    <h1 class="serif">How we like to wear it</h1>
     {% include 'wear_details' %}
   </div>
 </section>  <!-- HOW WE LIKE TO WEAR IT -->
 {% capture recommended %}{{ product.id }}-recommend{% endcapture %}
 <section class="wear_with">
-  <h4>What we wear it with</h4>
+  <h4 class="serif-thin">What we wear it with</h4>
   <ul>    
     {% for product in collections[recommended].products %}	
       <li>
@@ -150,15 +150,14 @@
   <span>Continue Shopping</span>
   {% include 'continue_shopping_quote' %}
 </section>
-<section class="page size-chart">
-  <a href="#" class="size_chart_close">Close</a>
-  
+<section class="page size-chart js-modal-container">
+  <a href="#" class="close js-modal-close size-chart-x">Close</a>
   <div class="tops size-chart">
-    <h1>Size Charts</h1>
+    <h1 class="serif">Size Charts</h1>
     <div class="dresses size-chart">
       <section>
-        <h2>Blazers, Blouses, &amp; Dresses</h2>
-        <p>Quincy top sizes take into account the three most important body dimensions for fit: <span>bust</span>, <span>cup size</span>, and <span>length</span>.</p>
+        <h2 class="serif">Blazers, Blouses, &amp; Dresses</h2>
+        <p>Quincy top sizes take into account the three most important body dimensions for fit: <span class="blue sans-bold">bust</span>, <span class="blue sans-bold">cup size</span>, and <span class="blue sans-bold">length</span>.</p>
         <table>
           <tr>
             <td><span>Quincy Size</span></td>
@@ -208,24 +207,24 @@
         <h2 class="level3">Cup size</h2>
         <ul>
           <li>We currently offer two cup sizes</li>
-          <li><span>A/B</span> &mdash; For women who wear a B-cup or smaller</li>
-          <li><span>C/D</span> &mdash; For women who wear a C-, D-, or DD-cup</li>
+          <li><span class="blue sans-bold">A/B</span> &mdash; For women who wear a B-cup or smaller</li>
+          <li><span class="blue sans-bold">C/D</span> &mdash; For women who wear a C-, D-, or DD-cup</li>
         </ul>
       </section>
       <section>
         <h2 class="level3">Length</h2>
         <ul>
           <li>Our blazers, blouses, and dresses are offered in three sleeve/torso lengths</li>
-          <li><span>Regular</span> is the standard length</li>
-          <li><span>Petite</span> is recommended for women under 5'4", and also for women with short torsos</li>
-          <li><span>Tall</span> is recommended for women over 5’9", as well as women who have longer torsos</li>
+          <li><span class="blue sans-bold">Regular</span> is the standard length</li>
+          <li><span class="blue sans-bold">Petite</span> is recommended for women under 5'4", and also for women with short torsos</li>
+          <li><span class="blue sans-bold">Tall</span> is recommended for women over 5’9", as well as women who have longer torsos</li>
         </ul>
       </section>
   </div>
   <div class="bottoms size-chart">
     <section>
-      <h2>Pants &amp; Skirts</h2>
-      <p>Our pants and skirts are sized by <span>waist</span> and <span>length</span>.</p>
+      <h2 class="serif">Pants &amp; Skirts</h2>
+      <p>Our pants and skirts are sized by <span class="blue sans-bold">waist</span> and <span class="blue sans-bold">length</span>.</p>
       <table>
         <tr>
           <td><span>Traditional Size</span></td>
@@ -286,16 +285,16 @@
       <ul>
         <li>We offer all our pants and skirts in 3-4 lengths, to accommodate short-legged and long-legged women alike</li>
         <li>Pants are also available unhemmed if you prefer to have them hemmed yourself</li>
-        <li>Lengths for specific products can be found by looking at <span>MEASUREMENTS +</span></li>
+        <li>Lengths for specific products can be found by looking at <span class="blue sans-bold">MEASUREMENTS +</span></li>
       </ul>
     </section>
   </div>
   </div>
 </section>
-<section class="second-size-modal">
-  <div class="second-size-modal">
-    <h1>Try a Second Size</h1>
-    <p>Want to try an additional size, for free? Leave us a comment when you checkout with your Second Size request to try at home!</p>
-    <button class="second-size-modal">CLOSE</button>
+<section class="modal second-size-container js-modal-container">
+  <div class="modal-div second-size-div">
+    <h1 class="serif">Try a Second Size</h1>
+    <p class="em-top">Want to try an additional size, for free? Leave us a comment when you checkout with your Second Size request to try at home!</p>
+    <button class="second-size-button no-margin bg-blue float-r js-modal-close">CLOSE</button>
   </div>
 </section>

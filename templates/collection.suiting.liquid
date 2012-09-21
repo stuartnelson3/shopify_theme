@@ -12,7 +12,7 @@
   {% unless collection.handle == 'the-riley-collection' %}
     {% if collections.suiting1.image %}
     <div class="suiting_description left">
-      <h1>{{ collections.suiting1.title }}</h1>
+      <h1 class="serif bump-right">{{ collections.suiting1.title }}</h1>
       {{ collections.suiting1.description }}
       <img class="suiting_image" src="{{ collections.suiting1.image.src | collection_img_url: 'original' }}">
     </div>
@@ -27,7 +27,7 @@
               <a href="{{ product.url }}">
                 {{ product.title }}  
               </a>
-              <span class="money">{{ product.price | money | remove: '.00' }}</span>
+              <span class="money serif">{{ product.price | money | remove: '.00' }}</span>
             </div>
           </li>
         {% endfor %}
@@ -36,7 +36,7 @@
   {% unless collection.handle == 'the-elliott-collection' %}
       {% if collections.suiting2.image %}
       <div class="suiting_description right">
-        <h1>{{ collections.suiting2.title }}</h1>
+        <h1 class="float-r serif">{{ collections.suiting2.title }}</h1>
         {{ collections.suiting2.description }}
         <img class="suiting_image" src="{{ collections.suiting2.image.src | collection_img_url: 'original' }}">
       </div>
@@ -51,7 +51,7 @@
                 <a href="{{ product.url }}">
                   {{ product.title }}  
                 </a>
-                <span class="money">{{ product.price | money | remove: '.00' }}</span>
+                <span class="money serif">{{ product.price | money | remove: '.00' }}</span>
               </div>
             </li>
           {% endfor %}

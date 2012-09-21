@@ -1,5 +1,5 @@
 <section class="cart">
-  <h1>Selections</h1>
+  <h1 class="serif">Selections</h1>
   <div class="cart">
     
   {% if  cart.item_count == 0 %}
@@ -8,44 +8,49 @@
    </h5>
   {% else %}
     <form action="/cart" method="post" id="cartform" class="clearfix">
-
       <table class="items">
-       
         <tbody>
           {% for item in cart.items %}
-        <div class="product">
-          <a href="#" class="product_remove" onclick="remove_item({{ item.variant.id }}); return false;"></a>
-          <a href="{{ item.product.url }}" title="{{ item.title | escape }}">
-            <img src="{{ item.product.images.first | product_img_url" alt="{{ item.title | escape }}" width="60" height="60" />
-          </a>
-          <div class="product-details">
-            <span class="title">{{ item.product.title }}</span>
-            <span class="variant">{{ item.variant.title | remove: '/' }}</span>
-            <span class="price">{{ item.price | money | remove: '.00' }}</span>
-          </div>
-        </div>
-    {% endfor %}
-        <div class="order-details">
-          <div>  
-            <span class="subtotal">Subtotal</span>
-            <span class="price">{{ cart.total_price | money | remove: '.00' }}</span>
-          </div> 
-        </div>
+          <tr><td>
+            <div class="product">
+              <a href="#" class="product_remove close" onclick="remove_item({{ item.variant.id }}); return false;"></a>
+              <a class="product-image" href="{{ item.product.url }}" title="{{ item.title | escape }}">
+                <img src="{{ item.product.images.first | product_img_url" alt="{{ item.title | escape }}" width="60" height="60" />
+              </a>
+              <div class="product-details">
+                <span class="title">{{ item.product.title }}</span>
+                <span class="variant">{{ item.variant.title | remove: '/' }}</span>
+                <span class="price">{{ item.price | money | remove: '.00' }}</span>
+                <div class="quantity">
+                  <span class="quantity">Quantity: </span>
+                  <input class="quantity" type="text" value="{{ item.quantity }}" />
+                  <input type="button" name="update_quantity" value="Update" class="update bg-blue" id="{{ item.variant.id }}">
+                </div>
+              </div>
+            </div>
+          </td></tr>
+          {% endfor %}
+          <tr><td>
+            <div class="order-details">
+              <div>  
+                <span class="subtotal">Subtotal</span>
+                <span class="price">{{ cart.total_price | money | remove: '.00' }}</span>
+              </div> 
+            </div>
+          </td></tr>
         </tbody>
-
       </table>
-    <input type="submit"name="checkout" value="Checkout" />
-    <div class="order-note">
-      <label for="note">Leave a comment below if you would like to try a Second Size!</label>
-      <textarea name="note" rows="5" cols="45">{{cart.note}}</textarea>
-    </div>
+      <input type="submit"name="checkout" value="Checkout" class="checkout bg-blue" />
+      <div class="order-note">
+        <label for="note">Leave a comment below if you would like to try a Second Size!</label>
+        <textarea name="note" rows="5" cols="45">{{cart.note}}</textarea>
+      </div>
     </form>
-    </div>
-    <div class="cart_note">
-      <ul>
-        <li>Don't forget, all orders are free shipping and free returns</li>
-      </ul>
-    </div>
+  </div>
+  <div class="cart_note">
+    <ul>
+      <li>Don't forget, all orders are free shipping and free returns</li>
+    </ul>
+  </div>
   {% endif %}
-
 </section>

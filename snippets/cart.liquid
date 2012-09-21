@@ -4,10 +4,10 @@
     Your bag is empty.
    </h5>
   {% else %}       
-  <form action="/cart" method="post" id="cartform">
+  <form action="/cart" method="post">
     {% for item in cart.items %}
-      <div class="product">
-        <a href="{{ item.product.url }}" title="{{ item.title | escape }}">
+      <div class="product no-spacing">
+        <a class="float-l" href="{{ item.product.url }}" title="{{ item.title | escape }}">
           <img src="{{ item.product.images.first | product_img_url" alt="{{ item.title | escape }}" width="60" height="60" />
         </a>
         <div class="product-details">
@@ -18,17 +18,17 @@
       </div>
   {% endfor %}
       <div class="order-details">
-        <div>  
+        <div class="header-push">  
           <span class="subtotal">Subtotal</span>
           <span class="price">{{ cart.total_price | money | remove: '.00' }}</span>
         </div>
         <table>
           <tr>
             <td align="center">
-              <a class="cart" href="/cart">View Cart</a>
+              <a class="cart blue" href="/cart">View Cart</a>
             </td>
             <td align="center">
-              <input type="submit" value="Checkout" class="checkout" />
+              <input type="submit" value="Checkout" class="checkout bg-blue" />
             </td>
           </tr>
         </table>    

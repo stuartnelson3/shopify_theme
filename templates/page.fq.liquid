@@ -1,6 +1,16 @@
 <div id="fit-quiz-top">
   <div id="fqt">
-    <div class="clearfix"><span class="fqt-0 fleft">0 / FIND YOUR PERFECT SIZE</span> <span class="fqt-1 fleft"> <img id="fqi-0" src="{{'blank.gif' | asset_url }}" class="fq-visual-steps fq-visual-active"> <img id="fqi-1" src="{{'blank.gif' | asset_url }}" class="fq-visual-steps"> <img id="fqi-2" src="{{'blank.gif' | asset_url }}" class="fq-visual-steps"> <img id="fqi-3" src="{{'blank.gif' | asset_url }}" class="fq-visual-steps"> <img id="fqi-4" src="{{'blank.gif' | asset_url }}" class="fq-visual-steps"> <img id="fqi-5" src="{{'blank.gif' | asset_url }}" class="fq-visual-steps"></span> <span class="fqt-2 fleft"><a id="cancel-fq" href="">Close</a></span> </div>
+    <div class="clearfix">
+      <span class="fqt-0 fleft">0 / FIND YOUR PERFECT SIZE</span>
+      <span class="fqt-1 fleft"> <img id="fqi-0" src="{{'blank.gif' | asset_url }}" class="fq-visual-steps fq-visual-active">
+        <img id="fqi-1" src="{{'blank.gif' | asset_url }}" class="fq-visual-steps"> <img id="fqi-2" src="{{'blank.gif' | asset_url }}" class="fq-visual-steps">
+        <img id="fqi-3" src="{{'blank.gif' | asset_url }}" class="fq-visual-steps"> <img id="fqi-4" src="{{'blank.gif' | asset_url }}" class="fq-visual-steps">
+        <img id="fqi-5" src="{{'blank.gif' | asset_url }}" class="fq-visual-steps">
+      </span>
+      <span class="fqt-2 fleft">
+        <a id="cancel-fq" class="blue" href="">Close</a>
+      </span>
+    </div>
   </div>
   <div id="fq-0" style="display:block;" class="fq-basic">
     <div class="fq-col-13 fleft"><img src="{{ 'fq_img-0.jpg' | asset_url }}"/></div>
@@ -364,13 +374,13 @@
   <!-- fq-4 -->
   <div id="fq-5" class="fq-basic" style="height: 610px !important;">
   <div class="clearfix">
-    <h2>Your Perfect Size:</h2>
+    <h2 class="serif-thin blue">Your Perfect Size:</h2>
     <div class="fleft"> 
       <img src="{{ 'fq_img-5_1.jpg' | asset_url }}" />
     </div>
     <div class="fleft info">
       <h4 style="font-style: normal; margin-top: 4px; font-size: 14px; margin-right: 10px;">BLAZERS, BLOUSES, AND DRESSES</h4>
-      <h1 id="top-size">
+      <h1 id="top-size" class="serif">
         <span class="hagrid">Unavailable</span>
       </h1>
       <p style="width: 221px; font-size: 10px; line-height: 15px; margin-top: 12px;">
@@ -384,7 +394,7 @@
     </div>
     <div class="fleft info">
       <h4 style="font-style: normal; margin-top: 4px; font-size: 14px; margin-right: 10px;">PANTS AND SKIRTS</h4>
-      <h1 id="bottom-size">
+      <h1 id="bottom-size" class="serif">
         <span class="hagrid">Unavailable</span>
       </h1>
       <p style="width: 204px; font-size: 10px; line-height: 15px; margin-top: 12px;">
@@ -398,7 +408,7 @@
   <div class="fleft">
     <div style="border: 1px solid rgb(211, 211, 211); margin: 0px 3px; background-color: rgb(249, 249, 249); padding: 15px 0px 15px 19px; width: 226px; height: 77px;">
       <h3 style="letter-spacing: 0px; color: rgb(3, 29, 72);">QUESTIONS?</h3>
-      <p style="font-size: 10px;">We're are here to help. Chat with us, email <a style="color: rgb(3,29,72); font-size: 11px;" href="mailto:info@quincyapparel.com">info@quincyapparel.com</a>, or call 888.864.9942</p>
+      <p style="font-size: 10px;">We're are here to help. Chat with us, email <a class="blue serif" style="font-size: 11px;" href="mailto:info@quincyapparel.com">info@quincyapparel.com</a>, or call 888.864.9942</p>
     </div>
   </div>
   <!-- questions -->
@@ -415,7 +425,7 @@
     <label for="name" class="name">Name</label>
     <input type="text" value="" id="name" name="name" />
     <p style="border: 0px solid rgb(235, 235, 235); padding: 1px 5px; margin: 0 0 0 30px; font-size: 10px; width: 203px;"><span class="result"></span></p>
-    <button type="submit">SUBMIT</button>
+    <button type="submit" class="float-r bg-blue">SUBMIT</button>
   </form>
 </div>
 <div style="text-align: center; width: 20px; height: 180px; padding: 0px 3px;" class="fleft">
@@ -430,10 +440,10 @@
     <input type="text" name="customer[email]" value="" />
     <label for="customer[password]">Password</label>
     <input class="password" type="password" value="" name="customer[password]" />
-    <p style="margin-bottom: 0px;">
-      <button type="submit" style="padding: 0px 0px 1px; margin-top: 16px; margin-bottom: 5px; margin-left: 141px;">LOGIN</button>
+    <p class="float-r no-margin">
+      <button type="submit" class="float-r bg-blue" style="margin-top: 16px; margin-bottom: 5px; margin-left: 151px;">LOGIN</button>
+      <a class="float-r" style="font-size: 10px;" href="#">Forgot Your Password?</a>
     </p>
-    <p><a style="font-style: normal; letter-spacing: 0px; font-family: 'museo-sans-n5','museo-sans',sans-serif; font-size: 10px; margin-left: 105px;" href="#">Forgot Your Password?</a></p>
   </form>
 </div>
 </div>

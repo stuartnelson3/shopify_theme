@@ -14,35 +14,35 @@ $("section.main-nav ul li:eq(2) a").addClass("active");
 	{% case handle %}
 	//COLLECTION PAGES
 	  {% when 'shop' %}
-	  $('section.main-nav ul li a[href*="shop"]').addClass("active");
+	  $('.sub-nav a[href*="shop"]').addClass("sans-bold");
 		{% when "blazers" %}
-		$('a[href*="blazers"]').addClass("active");		
+		$('a[href*="blazers"]').addClass("sans-bold");		
 		{% when "blouses" %}
-		$('a[href*="blouses"]').addClass("active");		
+		$('a[href*="blouses"]').addClass("sans-bold");		
 		{% when "dresses" %}
-		$('a[href*="dresses"]').addClass("active");	
+		$('a[href*="dresses"]').addClass("sans-bold");	
 		{% when "skirts" %}
-		$('a[href*="skirts"]').addClass("active");	
+		$('a[href*="skirts"]').addClass("sans-bold");	
 		{% when "pants" %}
-		$('a[href*="pants"]').addClass("active");	
+		$('a[href*="pants"]').addClass("sans-bold");	
 		{% when "collections" or 'the-riley-collection' or 'the-elliott-collection' %}
-		$('a[href*="/collections/collections"]').addClass("active");
+		$('a[href*="/collections/collections"]').addClass("sans-bold");
 		{% when "looks" %}
-		$('a[href*="looks"]').addClass("active");
+		$('a[href*="looks"]').addClass("sans-bold");
 	//END COLLECTION PAGES
 	{% endcase %}
 	{% case product.type %}
 	//PRODUCT PAGES
 		{% when "Blazer" %}
-		$('section.main-nav ul li a[href*="blazers"]').addClass("active");		
+		$('a[href*="blazers"]').addClass("sans-bold");		
 		{% when "Dress" %}
-		$('a[href*="dress"]').addClass("active");		
+		$('a[href*="dress"]').addClass("sans-bold");		
 		{% when "Blouse" %}
-		$('a[href*="blouse"]').addClass("active");
+		$('a[href*="blouse"]').addClass("sans-bold");
 		{% when "Pants" %}
-		$('a[href*="pants"]').addClass("active");
+		$('a[href*="pants"]').addClass("sans-bold");
 		{% when "Skirts" %}
-		$('a[href*="skirts"]').addClass("active");
+		$('a[href*="skirts"]').addClass("sans-bold");
 	//END PRODUCT PAGES
 	{% endcase %}
 {% endif %}

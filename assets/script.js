@@ -1,279 +1,320 @@
-function rebind(){
-  $("div.cart-container a.inline-cart").mouseenter(function(){
-        $("section.inline-cart").slideDown();
+// UPDATE QUANTITY OF ITEMS IN CART
+var update_quantity = function(id, number) {
+    var params = {
+    type: 'POST',
+    url: '/cart/change.js',
+    data:  'quantity='+number+'&id='+id,
+    dataType: 'json',
+    success: function() {
+      $("div.cart").load("/cart #cartform");
+    	$(".cart-container").load("/ .login-box, section.inline-cart");
+    },
+    error: function(XMLHttpRequest, textStatus) {}
+  };
+  $.ajax(params);
+};
+
+// BUY ITEMS FROM LOOKS PAGE
+$(".js-looks-add-product").on("click", function(){
+  var v = $(this).closest("form.variants").find('select').val();
+  var $button = $(this);
+  var params = {
+    type: 'POST',
+    url: '/cart/add.js',
+    data: "quantity=1&id="+v,
+    dataType: 'json',
+    success: function() {
+      $button.val("Added!");
+      $(".cart-container").load("/ .login-box, section.inline-cart", function(){
+        $("section.inline-cart").slideDown().delay(2000).slideUp();
       });
-  $("div.cart-container a.inline-cart").click(function(){
-	  $("section.inline-cart").slideToggle();
-	  return false;
-	});
-  $("section.inline-cart").mouseenter(function(){
-	    $(this).show();
-	  });
-	$("section.inline-cart").mouseleave(function(){
-	  $(this).slideUp();
-  });
-}
+    },
+    error: function(XMLHttpRequest, textStatus) {}
+  };
+  $.ajax(params);
+});
+
+// SHOWS UL OF ITEMS IF IT IS NOT VISIBLE, OTHERWISE SLIDES UP
+$(".js-looks-div").on("click", function(){
+  var $looks = $(".js-looks-page");
+  var $ul = $(this).next(".js-looks-page");
+  var $this = $(this);
+  var $button = $this.find(".js-looks-button");
+  var speed = 500;
+  
+  $looks.slideUp(speed);
+  $(".js-looks-button").val("Buy This Outfit");
+  if (!$ul.is(":visible")) {
+    $button.val("Close");
+    $ul.slideDown(speed, function(){
+      var opts = {
+        scrollTop: $this.offset().top 
+      };
+      $('html,body').animate(opts ,'slow');
+    });
+  }
+  
+});
+
+// FUNCTION TO BUY ON PRODUCT PAGES
+var purchaseItem = function(form_id) {
+    var params = {
+      type: 'POST',
+      url: '/cart/add.js',
+      data: $("#"+form_id).serialize(),
+      dataType: 'json',
+      success: function() {
+        $(".second-size-container").fadeIn("medium");
+        $("#add-to-cart").val("Added!");
+        $(".cart-container").load("/ .login-box, section.inline-cart", function(){
+          $("section.inline-cart").slideDown().delay(2000).slideUp();
+        });
+      },
+      error: function(XMLHttpRequest, textStatus) {}
+    };
+    $.ajax(params);	
+};
+
+//FUNCTION TO REMOVE ITEMS ON /CART PAGE
+var remove_item = function(id) {
+    var params = {
+    type: 'POST',
+    url: '/cart/change.js',
+    data:  'quantity=0&id='+id,
+    dataType: 'json',
+    success: function() {
+      $("div.cart").load("/cart #cartform");
+    	$(".cart-container").load("/ .login-box, section.inline-cart");
+    },
+    error: function(XMLHttpRequest, textStatus) {}
+  };
+  $.ajax(params);
+};
+
+// DELEGATED HANDLER FOR UPDATE QUANTITY BUTTON ON /CART PAGE
+$(document).on("click", ".update", function(){
+  var id = $(this).attr("id");
+  var number = $(this).prev().val();
+  update_quantity(id, number);
+});
+
+// DELEGATED HANDLER FOR HOVERING OVER INLINE CART
+$(document).on('mouseenter mouseleave', '.cart-container', function(e) {
+  var $inlinecart = $("section.inline-cart");
+  
+  if (e.type === 'mouseenter') {
+    $inlinecart.slideDown();
+  }
+  else if (e.type === 'mouseleave') {
+    $inlinecart.slideUp();
+  }
+});
+
+// DELEGATED HANDLER FOR CLICKING ON CART LINK TO SHOW CART
+$(document).on("click", "a.inline-cart", function(){
+  $("section.inline-cart").slideToggle();
+});
+
+//==================
+// BEGIN DOC READY CODE
+//==================
+
 $(document).ready(function(){
-    var options = {
-      	  maxDate: "+3m",
-  		  minDate: "+0d"
-  	  }
-    $("#datepicker").datepicker( options );
-    $('ul.slides li:first-child').addClass("slideActive");
+  
+  // DATEPICKER FOR GIFTCARD
+  var options = {
+    	maxDate: "+3m",
+  	  minDate: "+0d"
+    };
+  $("#datepicker").datepicker( options );
+  
+  // SETS ACTIVE TO FIRST SLIDE, CORRESPONDING LI, AND SWATCH ON PRODUCT PAGE
+  $('ul.slides li:first-child').addClass("slideActive");
 	$("ul.indices li:first-child").addClass("indexActive");
-	$("div.wear_details div").eq(0).addClass("detailActive");
 	$("div.swatch-popup div").eq(0).fadeIn();
 	$("ul.swatch li").eq(0).addClass("active");
+	
+	//HIDES COLOR SELECTOR ON PRODUCT PAGES
 	$("div.selector-wrapper").eq(2).hide();
-	$("#product-select-option-2").val($("#product-select-option-2 option").eq(1).val()).change();
-	$("p.color").append($("#product-select-option-2").val());
-  // FANCY DROPDOWNS
-  function fancyDropdown(index) {
+	
+	//SETS COLOR CHOICE ON HIDDEN DROPDOWN TO FIRST NON-SELECT OPTION
+	var $option2 = $("#product-select-option-2");
+	$option2.val($option2.find("option:eq(1)").val()).change();
+	
+	//ADDS THE NAME OF THE COLOR NEXT TO THE SWATCH ICONS ON THE PRODUCT PAGE
+	$("p.color").append($option2.val());
+	
+  // POPULATES STYLED DROPDOWNS ON PRODUCT AND CONTACT PAGES WITH OPTIONS FROM THEIR SELECT BOXES
+  var fancyDropdown = function(index) {
       var i,
           div = $("div.selector-wrapper").eq(index).find("select option"),
           ul = $("form#product-actions").find("ul").eq(index);
       for (i = 1; i < div.length; i++) {
           ul.append('<li>'+ div.eq(i).html()+'</li>');
       }
-  }
-  function fancyContact(index) {
+  };
+  var fancyContact = function(index) {
       var i,
           div = $("div.contact_form li").eq(index).find("select option"),
           ul = $("div.contact_form ul.selector");
       for (i = 0; i < div.length; i++) {
           ul.append('<li>'+ div.eq(i).html()+'</li>');
       }
-  }
-  
-  // CREATE CORRECT AMOUNT OF INDICES FOR WEAR IT SECTION
-  // function slideshowIndexGen() {
-  //     var i,
-  //         indices = $("div#slideshow2 ul.slides li").length,
-  //         ul = $("div.wear_details nav ul");
-  //     for (i = 0; i < indices; i++) {
-  //         ul.append("<li>" + i + "</li>");
-  //     }
-  //     
-  //   }
+  };
   fancyDropdown(0);
   fancyDropdown(1);
   fancyContact(2);
-  //slideshowIndexGen();  
+  
+  // CREATES FUNCTIONALITY FOR STYLED DROPDOWNS  
   (function($) {
       $.fn.styleddropdown = function() {
           return this.each(function() {
-              var obj = $(this);
-              obj.find('.field').click(function() { //onclick event, 'list' fadein
-                  if (obj.find('ul').is(":visible")) {
-                    obj.find('ul').fadeOut(200);
+              var $obj = $(this);
+              var speed = 10;
+              $obj.find('.field').click(function() { //onclick event, 'list' fadein
+                  if ($obj.find('ul').is(":visible")) {
+                    $obj.find('ul').fadeOut(speed);
                   }
                   else{
-                    $('.selector').fadeOut(200);
-                    obj.find('ul').fadeIn(200);
+                    $('.selector').fadeOut(speed);
+                    $obj.find('ul').fadeIn(speed);
                   }
             
                   $(document).keyup(function(event) { //keypress event, fadeout on 'escape'
                       if (event.keyCode == 27) {
-                          obj.find('.selector').fadeOut(200);
+                          $obj.find('.selector').fadeOut(speed);
                       }
                   });
 
-                  obj.find('.selector').hover(function() {}, function() {
-                      $(this).fadeOut(200);
+                  $obj.find('.selector').hover(function() {}, function() {
+                      $(this).fadeOut(speed);
                   });
               });
 
-              obj.find('.selector li').click(function() { //onclick event, change field value with selected 'list' item and fadeout 'list'
-                  var div_index = $(this).parent().parent(),
+              $obj.find('.selector li').click(function() { //onclick event, change field value with selected 'list' item and fadeout 'list'
+                  var $div_index = $(this).closest(".pselect-box"),
                       index,
-                      target;
-                  if ( div_index.hasClass("top")) {
+                      $target;
+                  if ($div_index.hasClass("top")) {
                     index = 0;
-                    target = $("form.variants div div");
-                    target.eq(index).find("select").val($(this).text()).change();
+                    $target = $(".selector-wrapper");
+                    $target.eq(index).find("select").val($(this).text()).change();
                   }
-                  else if ( div_index.hasClass("bottom")) {
+                  else if ($div_index.hasClass("bottom")) {
                     index = 1;
-                    target = $("form.variants div div");
-                    target.eq(index).find("select").val($(this).text()).change();
-                  }
-                  else if ( div_index.hasClass("fq")) {
-                    div_index.next().val($(this).text());
+                    $target = $(".selector-wrapper");
+                    $target.eq(index).find("select").val($(this).text()).change();
                   }
                   else{
-                    index = 2;
-                    target = $("div.contact_form ul>li");
-                    target.eq(index).find("select").val($(this).text()).change();
+                    $target = $("#subject");
+                    $target.val($(this).text()).change();
                   }
-                  obj.find('span.info').empty().append($(this).text());
-                  obj.find('.selector').fadeOut(200);
-                  //target.eq(index).find("select").val($(this).text()).change(); //.parent().prev().val($(this).html());
+                  $obj.find('.info').empty().append($(this).text());
+                  $obj.find('.selector').fadeOut(speed);
               });
             
           });
       };
   })(jQuery);
-  $(function() {
-      $('.select-box').styleddropdown();
-      $('.pselect-box').styleddropdown();
+  $('.pselect-box').styleddropdown();
+  
+  // HIDES MODAL POPUPS
+  $(".js-modal-close").click(function(){
+    $(this).closest(".js-modal-container").fadeOut("medium");
   });
-  // LOOKS
-  // PAGE
-  $("img.hero").click(function(){
-    var ul = $(this).parent().next("ul");
-    $("section.collection_looks ul").slideUp(700);
-    if (ul.is(":visible")) {}
-    else {
-      ul.slideDown(700);
-    }
+  
+  // SIZE CHART
+	// REVEALS SIZE CHART MODAL ON PRODUCT PAGE
+	var $sizechart = $("section.size-chart");
+  $(".js-size-chart").click(function(){
+    $sizechart.fadeIn("medium");
   });
-  $("div.description input").click(function(){
-    var ul = $(this).parent().parent().next("ul");
-    $("section.collection_looks ul").slideUp(700);
-    if (ul.is(":visible")) {}
-    else {
-      ul.slideDown(700);
-    }
-  });
+  
   // SWATCH
   // REVEAL
+  // HIDDEN SWATCH WINDOW BECOMES VISIBLE ON CLICK IF SWATCH_VAR = 0, OTHERWISE HIDES IT
   var swatch_var = 0;
   $("a.swatch").click(function(){
     if (swatch_var === 0) {
-      $("div.swatch-popup").css({ 
-        'right': 335,
-        'box-shadow' : '0px 1px 2px 1px rgba(100, 100, 100, 0.25)',
-        '-moz-box-shadow' : '0px 1px 2px 1px rgba(100, 100, 100, 0.25)',
-        '-webkit-boxshadow' : '0px 1px 2px 1px rgba(100, 100, 100, 0.25)'
-        });
+      $(".swatch-popup").addClass("box-shadow-bump");
         swatch_var = 1;
-      return false;
-    }else {
-      $("div.swatch-popup").css({ 
-        right: 0,
-        'box-shadow' : '0 0 0 0 rgba(100, 100, 100, 0.25)',
-        '-moz-box-shadow' : '0 0 0 0 rgba(100, 100, 100, 0.25)',
-        '-webkit-boxshadow' : '0 0 0 0 rgba(100, 100, 100, 0.25)'
-        });
+        return false;
+    }
+    else {
+      $(".swatch-popup").removeClass("box-shadow-bump");
         swatch_var = 0;
-      return false;
+        return false;
     }      
   });
   $("a.swatch_close").click(function(){
-    $(this).parent().css({
-      right: 0,
-      'box-shadow' : '0 0 0 0 rgba(100, 100, 100, 0.25)',
-      '-moz-box-shadow' : '0 0 0 0 rgba(100, 100, 100, 0.25)',
-      '-webkit-boxshadow' : '0 0 0 0 rgba(100, 100, 100, 0.25)'
-    });
+    $(this).closest(".swatch-popup").removeClass("box-shadow-bump");
     swatch_var = 0;
     return false;
   });
-  
-  // BUY MENU ACCORDION
-	// $("input.get_one").click(function(){
-	//     $(this).fadeOut( 500, function() {
-	//       $(this).css({ margin: '0' });
-	//       $("div.buy-menu form, div.swatch a.close").slideDown(700);
-	//       $("div.buy-container").css({ height: "400px" });
-	//     });
-	//         
-	//   });
-	//   $("a.close").click(function() {
-	//     $(this).hide();
-	//     $("div.buy-menu form").slideUp(700, function() {
-	//       $("input.get_one").fadeIn(500, function() {
-	//         $(this).css({ margin: '' });
-	//       });
-	//     }); 
-	//     $("div.buy-container").css({ height: "340px" });
-	//     return false;
-	//   });
+	
   // PRODUCT DESCRIPTION ACCORDION
-	$("div.about_product h3").click(function() {
-		var div = $($(this).attr("name")),
-		    h3  = $(this);
-		if (div.is(":visible")) {
-		  $("div.details").slideUp(700,"swing");
-		  h3.find("span").show();
-		  h3.css({ color: '#031D48' });
+  // SHOWS CORRESPONDING DROPDOWN ON CLICK FOR PRODUCT DESCRIPTION SECTION
+	$(".js-details-accordion").click(function() {
+		var $div = $($(this).data("name")),
+		    $h3  = $(this),
+		    $details = $(".details"),
+		    speed = 700;
+		    
+		if ($div.is(":visible")) {
+		  $details.slideUp(speed,"swing");
+		  $h3.find(".js-plus").show();
+		  $h3.removeClass("pink");
 		} 
 		else{
-		  $("h3 span").show();
-		  h3.find("span").hide();
-		  $("div.details").slideUp(700,"swing");
-		  div.slideToggle(700,"swing");
-		  $("div.about_product h3").css({ color: '#031D48' });
-		  h3.css({ color: '#D3018D' });
+		  $(".js-plus").show();
+		  $details.slideUp(speed,"swing");
+		  $div.slideToggle(speed,"swing");
+		  $(".js-details-accordion").removeClass("pink");
+		  $h3.addClass("pink").find(".js-plus").hide();
 		}
 	});
-	// SIZE CHART
-  $("a.size-chart").click(function(){
-    $("section.size-chart").show();
-  });
-  $("a.size_chart_close").click(function(){
-    $("section.size-chart").hide();
-  });
-  // SLIDESHOWS
-	var slides = $('#slideshow ul.slides li'),
+  
+  // SLIDESHOW FOR PRODUCT PAGE
+	var $slides = $('#slideshow ul.slides li'),
 	    slides2 = $("#slideshow2 ul.slides li"),
 		  current = 0,
 		  current2 = 0,
 		  slideshow = {width:0,height:0},
-		  nextIndex = 0;
+		  nextIndex = 0,
+		  $indices = $("#slideshow ul.indices li");
     // I-SWIPE
     $("#slideshow").swipe({
       swipeLeft:function(event, direction, distance, duration, fingerCount) {
-          nextIndex = current < slides.length - 1 ? nextIndex + 1 : 0;
-          slides.eq(nextIndex).addClass("slideActive").show("slide", { direction: "right" }, 500);
-          slides.eq(current).removeClass('slideActive').hide("slide", { direction: "left"}, 500);
+          nextIndex = current < $slides.length - 1 ? nextIndex + 1 : 0;
+          $slides.eq(nextIndex).addClass("slideActive").show("slide", { direction: "right" }, 500);
+          $slides.eq(current).removeClass('slideActive').hide("slide", { direction: "left"}, 500);
           current = nextIndex;
-          $("#slideshow ul.indices li").removeClass("indexActive");
-  				$("#slideshow ul.indices li").eq(nextIndex).addClass("indexActive"); 
+          $indices.removeClass("indexActive").eq(nextIndex).addClass("indexActive"); 
         },
       swipeRight:function(event, direction, distance, duration, fingerCount) {
-        nextIndex = current === 0 ? slides.length - 1 : nextIndex - 1;
-        slides.eq(nextIndex).addClass("slideActive").show("slide", { direction: "left" }, 500);
-        slides.eq(current).removeClass('slideActive').hide("slide", { direction: "right"}, 500);
+        nextIndex = current === 0 ? $slides.length - 1 : nextIndex - 1;
+        $slides.eq(nextIndex).addClass("slideActive").show("slide", { direction: "left" }, 500);
+        $slides.eq(current).removeClass('slideActive').hide("slide", { direction: "right"}, 500);
         current = nextIndex;
-        $("#slideshow ul.indices li").removeClass("indexActive");
-				$("#slideshow ul.indices li").eq(nextIndex).addClass("indexActive");
+        $indices.removeClass("indexActive").eq(nextIndex).addClass("indexActive");
       }
     });
-    // $("#slideshow2").swipe({
-    //       swipeLeft:function(event, direction, distance, duration, fingerCount) {
-    //           nextIndex = current2 < slides2.length - 1 ? nextIndex + 1 : 0;
-    //           slides2.eq(nextIndex).addClass("slideActive").show("slide", { direction: "right" }, 500);
-    //           slides2.eq(current2).removeClass('slideActive').hide("slide", { direction: "left"}, 500);
-    //           current2 = nextIndex;
-    //           $(".wear_details ul.indices li").removeClass("indexActive");
-    //          $(".wear_details ul.indices li").eq(nextIndex).addClass("indexActive");
-    //         },
-    //       swipeRight:function(event, direction, distance, duration, fingerCount) {
-    //         nextIndex = current2 === 0 ? slides2.length - 1 : nextIndex - 1;
-    //         slides2.eq(nextIndex).addClass("slideActive").show("slide", { direction: "left" }, 500);
-    //         slides2.eq(current2).removeClass('slideActive').hide("slide", { direction: "right"}, 500);
-    //         current2 = nextIndex;
-    //         $(".wear_details ul.indices li").removeClass("indexActive");
-    //        $(".wear_details ul.indices li").eq(nextIndex).addClass("indexActive");
-    //       }
-    //     });
+    
     // USING ARROWS 
 		$('#slideshow .arrow').click(function(){
-			var li        = slides.eq(current);
-				  //nextIndex	= 0;
+			var li = $slides.eq(current);
 
 			// Depending on whether this is the next or previous
 			// arrow, calculate the index of the next slide accordingly.
 			
 			if($(this).hasClass('next')){
-				nextIndex = current >= slides.length-1 ? 0 : current+1;
+				nextIndex = current >= $slides.length-1 ? 0 : current+1;
 			}
 			else {
-				nextIndex = current <= 0 ? slides.length-1 : current-1;
+				nextIndex = current <= 0 ? $slides.length-1 : current-1;
 			}
 
-			var next = slides.eq(nextIndex);
+			var next = $slides.eq(nextIndex);
 				
 				current = nextIndex;
 				if ($(this).hasClass('next')) {
@@ -284,14 +325,14 @@ $(document).ready(function(){
 				  next.addClass('slideActive').show("slide", { direction: "left"});
 				  li.removeClass('slideActive').hide("slide", { direction: "right"});
 				}
-				$("#slideshow ul.indices li").removeClass("indexActive");
-				$("#slideshow ul.indices li").eq(nextIndex).addClass("indexActive");
+				$indices.removeClass("indexActive")
+			          .eq(nextIndex).addClass("indexActive");
 			
 		});
     // USING INDICES
-		$("#slideshow ul.indices li").click(function(){
+		$indices.click(function(){
 			var index = $(this).index(),
-			    li = $('#slideshow ul.slides li.slideActive'),
+			    li = $('#slideshow .slideActive'),
 			    popup = $("div.swatch-popup div"),
 			    ul = $("ul.swatch li");
 			
@@ -300,11 +341,11 @@ $(document).ready(function(){
       
 			if ($(this).index() === li.index()) {} //DO NOTHING
 			else if ($(this).index() > li.index()) {
-			  slides.eq(index).addClass('slideActive').show("slide", { direction: "right"});
+			  $slides.eq(index).addClass('slideActive').show("slide", { direction: "right"});
 			  li.removeClass('slideActive').hide("slide");
 			}
 			else {
-			  slides.eq(index).addClass('slideActive').show("slide", { direction: "left"});
+			  $slides.eq(index).addClass('slideActive').show("slide", { direction: "left"});
 			  li.removeClass('slideActive').hide("slide", { direction: "right"});
 			}
 			current = index;
@@ -322,14 +363,12 @@ $(document).ready(function(){
 		  if ($(this).is(":first-of-type")) {
     	    if ($("div.swatch-popup div:first-of-type").is(":visible")){}
 		    else {$("div.swatch-popup div").fadeOut().eq(0).fadeIn();}
-		    if ($("#slideshow ul.indices li:eq(0)").hasClass("indexActive")) {} 
+		    if ($indices.eq(0).hasClass("indexActive")) {} 
 		    else{
-		      $("#slideshow ul.indices li")
-		                                  .removeClass("indexActive")
-		                                  .eq(0)
-		                                  .addClass("indexActive");
-		      $("#slideshow ul.slides li")
-		                                  .removeClass("slideActive")
+		      $indices.removeClass("indexActive")
+		              .eq(0)
+		              .addClass("indexActive");
+		      $("#slideshow ul.slides li").removeClass("slideActive")
 		                                  .eq(0)
 		                                  .addClass("slideActive")
 		                                  .show("slide", { direction: "right"});
@@ -340,167 +379,18 @@ $(document).ready(function(){
 		  else if ($(this).is(":last-of-type")) {
 		    if ($("div.swatch-popup div:last-of-type").is(":visible")){}
 		    else {$("div.swatch-popup div").fadeOut().eq(1).fadeIn();}
-		    if ($("#slideshow ul.indices li:eq(1)").hasClass("indexActive")) {} 
+		    if ($indices.eq(1).hasClass("indexActive")) {} 
 		    else{
-		      $("#slideshow ul.indices li")
-		                                  .removeClass("indexActive")
-		                                  .eq(1)
-		                                  .addClass("indexActive");
-		      $("#slideshow ul.slides li")
-		                                  .removeClass("slideActive")
+		      $indices.removeClass("indexActive")
+		              .eq(1)
+		              .addClass("indexActive");
+		      $("#slideshow ul.slides li").removeClass("slideActive")
 		                                  .eq(1)
 		                                  .addClass("slideActive")
 		                                  .show("slide", { direction: "right"});
 		      li.removeClass('slideActive').hide("slide");
 		      current = 1;
 	      }
-		  }
-		  else if ($(this).index() === 2) {
-		    $("div.swatch-popup div").fadeOut().eq(3).fadeIn();
-		    if ($("#slideshow ul.indices li:eq(3)").hasClass("indexActive")) {} 
-		    else{
-		      $("#slideshow ul.indices li")
-		                                  .removeClass("indexActive")
-		                                  .eq(3)
-		                                  .addClass("indexActive");
-		      $("#slideshow ul.slides li")
-		                                  .removeClass("slideActive")
-		                                  .eq(3)
-		                                  .addClass("slideActive")
-		                                  .show("slide", { direction: "right"});
-		      li.removeClass('slideActive').hide("slide");
-		      current = 3;
-	      }
 		  } 
 		});
-    // // SLIDESHOW2 ARROWS
-    //    $('.wear_details .arrow').click(function(){
-    //      var li      = slides2.eq(current2);
-    //      
-    //      if($(this).hasClass('next')){
-    //        nextIndex = current2 >= slides2.length-1 ? 0 : current2+1;
-    //      }
-    //      else {
-    //        nextIndex = current2 <= 0 ? slides2.length-1 : current2-1;
-    //      }
-    // 
-    //      var next = slides2.eq(nextIndex);
-    //        
-    //        current2 = nextIndex;
-    //        if ($(this).hasClass('next')) {
-    //          next.addClass('slideActive').show("slide", { direction: "right"});
-    //          li.removeClass('slideActive').hide("slide");
-    //        }
-    //        else {
-    //          next.addClass('slideActive').show("slide", { direction: "left"});
-    //          li.removeClass('slideActive').hide("slide", { direction: "right"});
-    //        }
-    //        $(".wear_details ul.indices li").removeClass("indexActive");
-    //        $(".wear_details ul.indices li").eq(nextIndex).addClass("indexActive");
-    //        $(".wear_details div").removeClass("detailActive");
-    //        $(".wear_details div").eq(nextIndex).addClass("detailActive");
-    //    });
-    //    // SLIDESHOW2 INDICES
-    //    $(".wear_details ul.indices li").click(function(){
-    //      var index = $(this).index(),
-    //          li = $('#slideshow2 ul.slides li.slideActive');
-    //      
-    //      $(".wear_details ul.indices li").removeClass("indexActive");
-    //      $(this).addClass("indexActive");
-    //      if ($(this).index() === li.index()) {} //DO NOTHING
-    //      else if ($(this).index() > li.index()) {
-    //        slides2.eq(index).addClass('slideActive').show("slide", { direction: "right"});
-    //        li.removeClass('slideActive').hide("slide");
-    //      }
-    //      else {
-    //        slides2.eq(index).addClass('slideActive').show("slide", { direction: "left"});
-    //        li.removeClass('slideActive').hide("slide", { direction: "right"});
-    //      }
-    //      current2 = index;
-    //      $(".wear_details div").removeClass("detailActive");
-    //      $(".wear_details div").eq(index).addClass("detailActive");
-    //    });
-		//CART HOVER
-		$("div.cart-container a.inline-cart").mouseenter(function(){
-		    $("section.inline-cart").slideDown();
-		  });
-		$("div.cart-container a.inline-cart").click(function(){
-		  $("section.inline-cart").slideToggle();
-		  return false;
-		});
-		$("section.inline-cart").mouseenter(function(){
-		    $(this).show();
-		  });
-		$("section.inline-cart").mouseleave(function(){
-		  $(this).slideUp();
-		});
-    // CART AJAX
-    
-    function reloadSmallCart(form_id) {
-        var params = {
-          type: 'POST',
-          url: '/cart/add.js',
-          data: "quantity=1&id="+form_id,
-          dataType: 'json',
-          success: function() {
-            $("div.cart-container").load("/ div.cart-container div", function(){
-              rebind();
-            });
-            $("section.inline-cart").load("/ section.inline-cart form", function(){
-                $(this).slideDown().delay(2000).slideUp();
-          	});
-          },
-          error: function(XMLHttpRequest, textStatus) {
-            //Shopify.onError(XMLHttpRequest, textStatus);
-          }
-        };
-        jQuery.ajax(params);	
-    }
-    $("section.collection_looks ul input").click(function(){
-      var v = $(this).parent().parent().find('select').val();
-      reloadSmallCart(v);
-    });
-    $("section.second-size-modal button").click(function(){
-      $(this).parent().parent().hide();
-    });
 });
-function purchaseItem(form_id) {
-    var params = {
-      type: 'POST',
-      url: '/cart/add.js',
-      data: $("#"+form_id).serialize(),
-      dataType: 'json',
-      success: function() {
-        $("section.second-size-modal").show();
-        $("div.cart-container").load("/ div.cart-container div", function(){
-          rebind();
-        });
-        $("section.inline-cart").load("/ section.inline-cart form", function(){
-            $(this).slideDown().delay(2000).slideUp();
-      	});
-      },
-      error: function(XMLHttpRequest, textStatus) {
-        //Shopify.onError(XMLHttpRequest, textStatus);
-      }
-    };
-    jQuery.ajax(params);	
-}
-function remove_item(id) {
-    var params = {
-    type: 'POST',
-    url: '/cart/change.js',
-    data:  'quantity=0&id='+id,
-    dataType: 'json',
-    success: function() {
-    	$("div.cart-container").load("/ div.cart-container div", function(){
-    	  $("section.inline-cart").load("/ section.inline-cart form");
-    	  rebind();
-    	});
-    	$("section.cart div.cart").load("/cart section.cart div form");
-    },
-    error: function(XMLHttpRequest, textStatus) {
-      //Shopify.onError(XMLHttpRequest, textStatus);
-    }
-  };
-  jQuery.ajax(params);
-}

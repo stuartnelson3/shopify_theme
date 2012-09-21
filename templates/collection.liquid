@@ -12,11 +12,11 @@
                   <a href="{{ product.url }}">
                     {{ product.title }}  
                   </a>
-                  <span class="money">{{ product.price | money | remove: '.00' }}</span>
+                  <span class="money serif">{{ product.price | money | remove: '.00' }}</span>
                 </div>
               </li>
               <div class="details">
-                <h1>&ldquo;{{ product.description }}&rdquo;</h1>
+                <h1 class="serif">&ldquo;{{ product.description }}&rdquo;</h1>
                 <div class="border">
                 {% when 'elliott-pant-black' %}
                 <p>Pair these skinnies with a sweet blouse or throw on a matching blazer for a complete polished look.</p>
@@ -35,7 +35,7 @@
               </div>              
               {% when 'kennedy-blouse-peplum' %}
               <div class="details left">
-                <h1>&ldquo;{{ product.description }}&rdquo;</h1>
+                <h1 class="serif">&ldquo;{{ product.description }}&rdquo;</h1>
                 <div class="border">
               <p>Take the hottest silhouette from the runways to work with a pencil and out afterwards with skinnies, it's our favorite multi-tasker.</p>
               <a href="{{ product.url }}" title="{{ product.title }}">Shop the {{ product.title }} ></a>
@@ -43,7 +43,7 @@
             </div>
               {% when 'emma-jacket' %}
               <div class="details left">
-                <h1>&ldquo;{{ product.description }}&rdquo;</h1>
+                <h1 class="serif">&ldquo;{{ product.description }}&rdquo;</h1>
                 <div class="border">
                 <p>Our favorite Jane jacket is updated in a fresh white and navy boucle with delicate silver accent.</p>
                 <a href="{{ product.url }}" title="{{ product.title }}">Shop the {{ product.title }} ></a>
@@ -58,7 +58,7 @@
                 <a href="{{ product.url }}">
                   {{ product.title }}  
                 </a>
-                <span class="money">{{ product.price | money | remove: '.00' }}</span>
+                <span class="money serif">{{ product.price | money | remove: '.00' }}</span>
               </div>
             </li>
             {% when 'fiona-blouse' %}
@@ -70,7 +70,7 @@
                 <a href="{{ product.url }}">
                   {{ product.title }}
                 </a>
-                <span class="money">{{ product.price | money | remove: '.00' }}</span>
+                <span class="money serif">{{ product.price | money | remove: '.00' }}</span>
                 <ul class="fiona-blouse">
                   <li>Plum</li>
                   <li>Polkadot</li>
@@ -86,7 +86,7 @@
                   <a href="{{ product.url }}">
                     {{ product.title }}
                   </a>
-                  <span class="money">{{ product.price | money | remove: '.00' }}</span>
+                  <span class="money serif">{{ product.price | money | remove: '.00' }}</span>
                 </div>
               </li>
           {% endcase %}

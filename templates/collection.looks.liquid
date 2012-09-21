@@ -1,14 +1,14 @@
 <!-- MAKE EMPTY COLLECTION CALLED look THAT USES THIS TEMPLATE -->
 <section class="collection_looks">
-  <div>
+  <div id="1" class="js-looks-div pointer">
     <img class="hero" src="{{ 'look1.jpg' | asset_url }}" />
-    <div class="description top right">
-      <h4 class="white">&ldquo;Stand out in a sea of gray and black.&rdquo;</h4>
-      <p class="white">Riley blazer <span>$228</span>, Riley pencil skirt <span>$128</span></p>
-      <input type="button" name="Buy Outfit" value="Buy This Outfit">
+    <div class="description top right white">
+      <h4 class="serif">&ldquo;Stand out in a sea of gray and black&rdquo;</h4>
+      <p>Riley blazer <span>$228</span>, Riley pencil skirt <span>$128</span></p>
+      <input class="js-looks-button" type="button" name="Buy Outfit" value="Buy This Outfit">
     </div>
   </div>
-  <ul>
+  <ul class="js-looks-page">
     {% for product in collections.look1.products %}
       <li>
         <a href="{{ product.url }}" title="{{ product.title | escape }} &mdash; {{ product.description | strip_html }}">
@@ -19,22 +19,22 @@
             <a href="{{ product.url }}">
               {{ product.title }}  
             </a>
-            <span class="money">{{ product.price | money | remove: '.00' }}</span>
+            <span class="money serif">{{ product.price | money | remove: '.00' }}</span>
           </div>
           {% include'add-to-cart' %}
         </div>
       </li>
     {% endfor %}
   </ul>
-  <div>
+  <div class="js-looks-div pointer">
     <img class="hero" src="{{ 'look2.jpg' | asset_url }}" />
     <div class="description top right">
-      <h4>&ldquo;Unexpected pairings add panache to a pencil.&rdquo;</h4>
+      <h4 class="serif">&ldquo;Unexpected pairings add panache to a pencil&rdquo;</h4>
       <p>Elliott blazer <span>$228</span>, Kennedy peplum blouse <span>$78</span>, Elliott pencil skirt <span>$128</span></p>
-      <input type="button" name="Buy Outfit" value="Buy This Outfit">
+      <input class="js-looks-button" type="button" name="Buy Outfit" value="Buy This Outfit">
     </div>
   </div>
-  <ul>
+  <ul class="js-looks-page">
     {% for product in collections.look2.products %}
       <li>
         <a href="{{ product.url }}" title="{{ product.title | escape }} &mdash; {{ product.description | strip_html }}">
@@ -45,22 +45,22 @@
             <a href="{{ product.url }}">
               {{ product.title }}  
             </a>
-            <span class="money">{{ product.price | money | remove: '.00' }}</span>
+            <span class="money serif">{{ product.price | money | remove: '.00' }}</span>
           </div>
           {% include'add-to-cart' %}
         </div>
       </li>
     {% endfor %}
   </ul>
-  <div>
+  <div class="js-looks-div pointer">
     <img class="hero" src="{{ 'look3.jpg' | asset_url }}" />
-    <div class="description top left">
-      <h4 class="white">&ldquo;Simplicity will take you far.&rdquo;</h4>
-      <p class="white">Chloe shirt <span>$88</span>, Elliott cigarette pant <span>$128</span></p>
-      <input type="button" name="Buy Outfit" value="Buy This Outfit">
+    <div class="description top left white">
+      <h4 class="serif">&ldquo;Simplicity will take you far&rdquo;</h4>
+      <p>Chloe shirt <span>$88</span>, Elliott cigarette pant <span>$128</span></p>
+      <input class="js-looks-button" type="button" name="Buy Outfit" value="Buy This Outfit">
     </div>
   </div>
-  <ul>
+  <ul class="js-looks-page">
     {% for product in collections.look3.products %}
       <li>
         <a href="{{ product.url }}" title="{{ product.title | escape }} &mdash; {{ product.description | strip_html }}">
@@ -71,22 +71,22 @@
             <a href="{{ product.url }}">
               {{ product.title }}  
             </a>
-            <span class="money">{{ product.price | money | remove: '.00' }}</span>
+            <span class="money serif">{{ product.price | money | remove: '.00' }}</span>
           </div>
           {% include'add-to-cart' %}
         </div>
       </li>
     {% endfor %}
   </ul>
-  <div>
+  <div class="js-looks-div pointer">
     <img class="hero" src="{{ 'look4.jpg' | asset_url }}" />
-    <div class="description top left">
-      <h4 class="white">&ldquo;Friday afternoons are a cinch.&rdquo;</h4>
-      <p class="white">Ansley dress <span>$138</span>,<br />Elliott blazer <span>$228</span></p>
-      <input type="button" name="Buy Outfit" value="Buy This Outfit">
+    <div class="description top left white">
+      <h4 class="serif">&ldquo;Friday afternoons are a cinch&rdquo;</h4>
+      <p>Ansley dress <span>$138</span>,<br />Elliott blazer <span>$228</span></p>
+      <input class="js-looks-button" type="button" name="Buy Outfit" value="Buy This Outfit">
     </div> 
   </div>
-  <ul>
+  <ul class="js-looks-page">
     {% for product in collections.look4.products %}
       <li>
         <a href="{{ product.url }}" title="{{ product.title | escape }} &mdash; {{ product.description | strip_html }}">
@@ -97,22 +97,22 @@
             <a href="{{ product.url }}">
               {{ product.title }}  
             </a>
-            <span class="money">{{ product.price | money | remove: '.00' }}</span>
+            <span class="money serif">{{ product.price | money | remove: '.00' }}</span>
           </div>
           {% include'add-to-cart' %}
         </div>
       </li>
     {% endfor %}
   </ul>
-  <div>
+  <div class="js-looks-div pointer">
     <img class="hero" src="{{ 'look6.jpg' | asset_url }}" />
     <div class="description bottom left">
-      <h4>&ldquo;Strong and feminine ring true in this power suit.&rdquo;</h4>
+      <h4 class="serif">&ldquo;Strong and feminine ring true in this power suit&rdquo;</h4>
       <p>Elliott blazer <span>$228</span>, Fiona bow blouse in polka dot <span>$118</span>, Elliott cigarette pant <span>$128</span></p>
-      <input type="button" name="Buy Outfit" value="Buy This Outfit">
+      <input class="js-looks-button" type="button" name="Buy Outfit" value="Buy This Outfit">
     </div>
   </div>
-  <ul>
+  <ul class="js-looks-page">
     {% for product in collections.look6.products %}
       <li>
         <a href="{{ product.url }}" title="{{ product.title | escape }} &mdash; {{ product.description | strip_html }}">
@@ -123,22 +123,22 @@
             <a href="{{ product.url }}">
               {{ product.title }}  
             </a>
-            <span class="money">{{ product.price | money | remove: '.00' }}</span>
+            <span class="money serif">{{ product.price | money | remove: '.00' }}</span>
           </div>
           {% include'add-to-cart' %}
         </div>
       </li>
     {% endfor %}
   </ul>
-  <div>
+  <div class="js-looks-div pointer">
     <img class="hero" src="{{ 'look7.jpg' | asset_url }}" />
-    <div class="description top right">
-      <h4 class="white">&ldquo;The Emma lends itself to a textured play on patterns.&rdquo;</h4>
-      <p class="white">Emma jacket <span>$258</span>, Fiona bow blouse <span>$118</span>,<br />Riley cigarette pant <span>$128</span></p>
-      <input type="button" name="Buy Outfit" value="Buy This Outfit">
+    <div class="description top right white">
+      <h4 class="serif">&ldquo;The Emma lends itself to a textured play on patterns&rdquo;</h4>
+      <p>Emma jacket <span>$258</span>, Fiona bow blouse <span>$118</span>,<br />Riley cigarette pant <span>$128</span></p>
+      <input class="js-looks-button" type="button" name="Buy Outfit" value="Buy This Outfit">
     </div>
   </div>
-  <ul>
+  <ul class="js-looks-page">
     {% for product in collections.look7.products %}
       <li>
         <a href="{{ product.url }}" title="{{ product.title | escape }} &mdash; {{ product.description | strip_html }}">
@@ -149,22 +149,22 @@
             <a href="{{ product.url }}">
               {{ product.title }}  
             </a>
-            <span class="money">{{ product.price | money | remove: '.00' }}</span>
+            <span class="money serif">{{ product.price | money | remove: '.00' }}</span>
           </div>
           {% include'add-to-cart' %}
         </div>
       </li>
     {% endfor %}
   </ul>
-  <div>
+  <div class="js-looks-div pointer">
     <img class="hero" src="{{ 'look8.jpg' | asset_url }}" />
-    <div class="description top right">
-      <h4 class="white">&ldquo;Color's your best friend in vivid cobalt suiting.&rdquo;</h4>
-      <p class="white">Riley blazer <span>$228</span>, Fiona bow blouse in Plum <span>$118</span>, Elliott cigarette pant <span>$128</span></p>
-      <input type="button" name="Buy Outfit" value="Buy This Outfit">
+    <div class="description top right white">
+      <h4 class="serif">&ldquo;Color's your best friend in vivid cobalt suiting&rdquo;</h4>
+      <p>Riley blazer <span>$228</span>, Fiona bow blouse in Plum <span>$118</span>, Elliott cigarette pant <span>$128</span></p>
+      <input class="js-looks-button" type="button" name="Buy Outfit" value="Buy This Outfit">
     </div>
   </div>
-  <ul>
+  <ul class="js-looks-page">
     {% for product in collections.look8.products %}
       <li>
         <a href="{{ product.url }}" title="{{ product.title | escape }} &mdash; {{ product.description | strip_html }}">
@@ -175,22 +175,22 @@
             <a href="{{ product.url }}">
               {{ product.title }}  
             </a>
-            <span class="money">{{ product.price | money | remove: '.00' }}</span>
+            <span class="money serif">{{ product.price | money | remove: '.00' }}</span>
           </div>
           {% include'add-to-cart' %}
         </div>
       </li>
     {% endfor %}
   </ul>
-  <div>
+  <div class="js-looks-div pointer">
     <img class="hero" src="{{ 'look9.jpg' | asset_url }}" />
     <div class="description top left">
-      <h4>&ldquo;Saunter in fashionably late.&rdquo;</h4>
+      <h4 class="serif">&ldquo;Saunter in fashionably late&rdquo;</h4>
       <p>Elliott blazer <span>$228</span>, Elliot trouser <span>$138</span></p>
-      <input type="button" name="Buy Outfit" value="Buy This Outfit">
+      <input class="js-looks-button" type="button" name="Buy Outfit" value="Buy This Outfit">
     </div>  
   </div>
-  <ul>
+  <ul class="js-looks-page">
     {% for product in collections.look9.products %}
       <li>
         <a href="{{ product.url }}" title="{{ product.title | escape }} &mdash; {{ product.description | strip_html }}">
@@ -201,22 +201,22 @@
             <a href="{{ product.url }}">
                 {{ product.title }}  
             </a>
-            <span class="money">{{ product.price | money | remove: '.00' }}</span>
+            <span class="money serif">{{ product.price | money | remove: '.00' }}</span>
           </div>
           {% include'add-to-cart' %}
         </div>
       </li>
     {% endfor %}
   </ul>
-  <div>
+  <div class="js-looks-div pointer">
     <img class="hero" src="{{ 'look10.jpg' | asset_url }}" />
     <div class="description left top">
-      <h4>&ldquo;Pairing brights is a snap with jewel-toned berry hues.&rdquo;</h4>
+      <h4 class="serif">&ldquo;Pairing brights is a snap with jewel-toned berry hues&rdquo;</h4>
       <p>Fiona bow blouse in Plum <span>$118</span>,<br />Riley pencil skirt <span>$128</span></p>
-      <input type="button" name="Buy Outfit" value="Buy This Outfit">
+      <input class="js-looks-button" type="button" name="Buy Outfit" value="Buy This Outfit">
     </div>  
   </div>
-  <ul>
+  <ul class="js-looks-page">
     {% for product in collections.look10.products %}
       <li>
         <a href="{{ product.url }}" title="{{ product.title | escape }} &mdash; {{ product.description | strip_html }}">
@@ -227,7 +227,7 @@
             <a href="{{ product.url }}">
               {{ product.title }}  
             </a>
-            <span class="money">{{ product.price | money | remove: '.00' }}</span>
+            <span class="money serif">{{ product.price | money | remove: '.00' }}</span>
           </div>
           {% include'add-to-cart' %}
         </div>
