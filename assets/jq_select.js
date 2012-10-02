@@ -64,22 +64,9 @@ if($.cookie('fq_top') && $.cookie('fq_length') && $.cookie('fq_waist')){
   	$('#add-to-cart').removeAttr('disabled').removeClass('disabled').removeClass('default');
 	}
 	
-	if ($(":contains(32)", this).is(":selected")) {
-		$("div.fits-like p").eq(0).show();
-	}
-	else if ($(":contains(34)", this).is(":selected")) {
-		$("div.fits-like p").eq(1).show();
-	}
-	else if ($(":contains(36)",	 this).is(":selected")) {
-		$("div.fits-like p").eq(2).show();
-	}
-	else if ($(":contains(38)", this).is(":selected")) {
-		$("div.fits-like p").eq(3).show();
-	}
-	else if ($(":contains(40)", this).is(":selected")) {
-		$("div.fits-like p").eq(4).show();
-	}
-	else {}
+    // ITEM QUANTITY TAKEN INTO ACCOUNT AFTER CALLING .CHANGE
+    // CALL AFTER SELECTIONS HAVE BEEN MADE BY COOKIES
+	$(".single-option-selector").change(); 
 	
 }
 });

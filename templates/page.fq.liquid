@@ -420,10 +420,10 @@
   
   <p style="letter-spacing: 0px; font-size: 12px; font-weight: bold; color: rgb(3, 29, 72); margin-bottom: 28px;">Create a New Profile</p>
   <form id="CreateProfile" method="post">
-    <label for="email">Email</label>
-    <input type="text" value="" id="createEmail" name="email" />
     <label for="name" class="name">Name</label>
     <input type="text" value="" id="name" name="name" />
+    <label for="email">Email</label>
+    <input type="text" value="" id="createEmail" name="email" />
     <p style="border: 0px solid rgb(235, 235, 235); padding: 1px 5px; margin: 0 0 0 30px; font-size: 10px; width: 203px;"><span class="result"></span></p>
     <button type="submit" class="float-r bg-blue">SUBMIT</button>
   </form>
@@ -442,7 +442,7 @@
     <input class="password" type="password" value="" name="customer[password]" />
     <p class="float-r no-margin">
       <button type="submit" class="float-r bg-blue" style="margin-top: 16px; margin-bottom: 5px; margin-left: 151px;">LOGIN</button>
-      <a class="float-r" style="font-size: 10px;" href="#">Forgot Your Password?</a>
+      <a class="float-r" style="font-size: 10px;" href="/account/login">Forgot Your Password?</a>
     </p>
   </form>
 </div>

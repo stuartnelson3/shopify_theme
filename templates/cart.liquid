@@ -1,56 +1,260 @@
 <section class="cart">
   <h1 class="serif">Selections</h1>
-  <div class="cart">
-    
-  {% if  cart.item_count == 0 %}
-   <h5>
-    Your bag is empty.
-   </h5>
-  {% else %}
+  <div class="cart"> {% if  cart.item_count == 0 %}
+    <h5> Your bag is empty. </h5>
+    {% else %}
+    <div id="ss-cart-banner">
+      <p>Want to try a second size? <a href="#" id="ss-cart-details-lnk">DETAILS</a></p>
+    </div>
     <form action="/cart" method="post" id="cartform" class="clearfix">
       <table class="items">
         <tbody>
-          {% for item in cart.items %}
-          <tr><td>
-            <div class="product">
-              <a href="#" class="product_remove close" onclick="remove_item({{ item.variant.id }}); return false;"></a>
-              <a class="product-image" href="{{ item.product.url }}" title="{{ item.title | escape }}">
-                <img src="{{ item.product.images.first | product_img_url" alt="{{ item.title | escape }}" width="60" height="60" />
-              </a>
-              <div class="product-details">
-                <span class="title">{{ item.product.title }}</span>
-                <span class="variant">{{ item.variant.title | remove: '/' }}</span>
-                <span class="price">{{ item.price | money | remove: '.00' }}</span>
-                <div class="quantity">
-                  <span class="quantity">Quantity: </span>
-                  <input class="quantity" type="text" value="{{ item.quantity }}" />
-                  <input type="button" name="update_quantity" value="Update" class="update bg-blue" id="{{ item.variant.id }}">
-                </div>
-              </div>
+        {% for item in cart.items %}
+        <tr><td>
+        <div id="{{ item.variant.id }}" class="product">
+          <a href="#" class="product_remove close" onclick="remove_item({{ item.variant.id }}); return false;"></a>
+          <a class="float-l" href="{{ item.product.url }}" title="{{ item.title | escape }}">
+            <img src="{{ item.product.images.first | product_img_url" alt="{{ item.title | escape }}" width="60" height="60" />
+          </a>
+          <div class="product-details">
+            <span class="title">{{ item.product.title }}</span>
+            <span class="variant">{{ item.variant.title | remove: '/' }}</span>
+            <span class="price">{{ item.price | money | remove: '.00' }}</span>
+            {% comment %}
+            <div class="quantity">
+              <span class="quantity">Quantity: </span>
+              <input class="quantity" type="text" value="{{ item.quantity }}" />
+              <input type="button" name="update_quantity" value="Update" class="update bg-blue" id="{{ item.variant.id }}">
             </div>
-          </td></tr>
-          {% endfor %}
-          <tr><td>
-            <div class="order-details">
-              <div>  
-                <span class="subtotal">Subtotal</span>
-                <span class="price">{{ cart.total_price | money | remove: '.00' }}</span>
-              </div> 
-            </div>
-          </td></tr>
+            {% endcomment %}
+          {% capture attribute %}ss-{{ item.id | handle }}{% endcapture %}
+          {% capture attribd %}ss-d-{{ item.id | handle }}{% endcapture %}
+            <input id="{{ attribute }}-v" type="hidden" name="attributes[{{ attribute }}]" value="{{ cart.attributes[attribute] }}"/>
+            <input id="{{ attribd }}" type="hidden" name="attributes[{{ attribd }}]" value="{{ cart.attributes[attribd] }}"/>
+          </div>
+        </div>
+        </td></tr>
+        {% endfor %}
+        <tr><td>
+        <div class="order-details">
+          <div> 
+            <span class="subtotal">Subtotal</span>
+            <span class="price">{{ cart.total_price | money | remove: '.00' }}</span>
+          </div>
+        </div>
+        </td></tr>
         </tbody>
+        
       </table>
       <input type="submit"name="checkout" value="Checkout" class="checkout bg-blue" />
-      <div class="order-note">
-        <label for="note">Leave a comment below if you would like to try a Second Size!</label>
-        <textarea name="note" rows="5" cols="45">{{cart.note}}</textarea>
-      </div>
     </form>
+    <div id="cart-ss">
+    <!-- ss cart desc -->
+    {% include 'ss-cart-bash' %}
+    
+    <!-- second size option -->
+    {% for item in cart.items %}
+    <div id="ss-{{ item.variant.id }}" class="product">
+        <a class="float-l" href="{{ item.product.url }}" title="{{ item.title | escape }}">
+            <img src="{{ item.product.images.first | product_img_url" alt="{{ item.title | escape }}" width="60" height="60" />
+        </a>
+        
+        {% capture attribute %}ss-{{ item.id | handle }}{% endcapture %}
+        {% capture attrsize %}{{ cart.attributes[attribute] }}{% endcapture %}
+            {% if attrsize != '' %}
+            {% capture attrbd %}ss-d-{{item.id | handle}}{% endcapture %}
+            <div class="ss-product-details">
+                   <span class="title">{{ item.product.title }}</span>
+                   <div class="view">
+                     <div class="fleft ss-product-wrap" style="height:60px;">  
+                       <span class="variant">{{ cart.attributes[attrbd] }}</span>
+                       <span class="price">$0</span>
+                     </div>
+                     <button type="button" class="ss-edit-lnk bg-blue">EDIT</button>
+                   </div>
+            <div class="edit">
+              <div class="fleft ss-product-wrap">
+                <div id="ss-selector-{{ item.id }}">&nbsp;</div>
+<script type="text/javascript">
+
+var itemID = '{{ item.product.id }}';
+var inStock = false;
+var urlhandle = '{{ item.product.handle }}';
+
+var data = jQuery.parseJSON(
+            jQuery.ajax({
+              url: "/products/"+urlhandle+".js",  // Change this to be the page handle
+              async: false,
+              dataType: 'json'
+              }).responseText
+            );
+var vars = data.variants;
+var ssfield1 = '<div id="second-size" style="text-align:left;width:150px;">';
+var ssfield2 ='<div class="clearfix item1"><div class="selector-wrapper fleft"><label for="product-select-option-0" class="sslabel">'+vars[0]['option1']+'</label></div><div class="pselect-box fleft"> <a class="field"> <span class="info">'+vars[0]['option1']+'</span><img src="http://static.shopify.com/s/files/1/0172/5556/t/3/assets/down-triangle.gif?493"></a><ul class="selector_0 selector">';
+var ssfield3 ='<div class="clearfix item2"><div class="selector-wrapper fleft"><label for="product-select-option-1" class="sslabel ">'+vars[0]['option2']+'</label></div><div class="pselect-box fleft"> <a class="field"> <span class="info">'+vars[0]['option2']+'</span> <img src="http://static.shopify.com/s/files/1/0172/5556/t/3/assets/down-triangle.gif?493"></a><ul class="selector_1 selector">';
+var ssfield4 ='<div class="clearfix" style="text-align: right;"><select id="ss" style="display:none;"><option value="select">select</option>';
+
+var container1 = new Array();
+var container2 = new Array();
+var fq_top_rec = $.cookie('fq_top_rec'); // check to see if we have this available.
+
+if(fq_top_rec){
+var top = fq_top_rec.substr(0,2);
+var bust = fq_top_rec.substr(2,1)+" / "+fq_top_rec.substr(2,2);
+var length = fq_top_rec.substr(4);
+}
+
+vars.sort(); // sort asc
+
+for(i=0;i<vars.length;i++){
+if(vars[i]['inventory_quantity'] > 0 && i != 0){ // Check to see if we have more than two just to ensure we don't oversell
+if(ssfield2.indexOf(vars[i]['option1']) < 0){ ssfield2 += '<li>'+vars[i]['option1']+'</li>';}
+if(ssfield3.indexOf(vars[i]['option2']) < 0){ ssfield3 += '<li>'+vars[i]['option2']+'</li>';}
+ssfield4 += '<option value="'+vars[i]['id']+'">'+vars[i]['option1']+' / '+vars[i]['option2']+'</option>';
+inStock = true;
+};
+};
+ssfield2 +='</ul></div></div>';
+ssfield3 +='</ul></div></div>';
+ssfield4 +='</select></div>';
+ssfield1 += ssfield2+ssfield3+ssfield4+'</div>';
+
+// inject the second size code after the Added Item
+jQuery('#ss-selector-{{ item.id }}').empty().html(ssfield1);
+
+// Initialize the second size DOM
+jQuery('.second-size .field').click(function(){jQuery(this).next().show();});
+jQuery('.second-size ul').hover(function(){},function(){jQuery(this).hide();});
+jQuery('.second-size .selector li').click(function(){
+var txt = jQuery(this).text();
+jQuery(this).closest('.pselect-box').find('.info').empty().text(txt);
+jQuery(this).closest('ul').hide();
+});
+jQuery('#second-size button').click(function(){
+  var req = jQuery.post({
+    url: '',
+    type: 'post',
+    data:{
+    }
+  });    
+  return false;
+});
+</script>
+
+  </div>
+<div class="fleft ss-add-wrap">
+  <button type="button" class="ss-add-lnk">ADD</button>
+  <a class="ss-cancel-lnk">Cancel</a>
+</div>
+</div>
+</div>
+            {% else %}
+            <div class="ss-product-details">
+              <span class="title">{{ item.product.title }}</span>
+              <div class="fleft ss-product-wrap">
+                <div id="ss-selector-{{ item.id }}">&nbsp;</div>
+                <script type="text/javascript">
+                
+    	var itemID = '{{ item.product.id }}';
+			var inStock = false;
+			var urlhandle = '{{ item.product.handle }}';
+
+			var data = jQuery.parseJSON(
+                  jQuery.ajax({
+						        url: "/products/"+urlhandle+".js",  // Change this to be the page handle
+						        async: false,
+						        dataType: 'json'
+					        }).responseText
+			          );
+			var vars = data.variants;
+			var ssfield1 = '<div id="second-size" style="text-align:left;width:150px;">';
+			var ssfield2 ='<div class="clearfix item1"><div class="selector-wrapper fleft"><label for="product-select-option-0" class="sslabel">'+vars[0]['option1']+'</label></div><div class="pselect-box fleft"> <a class="field"> <span class="info">'+vars[0]['option1']+'</span><img src="http://static.shopify.com/s/files/1/0172/5556/t/3/assets/down-triangle.gif?493"></a><ul class="selector_0 selector">';
+			var ssfield3 ='<div class="clearfix item2"><div class="selector-wrapper fleft"><label for="product-select-option-1" class="sslabel ">'+vars[0]['option2']+'</label></div><div class="pselect-box fleft"> <a class="field"> <span class="info">'+vars[0]['option2']+'</span> <img src="http://static.shopify.com/s/files/1/0172/5556/t/3/assets/down-triangle.gif?493"></a><ul class="selector_1 selector">';
+			var ssfield4 ='<div class="clearfix" style="text-align: right;"><select id="ss" style="display:none;"><option value="select">select</option>';
+			
+            var container1 = new Array();
+            var container2 = new Array();
+			var fq_top_rec = $.cookie('fq_top_rec'); // check to see if we have this available.
+            
+            if(fq_top_rec){
+    				  var top = fq_top_rec.substr(0,2);
+					    var bust = fq_top_rec.substr(2,1)+" / "+fq_top_rec.substr(2,2);
+					    var length = fq_top_rec.substr(4);
+				    }
+			
+            vars.sort(); // sort asc
+            
+			for(i=0;i<vars.length;i++){
+				if(vars[i]['inventory_quantity'] > 0 && i != 0){ // Check to see if we have more than two just to ensure we don't oversell
+					if(ssfield2.indexOf(vars[i]['option1']) < 0){ ssfield2 += '<li>'+vars[i]['option1']+'</li>';}
+					if(ssfield3.indexOf(vars[i]['option2']) < 0){ ssfield3 += '<li>'+vars[i]['option2']+'</li>';}
+					ssfield4 += '<option value="'+vars[i]['id']+'">'+vars[i]['option1']+' / '+vars[i]['option2']+'</option>';
+					inStock = true;
+				};
+			};
+			ssfield2 +='</ul></div></div>';
+			ssfield3 +='</ul></div></div>';
+			ssfield4 +='</select></div>';
+			ssfield1 += ssfield2+ssfield3+ssfield4+'</div>';
+			
+			// inject the second size code after the Added Item
+			jQuery('#ss-selector-{{ item.id }}').empty().html(ssfield1);
+
+			// Initialize the second size DOM
+			jQuery('.second-size .field').click(function(){jQuery(this).next().show();});
+			jQuery('.second-size ul').hover(function(){},function(){jQuery(this).hide();});
+			jQuery('.second-size .selector li').click(function(){
+					var txt = jQuery(this).text();
+					jQuery(this).closest('.pselect-box').find('.info').empty().text(txt);
+					jQuery(this).closest('ul').hide();
+				});
+			jQuery('#second-size button').click(function(){
+				var req = jQuery.post({
+					url: '',
+					type: 'post',
+					data:{
+					}
+				});	
+				return false;
+			});
+            </script>
+                
+            </div>
+            <div class="fleft ss-add-wrap">
+              <button type="button" class="ss-add-lnk">ADD</button>
+            </div>
+          </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+    <!-- end second size -->
   </div>
   <div class="cart_note">
+  <ul>
+    {% for attribute in attributes %}
+    <li>{{ attribute | first | replace: '-', ' ' | replace: '_', ' ' | capitalize }} : {{ attribute | last }}</li>
+    {% endfor %}
+  </ul>
     <ul>
       <li>Don't forget, all orders are free shipping and free returns</li>
     </ul>
   </div>
-  {% endif %}
+  {% endif %} 
 </section>
+<script type="text/javascript" charset="utf-8">
+// Save when they leave the cart page
+//<![CDATA[
+jQuery(function() {
+  jQuery(window).unload(function() {
+    var params = {
+      type: 'POST',
+      url: '/cart/update.js',
+      data: jQuery('form[action="/cart"]').serialize(),
+      dataType: 'json',
+      async: false
+    };
+    jQuery.ajax(params);
+  });        
+});  
+//]]>
+</script>

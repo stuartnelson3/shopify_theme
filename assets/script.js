@@ -7,7 +7,7 @@ var update_quantity = function(id, number) {
     dataType: 'json',
     success: function() {
       $("div.cart").load("/cart #cartform");
-    	$(".cart-container").load("/ .login-box, section.inline-cart");
+        $(".cart-container").load("/ .login-box, section.inline-cart");
     },
     error: function(XMLHttpRequest, textStatus) {}
   };
@@ -58,37 +58,106 @@ $(".js-looks-div").on("click", function(){
 
 // FUNCTION TO BUY ON PRODUCT PAGES
 var purchaseItem = function(form_id) {
-    var params = {
-      type: 'POST',
-      url: '/cart/add.js',
-      data: $("#"+form_id).serialize(),
-      dataType: 'json',
-      success: function() {
-        $(".second-size-container").fadeIn("medium");
-        $("#add-to-cart").val("Added!");
-        $(".cart-container").load("/ .login-box, section.inline-cart", function(){
-          $("section.inline-cart").slideDown().delay(2000).slideUp();
-        });
-      },
-      error: function(XMLHttpRequest, textStatus) {}
-    };
-    $.ajax(params);	
+  var params = {
+    type: 'POST',
+    url: '/cart/add.js',
+    data: $("#"+form_id).serialize(),
+    dataType: 'json',
+    success: function() {
+      $("#add-to-cart").val("Added!");
+      $(".cart-container").load("/ .login-box, section.inline-cart", function(){
+                  // added by Lemonade NY
+      			var itemID = $("#"+form_id).serialize();
+                      itemID = itemID.substr(3);
+                      console.log(itemID);
+      			var inStock = false;
+      			var urlhandle = location.href.substr(location.href.lastIndexOf('/')+1);
+      			var data = jQuery.parseJSON(
+                        jQuery.ajax({
+      						        url: "/products/"+urlhandle+".js",  // Change this to be the page handle
+      						        async: false,
+      						        dataType: 'json'
+      					          }).responseText
+      			            );
+      			var vars = data.variants;
+
+      			var ssfield1 ='<div id="second-size"><input id="ssval" type="hidden" name="attributes[ss-'+itemID+']" value="" /><input id="ssname" type="hidden" name="attributes[ss-d-'+itemID+']" value="" /><input type="hidden" value="'+itemID+'" id="ss-prodid"><p id="header">Try a second size on us!</p><p id="no-thanks"><a class="ss-nothanks-lnk">No, Thanks.</a></p><div id="wrap">';
+      			var ssfield2 ='<button class="ss-add-lnk float-r">Add</button><div class="clearfix item1"><div class="selector-wrapper fleft"><label for="product-select-option-0" class="sslabel">'+vars[0]['option1']+'</label></div><div class="pselect-box fleft"> <a class="field"> <span class="info">'+vars[0]['option1']+'</span><img src="http://static.shopify.com/s/files/1/0172/5556/t/3/assets/down-triangle.gif?493"></a><ul class="selector_0 selector">';
+      			var ssfield3 ='<div class="clearfix item2"><div class="selector-wrapper fleft"><label for="product-select-option-1" class="sslabel ">'+vars[0]['option2']+'</label></div><div class="pselect-box fleft"> <a class="field"> <span class="info">'+vars[0]['option2']+'</span> <img src="http://static.shopify.com/s/files/1/0172/5556/t/3/assets/down-triangle.gif?493"></a><ul class="selector_1 selector">';
+      			var ssfield4 ='<div class="clearfix" style="text-align: right;"><select id="ss" style="display:none;"><option value="select">select</option>';
+
+            var container1 = [];
+            var container2 = [];
+      			var fq_top_rec = $.cookie('fq_top_rec'); // check to see if we have this available.
+
+            if(fq_top_rec){
+          		var top = fq_top_rec.substr(0,2);
+      				var bust = fq_top_rec.substr(2,1)+" / "+fq_top_rec.substr(2,2);
+      				var length = fq_top_rec.substr(4);
+      			}
+
+            vars.sort(); // sort asc
+            
+            var i;
+            
+      			for(i=0;i<vars.length;i++){
+      				if(vars[i]['inventory_quantity'] > 0 && i !== 0){ // Check to see if we have more than two just to ensure we don't oversell
+      					if(ssfield2.indexOf(vars[i]['option1']) < 0){ 
+                  ssfield2 += '<li>'+vars[i]['option1']+'</li>';
+          			}
+      					if(ssfield3.indexOf(vars[i]['option2']) < 0){ 
+                  ssfield3 += '<li>'+vars[i]['option2']+'</li>';
+          			}
+      					ssfield4 += '<option value="'+vars[i]['id']+'">'+vars[i]['option1']+' / '+vars[i]['option2']+'</option>';
+      					inStock = true;
+      				}
+      			}
+      			ssfield2 +='</ul></div></div>';
+      			ssfield3 +='</ul></div></div>';
+      			ssfield4 +='</select></div>';
+      			ssfield1 += ssfield2+ssfield3+ssfield4+'</div>';
+
+      			// inject the second size code after the Added Item
+      			$(ssfield1).insertAfter('#cartform #'+itemID);
+
+      			// load second size inline cart jquery DOM triggers
+            $.getScript("{{'ss-cart.js'| asset_url}}",function(){
+              console.log('Loaded ss-cart.js');
+            });
+
+      			// end ammendment by Lemonade NY
+      			var $inlinecart = $("section.inline-cart");
+      			if(inStock){
+              $inlinecart.slideDown();
+      			} 
+      			else {
+              $inlinecart.slideDown().delay(2000).slideUp();
+      			}
+      });
+    },
+    error: function(XMLHttpRequest, textStatus) {}
+  };
+  $.ajax(params);	
 };
 
 //FUNCTION TO REMOVE ITEMS ON /CART PAGE
 var remove_item = function(id) {
+    $('#ss-'+id+'-v').val('');
+    $('#ss-d-'+id).val('');
+    
+    $("body").addClass("ajax"); // change cursor to "progress"
+    
     var params = {
-    type: 'POST',
-    url: '/cart/change.js',
-    data:  'quantity=0&id='+id,
-    dataType: 'json',
-    success: function() {
-      $("div.cart").load("/cart #cartform");
-    	$(".cart-container").load("/ .login-box, section.inline-cart");
-    },
-    error: function(XMLHttpRequest, textStatus) {}
-  };
-  $.ajax(params);
+      type: 'POST',
+      url: '/cart/change.js',
+      data:  'quantity=0&id='+id+'&ss-'+id+'-v=&ss-d'+id+'=',
+      dataType: 'json',
+      success: function() {
+        ssRefreshCart();
+      },
+      error: function(XMLHttpRequest, textStatus) {}
+    };
+    $.ajax(params);
 };
 
 // DELEGATED HANDLER FOR UPDATE QUANTITY BUTTON ON /CART PAGE
@@ -232,23 +301,14 @@ $(document).ready(function(){
   
   // SWATCH
   // REVEAL
-  // HIDDEN SWATCH WINDOW BECOMES VISIBLE ON CLICK IF SWATCH_VAR = 0, OTHERWISE HIDES IT
-  var swatch_var = 0;
+  // HIDDEN SWATCH WINDOW BECOMES VISIBLE ON CLICK
+  var $swatchwindow = $(".swatch-popup");
   $("a.swatch").click(function(){
-    if (swatch_var === 0) {
-      $(".swatch-popup").addClass("box-shadow-bump");
-        swatch_var = 1;
-        return false;
-    }
-    else {
-      $(".swatch-popup").removeClass("box-shadow-bump");
-        swatch_var = 0;
-        return false;
-    }      
+    $swatchwindow.toggleClass("box-shadow-bump");
+    return false;
   });
   $("a.swatch_close").click(function(){
-    $(this).closest(".swatch-popup").removeClass("box-shadow-bump");
-    swatch_var = 0;
+    $swatchwindow.removeClass("box-shadow-bump");
     return false;
   });
 	

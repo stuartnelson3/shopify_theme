@@ -3,7 +3,7 @@
 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 <style type="text/css">
   section.main-nav, section.inline-cart {
-    outline: 1px solid #d7d7d7;
+    outline: 1px solid #D7D7D7;
   }
   section.inline-cart {
   border-top: none;
@@ -12,7 +12,7 @@
 {% if product or collection %}
 <style type="text/css">
   section.main-nav nav ul li:first-child {
-    outline: 1px solid #d7d7d7;
+    outline: 1px solid #D7D7D7;
   }
   section.main-nav ul.sub-nav li:first-child {
   outline: none;
@@ -24,7 +24,7 @@
 {% if product or collection %}
 <style type="text/css">
   section.love_it ul {
-  width: 250px;
+    width: 250px;
   }
 </style>
 {% endif %}
@@ -40,6 +40,7 @@
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
   {{ 'fitquiz.css' | asset_url | stylesheet_tag }}
   {{ 'usrandguests.css' | asset_url | stylesheet_tag }}
+  {{ 'second-size.css' | asset_url | stylesheet_tag }}
   {% if product or collection %}
   <style type="text/css">
     section.main-nav nav ul li:first-child {
@@ -193,14 +194,6 @@
       </nav>
     </footer> 
   </div><!-- WRAPPER -->
-  <section class="modal fq-new-container js-modal-container">
-    <div class="modal-div fq-new-div">
-      <h1 class="serif">Welcome to Quincy!</h1>
-      <p class="em-top">It looks like it's your first time here. We suggest you take our short quiz to get a sizing recommendation before you shop!</p>
-      <button class="float-l js-modal-close take-fit-quiz">Take the Quiz</button>
-      <button class="float-r js-modal-close">No Thanks</button>
-    </div>
-  </section>
   {% include 'olark' %}
   {% if product %}
   <script type="text/javascript">
@@ -208,6 +201,13 @@
     var buyButton = $("#add-to-cart");
     var prod_sel0 = $("#product-select-option-0");
     var prod_sel1 = $("#product-select-option-1");
+    // p with order delay messages
+    var $delay = $(".order-delays");
+    // p with out of stock messages
+    var $nostock = $(".out-of-stock");
+    // var for showing appropriate p
+    var show = { display: "inline-block" }
+    
       if (variant && variant.available) {
         // selected a valid variant
         buyButton.removeClass('disabled').removeAttr('disabled'); // remove unavailable class from add-to-cart button, and re-enable button
@@ -217,40 +217,78 @@
                                        .addClass("default");
                                     {% endunless %}
           $("div#purchase p").css({ display: "none" });
-          $("div#purchase p:last-child").css({ display: "inline-block" });
+          
+          // if inventory is 0 on selected size, need to check the unhemmed size for quantity
+          // update to show message when unhemmed sizes go out of stock
+          var shortlength = prod_sel1.find(":contains(Short)").is(":selected");
+          var reglength = prod_sel1.find(":contains(Regular)").is(":selected");
+          var longlength = prod_sel1.find(":contains(Long)").is(":selected");
+          {% if product.type == "Pants" or product.type == "Skirts" %}
+            // split the values up into an array
+            var ints = $(".bottoms-quantity").text().split(",");
+            var returnInt = function(element) {
+              return parseInt(element,10);
+            }
+            // map the values from the array into a new array as integers
+            var quantity = ints.map(returnInt);   
+            // gets the integer value of the selected waist size
+            var waistsize = parseInt(prod_sel0.val(),10)
+            // compares the selected waist size to the inventory for the unhemmed length
+            quantity[waistsize - 24] === 0 ? $nostock.css(show) : $delay.css(show)
+          {% else %}
+            $nostock.css(show);
+          {% endif %}
         }
         else{
           buyButton.val("Add to Bag").removeClass("pre-order sold-out default");
           $("div#purchase p").css({ display: "none" });
+          
+          // message for when item is in stock but may have a delay
+          // hemming delay message for pants/skirts
           {% case handle %}
             {% when 'ansley-dress-berry' %}
               $("div#purchase p").css({ display: "none" });
             {% when 'chelsea-blazer-herringbone' %}
              $("div#purchase p").css({ display: "none" });
-            {% when 'chloe-shirt'%}
+            {% when 'chloe-shirt' %}
               $("div#purchase p").css({ display: "none" });
             {% when 'fiona-blouse' %}
               $("div#purchase p").css({ display: "none" });
             {% when 'elliott-pencil-skirt' %}
-              $("div#purchase p:last-child").css({ display: "inline-block" });
+              $delay.css({ display: "inline-block" });
             {% when 'elliott-sheath-black' %}
               $("div#purchase p").css({ display: "none" });
             {% when 'elliott-blazer-black' %}
               $("div#purchase p").css({ display: "none" });
             {% when 'elliott-trouser-black' %}
-              $("div#purchase p:last-child").css({ display: "inline-block" });
-            {% when 'elliott-pant-black' %}
-              $("div#purchase p:last-child").css({ display: "inline-block" });
+              if (prod_sel1.find(":contains(Unhemmed)").is(":selected")){
+                $("div#purchase p").css({ display: "none" });
+              }
+              else {
+                $delay.css(show);
+              }
+            {% when 'elliott-pant-black' %}      
+              if (prod_sel1.find(":contains(Unhemmed)").is(":selected")){
+                $("div#purchase p").css({ display: "none" });
+              }
+              else {
+                $delay.css(show);
+              }
             {% when 'elliott-sheath-skirt' %}
-              $("div#purchase p:last-child").css({ display: "inline-block" });
+              $delay.css(show);
             {% when 'riley-sheath-navy' %} 
               $("div#purchase p").css({ display: "none" });
             {% when 'riley-blazer-cobalt' %}
               $("div#purchase p").css({ display: "none" });
             {% when 'riley-pant-cobalt' %}
-              $("div#purchase p:last-child").css({ display: "inline-block" });
+              if (prod_sel1.find(":contains(Unhemmed)").is(":selected")){
+                $("div#purchase p").css({ display: "none" });
+              }
+              else {
+                $delay.css(show);
+              }
             {% when 'riley-skirt-cobalt' %} 
-              $("div#purchase p:last-child").css({ display: "inline-block" });
+              $delay.css(show);
           {% endcase %}
         }
       }
@@ -299,7 +337,7 @@
   {% endif %}
   <script type="text/javascript">
     function clickclear(thisfield, defaulttext) {
-    	if (thisfield.value == defaulttext) {
+        if (thisfield.value == defaulttext) {
     	thisfield.value = "";
     	}
     	}
@@ -316,42 +354,47 @@
       {{ "shopify_common.js" | shopify_asset_url | script_tag }}
       {{ "customer_area.js"  | shopify_asset_url | script_tag }}
   {% endif %} 
-  {{ "script.js"  | asset_url | script_tag }}  
+  {{ "script.js"  | asset_url | script_tag }}
+  {{ 'ss.js' | asset_url | script_tag }}
 <script type="text/javascript">
 $(document).ready(function(){
-  var $data = $().add('<div id="fq-wrap">'); // Create empty object
-  $($data).load('/pages/fq #fit-quiz-top', function(){
-    $('.wrapper').prepend($data);
-    $('.select-box').styleddropdown();
-    // load fq script
-    $.getScript('{{ 'fq.min.js' | asset_url }}');
-    $.getScript('{{ 'quirks.js' | asset_url }}',function(data,textStatus,jqxhr){
-      $('.take-fit-quiz').click(function(){
-  	    $('#fit-quiz-top').slideDown(600);
-	      return false;
-	    });
-    });
-  });
-  {% if template == "index" %}
-    if(!$.cookie("fq_top") && !$.cookie("fq_length") && !$.cookie("fq_waist") && !$.cookie("fq_bust")){
-      $(".fq-new-container").fadeIn("medium");
-    }
-  {% endif %}
-  {% if template == "product" %}
-    $.getScript("{{ 'jq_select.js' | asset_url }}");
-  {% endif %}        
-  {% if template == 'collection.looks' %}
-    $('#product-select option').each(function(){
-      var fq_top = $.cookie('fq_top').substring(0,2);
-      var fq_bust = $.cookie('fq_bust').substr(2,1)+'/'+$.cookie('fq_bust').substr(3,1);
-      var fq_length = $.cookie('fq_length');
-      var fq_waist = $.cookie('fq_waist');
-      
-      if($(this).text().indexOf(fq_length) > 0 && $(this).text().indexOf(fq_top) > 0 && $(this).text().indexOf(fq_bust) > 0 ){
-    	   $(this).attr('selected',true);
-    	  }
-    });
-  {% endif %}
+    if($('.take-fit-quiz').length > 0){
+        var $data = $().add('<div id="fq-wrap">'); // Create empty object
+        $($data).load('/pages/fq #fit-quiz-top', function(){
+            $('.wrapper').prepend($data);
+            $('.select-box').styleddropdown();
+        // load fq script
+        $.getScript("{{ 'fq.min.js' | asset_url }}");
+        $.getScript("{{ 'quirks.js' | asset_url }}",function(data,textStatus,jqxhr){
+            $('.take-fit-quiz').click(function(){
+        	    $('#fit-quiz-top').slideDown(600);
+			        return false;
+		        });
+          });
+        });
+        {% comment %}
+        throw this back in for modal on index page
+        {% if template == "index" %}
+          if(!$.cookie("fq_top") && !$.cookie("fq_length") && !$.cookie("fq_waist") && !$.cookie("fq_bust")){
+            $(".fq-new-container").fadeIn("medium");
+          }
+        {% endif %}{% endcomment %}
+        {% if template == 'product' %}
+          $.getScript("{{ 'jq_select.js' | asset_url }}");
+        {% endif %}        
+      } // Load the fitquiz data when the id is found on the page.
+    {% if template == 'collection.looks' %}
+        $('#product-select option').each(function(){
+            var fq_top = $.cookie('fq_top').substring(0,2);
+            var fq_bust = $.cookie('fq_bust').substr(2,1)+'/'+$.cookie('fq_bust').substr(3,1);
+            var fq_length = $.cookie('fq_length');
+            var fq_waist = $.cookie('fq_waist');
+    
+            if($(this).text().indexOf(fq_length) > 0 && $(this).text().indexOf(fq_top) > 0 && $(this).text().indexOf(fq_bust) > 0 ){
+        	    $(this).attr('selected',true);
+	            }
+            });
+    {% endif %}
 });
 </script>
 </body>

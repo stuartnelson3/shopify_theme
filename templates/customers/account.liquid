@@ -62,15 +62,45 @@
                         $('#bottoms-size select option#waist-selected').css({'color':'#D3018D'});
                     });
                     $('#tops-size').submit(function(){
-    if($('.fit-saved-sizes option:selected').val() == 'default'){
-        $('.fit-saved-sizes option:selected').addClass('notValid');
-		return false;
-	} else if($('.length-f option:selected').val() == 'default'){
-		$('.length-f option:selected').addClass('notValid');
-		return false;
-	} else {
-		$('.length-f option:selected').removeClass('notValid');
-		$('.fit-saved-sizes option:selected').removeClass('notValid');
+                      var $topsize = $('.fit-saved-sizes');
+                      var $toplength = $('#lenght-f');
+                      var $invalidmodal = $(".invalid-size");
+                      var $invalidmessage = $(".invalid-size-message");
+                      var $defaultmessage = $(".default-size-message");
+                      
+                      $invalidmessage.show();
+                      $defaultmessage.show();
+                      
+                      if($topsize.find("option:selected").val() == 'default'){
+                        $topsize.addClass('notValid');
+                        $invalidmessage.hide();
+                        $invalidmodal.fadeIn();
+    	                    return false;
+	                    } 
+	                    else if($toplength.find("option:selected").val() == 'default'){
+		                    $toplength.addClass('notValid');
+		                    $invalidmessage.hide();
+		                    $invalidmodal.fadeIn();
+		                    return false;
+	                    }
+	                    else if ($topsize.find(":contains(32)").is(":selected") && $toplength.find(":contains(Tall)").is(":selected")){
+	                      $defaultmessage.hide();
+	                      $invalidmodal.fadeIn();
+	                      return false;
+	                    } 
+	                    else if ($topsize.find(":contains(32 C/D)").is(":selected") && $toplength.find(":contains(Petite)").is(":selected")){
+	                      $defaultmessage.hide();
+	                      $invalidmodal.fadeIn();
+	                      return false;
+	                    }
+	                    else if ($topsize.find(":contains(40 A/B)").is(":selected") && !$toplength.find(":contains(Regular)").is(":selected")){
+	                      $defaultmessage.hide();
+	                      $invalidmodal.fadeIn();
+	                      return false;
+	                    }
+                        else {
+		                    $toplength.removeClass('notValid');
+		                    $topsize.removeClass('notValid');
         
         
         var fq_bust = $('select[name=fq_bust] option:selected').val();
@@ -96,8 +126,17 @@
 	} //endif
 });
 $('#bottoms-size').submit(function(){
-	if($('#bottoms-size #fq_waist option:selected').val() == 'default'){
+  var $invalidmodal = $(".invalid-size");
+  var $invalidmessage = $(".invalid-size-message");
+  var $defaultmessage = $(".default-size-message");
+  
+  $invalidmessage.show();
+  $defaultmessage.show();
+  
+    if($('#bottoms-size #fq_waist option:selected').val() == 'default'){
 		$('#bottoms-size select').addClass('notValid');
+		$invalidmessage.hide();
+        $invalidmodal.fadeIn();
 		return false;
 	} else {
 		$('#bottoms-size #fq_waist').removeClass('notValid');
@@ -358,6 +397,13 @@ $('#bottoms-size').submit(function(){
     {% endform %}
   </div>
   </div>
+<section class="modal invalid-size js-modal-container">
+  <div class="modal-div">
+    <p class="em-top invalid-size-message">That size is currently not offered. Take the fit quiz or contact us for sizing advice.</p>
+    <p class="em-top default-size-message">Oops! Don't forget to select a size for all dropdowns.</p>
+    <button class="js-invalid-size-button no-margin bg-blue float-r js-modal-close">CLOSE</button>
+  </div>
+</section>
 <script>
 $(document).ready(function(){
     // If customer has account and has not fq data.

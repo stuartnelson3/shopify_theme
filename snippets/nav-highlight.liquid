@@ -11,7 +11,7 @@ $("section.main-nav ul li:eq(2) a").addClass("active");
 {% if collection or product %}
 
   $("section.main-nav ul li a[title=Shop]").addClass("active");
-	{% case handle %}
+    {% case handle %}
 	//COLLECTION PAGES
 	  {% when 'shop' %}
 	  $('.sub-nav a[href*="shop"]').addClass("sans-bold");

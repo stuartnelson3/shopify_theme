@@ -24,7 +24,7 @@ time, mark, audio, video {
     border: 0;
     outline: 0;
     font-size: 100%;
-	font: inherit;
+    font: inherit;
 	vertical-align: baseline;
 }
 
@@ -104,7 +104,6 @@ body {
   text-decoration: none;
   font-family: "kepler-std-i3","kepler-std",serif;
   font-style: italic;
-  font-weight: 400;
 }
 .blue {
   color: #031D48;
@@ -114,6 +113,9 @@ body {
 }
 .white {
   color: #FFFFFF;
+}
+.plum {
+  color: #71315d;
 }
 nav a, h3, section.wear_it a, section.continue_shopping span {
   font-size: 12px;
@@ -434,6 +436,9 @@ section.cart form input.checkout {
 section.cart div.product {
   margin: 15px 0;
 }
+.product-image {
+  float: left;   
+}
 section.cart div.cart_note {
   display: inline-block;
   width: 300px;
@@ -658,8 +663,8 @@ div.image_two span {
   left: 20px;
   text-indent: -7px;
 }
-div.image_two a {
-  bottom: 235px;
+.image_two a {
+  bottom: 25px;
   left: 20px;
   width: 215px;
 }
@@ -840,7 +845,7 @@ section.collection_looks div.top {
   top: 40px;
 }
 section.collection_looks div.bottom {
-  top: 190px;
+  top: 220px;
 }
 section.collection_looks ul li div {
   display: inline-block;
@@ -867,7 +872,6 @@ section.collection_looks div p {
   text-transform: uppercase;
   font-size: 10px;
   margin: 2em 0;
-  left: 0;
 }
 section.collection_looks div p span {
   font-weight: 900;
@@ -908,7 +912,6 @@ section.collection_looks select#product-select {
 .js-looks-button {
   width: 127px;
 }
-
 /*======================
       Product Page
 ========================*/
@@ -1072,7 +1075,7 @@ div.bottom {
 	margin: 2px 0;
 	opacity: .9;
 }
-.info, .selector li {
+.info, .selector li, section.inline-cart span.info {
   font-size: 10px;
   text-transform: none;
   letter-spacing: 0px;
@@ -1448,7 +1451,7 @@ section.page h1, section.page h2 {
   letter-spacing: 0;
 }
 section.page h3, .fq-basic h3 {
-  margin-bottom: 1;
+  margin-bottom: 1em;
 }
 section.page h4 {
   font-size: 30px;
@@ -1669,6 +1672,7 @@ div.size-chart td span {
 }
 div.bottoms section:last-of-type {
   width: 660px;
+  height: 300px;
   padding-bottom: 140px;
 }
 
@@ -1762,6 +1766,15 @@ div.second-size {
 }
 div.second-size img {
   float: right;
+}
+.ss-details-modal-title {
+  font-size: 36px;
+  border-bottom: 1px solid #5A5A5A;
+  padding-bottom: 5px;
+  text-align: center;
+}
+section.inline-cart span.info {
+  margin-top: 2px;
 }
 
 /*======================
@@ -1891,6 +1904,38 @@ div.quincy, div#height-weight {
 }
 
 /*======================
+    Second Size Modal
+========================*/
+
+section.second-size-modal {
+  position: fixed;
+  width: 340px;
+  left: 37%;
+  background: #ffffff;
+  z-index: 1000;
+  border: 1px solid #D7D7D7;
+  top: 120px;
+  display: none;
+}
+div.second-size-modal {
+  width: 300px;
+  margin: 20px;
+}
+div.second-size-modal p {
+  margin-top: 1em;
+}
+div.second-size-modal button {
+  margin: 0;
+  background-color: #031d48;
+}
+div.second-size-modal button:hover {
+  background-color: #E939AF;
+}
+div.second-size-modal button:active {
+  background-color: #CC0088;
+}
+
+/*======================
           Press 
 ========================*/
 
@@ -1971,18 +2016,6 @@ section.gift-card-terms h3, section.gift-card-terms li {
 }
 
 /*======================
-    Second Size Modal
-========================*/
-
-
-
-/*======================
-  New To Site FQ Modal
-========================*/
-
-
-
-/*======================
       Style Controls
 ========================*/
 
@@ -1991,6 +2024,9 @@ section.gift-card-terms h3, section.gift-card-terms li {
 }
 .em-top {
   margin-top: 1em;
+}
+.em-bottom {
+  margin-bottom: 1em;
 }
 .bump-right {
   margin-left: 5px;
@@ -2034,4 +2070,7 @@ section.gift-card-terms h3, section.gift-card-terms li {
   height: 11px;
   width: 11px;
   background: url({{ 'X.png' | asset_url }});
+}
+.ajax {
+  cursor: progress;
 }

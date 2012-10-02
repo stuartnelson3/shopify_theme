@@ -56,7 +56,7 @@
   </div>  <!-- BUY MENU -->
   <div id="slideshow">  
       <ul class="slides">
-      {% for image in product.images %}	
+      {% for image in product.images %}    
     	 {% unless forloop.first %}
         <li><img src="{{ image | product_img_url: 'original' }}" alt="{{ product.title }}" title="{{ product.title }}" /></li>
       {% endunless %} 
@@ -291,10 +291,8 @@
   </div>
   </div>
 </section>
-<section class="modal second-size-container js-modal-container">
-  <div class="modal-div second-size-div">
-    <h1 class="serif">Try a Second Size</h1>
-    <p class="em-top">Want to try an additional size, for free? Leave us a comment when you checkout with your Second Size request to try at home!</p>
-    <button class="second-size-button no-margin bg-blue float-r js-modal-close">CLOSE</button>
-  </div>
+<section class="modal bottoms-quantity">
+  {% for variant in product.variants limit:10 offset:1 %}
+    {{ variant.inventory_quantity }},
+  {% endfor %}
 </section>
