@@ -364,7 +364,7 @@ div#fq-0 img {
   padding: 1px 5px; 
   height: 16px; 
   margin: 0 0 11px 0; 
-  width: 166px;
+  width: 135px;
 }
 #CreateProfile label, #create-profile #customer_login label {
   font-size: 10px;
@@ -373,11 +373,11 @@ div#fq-0 img {
   letter-spacing: 0;
   display: inline-block;
 }
-#CreateProfile label.name {
-  width: 25px;
+#CreateProfile label.name, #customer_login label.name{
+  width: 55px;
 }
 #create-profile #customer_login input.password {
-  width: 148px;
+  width: 135px;
 }
 #CreateProfile button {
   margin-top: -2px;

@@ -3,15 +3,17 @@
     <a href="{{ settings.main_page_1_link }}" title="{{ settings.main_page_1_text }}">
       <img src="{{ 'image_one.jpg' | asset_url }}" alt="Image One" />
     </a>
-    <span class="white serif-thin"> &ldquo;{{ settings.main_page_1_big }}&rdquo;</span>
-    <a class="image_one index white" href="{{ settings.main_page_1_link }}" title="{{ settings.main_page_1_text }}">{{ settings.main_page_1_text }} ></a>
+    <span class="white serif-thin"> {{ settings.main_page_1_big }}</span>
+    <a class="image_one index white" href="{{ settings.main_page_1_link }}" title="{{ settings.main_page_1_text }}">
+      {{ settings.main_page_1_text }} &gt;
+    </a>
   </div>
   <div class="index image_two">
-    <a href="/products/riley-sheath-navy" title="The Riley Dress">
+    <a href="{{ settings.main_page_2_link }}" title="{{ settings.main_page_2_text }}">
       <img src="{{ 'image_two.jpg' | asset_url }}" alt="Image Two" />
     </a>
-    <a class="image_two index" href="/products/riley-sheath-navy" title="Riley Dress">
-      Shop the Riley Dress &gt;
+    <a class="image_two index" href="{{ settings.main_page_2_link }}" title="{{ settings.main_page_2_text }}">
+      {{ settings.main_page_2_text }} &gt;
     </a>
   </div>
   <div class="index image_three">

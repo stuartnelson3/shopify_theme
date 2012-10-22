@@ -5,17 +5,17 @@
     <div class="description top right">
       <h4 class="white serif">&ldquo;Stand out in a sea of gray and black&rdquo;</h4>
       <p class="white">Riley blazer <span>$228</span>, Riley pencil skirt <span>$128</span></p>
-      <input class="js-looks-button" type="button" name="Buy Outfit" value="Buy This Outfit">
+      <input class="js-looks-button" type="button" name="Buy Outfit" value="Buy This Outfit" onclick="pageTracker._trackEvent('Button', 'Open Looks', 'Product Looks Page');">
     </div>
   </div>
   <ul class="js-looks-page">
     {% for product in collections.look1.products %}
-      <li>
+      <li class="looks-product">
         <a href="{{ product.url }}" title="{{ product.title | escape }} &mdash; {{ product.description | strip_html }}">
           <img src="{{ product.images.first | product_img_url: 'large' }}" alt="{{ product.title | escape }}" />
         </a>
         <div>
-          <div>
+          <div class="nudge-down">
             <a href="{{ product.url }}">
               {{ product.title }}  
             </a>
@@ -31,17 +31,17 @@
     <div class="description top right">
       <h4 class="serif">&ldquo;Unexpected pairings add panache to a pencil&rdquo;</h4>
       <p>Elliott blazer <span>$228</span>, Kennedy peplum blouse <span>$78</span>, Elliott pencil skirt <span>$128</span></p>
-      <input class="js-looks-button" type="button" name="Buy Outfit" value="Buy This Outfit">
+      <input class="js-looks-button" type="button" name="Buy Outfit" value="Buy This Outfit" onclick="pageTracker._trackEvent('Button', 'Open Looks', 'Product Looks Page');">
     </div>
   </div>
   <ul class="js-looks-page">
     {% for product in collections.look2.products %}
-      <li>
+      <li class="looks-product">
         <a href="{{ product.url }}" title="{{ product.title | escape }} &mdash; {{ product.description | strip_html }}">
           <img src="{{ product.images.first | product_img_url: 'large' }}" alt="{{ product.title | escape }}" />
         </a>
         <div>
-          <div>
+          <div class="nudge-down">
             <a href="{{ product.url }}">
               {{ product.title }}  
             </a>
@@ -57,17 +57,17 @@
     <div class="description top left">
       <h4 class="white serif">&ldquo;Simplicity will take you far&rdquo;</h4>
       <p class="white">Chloe shirt <span>$88</span>, Elliott cigarette pant <span>$128</span></p>
-      <input class="js-looks-button" type="button" name="Buy Outfit" value="Buy This Outfit">
+      <input class="js-looks-button" type="button" name="Buy Outfit" value="Buy This Outfit" onclick="pageTracker._trackEvent('Button', 'Open Looks', 'Product Looks Page');">
     </div>
   </div>
   <ul class="js-looks-page">
     {% for product in collections.look3.products %}
-      <li>
+      <li class="looks-product">
         <a href="{{ product.url }}" title="{{ product.title | escape }} &mdash; {{ product.description | strip_html }}">
           <img src="{{ product.images.first | product_img_url: 'large' }}" alt="{{ product.title | escape }}" />
         </a>
         <div>
-          <div>
+          <div class="nudge-down">
             <a href="{{ product.url }}">
               {{ product.title }}  
             </a>
@@ -83,17 +83,17 @@
     <div class="description top left">
       <h4 class="white serif">&ldquo;Friday afternoons are a cinch&rdquo;</h4>
       <p class="white">Ansley dress <span>$138</span>,<br />Elliott blazer <span>$228</span></p>
-      <input class="js-looks-button" type="button" name="Buy Outfit" value="Buy This Outfit">
+      <input class="js-looks-button" type="button" name="Buy Outfit" value="Buy This Outfit" onclick="pageTracker._trackEvent('Button', 'Open Looks', 'Product Looks Page');">
     </div> 
   </div>
   <ul class="js-looks-page">
     {% for product in collections.look4.products %}
-      <li>
+      <li class="looks-product">
         <a href="{{ product.url }}" title="{{ product.title | escape }} &mdash; {{ product.description | strip_html }}">
           <img src="{{ product.images.first | product_img_url: 'large' }}" alt="{{ product.title | escape }}" />
         </a>
         <div>
-          <div>
+          <div class="nudge-down">
             <a href="{{ product.url }}">
               {{ product.title }}  
             </a>
@@ -109,17 +109,17 @@
     <div class="description bottom left">
       <h4 class="serif">&ldquo;Strong and feminine ring true in this power suit&rdquo;</h4>
       <p>Elliott blazer <span>$228</span>, Fiona bow blouse in polka dot <span>$118</span>, Elliott cigarette pant <span>$128</span></p>
-      <input class="js-looks-button" type="button" name="Buy Outfit" value="Buy This Outfit">
+      <input class="js-looks-button" type="button" name="Buy Outfit" value="Buy This Outfit" onclick="pageTracker._trackEvent('Button', 'Open Looks', 'Product Looks Page');">
     </div>
   </div>
   <ul class="js-looks-page">
     {% for product in collections.look6.products %}
-      <li>
+      <li class="looks-product">
         <a href="{{ product.url }}" title="{{ product.title | escape }} &mdash; {{ product.description | strip_html }}">
           <img src="{{ product.images.first | product_img_url: 'large' }}" alt="{{ product.title | escape }}" />
         </a>
         <div>
-          <div>
+          <div class="nudge-down">
             <a href="{{ product.url }}">
               {{ product.title }}  
             </a>
@@ -135,17 +135,17 @@
     <div class="description top right">
       <h4 class="white serif">&ldquo;The Emma lends itself to a textured play on patterns&rdquo;</h4>
       <p class="white">Emma jacket <span>$258</span>, Fiona bow blouse <span>$118</span>,<br />Riley cigarette pant <span>$128</span></p>
-      <input class="js-looks-button" type="button" name="Buy Outfit" value="Buy This Outfit">
+      <input class="js-looks-button" type="button" name="Buy Outfit" value="Buy This Outfit" onclick="pageTracker._trackEvent('Button', 'Open Looks', 'Product Looks Page');">
     </div>
   </div>
   <ul class="js-looks-page">
     {% for product in collections.look7.products %}
-      <li>
+      <li class="looks-product">
         <a href="{{ product.url }}" title="{{ product.title | escape }} &mdash; {{ product.description | strip_html }}">
           <img src="{{ product.images.first | product_img_url: 'large' }}" alt="{{ product.title | escape }}" />
         </a>
         <div>
-          <div>
+          <div class="nudge-down">
             <a href="{{ product.url }}">
               {{ product.title }}  
             </a>
@@ -161,17 +161,17 @@
     <div class="description top right">
       <h4 class="white serif">&ldquo;Color's your best friend in vivid cobalt suiting&rdquo;</h4>
       <p class="white">Riley blazer <span>$228</span>, Fiona bow blouse in Plum <span>$118</span>, Elliott cigarette pant <span>$128</span></p>
-      <input class="js-looks-button" type="button" name="Buy Outfit" value="Buy This Outfit">
+      <input class="js-looks-button" type="button" name="Buy Outfit" value="Buy This Outfit" onclick="pageTracker._trackEvent('Button', 'Open Looks', 'Product Looks Page');">
     </div>
   </div>
   <ul class="js-looks-page">
     {% for product in collections.look8.products %}
-      <li>
+      <li class="looks-product">
         <a href="{{ product.url }}" title="{{ product.title | escape }} &mdash; {{ product.description | strip_html }}">
           <img src="{{ product.images.first | product_img_url: 'large' }}" alt="{{ product.title | escape }}" />
         </a>
         <div>
-          <div>
+          <div class="nudge-down">
             <a href="{{ product.url }}">
               {{ product.title }}  
             </a>
@@ -187,17 +187,17 @@
     <div class="description top left">
       <h4 class="serif">&ldquo;Saunter in fashionably late&rdquo;</h4>
       <p>Elliott blazer <span>$228</span>, Elliot trouser <span>$138</span></p>
-      <input class="js-looks-button" type="button" name="Buy Outfit" value="Buy This Outfit">
+      <input class="js-looks-button" type="button" name="Buy Outfit" value="Buy This Outfit" onclick="pageTracker._trackEvent('Button', 'Open Looks', 'Product Looks Page');">
     </div>  
   </div>
   <ul class="js-looks-page">
     {% for product in collections.look9.products %}
-      <li>
+      <li class="looks-product">
         <a href="{{ product.url }}" title="{{ product.title | escape }} &mdash; {{ product.description | strip_html }}">
           <img src="{{ product.images.first | product_img_url: 'large' }}" alt="{{ product.title | escape }}" />
         </a>
         <div>
-          <div>
+          <div class="nudge-down">
             <a href="{{ product.url }}">
                 {{ product.title }}  
             </a>
@@ -213,17 +213,17 @@
     <div class="description left top">
       <h4 class="serif">&ldquo;Pairing brights is a snap with jewel-toned berry hues&rdquo;</h4>
       <p>Fiona bow blouse in Plum <span>$118</span>,<br />Riley pencil skirt <span>$128</span></p>
-      <input class="js-looks-button" type="button" name="Buy Outfit" value="Buy This Outfit">
+      <input class="js-looks-button" type="button" name="Buy Outfit" value="Buy This Outfit" onclick="pageTracker._trackEvent('Button', 'Open Looks', 'Product Looks Page');">
     </div>  
   </div>
   <ul class="js-looks-page">
     {% for product in collections.look10.products %}
-      <li>
+      <li class="looks-product">
         <a href="{{ product.url }}" title="{{ product.title | escape }} &mdash; {{ product.description | strip_html }}">
           <img src="{{ product.images.first | product_img_url: 'large' }}" alt="{{ product.title | escape }}" />
         </a>
         <div>
-          <div>
+          <div class="nudge-down">
             <a href="{{ product.url }}">
               {{ product.title }}  
             </a>

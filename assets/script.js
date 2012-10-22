@@ -1,39 +1,17 @@
-// UPDATE QUANTITY OF ITEMS IN CART
-var update_quantity = function(id, number) {
-    var params = {
-    type: 'POST',
-    url: '/cart/change.js',
-    data:  'quantity='+number+'&id='+id,
-    dataType: 'json',
-    success: function() {
-      $("div.cart").load("/cart #cartform");
-        $(".cart-container").load("/ .login-box, section.inline-cart");
-    },
-    error: function(XMLHttpRequest, textStatus) {}
-  };
-  $.ajax(params);
-};
-
-// BUY ITEMS FROM LOOKS PAGE
-$(".js-looks-add-product").on("click", function(){
-  var v = $(this).closest("form.variants").find('select').val();
-  var $button = $(this);
-  var params = {
-    type: 'POST',
-    url: '/cart/add.js',
-    data: "quantity=1&id="+v,
-    dataType: 'json',
-    success: function() {
-      $button.val("Added!");
-      $(".cart-container").load("/ .login-box, section.inline-cart", function(){
-        $("section.inline-cart").slideDown().delay(2000).slideUp();
-      });
-    },
-    error: function(XMLHttpRequest, textStatus) {}
-  };
-  $.ajax(params);
+// HIDES MODAL POPUPS
+$(".js-modal-close").on("click", function(){
+  $(this).closest(".js-modal-container").fadeOut("medium");
 });
-
+// SIZE CHART
+// REVEALS SIZE CHART MODAL ON PRODUCT PAGE
+$(".js-size-chart").on("click", function(){
+  $("section.size-chart").fadeIn("medium");
+});
+// HIDDEN SWATCH WINDOW BECOMES VISIBLE ON CLICK
+$("a.swatch, a.swatch_close").on("click", function(){
+  $(".swatch-popup").toggleClass("box-shadow-bump");
+  return false;
+});
 // SHOWS UL OF ITEMS IF IT IS NOT VISIBLE, OTHERWISE SLIDES UP
 $(".js-looks-div").on("click", function(){
   var $looks = $(".js-looks-page");
@@ -57,120 +35,85 @@ $(".js-looks-div").on("click", function(){
 });
 
 // FUNCTION TO BUY ON PRODUCT PAGES
-var purchaseItem = function(form_id) {
+var purchaseItem = function($form_id) {
+    var params = {
+      type: 'POST',
+      url: '/cart/add.js',
+      data: $form_id.serialize(),
+      dataType: 'json',
+      success: function() {
+        $("section.second-size-modal").fadeIn("medium");
+        $("#add-to-cart").val("Added!");
+        $(".cart-container").load("/ .login-box, section.inline-cart", function(){
+          $("section.inline-cart").slideDown().delay(2000).slideUp();
+        });
+      },
+      error: function(XMLHttpRequest, textStatus) {}
+    };
+    $.ajax(params);	
+};
+$(".js-buy-button").on("click", function(){
+  var $id = $(this).closest(".variants");
+  purchaseItem($id);
+});
+// BUY ITEMS FROM LOOKS PAGE
+$(".js-looks-add-product").on("click", function(){
+  var v = $(this).closest("form.variants").find('select').val();
+  var $button = $(this);
   var params = {
     type: 'POST',
     url: '/cart/add.js',
-    data: $("#"+form_id).serialize(),
+    data: "quantity=1&id="+v,
     dataType: 'json',
     success: function() {
-      $("#add-to-cart").val("Added!");
+      $button.val("Added!");
       $(".cart-container").load("/ .login-box, section.inline-cart", function(){
-                  // added by Lemonade NY
-      			var itemID = $("#"+form_id).serialize();
-                      itemID = itemID.substr(3);
-                      console.log(itemID);
-      			var inStock = false;
-      			var urlhandle = location.href.substr(location.href.lastIndexOf('/')+1);
-      			var data = jQuery.parseJSON(
-                        jQuery.ajax({
-      						        url: "/products/"+urlhandle+".js",  // Change this to be the page handle
-      						        async: false,
-      						        dataType: 'json'
-      					          }).responseText
-      			            );
-      			var vars = data.variants;
-
-      			var ssfield1 ='<div id="second-size"><input id="ssval" type="hidden" name="attributes[ss-'+itemID+']" value="" /><input id="ssname" type="hidden" name="attributes[ss-d-'+itemID+']" value="" /><input type="hidden" value="'+itemID+'" id="ss-prodid"><p id="header">Try a second size on us!</p><p id="no-thanks"><a class="ss-nothanks-lnk">No, Thanks.</a></p><div id="wrap">';
-      			var ssfield2 ='<button class="ss-add-lnk float-r">Add</button><div class="clearfix item1"><div class="selector-wrapper fleft"><label for="product-select-option-0" class="sslabel">'+vars[0]['option1']+'</label></div><div class="pselect-box fleft"> <a class="field"> <span class="info">'+vars[0]['option1']+'</span><img src="http://static.shopify.com/s/files/1/0172/5556/t/3/assets/down-triangle.gif?493"></a><ul class="selector_0 selector">';
-      			var ssfield3 ='<div class="clearfix item2"><div class="selector-wrapper fleft"><label for="product-select-option-1" class="sslabel ">'+vars[0]['option2']+'</label></div><div class="pselect-box fleft"> <a class="field"> <span class="info">'+vars[0]['option2']+'</span> <img src="http://static.shopify.com/s/files/1/0172/5556/t/3/assets/down-triangle.gif?493"></a><ul class="selector_1 selector">';
-      			var ssfield4 ='<div class="clearfix" style="text-align: right;"><select id="ss" style="display:none;"><option value="select">select</option>';
-
-            var container1 = [];
-            var container2 = [];
-      			var fq_top_rec = $.cookie('fq_top_rec'); // check to see if we have this available.
-
-            if(fq_top_rec){
-          		var top = fq_top_rec.substr(0,2);
-      				var bust = fq_top_rec.substr(2,1)+" / "+fq_top_rec.substr(2,2);
-      				var length = fq_top_rec.substr(4);
-      			}
-
-            vars.sort(); // sort asc
-            
-            var i;
-            
-      			for(i=0;i<vars.length;i++){
-      				if(vars[i]['inventory_quantity'] > 0 && i !== 0){ // Check to see if we have more than two just to ensure we don't oversell
-      					if(ssfield2.indexOf(vars[i]['option1']) < 0){ 
-                  ssfield2 += '<li>'+vars[i]['option1']+'</li>';
-          			}
-      					if(ssfield3.indexOf(vars[i]['option2']) < 0){ 
-                  ssfield3 += '<li>'+vars[i]['option2']+'</li>';
-          			}
-      					ssfield4 += '<option value="'+vars[i]['id']+'">'+vars[i]['option1']+' / '+vars[i]['option2']+'</option>';
-      					inStock = true;
-      				}
-      			}
-      			ssfield2 +='</ul></div></div>';
-      			ssfield3 +='</ul></div></div>';
-      			ssfield4 +='</select></div>';
-      			ssfield1 += ssfield2+ssfield3+ssfield4+'</div>';
-
-      			// inject the second size code after the Added Item
-      			$(ssfield1).insertAfter('#cartform #'+itemID);
-
-      			// load second size inline cart jquery DOM triggers
-            $.getScript("{{'ss-cart.js'| asset_url}}",function(){
-              console.log('Loaded ss-cart.js');
-            });
-
-      			// end ammendment by Lemonade NY
-      			var $inlinecart = $("section.inline-cart");
-      			if(inStock){
-              $inlinecart.slideDown();
-      			} 
-      			else {
-              $inlinecart.slideDown().delay(2000).slideUp();
-      			}
+        $("section.inline-cart").slideDown().delay(2000).slideUp();
       });
     },
     error: function(XMLHttpRequest, textStatus) {}
   };
-  $.ajax(params);	
-};
-
-//FUNCTION TO REMOVE ITEMS ON /CART PAGE
-var remove_item = function(id) {
-    $('#ss-'+id+'-v').val('');
-    $('#ss-d-'+id).val('');
-    
-    $("body").addClass("ajax"); // change cursor to "progress"
-    
+  $.ajax(params);
+});
+// DELEGATED HANDLER TO REMOVE ITEMS ON /CART PAGE
+$(document).on("click", ".js-remove-button", function(e){
+    var id = $(this).data("id");
     var params = {
-      type: 'POST',
-      url: '/cart/change.js',
-      data:  'quantity=0&id='+id+'&ss-'+id+'-v=&ss-d'+id+'=',
-      dataType: 'json',
-      success: function() {
-        ssRefreshCart();
-      },
-      error: function(XMLHttpRequest, textStatus) {}
-    };
-    $.ajax(params);
-};
+    type: 'POST',
+    url: '/cart/change.js',
+    data:  'quantity=0&id='+id,
+    dataType: 'json',
+    success: function() {
+      $("div.cart").load("/cart #cartform");
+        $(".cart-container").load("/ .login-box, section.inline-cart");
+    },
+    error: function(XMLHttpRequest, textStatus) {}
+  };
+  $.ajax(params);
+  e.preventDefault();
+});
 
 // DELEGATED HANDLER FOR UPDATE QUANTITY BUTTON ON /CART PAGE
 $(document).on("click", ".update", function(){
   var id = $(this).attr("id");
   var number = $(this).prev().val();
-  update_quantity(id, number);
+  var params = {
+    type: 'POST',
+    url: '/cart/change.js',
+    data:  'quantity='+number+'&id='+id,
+    dataType: 'json',
+    success: function() {
+      $("div.cart").load("/cart #cartform");
+      $(".cart-container").load("/ .login-box, section.inline-cart");
+    },
+    error: function(XMLHttpRequest, textStatus) {}
+  };
+  $.ajax(params);
 });
 
 // DELEGATED HANDLER FOR HOVERING OVER INLINE CART
 $(document).on('mouseenter mouseleave', '.cart-container', function(e) {
-  var $inlinecart = $("section.inline-cart");
-  
+  var $inlinecart = $("section.inline-cart"); 
   if (e.type === 'mouseenter') {
     $inlinecart.slideDown();
   }
@@ -184,6 +127,47 @@ $(document).on("click", "a.inline-cart", function(){
   $("section.inline-cart").slideToggle();
 });
 
+// submit email, product, and size to be notified
+// of when it's back in stock
+var validatecheck = function (email) { 
+  var emailReg = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return emailReg.test(email);
+}
+$(document).on("click", ".js-notify-me", function() {
+  var email = $(".js-notify-email").val();
+  var product = $(".product-title").text();
+  var $invalidemail = $(".js-invalid-email");
+  var size;
+  $(".single-option-selector").each(function() { size += $(this).val(); });
+  var url = "http://salty-reef-8691.herokuapp.com/back-in-stock";
+  
+  $invalidemail.hide();
+  var params = {
+    type: "GET",
+    url: url,
+    data: "email=" + email + "&product=" + product + "&size=" + size,
+    dataType: 'text',
+    success: function() {},
+    error: function(jqXHR, textStatus, errorThrown) {}
+  };
+  
+  if (validatecheck(email)) {
+    $invalidemail.hide();
+    $(".js-notify-me").val("Sending");
+    $.ajax(params);
+    setTimeout(function(){
+      $(".notify-me").fadeOut();
+      $(".notify-me-success").fadeIn();
+      $(".js-notify-me").val("Sent");
+    },1500);
+  }
+  else {
+    $invalidemail.show();
+  }
+});
+$(document).on("click", ".js-notify-hook", function() {
+  $(".notify-me").fadeIn();
+});
 //==================
 // BEGIN DOC READY CODE
 //==================
@@ -230,10 +214,30 @@ $(document).ready(function(){
           ul.append('<li>'+ div.eq(i).html()+'</li>');
       }
   };
+  var fancyLooksPage = function() {
+    var i;
+    var $select = $(".js-looks-page-selector");
+    $select.each(function(){
+      var $option = $(this).find("option");
+      var $ul = $(this).siblings(".js-looks-select").find(".selector");
+      for (i = 0; i < $option.length; i++) {
+          $ul.append('<li>'+ $option.eq(i).html() +'</li>');
+      }
+    });   
+  };
   fancyDropdown(0);
   fancyDropdown(1);
   fancyContact(2);
+  fancyLooksPage();
   
+  // HIDES UNHEMMED SELECTION FROM FANCY DROPDOWN FOR PANTS/SKIRTS
+  $(".selector").each(function(){
+    $(this).find(":contains(Unfinished)").hide();
+  });
+  // TEMP FIX TO DISABLE UNFINISHED OPTIONS
+  $(".variants select").each(function(){
+    $(this).find(":contains(Unfinished)").prop("disabled", "disabled");
+  });  
   // CREATES FUNCTIONALITY FOR STYLED DROPDOWNS  
   (function($) {
       $.fn.styleddropdown = function() {
@@ -254,9 +258,9 @@ $(document).ready(function(){
                           $obj.find('.selector').fadeOut(speed);
                       }
                   });
-
-                  $obj.find('.selector').hover(function() {}, function() {
-                      $(this).fadeOut(speed);
+                  
+                  $obj.on("mouseleave", function(){
+                    $obj.find(".selector").fadeOut(speed);
                   });
               });
 
@@ -274,6 +278,15 @@ $(document).ready(function(){
                     $target = $(".selector-wrapper");
                     $target.eq(index).find("select").val($(this).text()).change();
                   }
+                  else if ($div_index.hasClass("js-looks-select")) {
+                    $target = $div_index.siblings(".js-looks-page-selector");
+                    var $selected = $(this);
+                    $target.find("option").each(function(){
+                      if ($(this).text() == $selected.text()){
+                        $(this).prop("selected","selected");
+                      }
+                    });
+                  }
                   else{
                     $target = $("#subject");
                     $target.val($(this).text()).change();
@@ -286,31 +299,6 @@ $(document).ready(function(){
       };
   })(jQuery);
   $('.pselect-box').styleddropdown();
-  
-  // HIDES MODAL POPUPS
-  $(".js-modal-close").click(function(){
-    $(this).closest(".js-modal-container").fadeOut("medium");
-  });
-  
-  // SIZE CHART
-	// REVEALS SIZE CHART MODAL ON PRODUCT PAGE
-	var $sizechart = $("section.size-chart");
-  $(".js-size-chart").click(function(){
-    $sizechart.fadeIn("medium");
-  });
-  
-  // SWATCH
-  // REVEAL
-  // HIDDEN SWATCH WINDOW BECOMES VISIBLE ON CLICK
-  var $swatchwindow = $(".swatch-popup");
-  $("a.swatch").click(function(){
-    $swatchwindow.toggleClass("box-shadow-bump");
-    return false;
-  });
-  $("a.swatch_close").click(function(){
-    $swatchwindow.removeClass("box-shadow-bump");
-    return false;
-  });
 	
   // PRODUCT DESCRIPTION ACCORDION
   // SHOWS CORRESPONDING DROPDOWN ON CLICK FOR PRODUCT DESCRIPTION SECTION

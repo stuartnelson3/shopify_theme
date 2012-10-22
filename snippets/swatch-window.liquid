@@ -1,13 +1,14 @@
 {% capture swatch_collection %}{{ product.handle | replace: "-", " " | truncatewords: 1, '' }}-swatch.jpg{% endcapture %}
 {% capture swatch %}{{ product.handle }}-swatch.jpg{% endcapture %}
+{% capture ansley_swatch_2 %}{{ product.handle }}-swatch-black.jpg{% endcapture%}
 {% capture fiona_swatch_1 %}{{ product.handle }}-polkadot-swatch.jpg{% endcapture %}
 {% capture fiona_swatch_2 %}{{ product.handle }}-plum-swatch.jpg{% endcapture %}
   {% case handle %}
-    {% when 'jane-jacket' or 'kennedy-blouse-peplum' or 'emma-jacket' or 'chloe-shirt' or 'chelsea-blazer-herringbone' or 'ansley-dress-berry' or 'riley-sheath-navy' %}
+    {% when 'jane-jacket' or 'kennedy-blouse-peplum' or 'emma-jacket' or 'chloe-shirt' or 'chelsea-blazer-herringbone' or 'riley-sheath-navy' %}
     <div>
       <img src="{{ swatch | asset_url }}" alt="{{ product.title }}" />
       {% when 'jane-jacket' %}
-      <h2>Black &amp; White Boucle</h2>
+      <h2>Black &amp; White Bouclé</h2>
       <ul>
         <li>Silver accent</li>
         <li>Wool-blend</li>
@@ -23,7 +24,7 @@
         <li>Easy care</li>
       </ul>
       {% when 'emma-jacket' %}
-      <h2>White &amp; Navy Boucle</h2>
+      <h2>White &amp; Blue Bouclé</h2>
       <ul>
         <li>Silver accent</li>
         <li>Poly-cotton</li>
@@ -45,14 +46,6 @@
         <li>100% wool</li>
         <li>Mid-weight</li>
         <li>Dry clean</li>
-      </ul>
-      {% when 'ansley-dress-berry' %}
-      <h2>Berry stretch ponte</h2>
-      <ul>
-        <li>Non-wrinkle</li>
-        <li>Cotton-blend</li>
-        <li>Mid-weight</li>
-        <li>Easy care</li>
       </ul>
       {% when 'riley-sheath-navy' %}
       <h2>Navy stretch</h2>
@@ -85,16 +78,6 @@
     </div>
     {% when 'fiona-blouse' %}
       <div>
-        <img src="{{ fiona_swatch_2 | asset_url }}" alt="{{ product.name }}" />
-        <h2>Silk crepe de chine</h2>
-        <ul>
-          <li>Not sheer</li>
-          <li>Soft feel</li>
-          <li>100% silk</li>
-          <li>Dry clean</li>
-        </ul>
-      </div>
-      <div>
         <img src="{{ fiona_swatch_1 | asset_url }}" alt="{{ product.name }}" />
         <h2>Silk crepe de chine</h2>
         <ul>
@@ -104,4 +87,35 @@
           <li>Dry clean</li>
         </ul>
       </div>
+      <div>
+        <img src="{{ fiona_swatch_2 | asset_url }}" alt="{{ product.name }}" />
+        <h2>Silk crepe de chine</h2>
+        <ul>
+          <li>Not sheer</li>
+          <li>Soft feel</li>
+          <li>100% silk</li>
+          <li>Dry clean</li>
+        </ul>
+      </div>
+      {% when 'ansley-dress-berry' %}
+      <div>
+        <img src="{{ ansley_swatch_2 | asset_url }}" alt="{{ product.name }}" />
+        <h2>Black stretch ponte</h2>
+        <ul>
+          <li>Non-wrinkle</li>
+          <li>Cotton-blend</li>
+          <li>Mid-weight</li>
+          <li>Easy care</li>
+        </ul>
+      </div> 
+      <div>
+        <img src="{{ swatch | asset_url }}" alt="{{ product.name }}" />
+        <h2>Berry stretch ponte</h2>
+        <ul>
+          <li>Non-wrinkle</li>
+          <li>Cotton-blend</li>
+          <li>Mid-weight</li>
+          <li>Easy care</li>
+        </ul>
+      </div>   
 {% endcase %}

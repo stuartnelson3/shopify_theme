@@ -23,10 +23,10 @@ if($.cookie('fq_top') && $.cookie('fq_length') && $.cookie('fq_waist')){
 	if ($("label[for=product-select-option-1]").text() == "Bust") {
 		$('#product-actions .bottom .field .info').empty().text(fq_top+' '+fq_bust);
 		
-		$('#product-select-option-1 option').each(function(){ // Change Length
+		$('#product-select-option-1 option').each(function(){ // Change Bust
 			var pval = $(this).val();
 			var pdata = $(this).text();
-			if((pdata.indexOf(fq_top) > -1 && pdata.indexOf(fq_bust) > -1) || pdata.indexOf(fq_waist) > -1){
+			if(pdata.indexOf(fq_top) > -1 && pdata.indexOf(fq_bust) > -1){
 				$(this).attr('selected',true);
 				return false;
 			}

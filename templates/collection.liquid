@@ -4,7 +4,7 @@
         {% for product in collection.products %}
           {% case product.handle %}
             {% when 'elliott-pant-black' or 'elliott-sheath-black' or 'riley-skirt-cobalt' %} 
-              <li>
+              <li class="collection-item">
                 <a href="{{ product.url }}" title="{{ product.title | escape }} &mdash; {{ product.description | strip_html }}">
                   <img src="{{ product.images.first | product_img_url: 'large' }}" alt="{{ product.title | escape }}" />
                 </a>
@@ -35,22 +35,22 @@
               </div>              
               {% when 'kennedy-blouse-peplum' %}
               <div class="details left">
-                <h1 class="serif">&ldquo;{{ product.description }}&rdquo;</h1>
+                <h1 class="serif collection-left">&ldquo;{{ product.description }}&rdquo;</h1>
                 <div class="border">
-              <p>Take the hottest silhouette from the runways to work with a pencil and out afterwards with skinnies, it's our favorite multi-tasker.</p>
-              <a href="{{ product.url }}" title="{{ product.title }}">Shop the {{ product.title }} ></a>
+              <p class="collection-left">Take the hottest silhouette from the runways to work with a pencil and out afterwards with skinnies, it's our favorite multi-tasker.</p>
+              <a class="collection-left" href="{{ product.url }}" title="{{ product.title }}">Shop the {{ product.title }} ></a>
               </div>
             </div>
               {% when 'emma-jacket' %}
               <div class="details left">
-                <h1 class="serif">&ldquo;{{ product.description }}&rdquo;</h1>
+                <h1 class="serif collection-left">&ldquo;{{ product.description }}&rdquo;</h1>
                 <div class="border">
-                <p>Our favorite Jane jacket is updated in a fresh white and navy boucle with delicate silver accent.</p>
-                <a href="{{ product.url }}" title="{{ product.title }}">Shop the {{ product.title }} ></a>
+                <p class="collection-left">Our favorite Jane jacket is updated in a fresh white and navy boucle with delicate silver accent.</p>
+                <a class="collection-left" href="{{ product.url }}" title="{{ product.title }}">Shop the {{ product.title }} ></a>
               </div>
             </div>
             {% when 'kennedy-blouse-peplum' or 'emma-jacket' %}
-            <li>
+            <li class="collection-item">
               <a href="{{ product.url }}" title="{{ product.title | escape }} &mdash; {{ product.description | strip_html }}">
                 <img src="{{ product.images.first | product_img_url: 'large' }}" alt="{{ product.title | escape }}" />
               </a>
@@ -62,7 +62,7 @@
               </div>
             </li>
             {% when 'fiona-blouse' %}
-            <li>
+            <li class="collection-item">
               <a href="{{ product.url }}" title="{{ product.title | escape }} &mdash; {{ product.description | strip_html }}">
                 <img src="{{ product.images.first | product_img_url: 'large' }}" alt="{{ product.title | escape }}" />
               </a>
@@ -71,14 +71,56 @@
                   {{ product.title }}
                 </a>
                 <span class="money serif">{{ product.price | money | remove: '.00' }}</span>
-                <ul class="fiona-blouse">
-                  <li>Plum</li>
-                  <li>Polkadot</li>
-                </ul>
+                {% comment %}
+                <!-- <ul class="collection-swatches">
+                  <li class="plum-swatch">Plum</li>
+                  <li class="polkadot-swatch">Polkadot</li>
+                </ul> -->
+                {% endcomment %}
+              </div>
+            </li>
+            <li class="collection-item">
+              <a href="/products/fiona-blouse" title="Fiona Bow blouse — Polka Dot">
+                <img src="{{ 'collection-fiona-polk-dot.jpg' | asset_url }}" alt="Fiona Bow Blouse" />
+              </a>
+              <div>
+                <a href="/products/fiona-blouse">
+                  Fiona Bow Blouse
+                </a>
+                <span class="money serif">$118</span>
+              </div>
+            </li>
+            {% when 'ansley-dress-berry' %}
+            <li class="collection-item">
+              <a href="{{ product.url }}" title="{{ product.title | escape }} &mdash; {{ product.description | strip_html }}">
+                <img src="{{ product.images.first | product_img_url: 'large' }}" alt="{{ product.title | escape }}" />
+              </a>
+              <div>
+                <a href="{{ product.url }}">
+                  {{ product.title }}
+                </a>
+                <span class="money serif">{{ product.price | money | remove: '.00' }}</span>
+                {% comment %}
+                <!-- <ul class="collection-swatches">
+                  <li class="berry-swatch">Berry</li>
+                  <li class="black-swatch">Black</li>
+                </ul> -->
+                {% endcomment %}
+              </div>
+            </li>
+            <li class="collection-item">
+              <a href="/products/ansley-dress-berry" title="Ansley Dress &mdash; Black">
+                <img src="{{ 'collection-ansley-black.jpg' | asset_url }}" alt="Ansley Dress" />
+              </a>
+              <div>
+                <a href="/products/ansley-dress-berry">
+                  Ansley Dress
+                </a>
+                <span class="money serif">$138</span>
               </div>
             </li>
             {% else %}
-              <li>
+              <li class="collection-item">
                 <a href="{{ product.url }}" title="{{ product.title | escape }} &mdash; {{ product.description | strip_html }}">
                   <img src="{{ product.images.first | product_img_url: 'large' }}" alt="{{ product.title | escape }}" />
                 </a>

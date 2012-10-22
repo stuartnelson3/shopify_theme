@@ -1,15 +1,22 @@
 <form action="/cart/add" method="post" class="variants" id="product-actions">
   <div> 
-    <select id="product-select" name="id">
+    <select id="product-select" name="id" class="js-looks-page-selector">
       {% for variant in product.variants %}
       <option value="{{ variant.id }}">
         {{ variant.title | escape }}
       </option>
       {% endfor %}
     </select> 
+    <div class="pselect-box js-looks-select">
+      <a class="field">
+        <span class="info nudge-down">Select</span>
+        <img src="{{'down-triangle.gif' | asset_url }}" />
+      </a>
+      <ul class="selector_0 selector"></ul>
+    </div>
   </div>            
 
   <div id="looks">                               
-    <input class="js-looks-add-product" type="button" name="add" id="add-to-cart" value="Add to Bag" />
+    <input class="js-looks-add-product" type="button" name="add" id="add-to-cart" value="Add to Bag" onclick="pageTracker._trackEvent('Looks Button', 'Buy', 'Looks Page');" />
   </div>
 </form>

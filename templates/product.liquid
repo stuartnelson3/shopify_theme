@@ -3,7 +3,7 @@
   <div class="buy-container">
     <div class="buy-menu">
       
-      <h3>{{ product.title }}</h3>
+      <h3 class="product-title">{{ product.title }}</h3>
       <h4 class="serif-thin"> &ldquo;{{ product.description }}&rdquo;</h4>
       <div class="lower-container">
         <div class="swatch">
@@ -45,12 +45,12 @@
             <a class="js-size-chart small-link blue no-margin" href="#" title="Size Charts">Size Charts</a> 
           </div>            
             
-          <div id="purchase">                               
-            <input type="button" onclick="purchaseItem('product-actions');" name="add" id="add-to-cart" value="Add to Bag" />
+          <div id="purchase">    
+            <input type="button" onclick="pageTracker._trackEvent('Button', 'Buy', 'Product Page');" name="add" id="add-to-cart" value="Add to Bag" class="js-buy-button"/>
             {% include 'pre-order-delay' %}
           </div>
         </form>
-        <a class="fit-quiz take-fit-quiz" href="#" title="Fit Quiz">Find your perfect size ></a>
+        <a class="fit-quiz take-fit-quiz" href="#" title="Fit Quiz">Take the Fit Quiz ></a>
       </div>
     </div>
   </div>  <!-- BUY MENU -->
@@ -153,10 +153,10 @@
 <section class="page size-chart js-modal-container">
   <a href="#" class="close js-modal-close size-chart-x">Close</a>
   <div class="tops size-chart">
-    <h1 class="serif">Size Charts</h1>
+    <h1 class="serif no-spacing">Size Charts</h1>
     <div class="dresses size-chart">
       <section>
-        <h2 class="serif">Blazers, Blouses, &amp; Dresses</h2>
+        <h2 class="serif no-spacing">Blazers, Blouses, &amp; Dresses</h2>
         <p>Quincy top sizes take into account the three most important body dimensions for fit: <span class="blue sans-bold">bust</span>, <span class="blue sans-bold">cup size</span>, and <span class="blue sans-bold">length</span>.</p>
         <table>
           <tr>
@@ -204,7 +204,7 @@
         </table>
       </section>
       <section>
-        <h2 class="level3">Cup size</h2>
+        <h2 class="level3 no-spacing">Cup size</h2>
         <ul>
           <li>We currently offer two cup sizes</li>
           <li><span class="blue sans-bold">A/B</span> &mdash; For women who wear a B-cup or smaller</li>
@@ -212,7 +212,7 @@
         </ul>
       </section>
       <section>
-        <h2 class="level3">Length</h2>
+        <h2 class="level3 no-spacing">Length</h2>
         <ul>
           <li>Our blazers, blouses, and dresses are offered in three sleeve/torso lengths</li>
           <li><span class="blue sans-bold">Regular</span> is the standard length</li>
@@ -223,7 +223,7 @@
   </div>
   <div class="bottoms size-chart">
     <section>
-      <h2 class="serif">Pants &amp; Skirts</h2>
+      <h2 class="serif no-spacing">Pants &amp; Skirts</h2>
       <p>Our pants and skirts are sized by <span class="blue sans-bold">waist</span> and <span class="blue sans-bold">length</span>.</p>
       <table>
         <tr>
@@ -281,14 +281,38 @@
       </table>
     </section>
     <section>
-      <h2 class="level3">Length</h2>
+      <h2 class="level3 no-spacing">Length</h2>
       <ul>
-        <li>We offer all our pants and skirts in 3-4 lengths, to accommodate short-legged and long-legged women alike</li>
-        <li>Pants are also available unhemmed if you prefer to have them hemmed yourself</li>
-        <li>Lengths for specific products can be found by looking at <span class="blue sans-bold">MEASUREMENTS +</span></li>
+        <li class="shorten-width">We offer all our pants and skirts in 3-4 lengths, to accommodate short-legged and long-legged women alike</li>
+        <li class="shorten-width">Pants are also available unhemmed if you prefer to have them hemmed yourself</li>
+        <li class="shorten-width">Lengths for specific products can be found by looking at <span class="blue sans-bold">MEASUREMENTS +</span> on each product's page</li>
       </ul>
     </section>
   </div>
+  </div>
+</section>
+<section class="modal second-size-modal js-modal-container">
+  <div class="modal-div">
+    <h1 class="serif modal-header">Try a Second Size</h1>
+    <p class="em-top">Want to try an additional size, for free? Leave us a comment when you checkout with your Second Size request to try at home!</p>
+    <button class="second-size-modal float-r no-margin bg-blue js-modal-close">CLOSE</button>
+  </div>
+</section>
+<section class="modal notify-me js-modal-container">
+  <div class="modal-div">
+    <h1 class="serif modal-header">When will my size be available?</h1>
+    <p class="em-top">Submit your email address below, and we'll contact you when your size is back in stock!</p>
+    <label class="label-bump" for="email">Email</label>
+    <input class="input js-notify-email" type="text" name="email" value="">
+    <p class="em-top pink js-invalid-email">Please enter a valid email address</p>
+    <input type="button" class="js-notify-me float-r no-margin bg-blue" value="Submit">
+  </div>
+</section>
+<section class="modal notify-me-success js-modal-container">
+  <div class="modal-div">
+    <h1 class="serif modal-header">Email Submitted!</h1>
+    <p class="em-top">We will let you know as soon as your size is available. Thank you!</p>
+    <button class="float-r no-margin bg-blue js-modal-close">CLOSE</button>
   </div>
 </section>
 <section class="modal bottoms-quantity">

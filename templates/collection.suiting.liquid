@@ -19,7 +19,7 @@
     {% endif %}
       <ul>
         {% for product in collections.suiting1.products %}
-          <li>
+          <li class="collection-item">
             <a href="{{ product.url }}" title="{{ product.title | escape }} &mdash; {{ product.description | strip_html }}">
               <img src="{{ product.images.first | product_img_url: 'large' }}" alt="{{ product.title | escape }}" />
             </a>
@@ -43,7 +43,7 @@
       {% endif %}
         <ul>
           {% for product in collections.suiting2.products %}
-            <li>
+            <li class="collection-item">
               <a href="{{ product.url }}" title="{{ product.title | escape }} &mdash; {{ product.description | strip_html }}">
                 <img src="{{ product.images.first | product_img_url: 'large' }}" alt="{{ product.title | escape }}" />
               </a>

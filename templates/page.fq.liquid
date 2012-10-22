@@ -372,7 +372,7 @@
     </div>
   </div>
   <!-- fq-4 -->
-  <div id="fq-5" class="fq-basic" style="height: 610px !important;">
+  <div id="fq-5" class="fq-basic" style="height: 700px !important;">
   <div class="clearfix">
     <h2 class="serif-thin blue">Your Perfect Size:</h2>
     <div class="fleft"> 
@@ -414,15 +414,17 @@
   <!-- questions -->
   <div style="margin-left: 50px;" class="fleft">
   <h3 style="font-weight: 900; font-size: 13px; position: relative; top: -4px; left: -1px; color: rgb(3, 29, 72); margin-bottom: 10px;">SAVE IT FOR LATER.</h3>
-  <p style="line-height: 16px;">Save your size and get an instant promo code for <span style="color: #d3018d; font-weight: 900;">15% off</span>.<br />We make shopping easy breezy &mdash; just log in and your size will automatically be selected as you shop.</p>
+  <p style="line-height: 16px;">We make shopping easy breezy &mdash; just log in and your size will automatically be selected as you shop.</p>
   <div id="customer-login-wrap">
   <div class="fleft" id="update-profile" style="height: 180px; width: 250px; padding: 12px 0px 10px;">
   
   <p style="letter-spacing: 0px; font-size: 12px; font-weight: bold; color: rgb(3, 29, 72); margin-bottom: 28px;">Create a New Profile</p>
   <form id="CreateProfile" method="post">
-    <label for="name" class="name">Name</label>
-    <input type="text" value="" id="name" name="name" />
-    <label for="email">Email</label>
+    <label for="fname" class="name">First Name</label>
+    <input type="text" value="" id="fname" name="fname" />
+    <label for="lname" class="name">Last Name</label>
+    <input type="text" value="" id="lname" name="lname" />
+    <label for="email" class="name">Email</label>
     <input type="text" value="" id="createEmail" name="email" />
     <p style="border: 0px solid rgb(235, 235, 235); padding: 1px 5px; margin: 0 0 0 30px; font-size: 10px; width: 203px;"><span class="result"></span></p>
     <button type="submit" class="float-r bg-blue">SUBMIT</button>
@@ -436,9 +438,9 @@
 <div style="height: 180px; width: 300px; padding: 12px 0px 10px 36px;" id="create-profile" class="fleft">
   <p style="font-size: 12px; font-weight: bold; color: rgb(3, 29, 72); margin-bottom: 28px;">Update your Profile</p>
   <form id="customer_login" action="/account/login" method="post">
-    <label for="customer[email]">Email</label>
+    <label for="customer[email]" class="name">Email</label>
     <input type="text" name="customer[email]" value="" />
-    <label for="customer[password]">Password</label>
+    <label for="customer[password]" class="name">Password</label>
     <input class="password" type="password" value="" name="customer[password]" />
     <p class="float-r no-margin">
       <button type="submit" class="float-r bg-blue" style="margin-top: 16px; margin-bottom: 5px; margin-left: 151px;">LOGIN</button>

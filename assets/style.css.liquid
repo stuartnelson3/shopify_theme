@@ -49,7 +49,7 @@ pre, code, kbd, samp { font-family: monospace, sans-serif; }
 
 html { overflow-y: scroll; }
 ol { list-style-type: decimal; }
-p { margin: 0 0 1em 0; line-height: 1.55em; }
+p { margin: 0 0 1em 0; line-height: 1.55; }
 nav ul, nav li { margin: 0; list-style:none; list-style-image: none; }
 small { font-size: 85%; }
 strong, th { font-weight: bold; }
@@ -113,9 +113,6 @@ body {
 }
 .white {
   color: #FFFFFF;
-}
-.plum {
-  color: #71315d;
 }
 nav a, h3, section.wear_it a, section.continue_shopping span {
   font-size: 12px;
@@ -190,7 +187,7 @@ h4 {
   font-size: 30px;
 }
 h1, section.page h2, h4 {
-  line-height: .8em;
+  line-height: .8;
 }
 h5 {
   text-transform: uppercase;
@@ -436,9 +433,6 @@ section.cart form input.checkout {
 section.cart div.product {
   margin: 15px 0;
 }
-.product-image {
-  float: left;   
-}
 section.cart div.cart_note {
   display: inline-block;
   width: 300px;
@@ -641,17 +635,15 @@ div.index a.index {
 }
 div.index span {
   font-size: 28px;
-  line-height: .95em;
+  line-height: 1;
 }
 div.image_one span {
   bottom: 60px;
-  left: 19px;
-  width: 220px;
-  text-indent: -12px;
+  left: 15px;
+  width: 230px;
 }
 div.image_one a {
   bottom: 25px;
-  width: 200px;
   left: 16px;
 }
 div.image_two img{
@@ -664,14 +656,13 @@ div.image_two span {
   text-indent: -7px;
 }
 .image_two a {
-  bottom: 25px;
+  top: 20px;
   left: 20px;
   width: 215px;
 }
 div.image_three a {
-  top: 20px;
-  width: 200px;
-  left: 20px;
+  bottom: 12px;
+  left: 55px;
 }
 section.promo {
   float: left;
@@ -710,7 +701,7 @@ section.collection div.left {
   width: 330px;
   overflow: hidden;
 }
-div.left h1, div.left p, div.left a {
+.collection-left {
   position: relative;
   left: -10px;
 }
@@ -748,7 +739,7 @@ section.collection div.details p {
   margin: 12px 0 3px 72px;
   line-height: 1.7em;
 }
-section.collection ul li {
+.collection-item {
   float: left;
   display: inline-block;
   margin: 0 10px;
@@ -771,16 +762,21 @@ section.collection ul li div span {
   font-style: normal;
   font-size: 14px;
 }
-section.collection ul.fiona-blouse li {
-  margin: 7px 5px 8px 0 ;
+.collection-swatches li {
+  margin: 7px 5px 8px 0;
 }
-section.collection ul.fiona-blouse li:first-child {
+.plum-swatch {
   background: url({{ 'fiona-blouse-plum-swatch.jpg' | asset_url }});
 }
-section.collection ul.fiona-blouse li:last-child {
+.polkadot-swatch {
   background: url({{ 'fiona-blouse-polkadot-swatch.jpg' | asset_url }});
 }
-
+.berry-swatch {
+  background: url({{ 'ansley-dress-berry-swatch.jpg' | asset_url }});
+}
+.black-swatch {
+  background: url({{ 'ansley-dress-berry-swatch-black.jpg' | asset_url }});
+}
 /*======================
       Suiting Page
 ========================*/
@@ -895,22 +891,42 @@ section.collection_looks ul li div {
 section.collection_looks img {
   width: 220px;
 }
-section.collection_looks li {
+.looks-product {
   padding: 20px 20px 20px 0;
   margin: 0 20px;
   border-bottom: 1px solid #d7d7d7;
 }
-section.collection_looks li:first-child {
+.looks-product:first-child {
   padding-top: 10px;
 }
-section.collection_looks ul li:last-of-type {
+.looks-product:last-of-type {
   border-bottom: none;
 }
-section.collection_looks select#product-select {
-  display: inline-block;
-}
 .js-looks-button {
-  width: 127px;
+  width: 127px;   
+}
+.collection_looks .field, .collection_looks .selector {
+  width: 150px;
+}
+.collection_looks .selector {
+  overflow-y: scroll;
+  height: 300px;
+}
+.collection_looks .selector li {
+  width: 140px;
+}
+.collection_looks .pselect-box {
+  top: 0;
+  left: 0;
+  margin: 0;
+}
+.collection_looks select {
+  display: none;
+}
+.collection_looks .info {
+  overflow: hidden;
+  width: 130px;
+  height: 12px;
 }
 /*======================
       Product Page
@@ -998,7 +1014,7 @@ div.buy-menu h4 {
   margin: 13px 0 9px;
   display: block;
 }
-div.buy-menu ul.swatch li, section.collection ul.fiona-blouse li {
+div.buy-menu ul.swatch li, .collection-swatches li {
   float: left;
   margin-right: 5px;
   width: 11px;
@@ -1044,7 +1060,6 @@ div.swatch p.color {
   margin: 0;
   text-transform: uppercase;
 }
-
 /*======================
      Fancy Dropdowns
 ========================*/
@@ -1075,7 +1090,7 @@ div.bottom {
 	margin: 2px 0;
 	opacity: .9;
 }
-.info, .selector li, section.inline-cart span.info {
+.info, .selector li {
   font-size: 10px;
   text-transform: none;
   letter-spacing: 0px;
@@ -1315,14 +1330,14 @@ section.love_it, section.wear_it, section.wear_with, section.inline-cart, sectio
 .wear_it h1 {
   margin-top: 14px;
   padding-left: 20px;
-  line-height: .8em;
+  line-height: .8;
 }
 .wear_details ul {
   margin: 30px 20px 55px;
 }
 .wear_details li {
   margin: 7px 0;
-  line-height: 1em;
+  line-height: 1;
 }
 section.wear_it div.wear_details ul.indices li {
   margin: 0 8px;
@@ -1333,7 +1348,6 @@ section.wear_it div.wear_details ul.indices {
 }
 section.wear_it a {
   text-transform: none;
-  color: #252525;
   font-size: 13px;
 }
 .wear_with h4 {
@@ -1361,7 +1375,6 @@ section.wear_with img {
 section.continue_shopping {
   text-align: center;
   margin: 70px auto 0;
-  width: 570px;
   padding-bottom: 70px;
 }
 section.continue_shopping a {
@@ -1447,9 +1460,7 @@ div#slideshow nav ul li.indexActive, div#slideshow nav ul li:hover, section.wear
       Pages Settings
 ========================*/
 
-section.page h1, section.page h2 {
-  letter-spacing: 0;
-}
+
 section.page h3, .fq-basic h3 {
   margin-bottom: 1em;
 }
@@ -1675,7 +1686,9 @@ div.bottoms section:last-of-type {
   height: 300px;
   padding-bottom: 140px;
 }
-
+.shorten-width {
+  width: 90%;
+}
 /*======================
           About
 ========================*/
@@ -1767,15 +1780,6 @@ div.second-size {
 div.second-size img {
   float: right;
 }
-.ss-details-modal-title {
-  font-size: 36px;
-  border-bottom: 1px solid #5A5A5A;
-  padding-bottom: 5px;
-  text-align: center;
-}
-section.inline-cart span.info {
-  margin-top: 2px;
-}
 
 /*======================
         Olark
@@ -1837,7 +1841,6 @@ div.pr-review-author-info-wrapper span {
     font-weight: normal !important;
 }
 p.pr-review-rating-headline {
-  font-family: "lemonde-journal", serif;
   font-style: normal;
   font-size: 13px;
   font-weight: 400;
@@ -1904,38 +1907,6 @@ div.quincy, div#height-weight {
 }
 
 /*======================
-    Second Size Modal
-========================*/
-
-section.second-size-modal {
-  position: fixed;
-  width: 340px;
-  left: 37%;
-  background: #ffffff;
-  z-index: 1000;
-  border: 1px solid #D7D7D7;
-  top: 120px;
-  display: none;
-}
-div.second-size-modal {
-  width: 300px;
-  margin: 20px;
-}
-div.second-size-modal p {
-  margin-top: 1em;
-}
-div.second-size-modal button {
-  margin: 0;
-  background-color: #031d48;
-}
-div.second-size-modal button:hover {
-  background-color: #E939AF;
-}
-div.second-size-modal button:active {
-  background-color: #CC0088;
-}
-
-/*======================
           Press 
 ========================*/
 
@@ -1997,6 +1968,23 @@ section.gift-card-terms h3, section.gift-card-terms li {
 }
 
 /*======================
+        Notify Me
+========================*/
+
+.js-invalid-email {
+  font-size: 10px;
+  margin-left: 41px;
+  position: absolute;
+  display: none;
+}
+.js-notify-me {
+  margin-top: -25px;
+}
+.label-bump {
+  position: relative;
+  top: 7px;
+}
+/*======================
       Modal Popups
 ========================*/
 
@@ -2004,15 +1992,20 @@ section.gift-card-terms h3, section.gift-card-terms li {
   display: none;
   position: fixed;
   top: 120px;
-  left: 37%;
   z-index: 1000;
   background: #FFFFFF;
   border: 1px solid #D7D7D7;
   width: 340px;
+  margin: 0 320px;
 }
 .modal-div {
   margin: 20px;
   overflow: hidden;
+}
+.modal-header {
+  font-size: 38px;
+  padding-bottom: 18px;
+  text-align: center;
 }
 
 /*======================
@@ -2044,7 +2037,7 @@ section.gift-card-terms h3, section.gift-card-terms li {
   font-weight: 300;
 }
 .no-spacing {
-  letter-spacing: 0px;
+  letter-spacing: 0;
 }
 .normal {
   font-style: normal;
@@ -2058,6 +2051,14 @@ section.gift-card-terms h3, section.gift-card-terms li {
 .float-r {
   float: right;
 }
+.input {
+  background-color: #FDFDFD;
+  border: 1px solid #EBEBEB;
+  padding: 1px 5px;
+  margin-top: 9px;
+  height: 18px;
+  width: 160px;
+}
 
 /*======================
           Icons
@@ -2070,7 +2071,4 @@ section.gift-card-terms h3, section.gift-card-terms li {
   height: 11px;
   width: 11px;
   background: url({{ 'X.png' | asset_url }});
-}
-.ajax {
-  cursor: progress;
 }

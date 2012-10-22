@@ -3,7 +3,7 @@
 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 <style type="text/css">
   section.main-nav, section.inline-cart {
-    outline: 1px solid #D7D7D7;
+    outline: 1px solid #d7d7d7;
   }
   section.inline-cart {
   border-top: none;
@@ -12,7 +12,7 @@
 {% if product or collection %}
 <style type="text/css">
   section.main-nav nav ul li:first-child {
-    outline: 1px solid #D7D7D7;
+    outline: 1px solid #d7d7d7;
   }
   section.main-nav ul.sub-nav li:first-child {
   outline: none;
@@ -24,7 +24,7 @@
 {% if product or collection %}
 <style type="text/css">
   section.love_it ul {
-    width: 250px;
+  width: 250px;
   }
 </style>
 {% endif %}
@@ -32,6 +32,7 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="google-site-verification" content="eqDhR4A0yocQLfb-X68c8PRJ6FvSsxXSom2jHSS_ClU" />
   <link rel="canonical" href="{{ canonical_url }}" /> 
   <link rel="favicon" href="{{ 'favicon.ico' | asset_url }}" />
   {% include 'metaDescription' %}
@@ -40,7 +41,6 @@
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
   {{ 'fitquiz.css' | asset_url | stylesheet_tag }}
   {{ 'usrandguests.css' | asset_url | stylesheet_tag }}
-  {{ 'second-size.css' | asset_url | stylesheet_tag }}
   {% if product or collection %}
   <style type="text/css">
     section.main-nav nav ul li:first-child {
@@ -72,7 +72,6 @@
   {% else %}
     <meta property="og:image" content="{{ 'logo.png' | asset_url }}" />
   {% endif %}  
-
   {% if template == 'index' %}
    <title>{{ shop.name }} | {{ shop.description }}</title>
    <!--[if lt IE 9]>
@@ -90,6 +89,7 @@
   <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
   {{ 'jquery.touchSwipe.min.js' | asset_url | script_tag }}
   {{ 'jquery.cookie.js' | asset_url | script_tag }}
+  {{ 'jQuery.XDomainRequest.js' | asset_url | script_tag }}
   {{ content_for_header }}
 </head>
 
@@ -124,7 +124,7 @@
         {% if customer %}
             <a href="/pages/second-size" class="promo header-push serif">Get a free Second Size with your first ></a>
         {% else %}
-            <a class="promo take-fit-quiz header-push serif" href="#" title="Fit Quiz">Find Your Perfect Size &mdash; Create a profile and get 15% off &nbsp;></a>
+            <a class="promo take-fit-quiz header-push serif" href="#" title="Fit Quiz">Take our Fit Quiz ></a>
         {% endif %}
       <div class="cart-container">
         <div class="no-margin login-box">
@@ -192,7 +192,25 @@
           <li><a href="/pages/terms-and-conditions" title="Terms & Conditions">Terms &amp; Conditions</a></li>
         </ul>
       </nav>
-    </footer> 
+    </footer>
+    <section class="modal js-user-create-modal js-modal-container">
+      <div class="modal-div">
+        <h1 class="serif modal-header">Account Created!</h1>
+        <p class="em-top">
+          Thanks for creating a Quincy profile!
+        </p>
+        <p class="em-top">
+          There are two ways to activate your account:
+        </p>
+        <p class="em-top">
+          <span class="sans-bold blue">Now:</span> Start shopping and activate your account at the end of checkout
+        </p>
+        <p class="em-top">
+          <span class="sans-bold blue">Later:</span> You'll receive an email invitation within 24 hours. Click the link to accept and set your password
+        </p>
+        <button class="float-r no-margin bg-blue js-modal-close">CLOSE</button>
+      </div>
+    </section>
   </div><!-- WRAPPER -->
   {% include 'olark' %}
   {% if product %}
@@ -210,7 +228,7 @@
     
       if (variant && variant.available) {
         // selected a valid variant
-        buyButton.removeClass('disabled').removeAttr('disabled'); // remove unavailable class from add-to-cart button, and re-enable button
+        buyButton.removeClass('disabled bg-blue js-notify-hook').removeAttr('disabled'); // remove unavailable class from add-to-cart button, and re-enable button
         if(variant.inventory_quantity <= 0){
           buyButton.val("Add to Bag").removeClass("sold-out default")
                                      {% unless product.type == "Pants" or product.type == "Skirts" %}
@@ -230,7 +248,8 @@
               return parseInt(element,10);
             }
             // map the values from the array into a new array as integers
-            var quantity = ints.map(returnInt);   
+            var quantity = ints.map(returnInt);
+            
             // gets the integer value of the selected waist size
             var waistsize = parseInt(prod_sel0.val(),10)
             // compares the selected waist size to the inventory for the unhemmed length
@@ -240,7 +259,7 @@
           {% endif %}
         }
         else{
-          buyButton.val("Add to Bag").removeClass("pre-order sold-out default");
+          buyButton.val("Add to Bag").removeClass("pre-order sold-out default bg-blue js-notify-hook");
           $("div#purchase p").css({ display: "none" });
           
           // message for when item is in stock but may have a delay
@@ -255,40 +274,25 @@
             {% when 'fiona-blouse' %}
               $("div#purchase p").css({ display: "none" });
             {% when 'elliott-pencil-skirt' %}
-              $delay.css({ display: "inline-block" });
+              $("div#purchase p").css({ display: "none" });
             {% when 'elliott-sheath-black' %}
               $("div#purchase p").css({ display: "none" });
             {% when 'elliott-blazer-black' %}
               $("div#purchase p").css({ display: "none" });
             {% when 'elliott-trouser-black' %}
-              if (prod_sel1.find(":contains(Unhemmed)").is(":selected")){
-                $("div#purchase p").css({ display: "none" });
-              }
-              else {
-                $delay.css(show);
-              }
+              $("div#purchase p").css({ display: "none" });
             {% when 'elliott-pant-black' %}      
-              if (prod_sel1.find(":contains(Unhemmed)").is(":selected")){
-                $("div#purchase p").css({ display: "none" });
-              }
-              else {
-                $delay.css(show);
-              }
+              $("div#purchase p").css({ display: "none" });
             {% when 'elliott-sheath-skirt' %}
-              $delay.css(show);
+              $("div#purchase p").css({ display: "none" });
             {% when 'riley-sheath-navy' %} 
               $("div#purchase p").css({ display: "none" });
             {% when 'riley-blazer-cobalt' %}
               $("div#purchase p").css({ display: "none" });
             {% when 'riley-pant-cobalt' %}
-              if (prod_sel1.find(":contains(Unhemmed)").is(":selected")){
-                $("div#purchase p").css({ display: "none" });
-              }
-              else {
-                $delay.css(show);
-              }
+              $("div#purchase p").css({ display: "none" });
             {% when 'riley-skirt-cobalt' %} 
-              $delay.css(show);
+              $("div#purchase p").css({ display: "none" });
           {% endcase %}
         }
       }
@@ -296,13 +300,13 @@
         if(prod_sel0.val() == "Length" || prod_sel1.val() == "Bust" || prod_sel0.val() == "Waist" || prod_sel1.val() == "Inseam" || prod_sel1.val() == "Length" || prod_sel1.val() == "Waist" || prod_sel0.val() == "Inseam"){
           buyButton.val("Add to Bag").removeClass("pre-order sold-out").addClass("default");
           $("div#purchase p").css({ display: "none" });
+          buyButton.addClass('disabled').attr('disabled', 'disabled'); // set add-to-cart button to unavailable class and disable button
         }
         else{
-          buyButton.val("Out of Stock").addClass("sold-out").removeClass("pre-order default");
+          buyButton.val("Notify Me").addClass("bg-blue js-notify-hook").removeClass("pre-order default disabled").removeAttr('disabled');
           $("div#purchase p").css({ display: "none" });
         }
         // variant doesn't exist
-        buyButton.addClass('disabled').attr('disabled', 'disabled'); // set add-to-cart button to unavailable class and disable button
       }
       {% unless product.type == "Pants" or product.type == "Skirts" %}
       prod_sel1.change(function() {
@@ -354,8 +358,7 @@
       {{ "shopify_common.js" | shopify_asset_url | script_tag }}
       {{ "customer_area.js"  | shopify_asset_url | script_tag }}
   {% endif %} 
-  {{ "script.js"  | asset_url | script_tag }}
-  {{ 'ss.js' | asset_url | script_tag }}
+  {{ "script.js"  | asset_url | script_tag }}  
 <script type="text/javascript">
 $(document).ready(function(){
     if($('.take-fit-quiz').length > 0){
@@ -368,9 +371,9 @@ $(document).ready(function(){
         $.getScript("{{ 'quirks.js' | asset_url }}",function(data,textStatus,jqxhr){
             $('.take-fit-quiz').click(function(){
         	    $('#fit-quiz-top').slideDown(600);
-			        return false;
-		        });
-          });
+			    return false;
+		    });
+        });
         });
         {% comment %}
         throw this back in for modal on index page
@@ -382,18 +385,19 @@ $(document).ready(function(){
         {% if template == 'product' %}
           $.getScript("{{ 'jq_select.js' | asset_url }}");
         {% endif %}        
-      } // Load the fitquiz data when the id is found on the page.
+    } // Load the fitquiz data when the id is found on the page.
     {% if template == 'collection.looks' %}
-        $('#product-select option').each(function(){
-            var fq_top = $.cookie('fq_top').substring(0,2);
-            var fq_bust = $.cookie('fq_bust').substr(2,1)+'/'+$.cookie('fq_bust').substr(3,1);
-            var fq_length = $.cookie('fq_length');
-            var fq_waist = $.cookie('fq_waist');
-    
-            if($(this).text().indexOf(fq_length) > 0 && $(this).text().indexOf(fq_top) > 0 && $(this).text().indexOf(fq_bust) > 0 ){
-        	    $(this).attr('selected',true);
-	            }
-            });
+      $('#product-select option').each(function(){
+        var fq_top = $.cookie('fq_top').substring(0,2);
+        var fq_bust = $.cookie('fq_bust').substr(2,1)+'/'+$.cookie('fq_bust').substr(3,1);
+        var fq_length = $.cookie('fq_length');
+        var fq_waist = $.cookie('fq_waist');
+        
+        if($(this).text().indexOf(fq_length) > 0 && $(this).text().indexOf(fq_top) > 0 && $(this).text().indexOf(fq_bust) > 0 ){
+          $(this).attr('selected',true);
+      	  $(this).parent().siblings(".js-looks-select").find(".info").empty().text($(this).text());
+	    }
+      });
     {% endif %}
 });
 </script>
