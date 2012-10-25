@@ -1,7 +1,7 @@
 // compare function, depending on input returns function that 
 // compares to different inventory quantities
 var _compare_inventory = function(offset) {
-  return function (selected_size) {
+  return function(selected_size) {
     if (quantity[selected_size - offset] < 1) {
       buyButton.val("Notify Me")
                .addClass("bg-blue js-notify-hook")
@@ -40,7 +40,7 @@ var waistsize = parseInt(prod_sel0.val(), 10)
   
   // check unhemmed
     unhemmed_check(waistsize);
-    
+
   // if size selected is long or shorter, check xlong too
   if (buyButton.val() === "Notify Me" && prod_sel1_index > 1  && prod_sel1_index < 5) {
     xlong_check(waistsize);
@@ -50,7 +50,7 @@ var waistsize = parseInt(prod_sel0.val(), 10)
     long_check(waistsize);
   }
   // if size selected is short, check regular too
-  if (buyButton.val() === "Notify Me" && prod_sel1_index === 2) {
+  if (buyButton.val() === "Notify Me" && prod_sel1_index === 2 ) {
     regular_check(waistsize);
   }
   // quantity[waistsize - 24] === 0 ? $nostock.css(show) : $delay.css(show)

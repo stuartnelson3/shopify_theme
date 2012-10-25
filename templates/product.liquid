@@ -299,8 +299,8 @@
   </div>
 </section>
 <section class="modal notify-me js-modal-container">
+  <a class="close little-space js-modal-close" href="#">Close</a>
   <div class="modal-div">
-    <a class="close little-space js-modal-close" href="#">Close</a>
     <h1 class="serif modal-header">When will my size be available?</h1>
     <p class="em-top">Submit your email address below, and we'll contact you when your size is back in stock!</p>
     <label class="label-bump" for="email">Email</label>
@@ -317,7 +317,7 @@
   </div>
 </section>
 <section class="modal bottoms-quantity">
-  {% for variant in product.variants limit:10 offset:1 %}
+  {% for variant in product.variants offset:1 %}
     {{ variant.inventory_quantity }},
   {% endfor %}
 </section>

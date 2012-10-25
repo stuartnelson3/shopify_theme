@@ -56,15 +56,19 @@ he.run.parts = function(){
   var e = (!d) ? b : false;
   he.part.additional = e;
   he.part.items = [];
-  he.part.items_names = []
+  he.part.items_names = [];
+  he.part.items_clean = [];
   jQuery("table#thumbs td").each(function(){
     var item = {}
     item.image = jQuery('img',this).attr('src');
     item.quantity = jQuery("h3",this).contents().eq(0).text().replace(/x/,'');
     item.name = jQuery("h3",this).contents().eq(1).text().replace(/^\s/,"");
+    item.clean = (item.name.match("-")) ? item.name.match(/.+-/)[0].replace(" -","") : item.name;
     he.part.items.push(item);
     he.part.items_names.push(item.name);
+    he.part.items_clean.push(item.clean);
   });
+  
   if(he.debug){console.log('he.run.parts');}
 }
 
@@ -109,31 +113,102 @@ he.run.account = function(){
   if(he.debug){console.log('he.run.account');}
 }
 
+he.pin = {};
+
+he.pin.action = function(pinItButton,pinUrl){
+    return function(e) {
+        var t = (e.target) ? e.target : e.srcElement;
+        if (t.id != pinItButton.id) return false;
+        var modal = window.open(pinUrl, 'signin', 'width=665,height=300,scrollbars=1,resizable=1');
+        var wait = function() {
+            setTimeout(function() {
+                if (modal == null) {
+                    failure();
+                    return;
+                }
+                if (modal.closed){
+                    pinItButton.setAttribute('class', 'pinned');
+                }else{
+                    wait();    
+                }
+            }, 25);
+        };
+        wait();
+        return false;
+    };   
+};
+
+he.pin.initiate = function(parameters){
+    var pinItButton = document.getElementById('PinItButton');
+    if(typeof(parameters) === "undefined"){
+        var parameters = {}, url = window.location.href;
+        var pairs = url.slice(url.indexOf('?') + 1).split('&');
+        for (var i = 0; i < pairs.length; i++) {
+            var parts = pairs[i].split('=');
+            parameters[parts[0]] = parts[1];
+        }
+        parameters.ref = encodeURIComponent("http://he.getsimpleapps.com");
+        delete parameters['layout'];
+        delete parameters['count'];
+    }
+    var sep = '?', pinUrl = 'http://pinterest.com/pin/create/button/', ref = '';
+    for (var i in parameters) {
+        if (i === 'ref') {
+            ref = parameters[i];
+        }
+        pinUrl += sep + i + '=' + parameters[i];
+        sep = '&';
+    }
+    if (document.addEventListener){
+        pinItButton.addEventListener('click', he.pin.action(pinItButton, pinUrl), false);
+    }else if (document.attachEvent){
+        pinItButton.attachEvent('onclick', he.pin.action(pinItButton, pinUrl));
+    }
+};
+
+he.pin.tight = function(preParameters){
+  var parameters = {
+    description: encodeURIComponent(preParameters.name),
+    media: encodeURIComponent(preParameters.image),
+    ref: encodeURIComponent("http://getsimpleapps.com"),
+    url: encodeURIComponent(preParameters.permalink),
+  };
+  he.pin.initiate(parameters);
+}
+
 he.run.pinterest = function(){
   // setup the item options
   for(num=0;num<he.part.items.length;num++){
-    jQuery('#pinterest-pinit-button .item select').append('<option value="'+num+'">'+he.part.items[num].name+"</option>");
+    jQuery('#pinterest-pinit-button .item select').append('<option value="'+he.part.items_clean[num]+'">'+he.part.items_clean[num]+"</option>");
   }
-  //if we have a shop present
-  if(he.part.myshopify !== false){
+  // request & change
+  if(he.part.myshopify !== false){  
     jQuery.ajax({
-      url: "https://getsimpleapps.com/happy-ending/api/reach.json",
+      url: he.product_reference,
       dataType: 'jsonp',
-      data: {"myshopify":he.part.myshopify,"items":he.part.items_names},
-      success : function(data, textStatus, jqXHR){
-        var key = 0;
-        jQuery("#pinterest-pinit-button iframe").attr('src',"https://getsimpleapps.com/happy-ending/api/pinterest.html?"+jQuery.param({"url":data.items[key].permalink,"media":data.items[key].image,"description":data.items[key].name}));
+      jsonp: false,
+      jsonpCallback: 'callback',
+      success: function(data, textStatus, jqXHR){
+        var value = jQuery("#pinterest-pinit-button select").val();
+        var parameters = data[value];
+        he.pin.tight(parameters);
         jQuery("#pinterest-pinit-button select").change(function(){
-          var key = jQuery(this).val(); //item_number
-          jQuery("#pinterest-pinit-button iframe").attr('src',"https://getsimpleapps.com/happy-ending/api/pinterest.html?"+jQuery.param({"url":data.items[key].permalink,"media":data.items[key].image,"description":data.items[key].name}));
-        });
-      },
+          var value = jQuery(this).val(); //item_number
+          var parameters = data[value];
+          he.pin.tight(parameters);
+        }); 
+      }
     });
   }else{
-    jQuery("#pinterest-pinit-button iframe").attr('src',he.domain+"/happy-ending/api/pinterest.html");
+    var parameters = {
+      description: encodeURIComponent("Simple Apps"),
+      media: encodeURIComponent("http://media.tumblr.com/tumblr_m4jld694WB1qd6u6v.png"),
+      url: encodeURIComponent("http://getsimpleapps.com"),
+      ref: encodeURIComponent("http://he.getsimpleapps.com"),
+    };
+    he.pin.initiate(parameters);
   }
   if(he.debug){console.log('he.run.pinterest');}
-
 }
 
 he.run.products = function(){
@@ -181,11 +256,12 @@ he.run.afterthought = function(){
 he.run.ignite = function(){
   he.pinterest = 0;
   he.status = 0;
-  he.domain = 'https://he.getsimpleapps.com';
+  he.domain = 'http://he.getsimpleapps.com';
   he.preview = 0;
-  he.html = '<div id="javascript">  <h1 id="greeting">    Thank you for your Quincy purchase!  </h1>  <div id="modules">    <div class="parthenon">      <div class="column" id="left">                <div class="module" id="description">          <b>Your order $ORDERNUM has been created and you will receive a confirmation email shortly.</b>          <div class="editable">            <p>An email receipt containing information about your order will soon follow. Please keep it for your records.</p></div>        </div>                <div id="afterthought"></div>                <div class="module" id="pinterest-pinit-button"style="display:none">          <div class="line">            <div class="button">              <iframe scrolling="no" frameborder="0" style="border: none; width: 43px; height: 20px;"></iframe>            </div>            <div class="item">              <select>              </select>            </div>          </div>          <div class="line follow">            <a class="followlink" href="https://pinterest.com/Example">Follow Example on Pinterest</a>          </div>        </div>        <div class="module" id="twitter-tweet-button">          <div class="line">            <a href="https://twitter.com/share" class="twitter-share-button" data-url="null" data-text="Just bought some new clothes from @QuincyApparel!" data-related="QuincyApparel" data-count="none">Tweet</a>            <span>Just bought some new clothes from <a href="http://www.twitter.com/QuincyApparel" target="_blank">@QuincyApparel</a>!</span>          </div>          <div class="line follow">            <a class="followlink" href="https://twitter.com/QuincyApparel">Follow QuincyApparel on Twitter</a>          </div>        </div>                <div class="module" id="youtube-video"style="display:none">          <div class="line video">            <iframe id="on-load-video" width="350" height="250" src="https://www.youtube.com/embed/?rel=0" frameborder="0" allowfullscreen></iframe>          </div>          <div class="line follow">            <a class="followlink" href="https://www.youtube.com/">Subscribe to  on YouTube</a>          </div>        </div>              </div>      <div class="column" id="right">                <div class="module" id="products-box">          <h4>You Purchased:</h4>          <table>          </table>        </div>        <div id="facebook-all">          <div class="module" id="facebook-like-button">            <div id="fb-root"></div>            <div class="fb-like" data-href="http://www.facebook.com/QuincyApparel" data-send="false" data-width="350" data-show-faces="true"></div>          </div>          <div class="module" id="facebook-like-box">            <div class="fb-like-box" data-href="http://www.facebook.com/QuincyApparel" data-width="373" data-height="340" data-show-faces="true" data-stream="true" data-header="true"></div>          </div>        </div>              </div>    </div>  </div></div>';
-  he.css = '  <style>    .he-v3 #overview,    .he-v3 #content,    .he-v3 #tagline{display:none;}    .he-v3 #logo{margin:0 auto 0 !important;}    .he-v3 #javascript{overflow:hidden}    .he-v3 #javascript #greeting{background:#FFFBE5 url(\'https://cdn.shopify.com/s/images/checkout/checkout-overview-bg.gif\') top left repeat-x;border-bottom:1px solid #EFEBA5;color:#555;font-size:35px;text-align:center;margin:0;padding:40px 0 30px;line-height:36px;}    .he-v3 #javascript .group{margin:0 0 10px 0;}    .he-v3 #javascript .parthenon{overflow:hidden;width:inherit;margin:0 5px}    .he-v3 #javascript .column{float:left;width:373px;margin:10px 5px 10px 5px;}    .he-v3 #javascript .column.frame{margin:0;}    .he-v3 #javascript .module{background:#F7F7F7;border:1px solid #DDD;margin:0 0 10px 0;padding:10px;border-radius:3px;}    .he-v3 #javascript .module#facebook-like-box{border:none;background:none;padding:0;}    .he-v3 #javascript .module#facebook-like-button{margin: 0px;margin-bottom: -1px;}    .he-v3 #javascript .module#pinterest-pinit-button .one-item,    .he-v3 #javascript .module#pinterest-pinit-button .multi-item{display:none;}    .he-v3 #javascript .group#signup{font-family: helvetica, arial, sans-serif;font-size: 12px;font-weight: 400;}    .he-v3 #javascript .group#signup label{font-family: helvetica, arial, sans-serif;font-size: 12px;font-weight: 400;}    .he-v3 #javascript .group#signup #password,    .he-v3 #javascript .group#signup #password_confirmation{width:225px;}    .he-v3 #javascript .group#signup td.lbl{padding:0;}    .he-v3 #javascript .group#signup h4{margin:0 0 10px 0}    .he-v3 #javascript .module#pinterest-pinit-button select{width: 293px;margin-left: 10px;}    .he-v3 #javascript .module#pinterest-pinit-button .item,    .he-v3 #javascript .module#pinterest-pinit-button .button{display: inline-block;vertical-align: top;}    .he-v3 #javascript .module#pinterest-pinit-button #images img{width:351px;margin-top:10px;}    .he-v3 #javascript .module#pinterest-pinit-button .line.follow{text-align: right;font-size: 10px;}    .he-v3 #javascript .module#pinterest-pinit-button .line.follow a{text-decoration: none;}    .he-v3 #javascript .module#twitter-tweet-button .line.follow{text-align: right;font-size: 10px;}    .he-v3 #javascript .module#twitter-tweet-button .line.follow a{text-decoration: none;}    .he-v3 #javascript .module#youtube-video .line.follow{text-align: right;font-size: 10px;}    .he-v3 #javascript .module#youtube-video .line.follow a{text-decoration: none;}    .he-v3 #javascript .module#twitter-tweet-button span{vertical-align: top;display: inline;margin-left: 10px;line-height: 23px;}        .he-v3 #javascript .module#twitter-tweet-button span a{vertical-align: top;display: inline;line-height: 23px;}    .he-v3 #javascript .module#twitter-tweet-button span a:hover{color:#00ABEC !important;}        .he-v3 #javascript .module#products-box h4{margin:0 0 10px 0;}    .he-v3 #javascript .module#products-box td.name,    .he-v3 #javascript .module#products-box td.quantity{vertical-align:middle;}    .he-v3 #javascript .module#products-box td.quantity{font-size:10px;}    .he-v3 #javascript #twitter-tweet-button .line.follow a:hover{color:#00ABEC !important;}    .he-v3 #javascript #pinterest-pinit-button .line.follow a:hover{color:#CD2A31 !important;}    .he-v3 #javascript #youtube-video .line.follow a:hover{color:#C82D2F !important;}  </style>  <style id="advanced-css-style">.he-v3 #javascript #left {float: right;}.he-v3 #javascript .module {border-radius: 0;}#likeboxPluginPagelet {display: none;}.he-v3 #javascript #greeting {background: url(\'http://static.tumblr.com/zhomces/wPRm9sohs/logo.png\') no-repeat;padding-left: 158px;font-size: 35px;color: #71315D;font-family: serif;font-style: italic; border-bottom: none;margin-bottom: 20px;}.he-v3 #javascript .module#twitter-tweet-button span a:hover,.he-v3 #javascript .module#twitter-tweet-button .line.follow a:hover{color:#d3018d !important;}.he-v3 #javascript .module#twitter-tweet-button span a:active, .he-v3 #javascript .module#twitter-tweet-button .line.follow a:active {color:#e939af !important;}</style>  <link id="advanced-css-link" href="#" media="screen" rel="stylesheet" type="text/css" />';
+  he.html = '<div id="javascript">  <h1 id="greeting">    Thank you for your Quincy purchase!  </h1>  <div id="modules">    <div class="parthenon">      <div class="column" id="left">                <div class="module" id="description">          <b>Your order $ORDERNUM has been created and you will receive a confirmation email shortly.</b>          <div class="editable">            <p>An email receipt containing information about your order will soon follow. Please keep it for your records.</p></div>        </div>                <div id="afterthought"></div>                <div class="module" id="pinterest-pinit-button"style="display:none">          <div class="line">            <div class="button">              <!--<iframe scrolling="no" frameborder="0" style="border: none; width: 43px; height: 20px;"></iframe>-->              <a href="javascript:void(0)" id="PinItButton" title="Pin it on Pinterest" style="border: none; width: 43px; height: 20px;">Pin it</a>            </div>            <div class="item">              <select>              </select>            </div>          </div>          <div class="line follow">            <a class="followlink" href="https://pinterest.com/Example">Follow Example on Pinterest</a>          </div>        </div>        <div class="module" id="twitter-tweet-button">          <div class="line">            <a href="https://twitter.com/share" class="twitter-share-button" data-url="null" data-text="Just bought some new clothes from @QuincyApparel!" data-related="QuincyApparel" data-count="none">Tweet</a>            <span>Just bought some new clothes from <a href="http://www.twitter.com/QuincyApparel" target="_blank">@QuincyApparel</a>!</span>          </div>          <div class="line follow">            <a class="followlink" href="https://twitter.com/QuincyApparel">Follow QuincyApparel on Twitter</a>          </div>        </div>                <div class="module" id="youtube-video"style="display:none">          <div class="line video">            <iframe id="on-load-video" width="350" height="250" src="https://www.youtube.com/embed/?rel=0" frameborder="0" allowfullscreen></iframe>          </div>          <div class="line follow">            <a class="followlink" href="https://www.youtube.com/">Subscribe to  on YouTube</a>          </div>        </div>              </div>      <div class="column" id="right">                <div class="module" id="products-box">          <h4>You Purchased:</h4>          <table>          </table>        </div>        <div id="facebook-all">          <div class="module" id="facebook-like-button">            <div id="fb-root"></div>            <div class="fb-like" data-href="http://www.facebook.com/QuincyApparel" data-send="false" data-width="350" data-show-faces="true"></div>          </div>          <div class="module" id="facebook-like-box">            <div class="fb-like-box" data-href="http://www.facebook.com/QuincyApparel" data-width="373" data-height="340" data-show-faces="true" data-stream="true" data-header="true"></div>          </div>        </div>              </div>    </div>  </div></div>';
+  he.css = '  <style>    .he-v3 #overview,    .he-v3 #content,    .he-v3 #tagline{display:none;}    .he-v3 #logo{margin:0 auto 0 !important;}    .he-v3 #javascript{overflow:hidden}    .he-v3 #javascript #greeting{background:#FFFBE5 url(\'https://cdn.shopify.com/s/images/checkout/checkout-overview-bg.gif\') top left repeat-x;border-bottom:1px solid #EFEBA5;color:#555;font-size:35px;text-align:center;margin:0;padding:40px 0 30px;line-height:36px;}    .he-v3 #javascript .group{margin:0 0 10px 0;}    .he-v3 #javascript .parthenon{overflow:hidden;width:inherit;margin:0 5px}    .he-v3 #javascript .column{float:left;width:373px;margin:10px 5px 10px 5px;}    .he-v3 #javascript .column.frame{margin:0;}    .he-v3 #javascript .module{background:#F7F7F7;border:1px solid #DDD;margin:0 0 10px 0;padding:10px;border-radius:3px;}    .he-v3 #javascript .module#facebook-like-box{border:none;background:none;padding:0;}    .he-v3 #javascript .module#facebook-like-button{margin: 0px;margin-bottom: -1px;}    .he-v3 #javascript .module#pinterest-pinit-button .one-item,    .he-v3 #javascript .module#pinterest-pinit-button .multi-item{display:none;}    .he-v3 #javascript .group#signup{font-family: helvetica, arial, sans-serif;font-size: 12px;font-weight: 400;}    .he-v3 #javascript .group#signup label{font-family: helvetica, arial, sans-serif;font-size: 12px;font-weight: 400;}    .he-v3 #javascript .group#signup #password,    .he-v3 #javascript .group#signup #password_confirmation{width:225px;}    .he-v3 #javascript .group#signup td.lbl{padding:0;}    .he-v3 #javascript .group#signup h4{margin:0 0 10px 0}    .he-v3 #javascript .module#pinterest-pinit-button{position:relative;}    .he-v3 #javascript .module#pinterest-pinit-button select{width: 293px;position: absolute;right: 10px;}    .he-v3 #javascript .module#pinterest-pinit-button .item,    .he-v3 #javascript .module#pinterest-pinit-button .button{display: inline-block;vertical-align: top;}    .he-v3 #javascript .module#pinterest-pinit-button #images img{width:351px;margin-top:10px;}    .he-v3 #javascript .module#pinterest-pinit-button .line.follow{text-align: right;font-size: 10px;}    .he-v3 #javascript .module#pinterest-pinit-button .line.follow a{text-decoration: none;}    .he-v3 #javascript .module#twitter-tweet-button .line.follow{text-align: right;font-size: 10px;}    .he-v3 #javascript .module#twitter-tweet-button .line.follow a{text-decoration: none;}    .he-v3 #javascript .module#youtube-video .line.follow{text-align: right;font-size: 10px;}    .he-v3 #javascript .module#youtube-video .line.follow a{text-decoration: none;}    .he-v3 #javascript .module#twitter-tweet-button span{vertical-align: top;display: inline;margin-left: 10px;line-height: 23px;}        .he-v3 #javascript .module#twitter-tweet-button span a{vertical-align: top;display: inline;line-height: 23px;}    .he-v3 #javascript .module#twitter-tweet-button span a:hover{color:#00ABEC !important;}        .he-v3 #javascript .module#products-box h4{margin:0 0 10px 0;}    .he-v3 #javascript .module#products-box td.name{width: 100%;,vertical-align: middle;}    .he-v3 #javascript .module#products-box td.quantity{vertical-align:middle;}    .he-v3 #javascript .module#products-box td.quantity{font-size:10px;}    .he-v3 #javascript #twitter-tweet-button .line.follow a:hover{color:#00ABEC !important;}    .he-v3 #javascript #pinterest-pinit-button .line.follow a:hover{color:#CD2A31 !important;}    .he-v3 #javascript #youtube-video .line.follow a:hover{color:#C82D2F !important;}    /*pinterest button*/    .he-v3 #javascript #PinItButton{position:absolute;background:url(http://pinit-cdn.pinterest.com/images/pinit6.png);font:11px Arial, sans-serif;text-indent:-9999em;font-size:.01em;color:#CD1F1F;height:20px;width:43px;background-position:0 -7px;}    .he-v3 #javascript #PinItButton:hover{background-position:0 -28px;}    .he-v3 #javascript #PinItButton:active{background-position:0 -49px;}    .he-v3 #javascript #PinItButton.pinned{background-position:0 -70px!important;}    .he-v3 #javascript .module#pinterest-pinit-button{display:none;}  </style>  <style id="advanced-css-style">.he-v3 #javascript #left {float: right;}.he-v3 #javascript .module {border-radius: 0;}#likeboxPluginPagelet {display: none;}.he-v3 #javascript #greeting {background: url(\'http://static.tumblr.com/zhomces/wPRm9sohs/logo.png\') no-repeat;padding-left: 158px;font-size: 35px;color: #71315D;font-family: serif;font-style: italic; border-bottom: none;margin-bottom: 20px;}.he-v3 #javascript .module#twitter-tweet-button span a:hover,.he-v3 #javascript .module#twitter-tweet-button .line.follow a:hover{color:#d3018d !important;}.he-v3 #javascript .module#twitter-tweet-button span a:active, .he-v3 #javascript .module#twitter-tweet-button .line.follow a:active {color:#e939af !important;}</style>  <link id="advanced-css-link" href="#" media="screen" rel="stylesheet" type="text/css" />';
   he.debug = false;
+  he.product_reference = "";
   if((Boolean(parseInt(he.status)) && he.run.verify()) || Boolean(parseInt(he.preview))){
     he.run.presets();
     jQuery(document).ready(function(){
@@ -196,7 +272,7 @@ he.run.ignite = function(){
       he.run.contents();
       he.run.afterthought();
       he.run.account();
-      if((Boolean(parseInt(he.pinterest)))) he.run.pinterest();
+      if((Boolean(parseInt(he.pinterest))) && he.pinterest_global) he.run.pinterest();
       he.run.facebook();
       he.run.twitter();
       he.run.products();

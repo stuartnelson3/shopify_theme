@@ -245,45 +245,8 @@
         buyButton.removeClass("disabled bg-blue js-notify-hook").removeAttr("disabled"); // remove unavailable class from add-to-cart button, and re-enable button
         // has no inventory
         if(variant.inventory_quantity <= 0){
-          // buyButton.val("Add to Bag").removeClass("sold-out default")
-          //                            {% unless product.type == "Pants" or product.type == "Skirts" %}
-          //                              .addClass("default");
-          //                           {% endunless %}
           $("div#purchase p").css({ display: "none" });
-          // if inventory is 0 on selected size, need to check the unhemmed size for quantity
-          // update to show message when unhemmed sizes go out of stock
-          {% if product.type == "Pants" or product.type == "Skirts" %}
-            // split the values up into an array
-            var ints = $(".bottoms-quantity").text().split(",");
-            var returnInt = function(element) {
-              return parseInt(element, 10);
-            }
-            // map the values from the array into a new array as integers
-            var quantity = ints.map(returnInt);
-            
-            // gets the integer value of the selected waist size
-            var waistsize = parseInt(prod_sel0.val(), 10)
-            // compares the selected waist size to the inventory for the unhemmed length
-            if (quantity[waistsize - 24] === 0) {
-              buyButton.val("Notify Me")
-                       .addClass("bg-blue js-notify-hook")
-                       .removeClass("pre-order default disabled sold-out js-buy-button")
-                       .removeAttr("disabled");
-            }
-            else {
-              buyButton.val("Add to bag")
-                       .addClass("js-buy-button")
-                       .removeClass("disabled bg-blue js-notify-hook sold-out")
-                       .removeAttr("disabled");
-              $delay.css(show)
-            }
-            // quantity[waistsize - 24] === 0 ? $nostock.css(show) : $delay.css(show)
-            {% else %}
-              buyButton.val("Notify Me")
-                       .addClass("bg-blue js-notify-hook")
-                       .removeClass("pre-order default disabled sold-out")
-                       .removeAttr("disabled");
-            {% endif %}
+          {% include 'pants-skirts-inventory' %}
         }
         // has inventory
         else{
@@ -381,7 +344,7 @@
   <script type="text/javascript">
     function clickclear(thisfield, defaulttext) {
         if (thisfield.value == defaulttext) {
-    	thisfield.value = "";
+        thisfield.value = "";
     	}
     	}
 
