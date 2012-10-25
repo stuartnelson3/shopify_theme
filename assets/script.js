@@ -1,6 +1,7 @@
 // HIDES MODAL POPUPS
 $(".js-modal-close").on("click", function(){
   $(this).closest(".js-modal-container").fadeOut("medium");
+  return false;
 });
 // SIZE CHART
 // REVEALS SIZE CHART MODAL ON PRODUCT PAGE
@@ -52,7 +53,7 @@ var purchaseItem = function($form_id) {
     };
     $.ajax(params);	
 };
-$(".js-buy-button").on("click", function(){
+$(document).on("click", ".js-buy-button", function(){
   var $id = $(this).closest(".variants");
   purchaseItem($id);
 });
@@ -137,9 +138,10 @@ $(document).on("click", ".js-notify-me", function() {
   var email = $(".js-notify-email").val();
   var product = $(".product-title").text();
   var $invalidemail = $(".js-invalid-email");
+  var url = "http://salty-reef-8691.herokuapp.com/back-in-stock";
   var size;
   $(".single-option-selector").each(function() { size += $(this).val(); });
-  var url = "http://salty-reef-8691.herokuapp.com/back-in-stock";
+  size = size.replace("undefined","")
   
   $invalidemail.hide();
   var params = {

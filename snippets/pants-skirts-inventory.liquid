@@ -1,0 +1,64 @@
+// compare function, depending on input returns function that 
+// compares to different inventory quantities
+var _compare_inventory = function(offset) {
+  return function (selected_size) {
+    if (quantity[selected_size - offset] < 1) {
+      buyButton.val("Notify Me")
+               .addClass("bg-blue js-notify-hook")
+               .removeClass("pre-order default disabled sold-out js-buy-button")
+               .removeAttr("disabled");
+    }
+    else {
+      buyButton.val("Add to bag")
+               .addClass("js-buy-button")
+               .removeClass("disabled bg-blue js-notify-hook sold-out")
+               .removeAttr("disabled");
+      $delay.css(show)
+    }
+  }
+};
+var unhemmed_check = _compare_inventory(24);
+var short_check = _compare_inventory(14);
+var regular_check = _compare_inventory(4);
+var long_check = _compare_inventory((-6));
+var xlong_check = _compare_inventory((-16));
+
+// split the values up into an array
+var prod_sel1_index = $("#product-select-option-1 option:selected").index();
+var ints = $(".bottoms-quantity").text().split(",");
+var returnInt = function(element) {
+  return parseInt(element, 10);
+}
+// map the values from the array into a new array as integers
+var quantity = ints.map(returnInt);
+
+// gets the integer value of the selected waist size
+var waistsize = parseInt(prod_sel0.val(), 10)
+{% if product.type == "Pants" %}
+
+  // compares the selected waist size to the inventory for the appropriate length
+  
+  // check unhemmed
+    unhemmed_check(waistsize);
+    
+  // if size selected is long or shorter, check xlong too
+  if (buyButton.val() === "Notify Me" && prod_sel1_index > 1  && prod_sel1_index < 5) {
+    xlong_check(waistsize);
+  }
+  // if size selected is regular or shorter, check long too
+  if (buyButton.val() === "Notify Me" && prod_sel1_index > 1  && prod_sel1_index < 4) {
+    long_check(waistsize);
+  }
+  // if size selected is short, check regular too
+  if (buyButton.val() === "Notify Me" && prod_sel1_index === 2) {
+    regular_check(waistsize);
+  }
+  // quantity[waistsize - 24] === 0 ? $nostock.css(show) : $delay.css(show)
+{% elsif product.type == "Skirts" %}
+  unhemmed_check(waistsize);
+{% else %}
+  buyButton.val("Notify Me")
+           .addClass("bg-blue js-notify-hook")
+           .removeClass("pre-order default disabled")
+           .removeAttr("disabled");
+{% endif %}

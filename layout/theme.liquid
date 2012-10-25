@@ -118,6 +118,7 @@
           </li>
           <li><a href="http://blog.quincyapparel.com" title="Blog">Blog</a></li>
           <li><a href="/pages/meet-quincy" title="Meet Quincy">Meet Quincy</a></li>
+          <li><a class="take-fit-quiz" href="#" title="Fit Quiz">Fit Quiz</a></li>
         </ul>
       </nav>
     </section>
@@ -211,6 +212,16 @@
         <button class="float-r no-margin bg-blue js-modal-close">CLOSE</button>
       </div>
     </section>
+    <section class="modal js-new-visitor js-modal-container">
+      <a class="close little-space js-modal-close" href="#">Close</a>
+      <div class="modal-div">
+        <h1 class="serif modal-header">Welcome to Quincy!</h1>
+        <p class="em-top">
+          Before you start shopping, <span class="sans-bold blue inline">take our fit quiz</span> to get a personalized size recommendation!
+        </p>
+        <button class="float-r no-margin bg-blue take-fit-quiz js-modal-close">Take the Quiz</button>
+      </div>
+    </section>
   </div><!-- WRAPPER -->
   {% include 'olark' %}
   {% if product %}
@@ -226,40 +237,59 @@
     // var for showing appropriate p
     var show = { display: "inline-block" }
     
+    // add js hook class to buy from button click
+    buyButton.addClass("js-buy-button");
+    
       if (variant && variant.available) {
         // selected a valid variant
-        buyButton.removeClass('disabled bg-blue js-notify-hook').removeAttr('disabled'); // remove unavailable class from add-to-cart button, and re-enable button
+        buyButton.removeClass("disabled bg-blue js-notify-hook").removeAttr("disabled"); // remove unavailable class from add-to-cart button, and re-enable button
+        // has no inventory
         if(variant.inventory_quantity <= 0){
-          buyButton.val("Add to Bag").removeClass("sold-out default")
-                                     {% unless product.type == "Pants" or product.type == "Skirts" %}
-                                       .addClass("default");
-                                    {% endunless %}
+          // buyButton.val("Add to Bag").removeClass("sold-out default")
+          //                            {% unless product.type == "Pants" or product.type == "Skirts" %}
+          //                              .addClass("default");
+          //                           {% endunless %}
           $("div#purchase p").css({ display: "none" });
-          
           // if inventory is 0 on selected size, need to check the unhemmed size for quantity
           // update to show message when unhemmed sizes go out of stock
-          var shortlength = prod_sel1.find(":contains(Short)").is(":selected");
-          var reglength = prod_sel1.find(":contains(Regular)").is(":selected");
-          var longlength = prod_sel1.find(":contains(Long)").is(":selected");
           {% if product.type == "Pants" or product.type == "Skirts" %}
             // split the values up into an array
             var ints = $(".bottoms-quantity").text().split(",");
             var returnInt = function(element) {
-              return parseInt(element,10);
+              return parseInt(element, 10);
             }
             // map the values from the array into a new array as integers
             var quantity = ints.map(returnInt);
             
             // gets the integer value of the selected waist size
-            var waistsize = parseInt(prod_sel0.val(),10)
+            var waistsize = parseInt(prod_sel0.val(), 10)
             // compares the selected waist size to the inventory for the unhemmed length
-            quantity[waistsize - 24] === 0 ? $nostock.css(show) : $delay.css(show)
-          {% else %}
-            $nostock.css(show);
-          {% endif %}
+            if (quantity[waistsize - 24] === 0) {
+              buyButton.val("Notify Me")
+                       .addClass("bg-blue js-notify-hook")
+                       .removeClass("pre-order default disabled sold-out js-buy-button")
+                       .removeAttr("disabled");
+            }
+            else {
+              buyButton.val("Add to bag")
+                       .addClass("js-buy-button")
+                       .removeClass("disabled bg-blue js-notify-hook sold-out")
+                       .removeAttr("disabled");
+              $delay.css(show)
+            }
+            // quantity[waistsize - 24] === 0 ? $nostock.css(show) : $delay.css(show)
+            {% else %}
+              buyButton.val("Notify Me")
+                       .addClass("bg-blue js-notify-hook")
+                       .removeClass("pre-order default disabled sold-out")
+                       .removeAttr("disabled");
+            {% endif %}
         }
+        // has inventory
         else{
-          buyButton.val("Add to Bag").removeClass("pre-order sold-out default bg-blue js-notify-hook");
+          buyButton.val("Add to Bag")
+                   .addClass("js-buy-button")
+                   .removeClass("pre-order sold-out default bg-blue js-notify-hook");
           $("div#purchase p").css({ display: "none" });
           
           // message for when item is in stock but may have a delay
@@ -268,7 +298,7 @@
             {% when 'ansley-dress-berry' %}
               $("div#purchase p").css({ display: "none" });
             {% when 'chelsea-blazer-herringbone' %}
-             $("div#purchase p").css({ display: "none" });
+              $("div#purchase p").css({ display: "none" });
             {% when 'chloe-shirt' %}
               $("div#purchase p").css({ display: "none" });
             {% when 'fiona-blouse' %}
@@ -296,15 +326,24 @@
           {% endcase %}
         }
       }
+      // variant not available
       else {
+        // if on default select options don't allow purchase
         if(prod_sel0.val() == "Length" || prod_sel1.val() == "Bust" || prod_sel0.val() == "Waist" || prod_sel1.val() == "Inseam" || prod_sel1.val() == "Length" || prod_sel1.val() == "Waist" || prod_sel0.val() == "Inseam"){
-          buyButton.val("Add to Bag").removeClass("pre-order sold-out").addClass("default");
+          buyButton.val("Add to Bag")
+                   .addClass("default disabled")
+                   .removeClass("pre-order sold-out")
+                   .attr('disabled', 'disabled');
           $("div#purchase p").css({ display: "none" });
-          buyButton.addClass('disabled').attr('disabled', 'disabled'); // set add-to-cart button to unavailable class and disable button
         }
-        else{
-          buyButton.val("Notify Me").addClass("bg-blue js-notify-hook").removeClass("pre-order default disabled").removeAttr('disabled');
+        // variant not available
+        else {
+          buyButton.val("Notify Me")
+                   .addClass("bg-blue js-notify-hook")
+                   .removeClass("pre-order default disabled js-buy-button")
+                   .removeAttr('disabled');
           $("div#purchase p").css({ display: "none" });
+          
         }
         // variant doesn't exist
       }
@@ -375,13 +414,13 @@ $(document).ready(function(){
 		    });
         });
         });
-        {% comment %}
-        throw this back in for modal on index page
         {% if template == "index" %}
           if(!$.cookie("fq_top") && !$.cookie("fq_length") && !$.cookie("fq_waist") && !$.cookie("fq_bust")){
-            $(".fq-new-container").fadeIn("medium");
+            setTimeout(function(){
+              $(".js-new-visitor").fadeIn("medium");
+            }, 1500);
           }
-        {% endif %}{% endcomment %}
+        {% endif %}
         {% if template == 'product' %}
           $.getScript("{{ 'jq_select.js' | asset_url }}");
         {% endif %}        
