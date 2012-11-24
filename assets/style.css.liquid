@@ -227,14 +227,50 @@ header, div#slideshow nav {
 header span.cart_count {
   position: relative;
   bottom: 5px;
-}
-header span.cart_count {
   color: #ffffff;
   background: url({{ 'cart_count.png' | asset_url }}) no-repeat;
   background-position: -1px -2px;
   text-align: center;
   width: 20px;
   margin-right: 10px;
+}
+.header-mailing-list, .header-mailing-list-form {
+  display: inline-block;
+}
+.header-mailing-list {
+  height: 20px;
+  margin: 3px 0 3px 200px;
+}
+.header-mailing-list-label {
+  position: relative;
+  top: 5px;
+  margin-right: 3px;
+  font-size: 9px;
+  text-transform: uppercase;
+  float: left;
+}
+.header-mailing-list-form {
+
+}
+.header-mailing-list-email {
+  color: #A7A7A7;
+  border: 1px solid #D7D7D7;
+  font-style: italic;
+  padding: 2px 0;
+  height: 15px;
+  text-indent: 6px;
+  font-size: 10px;
+}
+#mc-embedded-subscribe {
+  margin: 0;
+  font-size: 9px;
+  height: 21px;
+  padding: 4px 6px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+  width: auto;
 }
 
 /*======================
@@ -635,13 +671,13 @@ div.index span {
   line-height: 1;
 }
 div.image_one span {
-  bottom: 60px;
-  left: 15px;
+  bottom: 50px;
+  left: 20px;
   width: 230px;
 }
 div.image_one a {
   bottom: 25px;
-  left: 16px;
+  left: 20px;
 }
 div.image_two img{
   float: left;
@@ -655,11 +691,12 @@ div.image_two span {
 .image_two a {
   top: 20px;
   left: 20px;
-  width: 215px;
+  width: 115px;
 }
 div.image_three a {
-  bottom: 12px;
-  left: 55px;
+  bottom: 25px;
+  right: 5px;
+  width: 190px;
 }
 section.promo {
   float: left;
@@ -1074,6 +1111,9 @@ div.top {
 div.bottom {
   top: 19px;
 }
+div.color {
+  top: 42px;
+}
 .selector-wrapper select, #product-select {
   display: none;
 }
@@ -1096,7 +1136,8 @@ div.bottom {
   cursor: pointer;
 }
 .pselect-box a img, .select-box a img {
-    float: right;
+    position: absolute;
+    right: 0;
 	margin: 4px 4px 0 0;
 	width: 7px;
 	opacity: .6;
@@ -1135,6 +1176,9 @@ ul.selector li:active {
 ========================*/
 
 div.fits-like {
+  position: absolute;
+  right: -25px;
+  bottom: -1px;
   width: 165px;
   height: 10px;
   margin-bottom: 5px;
@@ -1173,13 +1217,13 @@ input#add-to-cart.sold-out, input#add-to-cart.disabled {
 div.swatch a.close {
   display: none;
 }
-div.buy-menu form label {
+.buy-menu form label {
   text-transform: uppercase;
   width: 50px;
   font-size: 10px;
   margin: 0 5px 8px 0;
 }
-div.buy-menu form label[for="product-select-option-2"] {
+.buy-menu form label[for="product-select-option-2"] {
   margin-bottom: 5px;
 }
 section.love_it {
@@ -1226,6 +1270,10 @@ div.about_product div.details_dropdown, div.about_product div.fit_dropdown {
 }
 div.details_dropdown ul {
   margin: 0;
+}
+.fit_dropdown ul {
+ margin-bottom: 0;
+  overflow: hidden;  
 }
 div.details_dropdown ul li {
   font-weight: 300;
@@ -1514,7 +1562,7 @@ div.contact_form label[for=message] {
   vertical-align: top;
   padding-top: 5px
 }
-div.contact_form input[type=text], div.contact_form input[type=email], div.contact_form textarea, div.gift-container input[type=email], div.gift-container input[type=text] {
+div.contact_form input[type=text], div.contact_form input[type=email], div.contact_form textarea, .gift-card-input {
   border: 1px solid #d7d7d7;
   color: #252525;
   opacity: .9;
@@ -1926,32 +1974,31 @@ img.logos {
         Gift Card
 ========================*/
 
-div.gift-container {
+.gift-card-main-section {
+  position: relative;
+  margin: 20px 0 80px;
+}
+.gift-container {
   border: 1px solid #d7d7d7;
   border-right: none;
+  height: 380px;
 }
-div.gift-container form label {
+.gift-container form label {
   width: 120px;
-  margin-bottom: 0;
+  margin-bottom: 16px;
 }
-div.gift-card {
-  margin: 60px 0 0 250px;
-  width: 400px;
-  padding: 54px 0 20px;
+.gift-card-info {
+  width: 450px;
 }
-div.gift-card h3 {
+.gift-card-info h3 {
   margin-bottom: 1em;
-}
-p.gift-card {
-  margin-top: 1em;
 }
 .ui-helper-clearfix {
   display: none;
 }
-section.gift-card-terms {
-  margin: 20px;
+.gift-card-terms {
 }
-section.gift-card-terms h3, section.gift-card-terms li {
+.gift-card-terms h3, .gift-card-terms li {
   margin-bottom: 1em;
   line-height: 1.55;
 }
@@ -1963,7 +2010,62 @@ section.gift-card-terms h3, section.gift-card-terms li {
 .ui-widget-content {
   border: 1px solid #d7d7d7 !important;
 }
-
+.gift-card-image {
+  margin: 70px 0 0 220px;
+  width: 400px;
+}
+.gift-card-info, .gift-card-terms {
+  display: none;
+}
+.js-gift-card-accordion {
+  display: inline-block;
+  cursor: pointer;
+}
+.gift-card-details {
+  margin: 0 0 0 210px;
+  padding-bottom: 10px;   
+}
+.gift-card-input {
+  width: 297px;    
+}
+.gift-card-form {
+  display: none;
+  position: relative;
+}
+.gift-card-form-first {
+  display: block;   
+}
+.last-gift-card-label {
+  margin-bottom: 34px;    
+}
+.gift-card {
+  left: 90px;
+  bottom: 65px;  
+}
+.gift-card-validation-message {
+  text-indent: -9999px;
+  font-size: 10px;
+  letter-spacing: 0;
+  width: 110px;
+  margin-left: 20px;
+}
+.show-validation {
+  text-indent: 0;
+}
+.ui-datepicker .ui-datepicker-header {
+  display: block;
+}
+.gift-card-message {
+  border: 1px solid #D7D7D7;
+  width: 293px;
+  margin: .3em 0 1em;
+}
+.js-open-gift-card-modal {
+  margin-top: 20px;    
+}
+.invalid-gift-card-input {
+  border-color: #D3018D;
+}
 /*======================
         Notify Me
 ========================*/
@@ -1985,7 +2087,7 @@ section.gift-card-terms h3, section.gift-card-terms li {
       Modal Popups
 ========================*/
 
-.modal {
+.modal, .new-visitor-modal {
   display: none;
   position: fixed;
   top: 120px;
@@ -1994,6 +2096,10 @@ section.gift-card-terms h3, section.gift-card-terms li {
   border: 1px solid #D7D7D7;
   width: 340px;
   margin: 0 320px;
+}
+.new-visitor-modal {
+  width: 500px;
+  margin: 0 248px;
 }
 .modal-div {
   margin: 20px;
@@ -2004,7 +2110,33 @@ section.gift-card-terms h3, section.gift-card-terms li {
   padding-bottom: 18px;
   text-align: center;
 }
-
+.new-user-modal {
+  display: inline-block;
+  width: 210px;
+  margin-top: 20px;
+}
+.first-time {
+  border-right: 1px solid #5A5A5A;
+  margin-right: 15px;
+  padding-right: 20px;   
+}
+.first-time .take-fit-quiz {
+  margin-top: 17px;    
+}
+.new-user-list {
+  margin-left: 17px;    
+}
+.new-user-list li {
+  font-size: 11px;
+  margin-bottom: 5px;
+  line-height: 1.55;
+}
+.modal-customer-login label {
+  margin-top: 16px;      
+}
+.modal-customer-login input {
+  width: 198px;    
+}
 /*======================
       Style Controls
 ========================*/
@@ -2061,6 +2193,11 @@ section.gift-card-terms h3, section.gift-card-terms li {
   margin-top: 9px;
   height: 18px;
   width: 160px;
+}
+.form-label {
+  text-transform: uppercase;
+  font-size: 10px;
+  display: block;
 }
 
 /*======================

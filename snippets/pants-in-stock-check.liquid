@@ -1,0 +1,165 @@
+// compare function, depending on input returns function
+// that returns the inventory value
+var _compare_inventory = function(offset) {
+  return function(selected_size) {
+    return quantity[selected_size - offset]
+  }
+}
+// functions returned from above
+var unhemmed_check = _compare_inventory(24)
+var short_check = _compare_inventory(14)
+var regular_check = _compare_inventory(4)
+var long_check = _compare_inventory((-6))
+var xlong_check = _compare_inventory((-16))
+// calculate how much we're in the hole
+var smaller_length_quantity = function() {
+  var deficit = 0
+
+  // if size selected is regular or longer, check inventory
+  if (prod_sel1_index > 2) {
+    deficit += short_check(waistsize)
+  }
+  // if size selected is long or longer, check regular inventory
+  if (prod_sel1_index > 3) {
+    deficit += regular_check(waistsize)
+  }
+  // if size selected is extra-long, check long inventory
+  if (prod_sel1_index === 5 && xlong_check(waistsize) !== undefined) {
+    deficit += regular_check(waistsize)
+  }
+  return deficit
+}
+var inventory_deficit = function() {
+  var deficit = 0
+  // check unhemmed
+  deficit += unhemmed_check(waistsize)
+  // check existence of extra-long length
+  if (xlong_check(waistsize) !== undefined) {
+    deficit += xlong_check(waistsize)
+  }
+  deficit += long_check(waistsize)
+  deficit += regular_check(waistsize)
+  deficit += short_check(waistsize)
+  return deficit
+}
+var act_on_inventory_quantity = function(value) {
+  if (value < 1) {
+    buyButton.addClass("bg-blue")
+             .removeClass("pre-order default disabled sold-out")
+             .removeAttr("disabled")
+             {% case handle %}
+             {% when 'chelsea-herringbone-pencil-skirt' %}
+             .removeClass("js-notify-hook")
+             .addClass("js-buy-button")
+             .val("Pre-Order")
+             $preorder.css(show)
+             {% else %}
+             .addClass("js-notify-hook")
+             .removeClass("js-buy-button")
+             .val("Notify Me")
+             {% endcase %}
+
+  }
+  else {
+    buyButton.val("Add to bag")
+             .addClass("js-buy-button")
+             .removeClass("disabled bg-blue js-notify-hook sold-out")
+             .removeAttr("disabled")
+    $delay.css(show)
+  }
+}
+
+// split the values up into an array
+var prod_sel1_index = $("#product-select-option-1 option:selected").index()
+var ints = $(".bottoms-quantity").text().split(",")
+var returnInt = function(element) {
+  return parseInt(element, 10)
+}
+// gets the integer value of the selected waist size
+var prod_sel0 = $("#product-select-option-0")
+var waistsize = parseInt(prod_sel0.val(), 10)
+// map the values from the array into a new array as integers
+var quantity = ints.map(returnInt)
+
+{% if product.type == "Pants" %}
+  if ((variant.inventory_quantity + smaller_length_quantity(waistsize)) < 1){
+    act_on_inventory_quantity(inventory_deficit())
+  }
+  else {
+    buyButton.val("Add to Bag")
+                   .addClass("js-buy-button")
+                   .removeClass("pre-order sold-out default bg-blue js-notify-hook");
+          $("div#purchase p").css({ display: "none" });
+          
+          // message for when item is in stock but may have a delay
+          // hemming delay message for pants/skirts
+          {% case handle %}
+            {% when 'ansley-dress-berry' %}
+              $("div#purchase p").css({ display: "none" });
+            {% when 'chelsea-blazer-herringbone' %}
+              $("div#purchase p").css({ display: "none" });
+            {% when 'chloe-shirt' %}
+              $("div#purchase p").css({ display: "none" });
+            {% when 'fiona-blouse' %}
+              $("div#purchase p").css({ display: "none" });
+            {% when 'elliott-pencil-skirt' %}
+              $("div#purchase p").css({ display: "none" });
+            {% when 'elliott-sheath-black' %}
+              $("div#purchase p").css({ display: "none" });
+            {% when 'elliott-blazer-black' %}
+              $("div#purchase p").css({ display: "none" });
+            {% when 'elliott-trouser-black' %}
+              $("div#purchase p").css({ display: "none" });
+            {% when 'elliott-pant-black' %}      
+              $("div#purchase p").css({ display: "none" });
+            {% when 'elliott-sheath-skirt' %}
+              $("div#purchase p").css({ display: "none" });
+            {% when 'riley-sheath-navy' %} 
+              $("div#purchase p").css({ display: "none" });
+            {% when 'riley-blazer-cobalt' %}
+              $("div#purchase p").css({ display: "none" });
+            {% when 'riley-pant-cobalt' %}
+              $("div#purchase p").css({ display: "none" });
+            {% when 'riley-skirt-cobalt' %} 
+              $("div#purchase p").css({ display: "none" });
+          {% endcase %}
+  }
+{% else %}
+  buyButton.val("Add to Bag")
+                   .addClass("js-buy-button")
+                   .removeClass("pre-order sold-out default bg-blue js-notify-hook");
+          $("div#purchase p").css({ display: "none" });
+          
+          // message for when item is in stock but may have a delay
+          // hemming delay message for pants/skirts
+          {% case handle %}
+            {% when 'ansley-dress-berry' %}
+              $("div#purchase p").css({ display: "none" });
+            {% when 'chelsea-blazer-herringbone' %}
+              $("div#purchase p").css({ display: "none" });
+            {% when 'chloe-shirt' %}
+              $("div#purchase p").css({ display: "none" });
+            {% when 'fiona-blouse' %}
+              $("div#purchase p").css({ display: "none" });
+            {% when 'elliott-pencil-skirt' %}
+              $("div#purchase p").css({ display: "none" });
+            {% when 'elliott-sheath-black' %}
+              $("div#purchase p").css({ display: "none" });
+            {% when 'elliott-blazer-black' %}
+              $("div#purchase p").css({ display: "none" });
+            {% when 'elliott-trouser-black' %}
+              $("div#purchase p").css({ display: "none" });
+            {% when 'elliott-pant-black' %}      
+              $("div#purchase p").css({ display: "none" });
+            {% when 'elliott-sheath-skirt' %}
+              $("div#purchase p").css({ display: "none" });
+            {% when 'riley-sheath-navy' %} 
+              $("div#purchase p").css({ display: "none" });
+            {% when 'riley-blazer-cobalt' %}
+              $("div#purchase p").css({ display: "none" });
+            {% when 'riley-pant-cobalt' %}
+              $("div#purchase p").css({ display: "none" });
+            {% when 'riley-skirt-cobalt' %} 
+              $("div#purchase p").css({ display: "none" });
+          {% endcase %}
+{% endif %}

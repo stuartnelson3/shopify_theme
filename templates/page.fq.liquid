@@ -1,7 +1,7 @@
 <div id="fit-quiz-top">
   <div id="fqt">
     <div class="clearfix">
-      <span class="fqt-0 fleft">0 / FIND YOUR PERFECT SIZE</span>
+      <span class="fqt-0 fleft">0 / START THE QUIZ</span>
       <span class="fqt-1 fleft"> <img id="fqi-0" src="{{'blank.gif' | asset_url }}" class="fq-visual-steps fq-visual-active">
         <img id="fqi-1" src="{{'blank.gif' | asset_url }}" class="fq-visual-steps"> <img id="fqi-2" src="{{'blank.gif' | asset_url }}" class="fq-visual-steps">
         <img id="fqi-3" src="{{'blank.gif' | asset_url }}" class="fq-visual-steps"> <img id="fqi-4" src="{{'blank.gif' | asset_url }}" class="fq-visual-steps">
@@ -27,7 +27,8 @@
       <div class="measurements">
         <div class="clearfix">
           <p>What is your height?</p>
-          <div class="select-box fq fleft" id="select-feet"> <a class="field"> <span class="info">Feet</span> <img src="{{'down-triangle.gif' | asset_url }}"> </a>
+          <div class="select-box fq fleft" id="select-feet">
+            <a class="field"> <span class="info">Feet</span> <img src="{{'down-triangle.gif' | asset_url }}"> </a>
             <ul class="selector">
               <li>4</li>
               <li>5</li>
@@ -164,7 +165,7 @@
         <p><font style="color:#d3018d;">Tops and Dresses:</font> In brands like J. Crew, Ann <br/>
           Taylor, or Banana Republic; what size fits <br/>
           you well in the shoulders and arms?</p>
-        <div id="select-dress_size" class="select-box fq"> <a class="field"> <span class="info">Select Answer</span> <img src="{{'down-triangle.gif' | asset_url }}"> </a>
+        <div id="select-dress_size" class="select-box fq"> <a class="field"> <span class="info">Select Size</span> <img src="{{'down-triangle.gif' | asset_url }}"> </a>
           <ul class="selector">
             <li>00</li>
             <li>0</li>
@@ -199,6 +200,19 @@
             <option value="24+">24+</option>
           </select>
         </div>
+          <div id="select-height" class="select-box fq"> <a class="field"> <span class="info">Select Length</span> <img src="{{'down-triangle.gif' | asset_url }}"></a>
+            <ul class="selector">
+              <li>N/A</li>
+              <li>Petite</li>
+              <li>Tall</li>
+            </ul>
+            <select class="page1 fleft" id="height" name="height">
+              <option selected="selected" value="N/A">N/A</option>
+              <option value="Petite">Petite</option>
+              <option value="Tall">Tall</option>
+            </select>
+          </div>
+      <!-- typical length -->
         <p><font style="color:#d3018d;">Pants and Skirts:</font> In brands like J. Crew, Ann Taylor, or Banana Republic; what size fits you best in the hips and thighs?</p>
         <div id="select-pant_size"class="select-box fq"> <a class="field"> <span class="info">Select Answer</span> <img src="{{'down-triangle.gif' | asset_url }}"> </a>
           <ul class="selector">
@@ -372,7 +386,7 @@
     </div>
   </div>
   <!-- fq-4 -->
-  <div id="fq-5" class="fq-basic" style="height: 700px !important;">
+  <div id="fq-5" class="fq-basic" style="height: 750px !important;">
   <div class="clearfix">
     <h2 class="serif-thin blue">Your Perfect Size:</h2>
     <div class="fleft"> 
@@ -384,7 +398,7 @@
         <span class="hagrid">Unavailable</span>
       </h1>
       <p style="width: 221px; font-size: 10px; line-height: 15px; margin-top: 12px;">
-        <span class="hagrid">We currently do not carry your size, but plan to add more sizes in the future. Send us an email at info@quincyapparel.com with your size information if you'd like us to contact you as soon as your size is available.</span>
+        <span class="hagrid">Unfortunately we do not offer your size at this time. We currently carry up to size 14 in tops or up to DD-cup size. We are planning to expand our range of sizes and styles as we grow. Quincy was started to offer better fitting solutions for women and we'd like to be able to have fabulously tailored clothing available for as many women as possible. Send us an email at <a href="mailto:info@quincyapparel.com?subject=fitquiz">info@quincyapparel.com</a> with your size information if you'd like us to contact you as soon as your size is available.</span>
         <span class="dress-warning">For better fit through the hips, we recommend ordering one bust size up in dresses.</span>
         <span class="details">Petite, regular, and tall sizes take into account your proportions. Sizing by bust measurement creates a more fitted and flattering silhouette.</span>
         </p>
@@ -398,7 +412,7 @@
         <span class="hagrid">Unavailable</span>
       </h1>
       <p style="width: 204px; font-size: 10px; line-height: 15px; margin-top: 12px;">
-        <span class="hagrid">We currently do not carry your size, but plan to add more sizes in the future. Send us an email at info@quincyapparel.com with your size information if you'd like us to contact you as soon as your size is available.</span>
+        <span class="hagrid">Unfortunately we do not offer your size at this time. We currently carry up to size 16 in bottoms. We are planning to expand our range of sizes and styles as we grow. Quincy was started to offer better fitting solutions for women and we'd like to be able to have fabulously tailored clothing available for as many women as possible. Send us an email at <a href="mailto:info@quincyapparel.com?subject=fitquiz">info@quincyapparel.com</a> with your size information if you'd like us to contact you as soon as your size is available.</span>
         <span class="details">Just like your favorite pair of jeans, our sizes are in inches! All garments come in at least 3 lengths &mdash; so that you can find the right length for your favorite pair of pumps.</span>
         </p>        
     </div>
@@ -412,9 +426,10 @@
     </div>
   </div>
   <!-- questions -->
-  <div style="margin-left: 50px;" class="fleft">
+  <div style="margin-left: 50px; width: 620px;" class="fleft">
   <h3 style="font-weight: 900; font-size: 13px; position: relative; top: -4px; left: -1px; color: rgb(3, 29, 72); margin-bottom: 10px;">SAVE IT FOR LATER.</h3>
-  <p style="line-height: 16px;">We make shopping easy breezy &mdash; just log in and your size will automatically be selected as you shop.</p>
+  <p>Save your size and get a personalized shopping experience!</p>
+  <p style="line-height: 16px;">Our stylists will review your order and suggest 2nd sizes based on your fit profile. We make shopping easy breezy &mdash; just log in and your size will automatically be selected as you shop.</p>
   <div id="customer-login-wrap">
   <div class="fleft" id="update-profile" style="height: 180px; width: 250px; padding: 12px 0px 10px;">
   

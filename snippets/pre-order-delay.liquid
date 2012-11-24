@@ -1,13 +1,13 @@
-<p class="order-delays">
-{% case handle %}
+<p class="pre-order">
+  {% case handle %}
   {% when 'ansley-dress-berry' %}  
-
+    Reserve yours today. Ships 12/14.
   {% when 'jane-jacket' %}
 
   {% when 'emma-jacket' %}
 
-  {% when 'chelsea-blazer-herringbone' %}
-    
+  {% when 'chelsea-blazer-herringbone' or 'chelsea-herringbone-pencil-skirt' %}
+    Reserve yours today. Ships 12/14.
   {% when 'kennedy-blouse-peplum' %}
 
   {% when 'chloe-shirt'%}
@@ -29,7 +29,47 @@
   {% when 'riley-sheath-navy' %}
     
   {% when 'riley-blazer-cobalt' %}   
+    Ships in two weeks
+  {% when 'riley-pant-cobalt' %}
+    Ships within one week.
+  {% when 'riley-skirt-cobalt' %}  
+    Ships within one week.
+{% endcase %}
+</p>
+<p class="order-delays">
+{% case handle %}
+  {% when 'ansley-dress-berry' %}  
+    Reserve yours today. Ships 12/14.
+  {% when 'jane-jacket' %}
 
+  {% when 'emma-jacket' %}
+
+  {% when 'chelsea-blazer-herringbone' %}
+    Reserve yours today. Ships 12/14.
+  {% when 'chelsea-herringbone-pencil-skirt' %}
+    Ships within one week.
+  {% when 'kennedy-blouse-peplum' %}
+
+  {% when 'chloe-shirt'%}
+
+  {% when 'fiona-blouse' %}
+
+  {% when 'elliott-pencil-skirt' %}
+    Ships within one week.
+  {% when 'elliott-sheath-black' %}
+    
+  {% when 'elliott-blazer-black' %}
+
+  {% when 'elliott-trouser-black' %}    
+    Ships within one week.
+  {% when 'elliott-pant-black' %}   
+    Ships within one week.
+  {% when 'elliott-sheath-skirt' %}    
+    Ships within one week.
+  {% when 'riley-sheath-navy' %}
+    
+  {% when 'riley-blazer-cobalt' %}   
+    Ships in two weeks
   {% when 'riley-pant-cobalt' %}
     Ships within one week.
   {% when 'riley-skirt-cobalt' %}  

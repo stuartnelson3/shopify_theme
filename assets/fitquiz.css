@@ -92,8 +92,10 @@ div.button {
 	display:inline-block;
 }
 div.select-box{
+    margin:0 17px 17px 3px;
 	left:0px;
-	position:relative;	
+	position:relative;
+    display: inline-block;
 }
 #fq-1 {
   height: 365px;
@@ -111,11 +113,9 @@ div.select-box{
   width: 290px;
 }
 #fq-1 a.field{
-	margin:0 17px 17px 3px;
 	width: 68px;	
 }
 #fq-1 ul.selector{
-  margin-left: 3px;
   width: 68px;
 }
 #fq-1 ul.selector li{
@@ -141,6 +141,7 @@ div.select-box{
 }
 #top-dresses .select-box{
 	margin-bottom: 25px;
+    margin-right: 14px;
 }
 #fq-col-44{	
 	width: 200px;

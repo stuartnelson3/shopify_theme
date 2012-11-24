@@ -1,6 +1,39 @@
 {% include 'rich-snippet' %}
-<section class="slide_show">
-  <div class="gift-card">
+<section class="gift-card-main-section">
+  {% for image in product.images %}
+    <img class="gift-card-image" src="{{ image | product_img_url: 'large' }}" alt="{{ product.title }}" title="{{ product.title }}" />
+  {% endfor %}
+  <div class="buy-container gift-container">
+    <div class="buy-menu">    
+      <h3>{{ product.title }}</h3>
+      <h4 class="serif-thin"> &ldquo;{{ product.description }}&rdquo;</h4>
+      <div class="lower-container">
+        <p class="em-top">Send it directly to the recipient on the day of your choosing, with a personal message from you.</p>     
+        <form action="/cart/add" method="post" class="variants" id="product-actions">
+          <label for"product-select" class="form-label last-gift-card-label">Amount</label>
+          <select id="product-select" name="id">
+            {% for variant in product.variants %}
+            <option value="{{ variant.id }}">
+              {{ variant.title | escape }}
+            </option>
+            {% endfor %}
+          </select>
+          <div class="pselect-box gift-card">
+            <a class="field">
+              <span class="info">Select</span>
+              <img src="{{'down-triangle.gif' | asset_url }}" />
+            </a>
+            <ul class="selector_0 selector"></ul>
+          </div>
+          <input class="js-open-gift-card-modal" type="button" onclick="pageTracker._trackEvent('Button', 'Open Modal', 'Gift Card Page');" name="add" value="Get One" />
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="gift-card-details">
+  <h3 class="js-gift-card-accordion blue hover em-bottom" data-name=".gift-card-info">Details <span class="js-plus">+</span></h3>
+  <section class="gift-card-info">
     <h3>How does the Quincy E-Gift card work?</h3>
     <p>Choose the amount and date to send the gift, and we’ll email the recipient your personalized message along with a gift card code they can use towards the purchase of any merchandise on our website.</p>
     <h3>How can I redeem my Quincy E-Gift Card?</h3>
@@ -9,57 +42,54 @@
     <p>To check your balance for later use, just call us at 888.864.9942, email info@quincyapparel.com, or chat with us on our website- we’ll quickly look it up for you.</p>
     <h3>Can I use multiple Quincy Gift Cards to make a purchase?</h3>
     <p>Multiple Quincy E-Gift Cards cannot be used to make a single purchase. If you want to use multiple gift cards, consider placing multiple orders. Or chat with us and we can help.</p>
-  </div>
-  <div class="buy-container gift-container">
-    <div class="buy-menu">    
-      <h3>{{ product.title }}</h3>
-      <h4> &ldquo;{{ product.description }}&rdquo;</h4>
-      <div class="lower-container">
-        <p class="gift-card">Send it directly to the recipient on the day of your choosing, with a personal message from you.</p>
-        <form action="/cart/add" method="post" class="variants" id="product-actions">
-          <div class="options">
-            <label for="name">Your Name</label>
-            <input type="text" id="name" name="gifter_name" />
-            <label for="email">Your Email</label>
-            <input type="email" id="email" class="email" name="giftee_email" />
-            <label for="name">Recipient's Name</label>
-            <input type="text" id="name" name="gifter_name" />
-            <label for="email">Recipient's Email</label>
-            <input type="email" id="email" class="email" name="giftee_email" />
-            <label for"datepicker">Delivery Date</label>
-            <input type="text" id="datepicker" size="30"/>
-            <label for"product-select">Amount</label>
-            <select id="product-select" name="id">
-              {% for variant in product.variants %}
-              <option value="{{ variant.id }}">
-                {{ variant.title | escape }}
-              </option>
-              {% endfor %}
-            </select>
-            <div class="pselect-box top">
-              <a class="field">
-                <span class="info">Select</span>
-                <img src="{{'down-triangle.gif' | asset_url }}" />
-              </a>
-              <ul class="selector_0 selector"></ul>
-            </div>
-          </div>                   
-          <div id="purchase">                               
-            <input type="button" onclick="purchaseItem('product-actions');" name="add" id="add-to-cart" value="Add to Bag" />
-          </div>
-        </form>
+    <h3>What if I want to purchase a different amount?</h3>
+    <p>Email us at <a href="mailto:info@quincyapparel.com?subject=giftcard">info@quincyapparel.com</a> and we can arrange a gift card in any amount that you'd like.</p>
+  </section>
+</div>
+<div class="gift-card-details">
+  <h3 class="js-gift-card-accordion blue hover em-bottom" data-name=".gift-card-terms">Terms and Conditions <span class="js-plus">+</span></h3>
+  <section class="gift-card-terms">
+    <ul>
+      <li>Quincy Gift Cards have no expiration dates or dormancy fees.</li> 
+      <li>Coupons and discounts cannot be applied to Gift Card purchases.</li>
+      <li>Quincy Gift Cards are non-refundable and cannot be transferred, exchanged, or resold and cannot be redeemed for cash (except where required by law).</li> 
+      <li>Gift Cards cannot be used to purchase other gift cards.</li>
+      <li>We have the right to cancel the Quincy Gift Card if obtained fraudulently.</li>
+      <li>Restricted to use in the U.S. E-gift cards only issued in U.S. dollars.</li>
+    </ul>
+  </section>
+</div>
+<section class="modal js-buy-gift-card js-modal-container">
+  <a class="close little-space js-modal-close" href="#">Close</a>
+  <div class="modal-div">
+    <h1 class="serif modal-header">E-Gift Card</h1>
+    
+      <div class="options">
+        <div class="gift-card-form gift-card-form-first">
+          <label for="name" class="form-label em-top">Your Name</label>
+          <input type="text" class="gift-card-input js-gifter-name gift-card-check" name="gifter_name" />
+          <label for="email" class="form-label">Your Email</label>
+          <input type="email" class="gift-card-input js-gifter-email gift-card-check em-bottom" class="email" name="gifter_email" />
+          <button type="button" class="js-gift-next-button float-r no-margin">Next</button>
+        </div>
+        <div class="gift-card-form">
+          <label for="name" class="form-label em-top">Recipient's Name</label>
+          <input type="text" class="gift-card-input js-giftee-name gift-card-check" name="giftee_name" />
+          <label for="email" class="form-label">Recipient's Email</label>
+          <input type="email" class="gift-card-input js-giftee-email gift-card-check em-bottom" class="email" name="giftee_email" />
+          <button type="button" class="js-gift-previous-button float-l no-margin">Back</button>
+          <button type="button" class="js-gift-next-button float-r no-margin">Next</button>
+        </div>
+        <div class="gift-card-form">
+          <label for"datepicker" class="form-label em-top">Delivery Date</label>
+          <input type="text" class="gift-card-input gift-card-check" id="datepicker" name="deliver_date" size="30" />
+          <label for="message" class="form-label">Message</label>
+          <textarea class="gift-card-message" name="Name" rows="8" cols="40"></textarea>      
+          <span class="gift-card-validation-message blue">Please fill out all form fields and enter valid email addresses.</span>
+          <button type="button" class="js-gift-previous-button float-l no-margin">Back</button>
+          <button type="button" class="js-send-gift-data float-r no-margin" onclick="pageTracker._trackEvent('Button', 'Buy', 'Gift Card Page');">Add to Bag</button>
+        </div>
       </div>
-    </div>
-  </div>  <!-- BUY CONTAINER -->
-</section>  <!-- BUY MENU -->
-<section class="gift-card-terms">
-  <h3>TERMS AND CONDITIONS</h3>
-  <ul>
-    <li>Quincy Gift Cards have no expiration dates or dormancy fees.</li> 
-    <li>Coupons and discounts cannot be applied to Gift Card purchases.</li>
-    <li>Quincy Gift Cards are non-refundable and cannot be transferred, exchanged, or resold and cannot be redeemed for cash (except where required by law).</li> 
-    <li>Gift Cards cannot be used to purchase other gift cards.</li>
-    <li>We have the right to cancel the Quincy Gift Card if obtained fraudulently.</li>
-    <li>Restricted to use in the U.S. E-gift cards only issued in U.S. dollars.</li>
-  </ul>
+    
+  </div>
 </section>

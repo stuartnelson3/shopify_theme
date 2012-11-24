@@ -1,0 +1,27 @@
+<section class="new-visitor-modal js-new-visitor js-modal-container">
+  <a class="close little-space js-modal-close" href="#">Close</a>
+  <div class="modal-div">
+    <h1 class="serif modal-header">Welcome to Quincy!</h1>
+    <div class="new-user-modal first-time float-l">
+      <p class="em-top">
+        First time?
+      </p>
+      <ol class="new-user-list">
+        <li>Take our fit quiz</li>
+        <li>Place your order and get a second size to try for free</li>
+        <li>Free shipping and returns. Just send back what doesn't work</li>
+      </ol>
+      <button class="float-r no-margin bg-blue take-fit-quiz js-modal-close">Get Started</button>
+    </div>
+    <div class="new-user-modal modal-customer-login">
+      <form action="/account/login" method="post">
+         <label for="customer[email]" class="form-label">Email</label>
+         <input class="input" type="text" name="customer[email]" value="" />
+         <label for="customer[password]" class="form-label">Password</label>
+         <input class="input" class="password" type="password" value="" name="customer[password]" />
+         <button type="submit" class="float-r bg-blue" style="margin-top: 45px; margin-bottom: 5px; margin-left: 151px;">LOGIN</button>
+         <a class="float-r" style="font-size: 10px;" href="/account/login">Forgot Your Password?</a>
+       </form>
+    </div>
+  </div>
+</section>

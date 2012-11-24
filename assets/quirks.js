@@ -1,6 +1,6 @@
 function create_user(){
     var fq_sizes = $.cookie('fq_size');
-	var fq_data = $.cookie('fq_data');
+    var fq_data = $.cookie('fq_data');
 	var fq_bust = $.cookie('fq_top').substr(0,2)+$.cookie('fq_bust');
     var fq_length = $.cookie('fq_length');
 	var fq_tmp;  
@@ -34,7 +34,6 @@ function create_user(){
         error: function(jqXHR, textStatus, errorThrown) {}
         };
     
-    
 	request.done(function(data){
         if(data.indexOf('4') >= 0){
             $('.result').fadeOut().empty().html('<span style="color:#D3018D;">This Email Address exists!<br/> Please login Now.').fadeIn();
@@ -43,7 +42,7 @@ function create_user(){
         } else if(data.indexOf('2') >= 0){
             $("#ajaxLoader").remove();
             $(".js-user-create-modal").fadeIn();
-            $.ajax(params);
+            
         } else if(data.indexOf('1')>=0){ // account creation failed
             $('.result').fadeOut().empty().html('<span style="color:#D3018D;">There has been an issue confirming your account!<br/> Your information has been saved! Please be patient while we fix this issue.').fadeIn();
         }
@@ -59,7 +58,7 @@ $(document).ready(function(){
 	$('#createEmail').focusin(function(){$('.result').empty();});
     $('#CreateProfile').submit(function(){
     $('#CreateProfile button[type=submit]').attr('disabled',true);
-    $('#CreateProfile').append('<p id="ajaxLoader" style="position: relative; left: 0px; top: 5px;"><span>Please Wait...</span><img src="https://static.shopify.com/s/files/1/0103/5102/t/59/assets/ajax-loader.gif?25047" style="top: 2px; left: -10px;"></p>');
+    $('#CreateProfile').append('<p id="ajaxLoader" style="position: relative; left: 0px; top: 5px;"><span>Please Wait...</span></p>');
     var i = 0 ; //This is validity
     $('#CreateProfile input').each(function(){
         if($(this).val() ===''){

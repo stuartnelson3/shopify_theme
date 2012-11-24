@@ -50,9 +50,6 @@
     }
   </style>
   {% endif %}
-  {% if template == 'product.gift-card' %}
-    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/smoothness/jquery-ui.css" type="text/css" />
-  {% endif %}
   {% if  product.type == "Pants" %}
     <style type="text/css" media="screen">
       div.buy-menu div.lower-container a.field, div.buy-menu ul.selector {
@@ -84,8 +81,8 @@
   {% else %}
    <title>{{ page_title }} | {{ shop.name }}</title>
   {% endif %}
-
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
   {{ 'jquery.touchSwipe.min.js' | asset_url | script_tag }}
   {{ 'jquery.cookie.js' | asset_url | script_tag }}
@@ -122,11 +119,15 @@
         </ul>
       </nav>
     </section>
-        {% if customer %}
-            <a href="/pages/second-size" class="promo header-push serif">Get a free Second Size with your first ></a>
-        {% else %}
-            <a class="promo take-fit-quiz header-push serif" href="#" title="Fit Quiz">Take our Fit Quiz ></a>
-        {% endif %}
+      <div class="header-mailing-list">
+        <label class="header-mailing-list-label upcase">GET AN INVITE TO SHOP OUR LIMITED EDITION HOLIDAY COLLECTION</label>
+        <!-- Begin MailChimp Signup Form -->
+          <form action="http://quincyapparel.us2.list-manage.com/subscribe/post?u=f6e489de52006317fd8404e9d&amp;id=1e4f0636a3" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate header-mailing-list-form" target="_blank">    
+            <input type="text" value="Email" name="EMAIL" class="email header-mailing-list-email float-l" id="mce-EMAIL" onclick="clickclear(this,'Email')" onblur="clickrecall(this,'Email')" />    
+            <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" onclick="pageTracker._trackEvent('Mailing List', 'Subscribe');" class="button header-mailing-list-submit bg-blue" />
+          </form>
+        <!--End mc_embed_signup-->
+      </div>
       <div class="cart-container">
         <div class="no-margin login-box">
         {% if customer %}
@@ -148,7 +149,7 @@
     <footer>
       <div class="bar">
       </div>
-      <img class="logos" src="{{ 'logos2.png' | asset_url }}" />
+      <img class="logos" src="{{ 'logos3.png' | asset_url }}" />
       <section>
         <div>
           <a class="blue serif-thin" href="/pages/showroom" title="Quincy Showroom">Visit our NYC showroom ></a>
@@ -187,6 +188,7 @@
           <li><a href="/pages/second-size" title="Try A Second Size">Second Size</a></li>
           <li><a href="/pages/size-charts" title="Size Charts">Size Charts</a></li>
           <li><a href="/pages/shipping-and-returns" title="Shipping & Returns">Shipping &amp; Returns</a></li>
+          <li><a href="/products/e-gift-card" title="E-Gift Card">E-Gift Card</a></li>
           <li><a href="/pages/about" title="About">About</a></li>
           <li><a href="/pages/contact" title="Contact">Contact</a></li>
           <li><a href="/pages/press" title="Press">Press</a></li>
@@ -212,16 +214,7 @@
         <button class="float-r no-margin bg-blue js-modal-close">CLOSE</button>
       </div>
     </section>
-    <section class="modal js-new-visitor js-modal-container">
-      <a class="close little-space js-modal-close" href="#">Close</a>
-      <div class="modal-div">
-        <h1 class="serif modal-header">Welcome to Quincy!</h1>
-        <p class="em-top">
-          Before you start shopping, <span class="sans-bold blue inline">take our fit quiz</span> to get a personalized size recommendation!
-        </p>
-        <button class="float-r no-margin bg-blue take-fit-quiz js-modal-close">Take the Quiz</button>
-      </div>
-    </section>
+    {% include 'new-visitor-modal' %}
   </div><!-- WRAPPER -->
   {% include 'olark' %}
   {% if product %}
@@ -230,69 +223,48 @@
     var buyButton = $("#add-to-cart");
     var prod_sel0 = $("#product-select-option-0");
     var prod_sel1 = $("#product-select-option-1");
+    var prod_sel2 = $("#product-select-option-2");
     // p with order delay messages
     var $delay = $(".order-delays");
     // p with out of stock messages
     var $nostock = $(".out-of-stock");
+    // p for pre-order messages
+    var $preorder = $(".pre-order")
     // var for showing appropriate p
     var show = { display: "inline-block" }
     
     // add js hook class to buy from button click
     buyButton.addClass("js-buy-button");
+
+      if (variant) {
+        // update variant-sku modal with sku
+        // of currently selected variant
+        var sku = variant.sku
+        $(".variant-sku").empty().append(sku)
+      }    
     
       if (variant && variant.available) {
+          
         // selected a valid variant
         buyButton.removeClass("disabled bg-blue js-notify-hook").removeAttr("disabled"); // remove unavailable class from add-to-cart button, and re-enable button
         // has no inventory
         if(variant.inventory_quantity <= 0){
           $("div#purchase p").css({ display: "none" });
           {% include 'pants-skirts-inventory' %}
+          {% case handle %}
+            {% when 'ansley-dress-berry' or 'chelsea-blazer-herringbone' %}
+              $delay.css(show);
+          {% endcase %}
         }
         // has inventory
         else{
-          buyButton.val("Add to Bag")
-                   .addClass("js-buy-button")
-                   .removeClass("pre-order sold-out default bg-blue js-notify-hook");
-          $("div#purchase p").css({ display: "none" });
-          
-          // message for when item is in stock but may have a delay
-          // hemming delay message for pants/skirts
-          {% case handle %}
-            {% when 'ansley-dress-berry' %}
-              $("div#purchase p").css({ display: "none" });
-            {% when 'chelsea-blazer-herringbone' %}
-              $("div#purchase p").css({ display: "none" });
-            {% when 'chloe-shirt' %}
-              $("div#purchase p").css({ display: "none" });
-            {% when 'fiona-blouse' %}
-              $("div#purchase p").css({ display: "none" });
-            {% when 'elliott-pencil-skirt' %}
-              $("div#purchase p").css({ display: "none" });
-            {% when 'elliott-sheath-black' %}
-              $("div#purchase p").css({ display: "none" });
-            {% when 'elliott-blazer-black' %}
-              $("div#purchase p").css({ display: "none" });
-            {% when 'elliott-trouser-black' %}
-              $("div#purchase p").css({ display: "none" });
-            {% when 'elliott-pant-black' %}      
-              $("div#purchase p").css({ display: "none" });
-            {% when 'elliott-sheath-skirt' %}
-              $("div#purchase p").css({ display: "none" });
-            {% when 'riley-sheath-navy' %} 
-              $("div#purchase p").css({ display: "none" });
-            {% when 'riley-blazer-cobalt' %}
-              $("div#purchase p").css({ display: "none" });
-            {% when 'riley-pant-cobalt' %}
-              $("div#purchase p").css({ display: "none" });
-            {% when 'riley-skirt-cobalt' %} 
-              $("div#purchase p").css({ display: "none" });
-          {% endcase %}
+          {% include 'pants-in-stock-check' %}
         }
       }
       // variant not available
       else {
         // if on default select options don't allow purchase
-        if(prod_sel0.val() == "Length" || prod_sel1.val() == "Bust" || prod_sel0.val() == "Waist" || prod_sel1.val() == "Inseam" || prod_sel1.val() == "Length" || prod_sel1.val() == "Waist" || prod_sel0.val() == "Inseam"){
+        if(prod_sel0.val() == "Length" || prod_sel0.val() == "Bust" || prod_sel1.val() == "Bust" || prod_sel0.val() == "Waist" || prod_sel1.val() == "Inseam" || prod_sel1.val() == "Length" || prod_sel1.val() == "Waist" || prod_sel0.val() == "Inseam" || prod_sel2.val() == "Color"){
           buyButton.val("Add to Bag")
                    .addClass("default disabled")
                    .removeClass("pre-order sold-out")
@@ -301,10 +273,9 @@
         }
         // variant not available
         else {
-          buyButton.val("Notify Me")
-                   .addClass("bg-blue js-notify-hook")
-                   .removeClass("pre-order default disabled js-buy-button")
-                   .removeAttr('disabled');
+          buyButton.val("Out of Stock")
+                   .addClass("sold-out")
+                   .removeClass("pre-order default disabled js-buy-button bg-blue js-notify-hook");
           $("div#purchase p").css({ display: "none" });
           
         }
@@ -337,7 +308,10 @@
       new Shopify.OptionSelectors(
         "product-select", 
         { product: {{ product | json }}, onVariantSelected: selectCallback }
-      );  
+      );
+      {% if product.options.size == 1 and product.options.first != "Title" and template != "product.gift-card" %}
+        $(".selector-wrapper:eq(0)").prepend("<label>{{ product.options.first }}</label>")
+      {% endif %}  
     });
   </script>
   {% endif %}

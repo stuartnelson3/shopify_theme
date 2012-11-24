@@ -71,12 +71,6 @@
                   {{ product.title }}
                 </a>
                 <span class="money serif">{{ product.price | money | remove: '.00' }}</span>
-                {% comment %}
-                <!-- <ul class="collection-swatches">
-                  <li class="plum-swatch">Plum</li>
-                  <li class="polkadot-swatch">Polkadot</li>
-                </ul> -->
-                {% endcomment %}
               </div>
             </li>
             <li class="collection-item">
@@ -100,12 +94,6 @@
                   {{ product.title }}
                 </a>
                 <span class="money serif">{{ product.price | money | remove: '.00' }}</span>
-                {% comment %}
-                <!-- <ul class="collection-swatches">
-                  <li class="berry-swatch">Berry</li>
-                  <li class="black-swatch">Black</li>
-                </ul> -->
-                {% endcomment %}
               </div>
             </li>
             <li class="collection-item">
@@ -117,6 +105,29 @@
                   Ansley Dress
                 </a>
                 <span class="money serif">$138</span>
+              </div>
+            </li>
+            {% when 'jaclyn-dress' %}
+            <li class="collection-item">
+              <a href="{{ product.url }}" title="{{ product.title | escape }} &mdash; {{ product.description | strip_html }}">
+                <img src="{{ product.images.first | product_img_url: 'large' }}" alt="{{ product.title | escape }}" />
+              </a>
+              <div>
+                <a href="{{ product.url }}">
+                  {{ product.title }}
+                </a>
+                <span class="money serif">{{ product.price | money | remove: '.00' }}</span>
+              </div>
+            </li>
+            <li class="collection-item">
+              <a href="/products/jaclyn-dress" title="Jaclyn Dress &mdash; Black">
+                <img src="{{ 'collection-jaclyn-black.jpg' | asset_url }}" alt="Jaclyn Dress" />
+              </a>
+              <div>
+                <a href="/products/jaclyn-dress">
+                  Jaclyn Dress
+                </a>
+                <span class="money serif">$188</span>
               </div>
             </li>
             {% else %}

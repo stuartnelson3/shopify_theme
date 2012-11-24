@@ -1,64 +1,126 @@
-// compare function, depending on input returns function that 
-// compares to different inventory quantities
+// compare function, depending on input returns function
+// that returns the inventory value
 var _compare_inventory = function(offset) {
   return function(selected_size) {
-    if (quantity[selected_size - offset] < 1) {
-      buyButton.val("Notify Me")
-               .addClass("bg-blue js-notify-hook")
-               .removeClass("pre-order default disabled sold-out js-buy-button")
-               .removeAttr("disabled");
-    }
-    else {
-      buyButton.val("Add to bag")
-               .addClass("js-buy-button")
-               .removeClass("disabled bg-blue js-notify-hook sold-out")
-               .removeAttr("disabled");
-      $delay.css(show)
-    }
+    return quantity[selected_size - offset]
   }
-};
-var unhemmed_check = _compare_inventory(24);
-var short_check = _compare_inventory(14);
-var regular_check = _compare_inventory(4);
-var long_check = _compare_inventory((-6));
-var xlong_check = _compare_inventory((-16));
+}
+// functions returned from above
+var unhemmed_check = _compare_inventory(24)
+var short_check = _compare_inventory(14)
+var regular_check = _compare_inventory(4)
+var long_check = _compare_inventory((-6))
+var xlong_check = _compare_inventory((-16))
+// calculate how much we're in the hole
+var inventory_deficit = function() {
+  var deficit = 0
+  // check unhemmed
+  deficit += unhemmed_check(waistsize)
+  // check existence of extra-long length
+  if (xlong_check(waistsize) !== undefined) {
+    deficit += xlong_check(waistsize)
+  }
+  deficit += long_check(waistsize)
+  deficit += regular_check(waistsize)
+  deficit += short_check(waistsize)
+  return deficit
+}
+var act_on_inventory_quantity = function(value) {
+  if (value < 1) {
+    buyButton.addClass("bg-blue")
+             .removeClass("pre-order default disabled sold-out")
+             .removeAttr("disabled")
+             {% case handle %}
+             {% when 'chelsea-herringbone-pencil-skirt' %}
+             .removeClass("js-notify-hook")
+             .addClass("js-buy-button")
+             .val("Pre-Order")
+             $preorder.css(show)
+             {% else %}
+             .addClass("js-notify-hook")
+             .removeClass("js-buy-button")
+             .val("Notify Me")
+             {% endcase %}
+
+  }
+  else {
+    buyButton.val("Add to bag")
+             .addClass("js-buy-button")
+             .removeClass("disabled bg-blue js-notify-hook sold-out")
+             .removeAttr("disabled")
+    $delay.css(show)
+  }
+}
+// return sum of negative inventory values
+var return_negatives = function(selected_size) {
+  var array = [selected_size - 14, selected_size - 4, selected_size + 6]
+  var negative_stock = 0
+  array.forEach(function(value) {
+    if (quantity[value] < 0) {
+      negative_stock += quantity[value]
+    }
+  })
+  return negative_stock
+}
 
 // split the values up into an array
-var prod_sel1_index = $("#product-select-option-1 option:selected").index();
-var ints = $(".bottoms-quantity").text().split(",");
+var prod_sel1_index = $("#product-select-option-1 option:selected").index()
+var ints = $(".bottoms-quantity").text().split(",")
 var returnInt = function(element) {
-  return parseInt(element, 10);
+  return parseInt(element, 10)
 }
-// map the values from the array into a new array as integers
-var quantity = ints.map(returnInt);
-
 // gets the integer value of the selected waist size
+var prod_sel0 = $("#product-select-option-0")
 var waistsize = parseInt(prod_sel0.val(), 10)
+// map the values from the array into a new array as integers
+var quantity = ints.map(returnInt)
+
+// new function for skirt inventory
+var skirt_inventory_check = function(selected_size) {
+  if (unhemmed_check(selected_size) + return_negatives(selected_size) < 1) {
+    buyButton.addClass("bg-blue")
+             .removeClass("pre-order default disabled sold-out")
+             .removeAttr("disabled")
+             {% case handle %}
+             {% when 'chelsea-herringbone-pencil-skirt' %}
+             .removeClass("js-notify-hook")
+             .addClass("js-buy-button")
+             .val("Pre-Order")
+             $preorder.css(show)
+             {% else %}
+             .addClass("js-notify-hook")
+             .removeClass("js-buy-button")
+             .val("Notify Me")
+             {% endcase %}
+  }
+  else {
+    buyButton.val("Add to bag")
+             .addClass("js-buy-button")
+             .removeClass("disabled bg-blue js-notify-hook sold-out")
+             .removeAttr("disabled")
+    $delay.css(show)
+  }
+}
+
+
 {% if product.type == "Pants" %}
 
-  // compares the selected waist size to the inventory for the appropriate length
+  act_on_inventory_quantity(inventory_deficit())
   
-  // check unhemmed
-    unhemmed_check(waistsize);
-
-  // if size selected is long or shorter, check xlong too
-  if (buyButton.val() === "Notify Me" && prod_sel1_index > 1  && prod_sel1_index < 5) {
-    xlong_check(waistsize);
-  }
-  // if size selected is regular or shorter, check long too
-  if (buyButton.val() === "Notify Me" && prod_sel1_index > 1  && prod_sel1_index < 4) {
-    long_check(waistsize);
-  }
-  // if size selected is short, check regular too
-  if (buyButton.val() === "Notify Me" && prod_sel1_index === 2 ) {
-    regular_check(waistsize);
-  }
-  // quantity[waistsize - 24] === 0 ? $nostock.css(show) : $delay.css(show)
 {% elsif product.type == "Skirts" %}
-  unhemmed_check(waistsize);
+  skirt_inventory_check(waistsize)
 {% else %}
-  buyButton.val("Notify Me")
-           .addClass("bg-blue js-notify-hook")
-           .removeClass("pre-order default disabled")
-           .removeAttr("disabled");
+  buyButton.addClass("bg-blue")
+           .removeClass("pre-order default disabled sold-out")
+           .removeAttr("disabled")
+           {% case handle %}
+           {% when 'ansley-dress-berry' or 'chelsea-blazer-herringbone' or 'chelsea-herringbone-pencil-skirt' %}
+           .removeClass("js-notify-hook")
+           .addClass("js-buy-button")
+           .val("Pre-Order")
+           {% else %}
+           .addClass("js-notify-hook")
+           .removeClass("js-buy-button")
+           .val("Notify Me")
+           {% endcase %}
 {% endif %}

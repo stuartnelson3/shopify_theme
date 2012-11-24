@@ -51,7 +51,7 @@ var purchaseItem = function($form_id) {
       },
       error: function(XMLHttpRequest, textStatus) {}
     };
-    $.ajax(params);	
+    $.ajax(params);    
 };
 $(document).on("click", ".js-buy-button", function(){
   var $id = $(this).closest(".variants");
@@ -137,8 +137,10 @@ var validatecheck = function (email) {
 $(document).on("click", ".js-notify-me", function() {
   var email = $(".js-notify-email").val();
   var product = $(".product-title").text();
+  var sku = $(".variant-sku").text();
   var $invalidemail = $(".js-invalid-email");
   var url = "http://salty-reef-8691.herokuapp.com/back-in-stock";
+  var test_server_url = "http://localhost:4567/back-in-stock";
   var size;
   $(".single-option-selector").each(function() { size += $(this).val(); });
   size = size.replace("undefined","")
@@ -147,7 +149,7 @@ $(document).on("click", ".js-notify-me", function() {
   var params = {
     type: "GET",
     url: url,
-    data: "email=" + email + "&product=" + product + "&size=" + size,
+    data: "email=" + email + "&product=" + product + "&size=" + size + "&sku=" + sku,
     dataType: 'text',
     success: function() {},
     error: function(jqXHR, textStatus, errorThrown) {}
@@ -170,6 +172,117 @@ $(document).on("click", ".js-notify-me", function() {
 $(document).on("click", ".js-notify-hook", function() {
   $(".notify-me").fadeIn();
 });
+
+// open giftcard modal form
+$(document).on("click", ".js-open-gift-card-modal", function() {
+  var $id = $(this).closest(".variants");
+  var $select_box = $(".pselect-box .info");
+  
+  if ($select_box.text() === "Select") {
+    $select_box.closest(".field").addClass("invalid-gift-card-input");
+  }
+  else {
+    $select_box.closest(".field").removeClass("invalid-gift-card-input");
+    $(".js-buy-gift-card").fadeIn();
+    purchaseItem($id);
+  }
+  
+});
+
+// send buyers and receivers info to giftcard gdoc
+$(document).on("click", ".js-send-gift-data", function() {
+  var gifter_name = $(".js-gifter-name").val();
+  var gifter_email = $(".js-gifter-email").val();
+  var giftee_name = $(".js-giftee-name").val();
+  var giftee_email = $(".js-giftee-email").val();
+  var deliver_date = $("#datepicker").val();
+  var amount = $("#product-select-option-0").val();
+  var message = $(".gift-card-message").val();
+  // url that is receiving get request
+  var url = "http://salty-reef-8691.herokuapp.com/gift-card";
+  var test_url = "http://localhost:4567/gift-card";
+  var gifter_data = "gifter_name=" + gifter_name + "&gifter_email=" + gifter_email;
+  var giftee_data = "&giftee_name=" + giftee_name + "&giftee_email=" + giftee_email;
+  var date_and_amount = "&deliver_date=" + deliver_date + "&amount=" + amount + "&message=" + message;
+  var data = gifter_data + giftee_data + date_and_amount;
+  // want to validate form fields, so make sure they can't
+  // purchase until it has passed
+  
+  // params for get request to sinatra site
+  var params = {
+    type: "GET",
+    url: url,
+    data: data,
+    dataType: 'text',
+    success: function() {},
+    error: function(jqXHR, textStatus, errorThrown) {}
+  };
+
+  // validation checks
+  $(".js-gifter-name, .js-giftee-name, #datepicker, .gift-card-message").each(function() {
+    if ($(this).val() === "") {
+      $(this).addClass("invalid-gift-card-input");
+    }
+    else {
+      $(this).removeClass("invalid-gift-card-input");
+    }
+  });
+  
+  $(".js-gifter-email, .js-giftee-email").each(function() {
+    var email_address = $(this).val();
+    if (!validatecheck(email_address) || email_address === "") {
+      $(this).addClass("invalid-gift-card-input");
+    }
+    else {
+      $(this).removeClass("invalid-gift-card-input");
+    }
+  });
+  
+  if ($(".invalid-gift-card-input").length) {
+    $(".gift-card-validation-message").addClass("show-validation");
+  }
+  else {
+    $(".gift-card-validation-message").removeClass("show-validation");
+    $(".js-send-gift-data").empty().append("Added!");
+    
+    $.ajax(params);
+    setTimeout(function() {
+      $(".js-buy-gift-card").fadeOut();
+      }, 1500);
+  }
+});
+
+// gift card details accordion
+$(".js-gift-card-accordion").on("click", function() {
+    var $div = $($(this).data("name")),
+	    $h3  = $(this),
+	    speed = 700;
+	
+	$div.slideToggle(speed, "swing");
+	$h3.toggleClass("pink").find(".js-plus").toggle();
+});
+
+// navigate through gift card modal form
+$(".js-gift-next-button").on("click", function() {
+  var $current_div = $(this).closest(".gift-card-form"),
+      $next_div = $(".gift-card-form").eq($current_div.index() + 1);
+  
+  $current_div.fadeOut(function() {
+    $next_div.fadeIn();
+  });
+  
+});
+
+$(".js-gift-previous-button").on("click", function() {
+  var $current_div = $(this).closest(".gift-card-form"),
+      $previous_div = $(".gift-card-form").eq($current_div.index() - 1);
+  
+  $current_div.fadeOut(function () {
+    $previous_div.fadeIn();
+  });
+  
+});
+
 //==================
 // BEGIN DOC READY CODE
 //==================
@@ -178,26 +291,16 @@ $(document).ready(function(){
   
   // DATEPICKER FOR GIFTCARD
   var options = {
-    	maxDate: "+3m",
+      maxDate: "+3m",
   	  minDate: "+0d"
     };
-  $("#datepicker").datepicker( options );
+  $("#datepicker").datepicker(options);
   
   // SETS ACTIVE TO FIRST SLIDE, CORRESPONDING LI, AND SWATCH ON PRODUCT PAGE
   $('ul.slides li:first-child').addClass("slideActive");
 	$("ul.indices li:first-child").addClass("indexActive");
 	$("div.swatch-popup div").eq(0).fadeIn();
 	$("ul.swatch li").eq(0).addClass("active");
-	
-	//HIDES COLOR SELECTOR ON PRODUCT PAGES
-	$("div.selector-wrapper").eq(2).hide();
-	
-	//SETS COLOR CHOICE ON HIDDEN DROPDOWN TO FIRST NON-SELECT OPTION
-	var $option2 = $("#product-select-option-2");
-	$option2.val($option2.find("option:eq(1)").val()).change();
-	
-	//ADDS THE NAME OF THE COLOR NEXT TO THE SWATCH ICONS ON THE PRODUCT PAGE
-	$("p.color").append($option2.val());
 	
   // POPULATES STYLED DROPDOWNS ON PRODUCT AND CONTACT PAGES WITH OPTIONS FROM THEIR SELECT BOXES
   var fancyDropdown = function(index) {
@@ -229,6 +332,7 @@ $(document).ready(function(){
   };
   fancyDropdown(0);
   fancyDropdown(1);
+  fancyDropdown(2);
   fancyContact(2);
   fancyLooksPage();
   
@@ -270,13 +374,18 @@ $(document).ready(function(){
                   var $div_index = $(this).closest(".pselect-box"),
                       index,
                       $target;
-                  if ($div_index.hasClass("top")) {
+                  if ($div_index.hasClass("top") || $div_index.hasClass("gift-card")) {
                     index = 0;
                     $target = $(".selector-wrapper");
                     $target.eq(index).find("select").val($(this).text()).change();
                   }
                   else if ($div_index.hasClass("bottom")) {
                     index = 1;
+                    $target = $(".selector-wrapper");
+                    $target.eq(index).find("select").val($(this).text()).change();
+                  }
+                  else if ($div_index.hasClass("color")) {
+                    index = 2;
                     $target = $(".selector-wrapper");
                     $target.eq(index).find("select").val($(this).text()).change();
                   }
@@ -404,43 +513,22 @@ $(document).ready(function(){
 		
     // SWATCH CLICK AND POPUP WINDOW UPDATE
     $("ul.swatch li").click(function(){
-		  var li = $('#slideshow ul.slides li.slideActive');
-		  
-		  $("ul.swatch li").removeClass("active");
-		  $(this).addClass("active");
-		  $("select#product-select-option-2").val($(this).html()).change();
-		  $("p.color").empty().append($("#product-select-option-2").val());
-		  if ($(this).is(":first-of-type")) {
-    	    if ($("div.swatch-popup div:first-of-type").is(":visible")){}
-		    else {$("div.swatch-popup div").fadeOut().eq(0).fadeIn();}
-		    if ($indices.eq(0).hasClass("indexActive")) {} 
-		    else{
-		      $indices.removeClass("indexActive")
-		              .eq(0)
-		              .addClass("indexActive");
-		      $("#slideshow ul.slides li").removeClass("slideActive")
-		                                  .eq(0)
-		                                  .addClass("slideActive")
-		                                  .show("slide", { direction: "right"});
-		      li.removeClass('slideActive').hide("slide");
-		      current = 0;
-	      }
-		  }
-		  else if ($(this).is(":last-of-type")) {
-		    if ($("div.swatch-popup div:last-of-type").is(":visible")){}
-		    else {$("div.swatch-popup div").fadeOut().eq(1).fadeIn();}
-		    if ($indices.eq(1).hasClass("indexActive")) {} 
-		    else{
-		      $indices.removeClass("indexActive")
-		              .eq(1)
-		              .addClass("indexActive");
-		      $("#slideshow ul.slides li").removeClass("slideActive")
-		                                  .eq(1)
-		                                  .addClass("slideActive")
-		                                  .show("slide", { direction: "right"});
-		      li.removeClass('slideActive').hide("slide");
-		      current = 1;
-	      }
-		  } 
-		});
+	  var li = $('#slideshow ul.slides li.slideActive');
+      var index = $(this).index() - 1;
+      var $div = $("div.swatch-popup div").eq(index);
+      
+      if (!$div.is(":visible")) {
+    	    $div.fadeIn().siblings("div").fadeOut();
+		    $("#slideshow ul.slides li").removeClass("slideActive")
+	                                  .eq(index)
+	                                  .addClass("slideActive")
+	                                  .show("slide", { direction: "right"});
+	      li.removeClass('slideActive').hide("slide");
+          $indices.removeClass("indexActive")
+                  .eq(index)
+                  .addClass("indexActive");
+		    current = index;
+	    }
+	
+	});
 });

@@ -3,8 +3,10 @@
 {% capture ansley_swatch_2 %}{{ product.handle }}-swatch-black.jpg{% endcapture%}
 {% capture fiona_swatch_1 %}{{ product.handle }}-polkadot-swatch.jpg{% endcapture %}
 {% capture fiona_swatch_2 %}{{ product.handle }}-plum-swatch.jpg{% endcapture %}
+{% capture jaclyn_swatch_1 %}{{ product.handle }}-pink-swatch.jpg{% endcapture %}
+{% capture jaclyn_swatch_2 %}{{ product.handle }}-black-swatch.jpg{% endcapture %}
   {% case handle %}
-    {% when 'jane-jacket' or 'kennedy-blouse-peplum' or 'emma-jacket' or 'chloe-shirt' or 'chelsea-blazer-herringbone' or 'riley-sheath-navy' %}
+    {% when 'jane-jacket' or 'kennedy-blouse-peplum' or 'emma-jacket' or 'chloe-shirt' or 'chelsea-blazer-herringbone' or 'chelsea-herringbone-pencil-skirt' or 'riley-sheath-navy' or 'heather-fuschia-crepe-blazer' or 'charlie-cropped-jacket' %}
     <div>
       <img src="{{ swatch | asset_url }}" alt="{{ product.title }}" />
       {% when 'jane-jacket' %}
@@ -39,7 +41,7 @@
         <li>5% elastane</li>
         <li>Easy care</li>
       </ul>
-      {% when 'chelsea-blazer-herringbone' %}
+      {% when 'chelsea-blazer-herringbone' or 'chelsea-herringbone-pencil-skirt' %}
       <h2>Herringbone</h2>
       <ul>
         <li>Warm</li>
@@ -55,7 +57,23 @@
         <li>Lightweight</li>
         <li>Dry clean</li>
       </ul>
-    </div>
+      {% when 'heather-fuschia-crepe-blazer' %}
+      <h2>Navy stretch</h2>
+      <ul>
+        <li>Comfortable</li>
+        <li>Poly-blend</li>
+        <li>Lightweight</li>
+        <li>Dry clean</li>
+      </ul>
+      {% when 'charlie-black-cropped-jacket' %}
+      <h2>Navy stretch</h2>
+      <ul>
+        <li>Comfortable</li>
+        <li>Poly-blend</li>
+        <li>Lightweight</li>
+        <li>Dry clean</li>
+      </ul>
+    
     {% when 'riley-blazer-cobalt' or 'riley-pant-cobalt' or 'riley-skirt-cobalt' or 'elliott-pencil-skirt' or 'elliott-sheath-skirt' or 'elliott-pant-black' or 'elliott-trouser-black' or 'elliott-sheath-black' or 'elliott-blazer-black' %}
     <div>
       <img src="{{ swatch_collection | asset_url }}" alt="{{ product.title }}" />
@@ -110,6 +128,27 @@
       </div> 
       <div>
         <img src="{{ swatch | asset_url }}" alt="{{ product.name }}" />
+        <h2>Berry stretch ponte</h2>
+        <ul>
+          <li>Non-wrinkle</li>
+          <li>Cotton-blend</li>
+          <li>Mid-weight</li>
+          <li>Easy care</li>
+        </ul>
+      </div>
+      {% when 'jaclyn-dress' %}
+      <div>
+        <img src="{{ jaclyn_swatch_1 | asset_url }}" alt="{{ product.name }}" />
+        <h2>Black stretch ponte</h2>
+        <ul>
+          <li>Non-wrinkle</li>
+          <li>Cotton-blend</li>
+          <li>Mid-weight</li>
+          <li>Easy care</li>
+        </ul>
+      </div> 
+      <div>
+        <img src="{{ jaclyn_swatch_2 | asset_url }}" alt="{{ product.name }}" />
         <h2>Berry stretch ponte</h2>
         <ul>
           <li>Non-wrinkle</li>

@@ -9,7 +9,31 @@
 {% endif %}
 
 <section class="collection">
-  {% unless collection.handle == 'the-riley-collection' %}
+  {% unless collection.handle == 'the-riley-collection' or collection.handle == "the-elliott-collection" %}
+    {% if collections.suiting3.image %}
+    <div class="suiting_description left">
+      <h1 class="serif bump-right">{{ collections.suiting3.title }}</h1>
+      {{ collections.suiting3.description }}
+      <img class="suiting_image" src="{{ collections.suiting3.image.src | collection_img_url: 'original' }}">
+    </div>
+    {% endif %}
+      <ul>
+        {% for product in collections.suiting3.products %}
+          <li class="collection-item">
+            <a href="{{ product.url }}" title="{{ product.title | escape }} &mdash; {{ product.description | strip_html }}">
+              <img src="{{ product.images.first | product_img_url: 'large' }}" alt="{{ product.title | escape }}" />
+            </a>
+            <div>
+              <a href="{{ product.url }}">
+                {{ product.title }}  
+              </a>
+              <span class="money serif">{{ product.price | money | remove: '.00' }}</span>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+  {% endunless %}
+  {% unless collection.handle == 'the-riley-collection' or collection.handle == "the-chelsea-collection" %}
     {% if collections.suiting1.image %}
     <div class="suiting_description left">
       <h1 class="serif bump-right">{{ collections.suiting1.title }}</h1>
@@ -33,7 +57,7 @@
         {% endfor %}
       </ul>
   {% endunless %}
-  {% unless collection.handle == 'the-elliott-collection' %}
+  {% unless collection.handle == 'the-elliott-collection' or collection.handle == "the-chelsea-collection" %}
       {% if collections.suiting2.image %}
       <div class="suiting_description right">
         <h1 class="float-r serif">{{ collections.suiting2.title }}</h1>

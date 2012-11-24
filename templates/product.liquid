@@ -1,4 +1,13 @@
 {% include 'rich-snippet' %}
+{% if product.handle == "fiona-blouse" %}
+<style type="text/css">
+.options .info {
+  overflow: hidden;
+  height: 12px;
+  width: 70px
+}
+</style>
+{% endif %}
 <section class="slide_show">
   <div class="buy-container">
     <div class="buy-menu">
@@ -28,25 +37,36 @@
               </a>
               <ul class="selector_0 selector"></ul>
             </div>
-            <div class="pselect-box bottom">
+            {% if product.options[1] %}
+              <div class="pselect-box bottom">
+                <a class="field">
+                  <span class="info nudge-down">Select</span>
+                  <img src="{{'down-triangle.gif' | asset_url }}" />
+                </a>
+                <ul class="selector_1 selector"></ul>  
+              </div>
+            {% endif %}
+            {% if product.options[2] == "Color" %}
+            <div class="pselect-box color">
               <a class="field">
                 <span class="info nudge-down">Select</span>
                 <img src="{{'down-triangle.gif' | asset_url }}" />
               </a>
-              <ul class="selector_1 selector"></ul>  
-            </div>          
-            <div class="fits-like">
-              <p>Fits like a 0-00 from J. Crew and Ann Taylor</p>
-              <p>Fits like a 2-4 from J. Crew and Ann Taylor</p>
-              <p>Fits like a 6-8 from J. Crew and Ann Taylor</p>
-              <p>Fits like a 10-12 from J. Crew and Ann Taylor</p>
-              <p>Fits like a 14 from J. Crew and Ann Taylor</p>
+              <ul class="selector_2 selector"></ul>  
             </div>
+            {% endif %}
             <a class="js-size-chart small-link blue no-margin" href="#" title="Size Charts">Size Charts</a> 
+            <div class="fits-like">
+              <p>Fits like a 0-00 from J. Crew</p>
+              <p>Fits like a 2-4 from J. Crew</p>
+              <p>Fits like a 6-8 from J. Crew</p>
+              <p>Fits like a 10-12 from J. Crew</p>
+              <p>Fits like a 14 from J. Crew</p>
+            </div>
           </div>            
             
           <div id="purchase">    
-            <input type="button" onclick="pageTracker._trackEvent('Button', 'Buy', 'Product Page');" name="add" id="add-to-cart" value="Add to Bag" class="js-buy-button"/>
+            <input class="js-buy-button" type="button" onclick="pageTracker._trackEvent('Button', 'Buy', 'Product Page');" name="add" id="add-to-cart" value="Add to Bag" />
             {% include 'pre-order-delay' %}
           </div>
         </form>
@@ -57,7 +77,7 @@
   <div id="slideshow">  
       <ul class="slides">
       {% for image in product.images %}    
-    	 {% unless forloop.first %}
+         {% unless forloop.first %}
         <li><img src="{{ image | product_img_url: 'original' }}" alt="{{ product.title }}" title="{{ product.title }}" /></li>
       {% endunless %} 
       {% endfor %}
@@ -320,4 +340,7 @@
   {% for variant in product.variants offset:1 %}
     {{ variant.inventory_quantity }},
   {% endfor %}
+</section>
+<section class="modal variant-sku">
+  {{ variant.sku }}
 </section>
